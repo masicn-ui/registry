@@ -1,0 +1,16 @@
+{
+  "name": "context-menu",
+  "displayName": "ContextMenu",
+  "description": "Long-press context menu with viewport-clamped positioning, destructive item support, and separator dividers.",
+  "category": "overlay",
+  "version": "1.0.0",
+  "files": [
+    { "path": "ContextMenu.tsx", "target": "ContextMenu.tsx", "type": "component" }
+  ],
+  "masicnVersion": "^0.1.0",
+  "peerDependencies": {},
+  "registryDependencies": ["text", "menu"],
+  "tags": ["overlay"],
+  "hasTests": false,
+  "hasAccessibility": false
+}

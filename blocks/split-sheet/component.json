@@ -1,0 +1,16 @@
+{
+  "name": "split-sheet",
+  "displayName": "SplitSheet",
+  "description": "Side-by-side sheet layout combining LeftSheet (1/3) + RightSheet (2/3) panels.",
+  "category": "block",
+  "version": "1.0.0",
+  "files": [{ "path": "SplitSheet.tsx", "target": "SplitSheet.tsx", "type": "component" }],
+  "masicnVersion": "^0.1.0",
+  "peerDependencies": {
+    "react-native-reanimated": ">=3.0.0"
+  },
+  "registryDependencies": ["left-sheet", "right-sheet"],
+  "tags": ["layout", "overlay", "sheet"],
+  "hasTests": false,
+  "hasAccessibility": false
+}

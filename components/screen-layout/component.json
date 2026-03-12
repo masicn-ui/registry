@@ -1,0 +1,14 @@
+{
+  "name": "screen-layout",
+  "displayName": "ScreenLayout",
+  "description": "Reusable screen layout with sticky header, back button, and responsive padding.",
+  "category": "layout",
+  "version": "1.0.0",
+  "files": [{ "path": "ScreenLayout.tsx", "target": "ScreenLayout.tsx", "type": "component" }],
+  "masicnVersion": "^0.1.0",
+  "peerDependencies": {},
+  "registryDependencies": [],
+  "tags": ["layout", "screen"],
+  "hasTests": false,
+  "hasAccessibility": false
+}

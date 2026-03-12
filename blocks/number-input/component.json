@@ -1,0 +1,16 @@
+{
+  "name": "number-input",
+  "displayName": "Number Input",
+  "description": "Number input block with increment/decrement controls.",
+  "category": "blocks",
+  "version": "1.0.0",
+  "files": [
+    { "path": "NumberInput.tsx", "target": "NumberInput.tsx", "type": "component" }
+  ],
+  "masicnVersion": ">=1.0.0",
+  "peerDependencies": {},
+  "registryDependencies": ["text-input", "button", "text"],
+  "tags": ["number", "input", "stepper"],
+  "hasTests": false,
+  "hasAccessibility": true
+}

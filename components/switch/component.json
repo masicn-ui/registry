@@ -1,0 +1,16 @@
+{
+  "name": "switch",
+  "displayName": "Switch",
+  "description": "Animated toggle switch with track color interpolation, thumb translation, label, and description.",
+  "category": "form",
+  "version": "1.0.0",
+  "files": [
+    { "path": "Switch.tsx", "target": "Switch.tsx", "type": "component" }
+  ],
+  "masicnVersion": "^0.1.0",
+  "peerDependencies": { "react-native-reanimated": ">=3.0.0" },
+  "registryDependencies": ["text"],
+  "tags": ["form"],
+  "hasTests": false,
+  "hasAccessibility": true
+}

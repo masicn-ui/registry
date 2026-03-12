@@ -1,0 +1,16 @@
+{
+  "name": "phone-input",
+  "displayName": "Phone Input",
+  "description": "Phone number input block with country code selector.",
+  "category": "blocks",
+  "version": "1.0.0",
+  "files": [
+    { "path": "PhoneInput.tsx", "target": "PhoneInput.tsx", "type": "component" }
+  ],
+  "masicnVersion": ">=1.0.0",
+  "peerDependencies": {},
+  "registryDependencies": ["text-input", "select", "text"],
+  "tags": ["phone", "input", "country"],
+  "hasTests": false,
+  "hasAccessibility": true
+}

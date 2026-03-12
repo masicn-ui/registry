@@ -1,0 +1,16 @@
+{
+  "name": "segmented-control",
+  "displayName": "SegmentedControl",
+  "description": "Animated segmented control with a sliding indicator, tablist accessibility role, and disabled state support.",
+  "category": "form",
+  "version": "1.0.0",
+  "files": [
+    { "path": "SegmentedControl.tsx", "target": "SegmentedControl.tsx", "type": "component" }
+  ],
+  "masicnVersion": "^0.1.0",
+  "peerDependencies": { "react-native-reanimated": ">=3.0.0" },
+  "registryDependencies": ["text"],
+  "tags": ["form", "navigation"],
+  "hasTests": false,
+  "hasAccessibility": true
+}

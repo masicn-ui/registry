@@ -1,0 +1,16 @@
+{
+  "name": "empty-state",
+  "displayName": "Empty State",
+  "description": "Empty state block with illustration, title, description, and CTA.",
+  "category": "blocks",
+  "version": "1.0.0",
+  "files": [
+    { "path": "EmptyState.tsx", "target": "EmptyState.tsx", "type": "component" }
+  ],
+  "masicnVersion": ">=1.0.0",
+  "peerDependencies": {},
+  "registryDependencies": ["button", "text"],
+  "tags": ["empty-state", "no-data", "placeholder"],
+  "hasTests": false,
+  "hasAccessibility": true
+}

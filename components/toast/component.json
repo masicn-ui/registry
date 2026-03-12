@@ -1,0 +1,14 @@
+{
+  "name": "toast",
+  "displayName": "Toast",
+  "description": "Global toast notifications via portal with useToast hook.",
+  "category": "feedback",
+  "version": "1.0.0",
+  "files": [{ "path": "Toast.tsx", "target": "Toast.tsx", "type": "component" }],
+  "masicnVersion": "^0.1.0",
+  "peerDependencies": {},
+  "registryDependencies": [],
+  "tags": ["feedback", "notification", "portal"],
+  "hasTests": false,
+  "hasAccessibility": true
+}

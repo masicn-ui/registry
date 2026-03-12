@@ -1,0 +1,16 @@
+{
+  "name": "refreshable-scroll-view",
+  "displayName": "RefreshableScrollView",
+  "description": "ScrollView wrapper with a themed RefreshControl for pull-to-refresh.",
+  "category": "layout",
+  "version": "1.0.0",
+  "files": [
+    { "path": "RefreshableScrollView.tsx", "target": "RefreshableScrollView.tsx", "type": "component" }
+  ],
+  "masicnVersion": "^0.1.0",
+  "peerDependencies": {},
+  "registryDependencies": [],
+  "tags": ["layout", "scroll"],
+  "hasTests": false,
+  "hasAccessibility": false
+}

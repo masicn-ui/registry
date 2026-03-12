@@ -1,0 +1,18 @@
+{
+  "name": "status-dot",
+  "displayName": "StatusDot",
+  "description": "Status indicator dot with online, away, busy, offline states and optional animated pulse ring",
+  "category": "core",
+  "version": "1.0.0",
+  "files": [
+    { "path": "StatusDot.tsx", "target": "StatusDot.tsx", "type": "component" }
+  ],
+  "masicnVersion": "^0.1.0",
+  "peerDependencies": {
+    "react-native-reanimated": ">=3.0.0"
+  },
+  "registryDependencies": [],
+  "tags": ["status", "indicator", "presence"],
+  "hasTests": false,
+  "hasAccessibility": true
+}

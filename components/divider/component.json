@@ -1,0 +1,16 @@
+{
+  "name": "divider",
+  "displayName": "Divider",
+  "description": "Hairline separator line that supports horizontal and vertical orientations with optional inset margin.",
+  "category": "core",
+  "version": "1.0.0",
+  "files": [
+    { "path": "Divider.tsx", "target": "Divider.tsx", "type": "component" }
+  ],
+  "masicnVersion": "^0.1.0",
+  "peerDependencies": {},
+  "registryDependencies": [],
+  "tags": ["layout", "separator"],
+  "hasTests": false,
+  "hasAccessibility": false
+}

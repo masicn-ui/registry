@@ -1,0 +1,16 @@
+{
+  "name": "tooltip",
+  "displayName": "Tooltip",
+  "description": "Press-triggered tooltip bubble that positions itself above or below the trigger based on available space",
+  "category": "overlay",
+  "version": "1.0.0",
+  "files": [
+    { "path": "Tooltip.tsx", "target": "Tooltip.tsx", "type": "component" }
+  ],
+  "masicnVersion": "^0.1.0",
+  "peerDependencies": {},
+  "registryDependencies": ["text"],
+  "tags": ["overlay", "tooltip", "information"],
+  "hasTests": false,
+  "hasAccessibility": false
+}

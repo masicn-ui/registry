@@ -1,0 +1,16 @@
+{
+  "name": "rating",
+  "displayName": "Rating",
+  "description": "Interactive or read-only star rating with configurable icon, half-value granularity, and accessibility increment/decrement actions.",
+  "category": "interactive",
+  "version": "1.0.0",
+  "files": [
+    { "path": "Rating.tsx", "target": "Rating.tsx", "type": "component" }
+  ],
+  "masicnVersion": "^0.1.0",
+  "peerDependencies": {},
+  "registryDependencies": ["text"],
+  "tags": ["interactive"],
+  "hasTests": false,
+  "hasAccessibility": true
+}

@@ -1,0 +1,16 @@
+{
+  "name": "chip",
+  "displayName": "Chip",
+  "description": "Interactive filter chip with filled and outline variants, selected state, leading icon, and optional remove button.",
+  "category": "core",
+  "version": "1.0.0",
+  "files": [
+    { "path": "Chip.tsx", "target": "Chip.tsx", "type": "component" }
+  ],
+  "masicnVersion": "^0.1.0",
+  "peerDependencies": {},
+  "registryDependencies": ["text"],
+  "tags": ["interactive", "filter"],
+  "hasTests": false,
+  "hasAccessibility": true
+}
