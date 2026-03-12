@@ -1,3 +1,5 @@
+// File: blocks/otp-input/OTPInput.tsx
+
 
 import React, { useState, useRef, useEffect } from 'react';
 import { View, TextInput, StyleSheet, Pressable } from 'react-native';

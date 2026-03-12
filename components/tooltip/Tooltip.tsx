@@ -1,3 +1,5 @@
+// File: components/tooltip/Tooltip.tsx
+
 import React, { useState } from 'react';
 import {
   View,

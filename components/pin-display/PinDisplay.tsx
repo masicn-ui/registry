@@ -1,3 +1,5 @@
+// File: components/pin-display/PinDisplay.tsx
+
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { useTheme, spacing, radius, borders } from '@masicn/ui';

@@ -1,3 +1,5 @@
+// File: blocks/pagination/Pagination.tsx
+
 
 import React from 'react';
 import { View, Pressable, StyleSheet } from 'react-native';

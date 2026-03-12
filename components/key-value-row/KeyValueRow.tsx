@@ -1,3 +1,5 @@
+// File: components/key-value-row/KeyValueRow.tsx
+
 import React from 'react';
 import { Pressable, StyleSheet, View } from 'react-native';
 import { useTheme, spacing, borders, opacity as opacityTokens } from '@masicn/ui';

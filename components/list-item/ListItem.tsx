@@ -1,3 +1,5 @@
+// File: components/list-item/ListItem.tsx
+
 import React from 'react';
 import { Pressable, View, StyleSheet, type PressableProps } from 'react-native';
 import { useTheme, spacing, opacity as opacityTokens } from '@masicn/ui';

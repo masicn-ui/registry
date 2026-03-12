@@ -1,3 +1,5 @@
+// File: components/segmented-control/SegmentedControl.tsx
+
 import React from 'react';
 import { Pressable, View, StyleSheet } from 'react-native';
 import Animated, {

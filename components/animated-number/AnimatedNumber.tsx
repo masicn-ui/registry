@@ -1,3 +1,5 @@
+// File: components/animated-number/AnimatedNumber.tsx
+
 import React from 'react';
 import { Animated, type TextStyle } from 'react-native';
 import { motion, type TypographyVariant } from '@masicn/ui';

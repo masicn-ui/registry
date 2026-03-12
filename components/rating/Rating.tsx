@@ -1,3 +1,5 @@
+// File: components/rating/Rating.tsx
+
 import React from 'react';
 import { View, Pressable, StyleSheet } from 'react-native';
 import { useTheme, spacing } from '@masicn/ui';

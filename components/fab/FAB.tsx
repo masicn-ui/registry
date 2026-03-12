@@ -1,3 +1,5 @@
+// File: components/fab/FAB.tsx
+
 import React from 'react';
 import { Pressable, View, StyleSheet, type ViewStyle } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
