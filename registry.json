@@ -54,7 +54,11 @@
     { "name": "pin-display", "version": "1.0.0", "category": "core", "path": "components/pin-display/component.json" },
     { "name": "image", "version": "1.0.0", "category": "core", "path": "components/image/component.json" },
     { "name": "refreshable-scroll-view", "version": "1.0.0", "category": "layout", "path": "components/refreshable-scroll-view/component.json" },
-    { "name": "refreshable-list", "version": "1.0.0", "category": "layout", "path": "components/refreshable-list/component.json" }
+    { "name": "refreshable-list", "version": "1.0.0", "category": "layout", "path": "components/refreshable-list/component.json" },
+    { "name": "toast", "version": "1.0.0", "category": "feedback", "path": "components/toast/component.json" },
+    { "name": "snackbar", "version": "1.0.0", "category": "feedback", "path": "components/snackbar/component.json" },
+    { "name": "masonry-grid", "version": "1.0.0", "category": "layout", "path": "components/masonry-grid/component.json" },
+    { "name": "screen-layout", "version": "1.0.0", "category": "layout", "path": "components/screen-layout/component.json" }
   ],
   "blocks": [
     { "name": "form", "version": "1.0.0", "category": "block", "path": "blocks/form/component.json" },
@@ -72,6 +76,7 @@
     { "name": "step-indicator", "version": "1.0.0", "category": "block", "path": "blocks/step-indicator/component.json" },
     { "name": "timeline", "version": "1.0.0", "category": "block", "path": "blocks/timeline/component.json" },
     { "name": "pagination", "version": "1.0.0", "category": "block", "path": "blocks/pagination/component.json" },
-    { "name": "swipeable", "version": "1.0.0", "category": "block", "path": "blocks/swipeable/component.json" }
+    { "name": "swipeable", "version": "1.0.0", "category": "block", "path": "blocks/swipeable/component.json" },
+    { "name": "split-sheet", "version": "1.0.0", "category": "block", "path": "blocks/split-sheet/component.json" }
   ]
 }
