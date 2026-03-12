@@ -1,0 +1,16 @@
+{
+  "name": "password-input",
+  "displayName": "PasswordInput",
+  "description": "Password input built on TextInput with a Show/Hide toggle adornment.",
+  "category": "form",
+  "version": "1.0.0",
+  "files": [
+    { "path": "PasswordInput.tsx", "target": "PasswordInput.tsx", "type": "component" }
+  ],
+  "masicnVersion": "^0.1.0",
+  "peerDependencies": {},
+  "registryDependencies": ["text", "text-input"],
+  "tags": ["form", "input"],
+  "hasTests": false,
+  "hasAccessibility": true
+}

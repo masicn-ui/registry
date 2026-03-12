@@ -1,0 +1,16 @@
+{
+  "name": "collapsible",
+  "displayName": "Collapsible",
+  "description": "Expandable section with controlled and uncontrolled modes, LayoutAnimation, and custom icon support.",
+  "category": "navigation",
+  "version": "1.0.0",
+  "files": [
+    { "path": "Collapsible.tsx", "target": "Collapsible.tsx", "type": "component" }
+  ],
+  "masicnVersion": "^0.1.0",
+  "peerDependencies": { "react-native-reanimated": ">=3.0.0" },
+  "registryDependencies": ["text"],
+  "tags": ["navigation"],
+  "hasTests": false,
+  "hasAccessibility": false
+}

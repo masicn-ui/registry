@@ -1,0 +1,16 @@
+{
+  "name": "list-item",
+  "displayName": "ListItem",
+  "description": "Pressable list row with title, subtitle, leading and trailing slots, and separator",
+  "category": "navigation",
+  "version": "1.0.0",
+  "files": [
+    { "path": "ListItem.tsx", "target": "ListItem.tsx", "type": "component" }
+  ],
+  "masicnVersion": "^0.1.0",
+  "peerDependencies": {},
+  "registryDependencies": ["text"],
+  "tags": ["list", "navigation", "row"],
+  "hasTests": false,
+  "hasAccessibility": false
+}

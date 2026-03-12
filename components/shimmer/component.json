@@ -1,0 +1,16 @@
+{
+  "name": "shimmer",
+  "displayName": "Shimmer",
+  "description": "Animated shimmer overlay for loading placeholders. Includes ShimmerGroup for synchronizing multiple shimmer instances.",
+  "category": "feedback",
+  "version": "1.0.0",
+  "files": [
+    { "path": "Shimmer.tsx", "target": "Shimmer.tsx", "type": "component" }
+  ],
+  "masicnVersion": "^0.1.0",
+  "peerDependencies": { "react-native-reanimated": ">=3.0.0" },
+  "registryDependencies": [],
+  "tags": ["loading", "animation"],
+  "hasTests": false,
+  "hasAccessibility": false
+}

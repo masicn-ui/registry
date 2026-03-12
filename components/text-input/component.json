@@ -1,0 +1,16 @@
+{
+  "name": "text-input",
+  "displayName": "TextInput",
+  "description": "Form text input with label, helper text, error state, start/end adornments, clear button, character count, and focus ring.",
+  "category": "form",
+  "version": "1.0.0",
+  "files": [
+    { "path": "TextInput.tsx", "target": "TextInput.tsx", "type": "component" }
+  ],
+  "masicnVersion": "^0.1.0",
+  "peerDependencies": {},
+  "registryDependencies": ["text"],
+  "tags": ["form", "input"],
+  "hasTests": false,
+  "hasAccessibility": true
+}

@@ -1,0 +1,243 @@
+
+import React, { useState } from 'react';
+import {
+  TextInput as RNTextInput,
+  View,
+  Pressable,
+  StyleSheet,
+  type ViewStyle,
+} from 'react-native';
+import { useTheme, spacing, radius, borders, typography, sizes } from '@masicn/ui';
+import { Text } from '@/components/ui/Text';
+import { Stack } from '@/components/ui/Stack';
+
+export interface NumberInputProps {
+  /** Current numeric value */
+  value: number;
+  /** Called whenever the value changes */
+  onValueChange: (value: number) => void;
+  /** Minimum allowed value */
+  min?: number;
+  /** Maximum allowed value */
+  max?: number;
+  /** Increment / decrement step */
+  step?: number;
+  /** Field label shown above */
+  label?: string;
+  /** Helper text shown below */
+  helperText?: string;
+  /** Error message */
+  error?: string;
+  /** Disable all interaction */
+  disabled?: boolean;
+  /** Outer container style */
+  containerStyle?: ViewStyle;
+  /** Stable selector for tests */
+  testID?: string;
+}
+
+/**
+ * Numeric stepper — two bordered buttons flank a centered editable input.
+ * Supports min/max bounds, configurable step, and direct keyboard entry.
+ *
+ * @example
+ * <NumberInput label="Quantity" value={qty} onValueChange={setQty} min={1} max={99} />
+ */
+export function NumberInput({
+  value,
+  onValueChange,
+  min = -Infinity,
+  max = Infinity,
+  step = 1,
+  label,
+  helperText,
+  error,
+  disabled = false,
+  containerStyle,
+  testID,
+}: NumberInputProps) {
+  const { theme } = useTheme();
+  const [focused, setFocused] = useState(false);
+  // Keep a local text string while the user is typing to avoid jumpy behaviour
+  const [localText, setLocalText] = useState(String(value));
+
+  const clamp = (v: number) => Math.min(max, Math.max(min, v));
+
+  const canDecrement = !disabled && value > min;
+  const canIncrement = !disabled && value < max;
+
+  const decrement = () => {
+    const next = clamp(value - step);
+    setLocalText(String(next));
+    onValueChange(next);
+  };
+
+  const increment = () => {
+    const next = clamp(value + step);
+    setLocalText(String(next));
+    onValueChange(next);
+  };
+
+  const handleChangeText = (text: string) => {
+    setLocalText(text);
+    const parsed = parseFloat(text);
+    if (!isNaN(parsed)) {
+      onValueChange(clamp(parsed));
+    }
+  };
+
+  // Commit on blur — re-sync to the actual clamped value
+  const handleBlur = () => {
+    setFocused(false);
+    setLocalText(String(value));
+  };
+
+  const hasError = !!error;
+
+  const borderColor = hasError
+    ? theme.colors.error
+    : focused
+      ? theme.colors.borderFocused
+      : theme.colors.inputBorder;
+
+  const activeButtonBg = theme.colors.surfaceSecondary;
+  const disabledButtonBg = theme.colors.disabled;
+
+  return (
+    <Stack gap="xs" style={containerStyle}>
+      {label && (
+        <Text
+          variant="label"
+          style={{
+            color: hasError
+              ? theme.colors.error
+              : focused
+                ? theme.colors.borderFocused
+                : theme.colors.textPrimary,
+          }}>
+          {label}
+        </Text>
+      )}
+
+      <View style={styles.row} accessibilityRole="spinbutton" accessibilityValue={{ min, max, now: value, text: String(value) }}>
+        {/* Decrement button */}
+        <Pressable
+          onPress={decrement}
+          disabled={!canDecrement}
+          accessibilityRole="button"
+          accessibilityLabel="Decrease value"
+          accessibilityState={{ disabled: !canDecrement }}
+          style={[
+            styles.stepButton,
+            canDecrement ? styles.stepButtonActive : styles.stepButtonDimmed,
+            {
+              borderColor: theme.colors.inputBorder,
+              backgroundColor: canDecrement ? activeButtonBg : disabledButtonBg,
+            },
+          ]}>
+          <Text variant="h3" style={{ color: canDecrement ? theme.colors.textPrimary : theme.colors.textDisabled }}>
+            −
+          </Text>
+        </Pressable>
+
+        {/* Value input */}
+        <View
+          style={[
+            styles.inputContainer,
+            focused && styles.inputContainerFocused,
+            {
+              borderColor,
+              backgroundColor: disabled ? theme.colors.disabled : theme.colors.inputBackground,
+            },
+          ]}>
+          <RNTextInput
+            testID={testID}
+            value={localText}
+            onChangeText={handleChangeText}
+            onFocus={() => setFocused(true)}
+            onBlur={handleBlur}
+            keyboardType="numeric"
+            editable={!disabled}
+            selectTextOnFocus
+            textAlign="center"
+            accessibilityLabel={label ?? 'Number input'}
+            accessibilityState={{ disabled }}
+            style={[
+              typography.body,
+              styles.input,
+              { color: disabled ? theme.colors.textDisabled : theme.colors.textPrimary },
+            ]}
+          />
+        </View>
+
+        {/* Increment button */}
+        <Pressable
+          onPress={increment}
+          disabled={!canIncrement}
+          accessibilityRole="button"
+          accessibilityLabel="Increase value"
+          accessibilityState={{ disabled: !canIncrement }}
+          style={[
+            styles.stepButton,
+            canIncrement ? styles.stepButtonActive : styles.stepButtonDimmed,
+            {
+              borderColor: theme.colors.inputBorder,
+              backgroundColor: canIncrement ? activeButtonBg : disabledButtonBg,
+            },
+          ]}>
+          <Text variant="h3" style={{ color: canIncrement ? theme.colors.textPrimary : theme.colors.textDisabled }}>
+            +
+          </Text>
+        </Pressable>
+      </View>
+
+      {(hasError || helperText) && (
+        <Text
+          variant="caption"
+          color={hasError ? 'error' : 'textTertiary'}
+          accessibilityLiveRegion={hasError ? 'polite' : undefined}>
+          {error || helperText}
+        </Text>
+      )}
+    </Stack>
+  );
+}
+
+const STEP_BUTTON_SIZE = sizes.touchTargetLg; // 48px — meets WCAG touch target
+
+const styles = StyleSheet.create({
+  row: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: spacing.sm,
+  },
+  stepButton: {
+    width: STEP_BUTTON_SIZE,
+    height: STEP_BUTTON_SIZE,
+    borderRadius: radius.md,
+    borderWidth: borders.thin,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  stepButtonActive: {
+    opacity: 1,
+  },
+  stepButtonDimmed: {
+    opacity: 0.4,
+  },
+  inputContainer: {
+    flex: 1,
+    height: STEP_BUTTON_SIZE,
+    borderRadius: radius.md,
+    borderWidth: borders.thin,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  inputContainerFocused: {
+    borderWidth: borders.medium,
+  },
+  input: {
+    width: '100%',
+    textAlign: 'center',
+  },
+});

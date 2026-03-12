@@ -1,0 +1,18 @@
+{
+  "name": "accordion",
+  "displayName": "Accordion",
+  "description": "Animated expand/collapse accordion with single or multiple open items, controlled and uncontrolled modes",
+  "category": "navigation",
+  "version": "1.0.0",
+  "files": [
+    { "path": "Accordion.tsx", "target": "Accordion.tsx", "type": "component" }
+  ],
+  "masicnVersion": "^0.1.0",
+  "peerDependencies": {
+    "react-native-reanimated": ">=3.0.0"
+  },
+  "registryDependencies": ["text"],
+  "tags": ["navigation", "collapsible", "disclosure"],
+  "hasTests": false,
+  "hasAccessibility": true
+}

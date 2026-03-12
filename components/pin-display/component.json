@@ -1,0 +1,16 @@
+{
+  "name": "pin-display",
+  "displayName": "PinDisplay",
+  "description": "PIN/OTP dot progress display showing filled and empty dots with default, error, and success variants.",
+  "category": "core",
+  "version": "1.0.0",
+  "files": [
+    { "path": "PinDisplay.tsx", "target": "PinDisplay.tsx", "type": "component" }
+  ],
+  "masicnVersion": "^0.1.0",
+  "peerDependencies": {},
+  "registryDependencies": ["text"],
+  "tags": ["display", "security"],
+  "hasTests": false,
+  "hasAccessibility": false
+}

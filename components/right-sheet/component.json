@@ -1,0 +1,19 @@
+{
+  "name": "right-sheet",
+  "displayName": "RightSheet",
+  "description": "Gesture-driven side sheet that slides in from the right edge with drag-to-dismiss support.",
+  "category": "feedback",
+  "version": "1.0.0",
+  "files": [
+    { "path": "RightSheet.tsx", "target": "RightSheet.tsx", "type": "component" }
+  ],
+  "masicnVersion": "^0.1.0",
+  "peerDependencies": {
+    "react-native-gesture-handler": ">=2.0.0",
+    "react-native-reanimated": ">=3.0.0"
+  },
+  "registryDependencies": ["text"],
+  "tags": ["overlay", "sheet"],
+  "hasTests": false,
+  "hasAccessibility": true
+}

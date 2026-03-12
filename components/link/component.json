@@ -1,0 +1,16 @@
+{
+  "name": "link",
+  "displayName": "Link",
+  "description": "Pressable text link with size presets and underline variants (none, hover, always).",
+  "category": "core",
+  "version": "1.0.0",
+  "files": [
+    { "path": "Link.tsx", "target": "Link.tsx", "type": "component" }
+  ],
+  "masicnVersion": "^0.1.0",
+  "peerDependencies": {},
+  "registryDependencies": ["text"],
+  "tags": ["navigation"],
+  "hasTests": false,
+  "hasAccessibility": true
+}

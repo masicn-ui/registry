@@ -1,0 +1,16 @@
+{
+  "name": "breadcrumb",
+  "displayName": "Breadcrumb",
+  "description": "Breadcrumb navigation block with separator and truncation.",
+  "category": "blocks",
+  "version": "1.0.0",
+  "files": [
+    { "path": "Breadcrumb.tsx", "target": "Breadcrumb.tsx", "type": "component" }
+  ],
+  "masicnVersion": ">=1.0.0",
+  "peerDependencies": {},
+  "registryDependencies": ["text", "link"],
+  "tags": ["breadcrumb", "navigation", "path"],
+  "hasTests": false,
+  "hasAccessibility": true
+}
