@@ -1,0 +1,16 @@
+{
+  "name": "menu",
+  "displayName": "Menu",
+  "description": "Dropdown menu with viewport-clamped positioning, icon support, disabled states, and separator dividers.",
+  "category": "overlay",
+  "version": "1.0.0",
+  "files": [
+    { "path": "Menu.tsx", "target": "Menu.tsx", "type": "component" }
+  ],
+  "masicnVersion": "^0.1.0",
+  "peerDependencies": {},
+  "registryDependencies": ["text"],
+  "tags": ["overlay", "navigation"],
+  "hasTests": false,
+  "hasAccessibility": true
+}

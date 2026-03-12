@@ -1,0 +1,16 @@
+{
+  "name": "avatar-group",
+  "displayName": "AvatarGroup",
+  "description": "Stacked row of Avatars with configurable max count and +N overflow indicator.",
+  "category": "core",
+  "version": "1.0.0",
+  "files": [
+    { "path": "AvatarGroup.tsx", "target": "AvatarGroup.tsx", "type": "component" }
+  ],
+  "masicnVersion": "^0.1.0",
+  "peerDependencies": {},
+  "registryDependencies": ["avatar", "text"],
+  "tags": ["user", "group"],
+  "hasTests": false,
+  "hasAccessibility": false
+}

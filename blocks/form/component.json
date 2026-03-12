@@ -1,0 +1,16 @@
+{
+  "name": "form",
+  "displayName": "Form",
+  "description": "A complete form block with validation, labels, and error handling.",
+  "category": "blocks",
+  "version": "1.0.0",
+  "files": [
+    { "path": "Form.tsx", "target": "Form.tsx", "type": "component" }
+  ],
+  "masicnVersion": ">=1.0.0",
+  "peerDependencies": {},
+  "registryDependencies": ["text-input", "button", "text"],
+  "tags": ["form", "input", "validation"],
+  "hasTests": false,
+  "hasAccessibility": true
+}

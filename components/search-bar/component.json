@@ -1,0 +1,16 @@
+{
+  "name": "search-bar",
+  "displayName": "SearchBar",
+  "description": "Search input with clear button, custom search icon, and submit handler",
+  "category": "navigation",
+  "version": "1.0.0",
+  "files": [
+    { "path": "SearchBar.tsx", "target": "SearchBar.tsx", "type": "component" }
+  ],
+  "masicnVersion": "^0.1.0",
+  "peerDependencies": {},
+  "registryDependencies": ["text"],
+  "tags": ["navigation", "search", "input"],
+  "hasTests": false,
+  "hasAccessibility": false
+}

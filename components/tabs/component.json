@@ -1,0 +1,16 @@
+{
+  "name": "tabs",
+  "displayName": "Tabs",
+  "description": "Tab bar with underline, filled, and pill variants; scrollable mode; built-in panel with show-more body text",
+  "category": "navigation",
+  "version": "1.0.0",
+  "files": [
+    { "path": "Tabs.tsx", "target": "Tabs.tsx", "type": "component" }
+  ],
+  "masicnVersion": "^0.1.0",
+  "peerDependencies": {},
+  "registryDependencies": ["text"],
+  "tags": ["navigation", "tabs"],
+  "hasTests": false,
+  "hasAccessibility": true
+}

@@ -1,0 +1,16 @@
+{
+  "name": "action-sheet",
+  "displayName": "Action Sheet",
+  "description": "iOS-style action sheet block with list of actions.",
+  "category": "blocks",
+  "version": "1.0.0",
+  "files": [
+    { "path": "ActionSheet.tsx", "target": "ActionSheet.tsx", "type": "component" }
+  ],
+  "masicnVersion": ">=1.0.0",
+  "peerDependencies": {},
+  "registryDependencies": ["bottom-sheet", "button", "text"],
+  "tags": ["action-sheet", "modal", "actions"],
+  "hasTests": false,
+  "hasAccessibility": true
+}

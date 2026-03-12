@@ -1,0 +1,16 @@
+{
+  "name": "toggle-button-group",
+  "displayName": "ToggleButtonGroup",
+  "description": "Exclusive toggle button group where only one button can be active at a time, with icon support.",
+  "category": "form",
+  "version": "1.0.0",
+  "files": [
+    { "path": "ToggleButtonGroup.tsx", "target": "ToggleButtonGroup.tsx", "type": "component" }
+  ],
+  "masicnVersion": "^0.1.0",
+  "peerDependencies": {},
+  "registryDependencies": ["text"],
+  "tags": ["form", "interactive"],
+  "hasTests": false,
+  "hasAccessibility": true
+}

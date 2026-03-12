@@ -1,0 +1,16 @@
+{
+  "name": "alert",
+  "displayName": "Alert",
+  "description": "Inline alert banner with success, error, warning, and info variants. Supports title, description, custom icon, and dismissible state.",
+  "category": "feedback",
+  "version": "1.0.0",
+  "files": [
+    { "path": "Alert.tsx", "target": "Alert.tsx", "type": "component" }
+  ],
+  "masicnVersion": "^0.1.0",
+  "peerDependencies": {},
+  "registryDependencies": ["text", "button"],
+  "tags": ["feedback", "status"],
+  "hasTests": false,
+  "hasAccessibility": true
+}

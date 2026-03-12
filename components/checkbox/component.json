@@ -1,0 +1,16 @@
+{
+  "name": "checkbox",
+  "displayName": "Checkbox",
+  "description": "Animated checkbox with checked, unchecked, and indeterminate states, label, description, and disabled support.",
+  "category": "form",
+  "version": "1.0.0",
+  "files": [
+    { "path": "Checkbox.tsx", "target": "Checkbox.tsx", "type": "component" }
+  ],
+  "masicnVersion": "^0.1.0",
+  "peerDependencies": { "react-native-reanimated": ">=3.0.0" },
+  "registryDependencies": ["text"],
+  "tags": ["form"],
+  "hasTests": false,
+  "hasAccessibility": true
+}

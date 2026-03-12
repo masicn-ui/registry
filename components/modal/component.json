@@ -1,0 +1,19 @@
+{
+  "name": "modal",
+  "displayName": "Modal",
+  "description": "Animated dialog modal with backdrop, spring/timing enter/exit animations, optional close button, focus trap, and Android back button support.",
+  "category": "feedback",
+  "version": "1.0.0",
+  "files": [
+    { "path": "Modal.tsx", "target": "Modal.tsx", "type": "component" }
+  ],
+  "masicnVersion": "^0.1.0",
+  "peerDependencies": {
+    "react-native-gesture-handler": ">=2.0.0",
+    "react-native-reanimated": ">=3.0.0"
+  },
+  "registryDependencies": ["text", "button"],
+  "tags": ["overlay"],
+  "hasTests": false,
+  "hasAccessibility": true
+}

@@ -1,0 +1,16 @@
+{
+  "name": "progress-circle",
+  "displayName": "ProgressCircle",
+  "description": "SVG circular progress indicator with configurable size, stroke width, color, and percentage label.",
+  "category": "feedback",
+  "version": "1.0.0",
+  "files": [
+    { "path": "ProgressCircle.tsx", "target": "ProgressCircle.tsx", "type": "component" }
+  ],
+  "masicnVersion": "^0.1.0",
+  "peerDependencies": { "react-native-reanimated": ">=3.0.0" },
+  "registryDependencies": [],
+  "tags": ["feedback"],
+  "hasTests": false,
+  "hasAccessibility": true
+}

@@ -1,0 +1,16 @@
+{
+  "name": "multi-select",
+  "displayName": "Multi Select",
+  "description": "Multi-selection dropdown block with search and chip display.",
+  "category": "blocks",
+  "version": "1.0.0",
+  "files": [
+    { "path": "MultiSelect.tsx", "target": "MultiSelect.tsx", "type": "component" }
+  ],
+  "masicnVersion": ">=1.0.0",
+  "peerDependencies": {},
+  "registryDependencies": ["select", "chip", "text"],
+  "tags": ["select", "multi", "dropdown", "input"],
+  "hasTests": false,
+  "hasAccessibility": true
+}

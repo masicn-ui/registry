@@ -1,0 +1,16 @@
+{
+  "name": "button",
+  "displayName": "Button",
+  "description": "Pressable button with multiple variants (primary, secondary, tertiary, outline, ghost, destructive), sizes, loading state, and icon slots.",
+  "category": "core",
+  "version": "1.0.0",
+  "files": [
+    { "path": "Button.tsx", "target": "Button.tsx", "type": "component" }
+  ],
+  "masicnVersion": "^0.1.0",
+  "peerDependencies": {},
+  "registryDependencies": ["text"],
+  "tags": ["interactive", "pressable"],
+  "hasTests": false,
+  "hasAccessibility": true
+}

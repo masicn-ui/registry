@@ -1,0 +1,16 @@
+{
+  "name": "carousel",
+  "displayName": "Carousel",
+  "description": "Horizontally scrollable carousel block with pagination indicators.",
+  "category": "blocks",
+  "version": "1.0.0",
+  "files": [
+    { "path": "Carousel.tsx", "target": "Carousel.tsx", "type": "component" }
+  ],
+  "masicnVersion": ">=1.0.0",
+  "peerDependencies": {},
+  "registryDependencies": ["image", "text"],
+  "tags": ["carousel", "slider", "swipe"],
+  "hasTests": false,
+  "hasAccessibility": true
+}

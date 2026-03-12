@@ -1,0 +1,16 @@
+{
+  "name": "refreshable-list",
+  "displayName": "RefreshableList",
+  "description": "FlatList wrapper with a themed RefreshControl for pull-to-refresh.",
+  "category": "layout",
+  "version": "1.0.0",
+  "files": [
+    { "path": "RefreshableList.tsx", "target": "RefreshableList.tsx", "type": "component" }
+  ],
+  "masicnVersion": "^0.1.0",
+  "peerDependencies": {},
+  "registryDependencies": [],
+  "tags": ["layout", "list"],
+  "hasTests": false,
+  "hasAccessibility": false
+}

@@ -1,0 +1,16 @@
+{
+  "name": "otp-input",
+  "displayName": "OTP Input",
+  "description": "One-time password input block with auto-focus and paste support.",
+  "category": "blocks",
+  "version": "1.0.0",
+  "files": [
+    { "path": "OTPInput.tsx", "target": "OTPInput.tsx", "type": "component" }
+  ],
+  "masicnVersion": ">=1.0.0",
+  "peerDependencies": {},
+  "registryDependencies": ["pin-display", "text"],
+  "tags": ["otp", "pin", "auth", "input"],
+  "hasTests": false,
+  "hasAccessibility": true
+}

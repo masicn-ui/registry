@@ -1,0 +1,16 @@
+{
+  "name": "spinner",
+  "displayName": "Spinner",
+  "description": "Activity indicator with optional text label, size variants, and color override.",
+  "category": "feedback",
+  "version": "1.0.0",
+  "files": [
+    { "path": "Spinner.tsx", "target": "Spinner.tsx", "type": "component" }
+  ],
+  "masicnVersion": "^0.1.0",
+  "peerDependencies": {},
+  "registryDependencies": ["text"],
+  "tags": ["loading"],
+  "hasTests": false,
+  "hasAccessibility": false
+}

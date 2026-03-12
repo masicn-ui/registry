@@ -1,0 +1,16 @@
+{
+  "name": "key-value-row",
+  "displayName": "KeyValueRow",
+  "description": "Label-value display row with optional press-to-copy interaction and brief feedback label.",
+  "category": "core",
+  "version": "1.0.0",
+  "files": [
+    { "path": "KeyValueRow.tsx", "target": "KeyValueRow.tsx", "type": "component" }
+  ],
+  "masicnVersion": "^0.1.0",
+  "peerDependencies": {},
+  "registryDependencies": ["text"],
+  "tags": ["display"],
+  "hasTests": false,
+  "hasAccessibility": false
+}

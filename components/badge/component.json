@@ -1,0 +1,16 @@
+{
+  "name": "badge",
+  "displayName": "Badge",
+  "description": "Status badge with error, success, warning, and info variants. Supports dot, pill, and circular modes.",
+  "category": "core",
+  "version": "1.0.0",
+  "files": [
+    { "path": "Badge.tsx", "target": "Badge.tsx", "type": "component" }
+  ],
+  "masicnVersion": "^0.1.0",
+  "peerDependencies": {},
+  "registryDependencies": ["text"],
+  "tags": ["status"],
+  "hasTests": false,
+  "hasAccessibility": true
+}
