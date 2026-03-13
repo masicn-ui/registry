@@ -1,0 +1,68 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://masicn-ui.github.io/registry/schema/masicn.json",
+  "title": "masicn.json",
+  "description": "Configuration file for masicn — copy-paste React Native UI components",
+  "type": "object",
+  "required": ["version", "registry", "outputDir", "importAlias", "masicnAlias"],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "description": "JSON Schema reference"
+    },
+    "version": {
+      "type": "string",
+      "description": "Config schema version",
+      "enum": ["1"]
+    },
+    "registry": {
+      "type": "string",
+      "description": "URL to the registry.json file",
+      "format": "uri"
+    },
+    "outputDir": {
+      "type": "string",
+      "description": "Directory where components are written (relative to project root)",
+      "examples": ["src/components/ui"]
+    },
+    "importAlias": {
+      "type": "string",
+      "description": "Import alias for the outputDir (e.g. @/components/ui)",
+      "examples": ["@/components/ui"]
+    },
+    "masicnAlias": {
+      "type": "string",
+      "description": "Import alias for @masicn/ui — '@masicn/ui' if using npm, or '@/masicn' if copied locally",
+      "examples": ["@masicn/ui", "@/masicn"]
+    },
+    "localDesignSystem": {
+      "type": "boolean",
+      "description": "Whether the design system source was copied locally (true) or installed as an npm package (false)",
+      "default": false
+    },
+    "designSystemDir": {
+      "type": "string",
+      "description": "Where the local design system was copied (only relevant when localDesignSystem is true)",
+      "examples": ["src/masicn"]
+    },
+    "palette": {
+      "type": "string",
+      "description": "Active color palette",
+      "enum": ["masi", "ocean", "sunset", "forest", "mono", "rose", "midnight", "amber", "nord", "coffee"]
+    },
+    "fontSetup": {
+      "type": "string",
+      "description": "Font setup mode chosen during init",
+      "enum": ["masicn", "system", "manual"]
+    },
+    "installedComponents": {
+      "type": "object",
+      "description": "Map of installed component name to version",
+      "additionalProperties": {
+        "type": "string"
+      },
+      "examples": [{ "button": "1.0.0", "card": "1.0.0" }]
+    }
+  }
+}
