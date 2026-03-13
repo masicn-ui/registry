@@ -1,6 +1,6 @@
 {
   "version": "1",
-  "baseUrl": "https://raw.githubusercontent.com/masicn/registry/master",
+  "baseUrl": "https://raw.githubusercontent.com/masicn-ui/registry/master",
   "components": [
     {
       "name": "text",
