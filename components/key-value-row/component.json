@@ -5,12 +5,18 @@
   "category": "core",
   "version": "1.0.0",
   "files": [
-    { "path": "KeyValueRow.tsx", "target": "KeyValueRow.tsx", "type": "component" }
+    {
+      "path": "KeyValueRow.tsx",
+      "target": "KeyValueRow.tsx",
+      "type": "component"
+    }
   ],
   "masicnVersion": "^0.1.0",
   "peerDependencies": {},
-  "registryDependencies": ["text"],
-  "tags": ["display"],
+  "registryDependencies": [],
+  "tags": [
+    "display"
+  ],
   "hasTests": false,
   "hasAccessibility": false
 }

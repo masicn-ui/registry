@@ -15,9 +15,7 @@
   "peerDependencies": {
     "react-native-reanimated": ">=3.0.0"
   },
-  "registryDependencies": [
-    "text"
-  ],
+  "registryDependencies": [],
   "tags": [
     "navigation",
     "collapsible",

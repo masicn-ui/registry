@@ -3,8 +3,7 @@
 import React from 'react';
 import { Pressable, View, StyleSheet, type ViewStyle } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { useTheme, spacing, radius, elevation, sizes, iconSizes, opacity as opacityTokens } from '@masicn/ui';
-import { Text } from '@/components/ui/Text';
+import { Text, elevation, iconSizes, opacity as opacityTokens, radius, sizes, spacing, useTheme } from '@masicn/ui';
 
 type FABSize = 'small' | 'medium' | 'large';
 type FABPosition = 'bottom-right' | 'bottom-left' | 'bottom-center' | 'top-right' | 'top-left';

@@ -3,8 +3,7 @@
 
 import React from 'react';
 import { View, StyleSheet, Pressable } from 'react-native';
-import { useTheme, spacing, borders } from '@masicn/ui';
-import { Text } from '@/components/ui/Text';
+import { Text, borders, spacing, useTheme } from '@masicn/ui';
 import { BottomSheet } from '@/components/ui/BottomSheet';
 
 export interface ActionSheetOption {

@@ -5,12 +5,20 @@
   "category": "form",
   "version": "1.0.0",
   "files": [
-    { "path": "CheckboxGroup.tsx", "target": "CheckboxGroup.tsx", "type": "component" }
+    {
+      "path": "CheckboxGroup.tsx",
+      "target": "CheckboxGroup.tsx",
+      "type": "component"
+    }
   ],
   "masicnVersion": "^0.1.0",
   "peerDependencies": {},
-  "registryDependencies": ["checkbox", "text"],
-  "tags": ["form"],
+  "registryDependencies": [
+    "checkbox"
+  ],
+  "tags": [
+    "form"
+  ],
   "hasTests": false,
   "hasAccessibility": true
 }

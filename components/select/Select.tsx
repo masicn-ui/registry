@@ -10,8 +10,7 @@ import {
   TextInput as RNTextInput,
   type ViewStyle,
 } from 'react-native';
-import { useTheme, spacing, radius, borders, typography, useFocusTrap } from '@masicn/ui';
-import { Text } from '@/components/ui/Text';
+import { Text, borders, radius, spacing, typography, useFocusTrap, useTheme } from '@masicn/ui';
 
 export interface SelectOption {
   label: string;

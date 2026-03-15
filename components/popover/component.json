@@ -5,12 +5,18 @@
   "category": "overlay",
   "version": "1.0.0",
   "files": [
-    { "path": "Popover.tsx", "target": "Popover.tsx", "type": "component" }
+    {
+      "path": "Popover.tsx",
+      "target": "Popover.tsx",
+      "type": "component"
+    }
   ],
   "masicnVersion": "^0.1.0",
   "peerDependencies": {},
-  "registryDependencies": ["text"],
-  "tags": ["overlay"],
+  "registryDependencies": [],
+  "tags": [
+    "overlay"
+  ],
   "hasTests": false,
   "hasAccessibility": false
 }

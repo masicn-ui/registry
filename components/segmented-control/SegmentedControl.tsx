@@ -7,8 +7,7 @@ import Animated, {
   useAnimatedStyle,
   withTiming,
 } from 'react-native-reanimated';
-import { useTheme, spacing, radius, motion, motionEasing, elevation, opacity as opacityTokens, useReducedMotion } from '@masicn/ui';
-import { Text } from '@/components/ui/Text';
+import { Text, elevation, motion, motionEasing, opacity as opacityTokens, radius, spacing, useReducedMotion, useTheme } from '@masicn/ui';
 
 export interface SegmentedControlOption {
   label: string;

@@ -2,9 +2,8 @@
 
 import React from 'react';
 import { View, StyleSheet, type ImageSourcePropType } from 'react-native';
-import { useTheme, radius, borders } from '@masicn/ui';
+import { Text, borders, radius, useTheme } from '@masicn/ui';
 import { Avatar, sizeMap, type AvatarSize } from '@/components/ui/Avatar';
-import { Text } from '@/components/ui/Text';
 
 interface AvatarGroupItem {
   source?: ImageSourcePropType;

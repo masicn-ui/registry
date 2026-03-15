@@ -21,8 +21,7 @@ import Animated, {
   withDelay,
 } from 'react-native-reanimated';
 import { scheduleOnRN } from 'react-native-worklets';
-import { useTheme, spacing, radius, sizes, motion, opacity } from '@masicn/ui';
-import { Text } from '@/components/ui/Text';
+import { Text, motion, opacity, radius, sizes, spacing, useTheme } from '@masicn/ui';
 
 // ─── Types ─────────────────────────────────────────────────────────────────
 

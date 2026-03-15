@@ -2,8 +2,7 @@
 
 import React from 'react';
 import { View, Pressable, StyleSheet, type ViewProps } from 'react-native';
-import { useTheme, spacing, radius, borders, rgba } from '@masicn/ui';
-import { Text } from '@/components/ui/Text';
+import { Text, borders, radius, rgba, spacing, useTheme } from '@masicn/ui';
 
 type TagVariant = 'default' | 'success' | 'warning' | 'error' | 'info';
 type TagSize = 'sm' | 'md' | 'lg';

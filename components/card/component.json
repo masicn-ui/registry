@@ -5,12 +5,19 @@
   "category": "core",
   "version": "1.0.0",
   "files": [
-    { "path": "Card.tsx", "target": "Card.tsx", "type": "component" }
+    {
+      "path": "Card.tsx",
+      "target": "Card.tsx",
+      "type": "component"
+    }
   ],
   "masicnVersion": "^0.1.0",
   "peerDependencies": {},
-  "registryDependencies": ["text"],
-  "tags": ["layout", "surface"],
+  "registryDependencies": [],
+  "tags": [
+    "layout",
+    "surface"
+  ],
   "hasTests": false,
   "hasAccessibility": false
 }

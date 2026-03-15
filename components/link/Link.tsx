@@ -2,8 +2,7 @@
 
 import React from 'react';
 import { Pressable, StyleSheet, type PressableProps } from 'react-native';
-import { useTheme, spacing, opacity as opacityTokens } from '@masicn/ui';
-import { Text } from '@/components/ui/Text';
+import { Text, opacity as opacityTokens, spacing, useTheme } from '@masicn/ui';
 
 type LinkSize = 'sm' | 'md' | 'lg';
 

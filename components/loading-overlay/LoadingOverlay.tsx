@@ -2,8 +2,7 @@
 
 import React from 'react';
 import { View, Modal, StyleSheet, ActivityIndicator } from 'react-native';
-import { useTheme, spacing, radius, elevation, sizes } from '@masicn/ui';
-import { Text } from '@/components/ui/Text';
+import { Text, elevation, radius, sizes, spacing, useTheme } from '@masicn/ui';
 
 interface LoadingOverlayProps {
   visible: boolean;

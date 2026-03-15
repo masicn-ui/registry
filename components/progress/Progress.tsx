@@ -9,8 +9,7 @@ import Reanimated, {
   withTiming,
   cancelAnimation,
 } from 'react-native-reanimated';
-import { useTheme, spacing, radius, borders, sizes, motion } from '@masicn/ui';
-import { Text } from '@/components/ui/Text';
+import { Text, borders, motion, radius, sizes, spacing, useTheme } from '@masicn/ui';
 
 type ProgressVariant = 'linear' | 'circular';
 

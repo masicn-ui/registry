@@ -2,8 +2,7 @@
 
 import React from 'react';
 import { View, Pressable, StyleSheet } from 'react-native';
-import { useTheme, spacing } from '@masicn/ui';
-import { Text } from '@/components/ui/Text';
+import { Text, spacing, useTheme } from '@masicn/ui';
 
 export interface RatingProps {
   /** Current rating value (0–max) */

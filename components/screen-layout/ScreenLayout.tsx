@@ -4,10 +4,7 @@
 import React, { type ReactNode } from 'react';
 import { StyleSheet, View, ScrollView, KeyboardAvoidingView, Platform } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { useTheme, spacing, radius, layout, useResponsive } from '@masicn/ui';
-import { Box } from '@/components/ui/Box';
-import { Text } from '@/components/ui/Text';
-import { Row } from '@/components/ui/Row';
+import { Box, Row, Text, layout, radius, spacing, useResponsive, useTheme } from '@masicn/ui';
 import { Button } from '@/components/ui/Button';
 
 export interface RightAction {

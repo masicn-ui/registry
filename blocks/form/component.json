@@ -5,12 +5,23 @@
   "category": "blocks",
   "version": "1.0.0",
   "files": [
-    { "path": "Form.tsx", "target": "Form.tsx", "type": "component" }
+    {
+      "path": "Form.tsx",
+      "target": "Form.tsx",
+      "type": "component"
+    }
   ],
   "masicnVersion": ">=1.0.0",
   "peerDependencies": {},
-  "registryDependencies": ["text-input", "button", "text"],
-  "tags": ["form", "input", "validation"],
+  "registryDependencies": [
+    "text-input",
+    "button"
+  ],
+  "tags": [
+    "form",
+    "input",
+    "validation"
+  ],
   "hasTests": false,
   "hasAccessibility": true
 }

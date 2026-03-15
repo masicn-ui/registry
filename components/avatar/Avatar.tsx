@@ -2,8 +2,7 @@
 
 import React from 'react';
 import { View, Image, StyleSheet, type ImageSourcePropType } from 'react-native';
-import { useTheme, radius, sizes, type Typography } from '@masicn/ui';
-import { Text } from '@/components/ui/Text';
+import { Text, radius, sizes, type Typography, useTheme } from '@masicn/ui';
 
 export type AvatarSize = 'sm' | 'md' | 'lg';
 

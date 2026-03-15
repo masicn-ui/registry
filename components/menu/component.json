@@ -5,12 +5,19 @@
   "category": "overlay",
   "version": "1.0.0",
   "files": [
-    { "path": "Menu.tsx", "target": "Menu.tsx", "type": "component" }
+    {
+      "path": "Menu.tsx",
+      "target": "Menu.tsx",
+      "type": "component"
+    }
   ],
   "masicnVersion": "^0.1.0",
   "peerDependencies": {},
-  "registryDependencies": ["text"],
-  "tags": ["overlay", "navigation"],
+  "registryDependencies": [],
+  "tags": [
+    "overlay",
+    "navigation"
+  ],
   "hasTests": false,
   "hasAccessibility": true
 }

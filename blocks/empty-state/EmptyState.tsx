@@ -3,8 +3,7 @@
 
 import React from 'react';
 import { View, StyleSheet, type ViewStyle } from 'react-native';
-import { spacing, sizes, layout } from '@masicn/ui';
-import { Text } from '@/components/ui/Text';
+import { Text, layout, sizes, spacing } from '@masicn/ui';
 import { Button } from '@/components/ui/Button';
 
 interface EmptyStateProps {

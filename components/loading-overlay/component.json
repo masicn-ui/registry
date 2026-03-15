@@ -5,12 +5,21 @@
   "category": "feedback",
   "version": "1.0.0",
   "files": [
-    { "path": "LoadingOverlay.tsx", "target": "LoadingOverlay.tsx", "type": "component" }
+    {
+      "path": "LoadingOverlay.tsx",
+      "target": "LoadingOverlay.tsx",
+      "type": "component"
+    }
   ],
   "masicnVersion": "^0.1.0",
   "peerDependencies": {},
-  "registryDependencies": ["spinner", "text"],
-  "tags": ["loading", "overlay"],
+  "registryDependencies": [
+    "spinner"
+  ],
+  "tags": [
+    "loading",
+    "overlay"
+  ],
   "hasTests": false,
   "hasAccessibility": true
 }

@@ -3,8 +3,7 @@
 import React, { useState, useCallback, createContext, useContext } from 'react';
 import { View, Pressable, StyleSheet, type ViewStyle, type LayoutChangeEvent } from 'react-native';
 import Animated, { useSharedValue, useAnimatedStyle, withTiming } from 'react-native-reanimated';
-import { useTheme, spacing, radius, borders, motion, motionEasing } from '@masicn/ui';
-import { Text } from '@/components/ui/Text';
+import { Text, borders, motion, motionEasing, radius, spacing, useTheme } from '@masicn/ui';
 
 // ─── Context ─────────────────────────────────────────────────────────────────
 

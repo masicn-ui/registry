@@ -5,12 +5,24 @@
   "category": "blocks",
   "version": "1.0.0",
   "files": [
-    { "path": "MultiSelect.tsx", "target": "MultiSelect.tsx", "type": "component" }
+    {
+      "path": "MultiSelect.tsx",
+      "target": "MultiSelect.tsx",
+      "type": "component"
+    }
   ],
   "masicnVersion": ">=1.0.0",
   "peerDependencies": {},
-  "registryDependencies": ["select", "chip", "text"],
-  "tags": ["select", "multi", "dropdown", "input"],
+  "registryDependencies": [
+    "select",
+    "chip"
+  ],
+  "tags": [
+    "select",
+    "multi",
+    "dropdown",
+    "input"
+  ],
   "hasTests": false,
   "hasAccessibility": true
 }

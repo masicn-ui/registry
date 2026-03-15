@@ -2,8 +2,7 @@
 
 import React from 'react';
 import { View, StyleSheet, Pressable, type ViewStyle } from 'react-native';
-import { useTheme, spacing, radius, borders, opacity as opacityTokens } from '@masicn/ui';
-import { Text } from '@/components/ui/Text';
+import { Text, borders, opacity as opacityTokens, radius, spacing, useTheme } from '@masicn/ui';
 
 type AlertVariant = 'success' | 'error' | 'warning' | 'info';
 

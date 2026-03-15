@@ -2,8 +2,7 @@
 
 import React, { useState } from 'react';
 import { View, Pressable, StyleSheet, type ViewProps } from 'react-native';
-import { useTheme, spacing, radius, elevation, borders, opacity as opacityTokens, type Elevation } from '@masicn/ui';
-import { Text } from '@/components/ui/Text';
+import { Text, borders, elevation, opacity as opacityTokens, radius, spacing, type Elevation, useTheme } from '@masicn/ui';
 
 type CardVariant = 'elevated' | 'filled' | 'outlined';
 type Surface = 'primary' | 'secondary' | 'tertiary';

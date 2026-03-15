@@ -5,15 +5,26 @@
   "category": "blocks",
   "version": "1.0.0",
   "files": [
-    { "path": "Swipeable.tsx", "target": "Swipeable.tsx", "type": "component" }
+    {
+      "path": "Swipeable.tsx",
+      "target": "Swipeable.tsx",
+      "type": "component"
+    }
   ],
   "masicnVersion": ">=1.0.0",
   "peerDependencies": {
     "react-native-gesture-handler": ">=2.0.0",
     "react-native-reanimated": ">=3.0.0"
   },
-  "registryDependencies": ["list-item", "text"],
-  "tags": ["swipe", "gesture", "row", "actions"],
+  "registryDependencies": [
+    "list-item"
+  ],
+  "tags": [
+    "swipe",
+    "gesture",
+    "row",
+    "actions"
+  ],
   "hasTests": false,
   "hasAccessibility": true
 }

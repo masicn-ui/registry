@@ -5,12 +5,19 @@
   "category": "core",
   "version": "1.0.0",
   "files": [
-    { "path": "PinDisplay.tsx", "target": "PinDisplay.tsx", "type": "component" }
+    {
+      "path": "PinDisplay.tsx",
+      "target": "PinDisplay.tsx",
+      "type": "component"
+    }
   ],
   "masicnVersion": "^0.1.0",
   "peerDependencies": {},
-  "registryDependencies": ["text"],
-  "tags": ["display", "security"],
+  "registryDependencies": [],
+  "tags": [
+    "display",
+    "security"
+  ],
   "hasTests": false,
   "hasAccessibility": false
 }
