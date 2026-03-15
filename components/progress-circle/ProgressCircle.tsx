@@ -3,8 +3,7 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Svg, Circle } from 'react-native-svg';
-import { useTheme, spacing, fonts, sizes } from '@masicn/ui';
-import { Text } from '@/components/ui/Text';
+import { Text, fonts, sizes, spacing, useTheme } from '@masicn/ui';
 
 interface ProgressCircleProps {
   value: number;

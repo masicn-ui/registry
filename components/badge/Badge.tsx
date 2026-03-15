@@ -2,8 +2,7 @@
 
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
-import { useTheme, spacing, radius, sizes } from '@masicn/ui';
-import { Text } from '@/components/ui/Text';
+import { Text, radius, sizes, spacing, useTheme } from '@masicn/ui';
 
 type BadgeVariant = 'error' | 'success' | 'warning' | 'info';
 

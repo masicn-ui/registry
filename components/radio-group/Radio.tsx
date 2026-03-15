@@ -7,8 +7,7 @@ import Animated, {
   useAnimatedStyle,
   withSpring,
 } from 'react-native-reanimated';
-import { useTheme, spacing, sizes, borders, radius, iconSizes } from '@masicn/ui';
-import { Text } from '@/components/ui/Text';
+import { Text, borders, iconSizes, radius, sizes, spacing, useTheme } from '@masicn/ui';
 
 interface RadioGroupContextValue {
   value: string;

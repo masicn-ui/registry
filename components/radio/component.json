@@ -5,12 +5,18 @@
   "category": "form",
   "version": "1.0.0",
   "files": [
-    { "path": "Radio.tsx", "target": "Radio.tsx", "type": "component" }
+    {
+      "path": "Radio.tsx",
+      "target": "Radio.tsx",
+      "type": "component"
+    }
   ],
   "masicnVersion": "^0.1.0",
   "peerDependencies": {},
-  "registryDependencies": ["text"],
-  "tags": ["form"],
+  "registryDependencies": [],
+  "tags": [
+    "form"
+  ],
   "hasTests": false,
   "hasAccessibility": true
 }

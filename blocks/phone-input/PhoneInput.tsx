@@ -10,9 +10,7 @@ import {
   StyleSheet,
   type ViewStyle,
 } from 'react-native';
-import { useTheme, spacing, radius, borders, typography, iconSizes, sizes, rgba } from '@masicn/ui';
-import { Text } from '@/components/ui/Text';
-import { Stack } from '@/components/ui/Stack';
+import { Stack, Text, borders, iconSizes, radius, rgba, sizes, spacing, typography, useTheme } from '@masicn/ui';
 import { Modal as PickerModal } from '@/components/ui/Modal';
 
 /** Full country entry — pass via `countries` for name-in-picker support. */

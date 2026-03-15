@@ -9,9 +9,7 @@ import {
   StyleSheet,
   type ViewStyle,
 } from 'react-native';
-import { useTheme, spacing, radius, borders, sizes, typography } from '@masicn/ui';
-import { Text } from '@/components/ui/Text';
-import { Stack } from '@/components/ui/Stack';
+import { Stack, Text, borders, radius, sizes, spacing, typography, useTheme } from '@masicn/ui';
 
 interface TagInputProps {
   /** Current tags */

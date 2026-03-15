@@ -5,12 +5,23 @@
   "category": "blocks",
   "version": "1.0.0",
   "files": [
-    { "path": "NumberInput.tsx", "target": "NumberInput.tsx", "type": "component" }
+    {
+      "path": "NumberInput.tsx",
+      "target": "NumberInput.tsx",
+      "type": "component"
+    }
   ],
   "masicnVersion": ">=1.0.0",
   "peerDependencies": {},
-  "registryDependencies": ["text-input", "button", "text"],
-  "tags": ["number", "input", "stepper"],
+  "registryDependencies": [
+    "text-input",
+    "button"
+  ],
+  "tags": [
+    "number",
+    "input",
+    "stepper"
+  ],
   "hasTests": false,
   "hasAccessibility": true
 }

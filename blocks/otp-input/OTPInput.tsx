@@ -3,8 +3,7 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import { View, TextInput, StyleSheet, Pressable } from 'react-native';
-import { useTheme, spacing, radius, borders, sizes, opacity as opacityTokens, typography } from '@masicn/ui';
-import { Text } from '@/components/ui/Text';
+import { Text, borders, opacity as opacityTokens, radius, sizes, spacing, typography, useTheme } from '@masicn/ui';
 
 interface OTPInputProps {
   /** Number of digits (default: 6) */

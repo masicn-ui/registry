@@ -5,12 +5,19 @@
   "category": "core",
   "version": "1.0.0",
   "files": [
-    { "path": "ReadMore.tsx", "target": "ReadMore.tsx", "type": "component" }
+    {
+      "path": "ReadMore.tsx",
+      "target": "ReadMore.tsx",
+      "type": "component"
+    }
   ],
   "masicnVersion": "^0.1.0",
   "peerDependencies": {},
-  "registryDependencies": ["text"],
-  "tags": ["display", "typography"],
+  "registryDependencies": [],
+  "tags": [
+    "display",
+    "typography"
+  ],
   "hasTests": false,
   "hasAccessibility": false
 }

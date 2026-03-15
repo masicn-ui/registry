@@ -5,12 +5,23 @@
   "category": "blocks",
   "version": "1.0.0",
   "files": [
-    { "path": "StepIndicator.tsx", "target": "StepIndicator.tsx", "type": "component" }
+    {
+      "path": "StepIndicator.tsx",
+      "target": "StepIndicator.tsx",
+      "type": "component"
+    }
   ],
   "masicnVersion": ">=1.0.0",
   "peerDependencies": {},
-  "registryDependencies": ["progress", "text"],
-  "tags": ["step", "stepper", "progress", "wizard"],
+  "registryDependencies": [
+    "progress"
+  ],
+  "tags": [
+    "step",
+    "stepper",
+    "progress",
+    "wizard"
+  ],
   "hasTests": false,
   "hasAccessibility": true
 }

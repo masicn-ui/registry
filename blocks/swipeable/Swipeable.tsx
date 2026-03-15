@@ -9,8 +9,7 @@ import Animated, {
   withSpring,
 } from 'react-native-reanimated';
 import { GestureDetector, Gesture } from 'react-native-gesture-handler';
-import { useTheme, spacing, radius, sizes, type Theme } from '@masicn/ui';
-import { Text } from '@/components/ui/Text';
+import { Text, radius, sizes, spacing, type Theme, useTheme } from '@masicn/ui';
 
 export interface SwipeAction {
   /** Action label */

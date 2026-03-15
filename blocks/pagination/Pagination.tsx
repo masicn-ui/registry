@@ -3,8 +3,7 @@
 
 import React from 'react';
 import { View, Pressable, StyleSheet } from 'react-native';
-import { useTheme, spacing, radius, sizes, borders } from '@masicn/ui';
-import { Text } from '@/components/ui/Text';
+import { Text, borders, radius, sizes, spacing, useTheme } from '@masicn/ui';
 
 interface PaginationProps {
   /** Current page (1-based) */

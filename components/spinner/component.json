@@ -5,12 +5,18 @@
   "category": "feedback",
   "version": "1.0.0",
   "files": [
-    { "path": "Spinner.tsx", "target": "Spinner.tsx", "type": "component" }
+    {
+      "path": "Spinner.tsx",
+      "target": "Spinner.tsx",
+      "type": "component"
+    }
   ],
   "masicnVersion": "^0.1.0",
   "peerDependencies": {},
-  "registryDependencies": ["text"],
-  "tags": ["loading"],
+  "registryDependencies": [],
+  "tags": [
+    "loading"
+  ],
   "hasTests": false,
   "hasAccessibility": false
 }

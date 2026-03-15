@@ -2,9 +2,8 @@
 
 import React, { useState } from 'react';
 import { Pressable, StyleSheet } from 'react-native';
-import { useTheme, spacing, borders, radius } from '@masicn/ui';
+import { Text, borders, radius, spacing, useTheme } from '@masicn/ui';
 import { TextInput, type TextInputProps } from '@/components/ui/TextInput';
-import { Text } from '@/components/ui/Text';
 
 interface PasswordInputProps extends Omit<TextInputProps, 'secureTextEntry' | 'endAdornment'> {}
 

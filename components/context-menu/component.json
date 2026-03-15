@@ -5,12 +5,20 @@
   "category": "overlay",
   "version": "1.0.0",
   "files": [
-    { "path": "ContextMenu.tsx", "target": "ContextMenu.tsx", "type": "component" }
+    {
+      "path": "ContextMenu.tsx",
+      "target": "ContextMenu.tsx",
+      "type": "component"
+    }
   ],
   "masicnVersion": "^0.1.0",
   "peerDependencies": {},
-  "registryDependencies": ["text", "menu"],
-  "tags": ["overlay"],
+  "registryDependencies": [
+    "menu"
+  ],
+  "tags": [
+    "overlay"
+  ],
   "hasTests": false,
   "hasAccessibility": false
 }

@@ -5,12 +5,18 @@
   "category": "interactive",
   "version": "1.0.0",
   "files": [
-    { "path": "Rating.tsx", "target": "Rating.tsx", "type": "component" }
+    {
+      "path": "Rating.tsx",
+      "target": "Rating.tsx",
+      "type": "component"
+    }
   ],
   "masicnVersion": "^0.1.0",
   "peerDependencies": {},
-  "registryDependencies": ["text"],
-  "tags": ["interactive"],
+  "registryDependencies": [],
+  "tags": [
+    "interactive"
+  ],
   "hasTests": false,
   "hasAccessibility": true
 }

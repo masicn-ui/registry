@@ -5,12 +5,21 @@
   "category": "form",
   "version": "1.0.0",
   "files": [
-    { "path": "PasswordInput.tsx", "target": "PasswordInput.tsx", "type": "component" }
+    {
+      "path": "PasswordInput.tsx",
+      "target": "PasswordInput.tsx",
+      "type": "component"
+    }
   ],
   "masicnVersion": "^0.1.0",
   "peerDependencies": {},
-  "registryDependencies": ["text", "text-input"],
-  "tags": ["form", "input"],
+  "registryDependencies": [
+    "text-input"
+  ],
+  "tags": [
+    "form",
+    "input"
+  ],
   "hasTests": false,
   "hasAccessibility": true
 }

@@ -5,12 +5,21 @@
   "category": "feedback",
   "version": "1.0.0",
   "files": [
-    { "path": "Alert.tsx", "target": "Alert.tsx", "type": "component" }
+    {
+      "path": "Alert.tsx",
+      "target": "Alert.tsx",
+      "type": "component"
+    }
   ],
   "masicnVersion": "^0.1.0",
   "peerDependencies": {},
-  "registryDependencies": ["text", "button"],
-  "tags": ["feedback", "status"],
+  "registryDependencies": [
+    "button"
+  ],
+  "tags": [
+    "feedback",
+    "status"
+  ],
   "hasTests": false,
   "hasAccessibility": true
 }

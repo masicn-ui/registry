@@ -5,12 +5,20 @@
   "category": "overlay",
   "version": "1.0.0",
   "files": [
-    { "path": "Tooltip.tsx", "target": "Tooltip.tsx", "type": "component" }
+    {
+      "path": "Tooltip.tsx",
+      "target": "Tooltip.tsx",
+      "type": "component"
+    }
   ],
   "masicnVersion": "^0.1.0",
   "peerDependencies": {},
-  "registryDependencies": ["text"],
-  "tags": ["overlay", "tooltip", "information"],
+  "registryDependencies": [],
+  "tags": [
+    "overlay",
+    "tooltip",
+    "information"
+  ],
   "hasTests": false,
   "hasAccessibility": false
 }

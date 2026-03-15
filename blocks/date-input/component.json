@@ -5,12 +5,24 @@
   "category": "blocks",
   "version": "1.0.0",
   "files": [
-    { "path": "DateInput.tsx", "target": "DateInput.tsx", "type": "component" }
+    {
+      "path": "DateInput.tsx",
+      "target": "DateInput.tsx",
+      "type": "component"
+    }
   ],
   "masicnVersion": ">=1.0.0",
   "peerDependencies": {},
-  "registryDependencies": ["text-input", "button", "text"],
-  "tags": ["date", "input", "calendar", "picker"],
+  "registryDependencies": [
+    "text-input",
+    "button"
+  ],
+  "tags": [
+    "date",
+    "input",
+    "calendar",
+    "picker"
+  ],
   "hasTests": false,
   "hasAccessibility": true
 }

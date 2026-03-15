@@ -2,8 +2,7 @@
 
 import React from 'react';
 import { Animated, type TextStyle } from 'react-native';
-import { motion, type TypographyVariant } from '@masicn/ui';
-import { Text } from '@/components/ui/Text';
+import { Text, motion, type TypographyVariant } from '@masicn/ui';
 
 interface AnimatedNumberProps {
   /** Target numeric value — the component smoothly animates to this */

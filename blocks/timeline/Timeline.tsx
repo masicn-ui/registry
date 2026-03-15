@@ -3,8 +3,7 @@
 
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
-import { useTheme, spacing, radius, borders, sizes } from '@masicn/ui';
-import { Text } from '@/components/ui/Text';
+import { Text, borders, radius, sizes, spacing, useTheme } from '@masicn/ui';
 
 export interface TimelineItem {
   /** Item title */

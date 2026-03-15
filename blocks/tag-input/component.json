@@ -5,12 +5,23 @@
   "category": "blocks",
   "version": "1.0.0",
   "files": [
-    { "path": "TagInput.tsx", "target": "TagInput.tsx", "type": "component" }
+    {
+      "path": "TagInput.tsx",
+      "target": "TagInput.tsx",
+      "type": "component"
+    }
   ],
   "masicnVersion": ">=1.0.0",
   "peerDependencies": {},
-  "registryDependencies": ["tag", "text-input", "text"],
-  "tags": ["tag", "input", "chips"],
+  "registryDependencies": [
+    "tag",
+    "text-input"
+  ],
+  "tags": [
+    "tag",
+    "input",
+    "chips"
+  ],
   "hasTests": false,
   "hasAccessibility": true
 }

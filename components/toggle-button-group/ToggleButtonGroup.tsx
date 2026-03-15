@@ -2,8 +2,7 @@
 
 import React from 'react';
 import { View, Pressable, StyleSheet } from 'react-native';
-import { useTheme, spacing, radius, sizes, opacity as opacityTokens } from '@masicn/ui';
-import { Text } from '@/components/ui/Text';
+import { Text, opacity as opacityTokens, radius, sizes, spacing, useTheme } from '@masicn/ui';
 
 export interface ToggleButton {
   /** Button label */

@@ -8,9 +8,7 @@ import {
   StyleSheet,
   type ViewStyle,
 } from 'react-native';
-import { useTheme, spacing, radius, borders, typography } from '@masicn/ui';
-import { Text } from '@/components/ui/Text';
-import { Stack } from '@/components/ui/Stack';
+import { Stack, Text, borders, radius, spacing, typography, useTheme } from '@masicn/ui';
 
 export interface DateInputProps {
   /** ISO date string value (YYYY-MM-DD) */

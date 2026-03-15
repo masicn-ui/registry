@@ -5,15 +5,22 @@
   "category": "feedback",
   "version": "1.0.0",
   "files": [
-    { "path": "RightSheet.tsx", "target": "RightSheet.tsx", "type": "component" }
+    {
+      "path": "RightSheet.tsx",
+      "target": "RightSheet.tsx",
+      "type": "component"
+    }
   ],
   "masicnVersion": "^0.1.0",
   "peerDependencies": {
     "react-native-gesture-handler": ">=2.0.0",
     "react-native-reanimated": ">=3.0.0"
   },
-  "registryDependencies": ["text"],
-  "tags": ["overlay", "sheet"],
+  "registryDependencies": [],
+  "tags": [
+    "overlay",
+    "sheet"
+  ],
   "hasTests": false,
   "hasAccessibility": true
 }

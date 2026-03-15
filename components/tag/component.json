@@ -5,12 +5,19 @@
   "category": "core",
   "version": "1.0.0",
   "files": [
-    { "path": "Tag.tsx", "target": "Tag.tsx", "type": "component" }
+    {
+      "path": "Tag.tsx",
+      "target": "Tag.tsx",
+      "type": "component"
+    }
   ],
   "masicnVersion": "^0.1.0",
   "peerDependencies": {},
-  "registryDependencies": ["text"],
-  "tags": ["label", "status"],
+  "registryDependencies": [],
+  "tags": [
+    "label",
+    "status"
+  ],
   "hasTests": false,
   "hasAccessibility": false
 }
