@@ -5,12 +5,19 @@
   "category": "core",
   "version": "1.0.0",
   "files": [
-    { "path": "Chip.tsx", "target": "Chip.tsx", "type": "component" }
+    {
+      "path": "Chip.tsx",
+      "target": "Chip.tsx",
+      "type": "component"
+    }
   ],
   "masicnVersion": "^0.1.0",
   "peerDependencies": {},
-  "registryDependencies": ["text"],
-  "tags": ["interactive", "filter"],
+  "registryDependencies": [],
+  "tags": [
+    "interactive",
+    "filter"
+  ],
   "hasTests": false,
   "hasAccessibility": true
 }

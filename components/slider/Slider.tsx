@@ -7,8 +7,7 @@ import {
   type ViewStyle,
 } from 'react-native';
 import { GestureDetector, Gesture } from 'react-native-gesture-handler';
-import { useTheme, spacing, sizes, borders, radius } from '@masicn/ui';
-import { Text } from '@/components/ui/Text';
+import { Text, borders, radius, sizes, spacing, useTheme } from '@masicn/ui';
 
 interface SliderProps {
   /** Current value */

@@ -2,9 +2,8 @@
 
 import React from 'react';
 import { View, StyleSheet, type ViewStyle } from 'react-native';
-import { useTheme, spacing } from '@masicn/ui';
+import { Text, spacing, useTheme } from '@masicn/ui';
 import { Checkbox } from '@/components/ui/Checkbox';
-import { Text } from '@/components/ui/Text';
 
 export interface CheckboxGroupOption {
   label: string;

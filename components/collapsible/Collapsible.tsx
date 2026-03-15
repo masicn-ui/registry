@@ -2,8 +2,7 @@
 
 import React, { useState } from 'react';
 import { Pressable, View, StyleSheet, LayoutAnimation, Platform, UIManager } from 'react-native';
-import { useTheme, spacing, borders, iconSizes, useReducedMotion } from '@masicn/ui';
-import { Text } from '@/components/ui/Text';
+import { Text, borders, iconSizes, spacing, useReducedMotion, useTheme } from '@masicn/ui';
 
 // Enable LayoutAnimation on Android
 if (Platform.OS === 'android' && UIManager.setLayoutAnimationEnabledExperimental) {

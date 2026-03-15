@@ -8,8 +8,7 @@ import Animated, {
   withSpring,
   withTiming,
 } from 'react-native-reanimated';
-import { useTheme, spacing, radius, sizes, borders, iconSizes, useReducedMotion } from '@masicn/ui';
-import { Text } from '@/components/ui/Text';
+import { Text, borders, iconSizes, radius, sizes, spacing, useReducedMotion, useTheme } from '@masicn/ui';
 
 interface CheckboxProps {
   checked: boolean;

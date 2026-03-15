@@ -9,8 +9,7 @@ import {
   type TextInputProps,
   type ViewStyle,
 } from 'react-native';
-import { useTheme, spacing, radius, borders, sizes, iconSizes, fonts, typography } from '@masicn/ui';
-import { Text } from '@/components/ui/Text';
+import { Text, borders, fonts, iconSizes, radius, sizes, spacing, typography, useTheme } from '@masicn/ui';
 
 interface SearchBarProps extends Omit<TextInputProps, 'style'> {
   /** Current search value */

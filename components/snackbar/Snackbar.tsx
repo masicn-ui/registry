@@ -9,8 +9,7 @@ import {
   Pressable,
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { useTheme, spacing, radius, elevation, motion, Masicn } from '@masicn/ui';
-import { Text } from '@/components/ui/Text';
+import { Masicn, Text, elevation, motion, radius, spacing, useTheme } from '@masicn/ui';
 
 type SnackbarType = 'success' | 'error' | 'warning' | 'info' | 'default';
 type SnackbarPosition = 'top' | 'bottom';

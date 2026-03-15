@@ -2,8 +2,7 @@
 
 import React from 'react';
 import { Pressable, StyleSheet, View } from 'react-native';
-import { useTheme, spacing, borders, opacity as opacityTokens } from '@masicn/ui';
-import { Text } from '@/components/ui/Text';
+import { Text, borders, opacity as opacityTokens, spacing, useTheme } from '@masicn/ui';
 
 interface KeyValueRowProps {
   label: string;

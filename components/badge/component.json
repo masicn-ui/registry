@@ -5,12 +5,18 @@
   "category": "core",
   "version": "1.0.0",
   "files": [
-    { "path": "Badge.tsx", "target": "Badge.tsx", "type": "component" }
+    {
+      "path": "Badge.tsx",
+      "target": "Badge.tsx",
+      "type": "component"
+    }
   ],
   "masicnVersion": "^0.1.0",
   "peerDependencies": {},
-  "registryDependencies": ["text"],
-  "tags": ["status"],
+  "registryDependencies": [],
+  "tags": [
+    "status"
+  ],
   "hasTests": false,
   "hasAccessibility": true
 }

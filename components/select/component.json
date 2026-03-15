@@ -5,12 +5,20 @@
   "category": "form",
   "version": "1.0.0",
   "files": [
-    { "path": "Select.tsx", "target": "Select.tsx", "type": "component" }
+    {
+      "path": "Select.tsx",
+      "target": "Select.tsx",
+      "type": "component"
+    }
   ],
   "masicnVersion": "^0.1.0",
   "peerDependencies": {},
-  "registryDependencies": ["text"],
-  "tags": ["form", "input", "dropdown"],
+  "registryDependencies": [],
+  "tags": [
+    "form",
+    "input",
+    "dropdown"
+  ],
   "hasTests": false,
   "hasAccessibility": true
 }

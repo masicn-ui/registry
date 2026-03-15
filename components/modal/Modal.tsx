@@ -2,14 +2,13 @@
 
 import React, { useImperativeHandle, useState, useCallback } from 'react';
 import { Pressable, StyleSheet, BackHandler, Platform, View } from 'react-native';
-import { Text } from '@/components/ui/Text';
 import Animated, {
   useSharedValue,
   useAnimatedStyle,
   withTiming,
   withSpring,
 } from 'react-native-reanimated';
-import { useTheme, spacing, radius, elevation, layout, motion, useFocusTrap, useReducedMotion } from '@masicn/ui';
+import { Text, elevation, layout, motion, radius, spacing, useFocusTrap, useReducedMotion, useTheme } from '@masicn/ui';
 import { Masicn } from '@masicn/ui';
 
 export interface ModalRef {

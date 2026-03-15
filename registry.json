@@ -3,12 +3,6 @@
   "baseUrl": "https://raw.githubusercontent.com/masicn-ui/registry/master",
   "components": [
     {
-      "name": "text",
-      "version": "1.0.0",
-      "category": "core",
-      "path": "components/text/component.json"
-    },
-    {
       "name": "button",
       "version": "1.0.0",
       "category": "core",
@@ -55,12 +49,6 @@
       "version": "1.0.0",
       "category": "core",
       "path": "components/tag/component.json"
-    },
-    {
-      "name": "divider",
-      "version": "1.0.0",
-      "category": "core",
-      "path": "components/divider/component.json"
     },
     {
       "name": "spinner",

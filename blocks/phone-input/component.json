@@ -5,12 +5,23 @@
   "category": "blocks",
   "version": "1.0.0",
   "files": [
-    { "path": "PhoneInput.tsx", "target": "PhoneInput.tsx", "type": "component" }
+    {
+      "path": "PhoneInput.tsx",
+      "target": "PhoneInput.tsx",
+      "type": "component"
+    }
   ],
   "masicnVersion": ">=1.0.0",
   "peerDependencies": {},
-  "registryDependencies": ["text-input", "select", "text"],
-  "tags": ["phone", "input", "country"],
+  "registryDependencies": [
+    "text-input",
+    "select"
+  ],
+  "tags": [
+    "phone",
+    "input",
+    "country"
+  ],
   "hasTests": false,
   "hasAccessibility": true
 }

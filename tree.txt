@@ -97,9 +97,6 @@
 │   ├── context-menu
 │   │   ├── component.json
 │   │   └── ContextMenu.tsx
-│   ├── divider
-│   │   ├── component.json
-│   │   └── Divider.tsx
 │   ├── fab
 │   │   ├── component.json
 │   │   └── FAB.tsx
@@ -205,9 +202,6 @@
 │   ├── tag
 │   │   ├── component.json
 │   │   └── Tag.tsx
-│   ├── text
-│   │   ├── component.json
-│   │   └── Text.tsx
 │   ├── text-input
 │   │   ├── component.json
 │   │   └── TextInput.tsx
@@ -226,6 +220,8 @@
 ├── package-lock.json
 ├── README.md
 ├── registry.json
+├── schema
+│   └── masicn.json
 └── tree.txt
 
-77 directories, 152 files
+76 directories, 149 files

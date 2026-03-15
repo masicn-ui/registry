@@ -8,8 +8,7 @@ import {
   type NativeSyntheticEvent,
   type TextLayoutEventData,
 } from 'react-native';
-import { spacing, type Typography, type Theme } from '@masicn/ui';
-import { Text } from '@/components/ui/Text';
+import { Text, spacing, type Theme, type Typography } from '@masicn/ui';
 
 type TextVariant = keyof Typography;
 type TextColor = keyof Theme['colors'];

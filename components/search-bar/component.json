@@ -5,12 +5,20 @@
   "category": "navigation",
   "version": "1.0.0",
   "files": [
-    { "path": "SearchBar.tsx", "target": "SearchBar.tsx", "type": "component" }
+    {
+      "path": "SearchBar.tsx",
+      "target": "SearchBar.tsx",
+      "type": "component"
+    }
   ],
   "masicnVersion": "^0.1.0",
   "peerDependencies": {},
-  "registryDependencies": ["text"],
-  "tags": ["navigation", "search", "input"],
+  "registryDependencies": [],
+  "tags": [
+    "navigation",
+    "search",
+    "input"
+  ],
   "hasTests": false,
   "hasAccessibility": false
 }

@@ -5,12 +5,19 @@
   "category": "core",
   "version": "1.0.0",
   "files": [
-    { "path": "Avatar.tsx", "target": "Avatar.tsx", "type": "component" }
+    {
+      "path": "Avatar.tsx",
+      "target": "Avatar.tsx",
+      "type": "component"
+    }
   ],
   "masicnVersion": "^0.1.0",
   "peerDependencies": {},
-  "registryDependencies": ["text"],
-  "tags": ["user", "image"],
+  "registryDependencies": [],
+  "tags": [
+    "user",
+    "image"
+  ],
   "hasTests": false,
   "hasAccessibility": true
 }

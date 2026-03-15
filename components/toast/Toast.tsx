@@ -8,8 +8,7 @@ import {
   Animated,
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { useTheme, spacing, radius, elevation, motion, sizes, useReducedMotion, Masicn } from '@masicn/ui';
-import { Text } from '@/components/ui/Text';
+import { Masicn, Text, elevation, motion, radius, sizes, spacing, useReducedMotion, useTheme } from '@masicn/ui';
 
 type ToastType = 'success' | 'error' | 'warning' | 'info';
 type ToastPosition = 'top' | 'bottom';

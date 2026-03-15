@@ -8,16 +8,7 @@ import {
   Animated,
   Easing,
 } from 'react-native';
-import {
-  useTheme,
-  spacing,
-  sizes,
-  elevation,
-  motion,
-  opacity as opacityTokens,
-  useReducedMotion,
-} from '@masicn/ui';
-import { Text } from '@/components/ui/Text';
+import { Text, elevation, motion, opacity as opacityTokens, sizes, spacing, useReducedMotion, useTheme } from '@masicn/ui';
 
 interface SwitchProps {
   value: boolean;

@@ -5,12 +5,19 @@
   "category": "navigation",
   "version": "1.0.0",
   "files": [
-    { "path": "Tabs.tsx", "target": "Tabs.tsx", "type": "component" }
+    {
+      "path": "Tabs.tsx",
+      "target": "Tabs.tsx",
+      "type": "component"
+    }
   ],
   "masicnVersion": "^0.1.0",
   "peerDependencies": {},
-  "registryDependencies": ["text"],
-  "tags": ["navigation", "tabs"],
+  "registryDependencies": [],
+  "tags": [
+    "navigation",
+    "tabs"
+  ],
   "hasTests": false,
   "hasAccessibility": true
 }

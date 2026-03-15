@@ -5,12 +5,22 @@
   "category": "blocks",
   "version": "1.0.0",
   "files": [
-    { "path": "Pagination.tsx", "target": "Pagination.tsx", "type": "component" }
+    {
+      "path": "Pagination.tsx",
+      "target": "Pagination.tsx",
+      "type": "component"
+    }
   ],
   "masicnVersion": ">=1.0.0",
   "peerDependencies": {},
-  "registryDependencies": ["button", "text"],
-  "tags": ["pagination", "page", "navigation"],
+  "registryDependencies": [
+    "button"
+  ],
+  "tags": [
+    "pagination",
+    "page",
+    "navigation"
+  ],
   "hasTests": false,
   "hasAccessibility": true
 }

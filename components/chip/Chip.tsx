@@ -2,8 +2,7 @@
 
 import React from 'react';
 import { Pressable, View, StyleSheet, type PressableProps } from 'react-native';
-import { useTheme, spacing, radius, borders } from '@masicn/ui';
-import { Text } from '@/components/ui/Text';
+import { Text, borders, radius, spacing, useTheme } from '@masicn/ui';
 
 type ChipVariant = 'filled' | 'outline';
 

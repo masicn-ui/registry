@@ -2,8 +2,7 @@
 
 import React from 'react';
 import { ActivityIndicator, View, StyleSheet, type ViewStyle } from 'react-native';
-import { useTheme, spacing } from '@masicn/ui';
-import { Text } from '@/components/ui/Text';
+import { Text, spacing, useTheme } from '@masicn/ui';
 
 interface SpinnerProps {
   size?: 'small' | 'large';

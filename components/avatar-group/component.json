@@ -5,12 +5,21 @@
   "category": "core",
   "version": "1.0.0",
   "files": [
-    { "path": "AvatarGroup.tsx", "target": "AvatarGroup.tsx", "type": "component" }
+    {
+      "path": "AvatarGroup.tsx",
+      "target": "AvatarGroup.tsx",
+      "type": "component"
+    }
   ],
   "masicnVersion": "^0.1.0",
   "peerDependencies": {},
-  "registryDependencies": ["avatar", "text"],
-  "tags": ["user", "group"],
+  "registryDependencies": [
+    "avatar"
+  ],
+  "tags": [
+    "user",
+    "group"
+  ],
   "hasTests": false,
   "hasAccessibility": false
 }

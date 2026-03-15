@@ -3,9 +3,7 @@
 
 import React from 'react';
 import { View, Pressable, StyleSheet } from 'react-native';
-import { useTheme, spacing, radius, borders } from '@masicn/ui';
-import { Text } from '@/components/ui/Text';
-import { Stack } from '@/components/ui/Stack';
+import { Stack, Text, borders, radius, spacing, useTheme } from '@masicn/ui';
 
 export interface MultiSelectOption {
   label: string;

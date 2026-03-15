@@ -10,8 +10,7 @@ import {
   type ViewStyle,
   type LayoutRectangle,
 } from 'react-native';
-import { useTheme, spacing, radius, elevation, borders, sizes, opacity as opacityTokens } from '@masicn/ui';
-import { Text } from '@/components/ui/Text';
+import { Text, borders, elevation, opacity as opacityTokens, radius, sizes, spacing, useTheme } from '@masicn/ui';
 
 export interface ContextMenuItem {
   /** Menu item label */

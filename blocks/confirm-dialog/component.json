@@ -5,12 +5,24 @@
   "category": "blocks",
   "version": "1.0.0",
   "files": [
-    { "path": "ConfirmDialog.tsx", "target": "ConfirmDialog.tsx", "type": "component" }
+    {
+      "path": "ConfirmDialog.tsx",
+      "target": "ConfirmDialog.tsx",
+      "type": "component"
+    }
   ],
   "masicnVersion": ">=1.0.0",
   "peerDependencies": {},
-  "registryDependencies": ["modal", "button", "text"],
-  "tags": ["dialog", "confirm", "alert", "modal"],
+  "registryDependencies": [
+    "modal",
+    "button"
+  ],
+  "tags": [
+    "dialog",
+    "confirm",
+    "alert",
+    "modal"
+  ],
   "hasTests": false,
   "hasAccessibility": true
 }
