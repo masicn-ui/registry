@@ -26,5 +26,38 @@
     "actions"
   ],
   "hasTests": false,
-  "hasAccessibility": true
+  "hasAccessibility": true,
+  "props": [
+    {
+      "name": "children",
+      "type": "ReactNode",
+      "required": true,
+      "description": "The primary content rendered on top of the swipeable row."
+    },
+    {
+      "name": "leftActions",
+      "type": "SwipeAction[]",
+      "required": false,
+      "description": "Actions revealed when the user swipes right. The first action is triggered when the swipe threshold is exceeded."
+    },
+    {
+      "name": "rightActions",
+      "type": "SwipeAction[]",
+      "required": false,
+      "description": "Actions revealed when the user swipes left. The first action is triggered when the swipe threshold is exceeded."
+    },
+    {
+      "name": "containerStyle",
+      "type": "ViewStyle",
+      "required": false,
+      "description": "Additional style applied to the outer container view."
+    },
+    {
+      "name": "threshold",
+      "type": "number",
+      "default": "80",
+      "required": false,
+      "description": "Swipe distance in pixels required to trigger an action."
+    }
+  ]
 }

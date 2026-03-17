@@ -18,5 +18,38 @@
     "form"
   ],
   "hasTests": false,
-  "hasAccessibility": true
+  "hasAccessibility": true,
+  "props": [
+    {
+      "name": "value",
+      "type": "string",
+      "required": true,
+      "description": "The value this Radio option represents; compared against RadioGroup value to determine selection"
+    },
+    {
+      "name": "label",
+      "type": "string",
+      "required": true,
+      "description": "Primary text label rendered beside the radio button"
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "required": false,
+      "description": "Secondary descriptive text rendered below the label"
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "default": "false",
+      "required": false,
+      "description": "Disables this radio option independently of the group"
+    },
+    {
+      "name": "containerStyle",
+      "type": "ViewStyle",
+      "required": false,
+      "description": "Additional style applied to the radio item container"
+    }
+  ]
 }

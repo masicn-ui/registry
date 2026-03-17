@@ -19,5 +19,97 @@
     "surface"
   ],
   "hasTests": false,
-  "hasAccessibility": false
+  "hasAccessibility": false,
+  "props": [
+    {
+      "name": "variant",
+      "type": "'elevated' | 'filled' | 'outlined'",
+      "default": "elevated",
+      "required": false,
+      "description": "Visual style variant of the card surface"
+    },
+    {
+      "name": "surface",
+      "type": "'primary' | 'secondary' | 'tertiary'",
+      "default": "primary",
+      "required": false,
+      "description": "Background surface color token to use"
+    },
+    {
+      "name": "shadow",
+      "type": "keyof Elevation",
+      "default": "md",
+      "required": false,
+      "description": "Elevation shadow level; only applies to the elevated variant"
+    },
+    {
+      "name": "padding",
+      "type": "'none' | 'sm' | 'md' | 'lg' | 'xl'",
+      "default": "lg",
+      "required": false,
+      "description": "Inner padding applied to the content area"
+    },
+    {
+      "name": "onPress",
+      "type": "() => void",
+      "required": false,
+      "description": "If provided, the card becomes pressable with a Pressable wrapper"
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "default": "false",
+      "required": false,
+      "description": "Disables press interaction and applies disabled opacity"
+    },
+    {
+      "name": "media",
+      "type": "ReactNode",
+      "required": false,
+      "description": "Content rendered above the padding area, typically an image"
+    },
+    {
+      "name": "title",
+      "type": "string",
+      "required": false,
+      "description": "Primary heading text rendered in the content area"
+    },
+    {
+      "name": "subtitle",
+      "type": "string",
+      "required": false,
+      "description": "Secondary heading text rendered below the title"
+    },
+    {
+      "name": "body",
+      "type": "string",
+      "required": false,
+      "description": "Body text with automatic show-more truncation when it exceeds textThreshold"
+    },
+    {
+      "name": "textThreshold",
+      "type": "number",
+      "default": "150",
+      "required": false,
+      "description": "Character count at which body text is truncated with a show-more toggle"
+    },
+    {
+      "name": "children",
+      "type": "ReactNode",
+      "required": false,
+      "description": "Arbitrary content rendered inside the card content area"
+    },
+    {
+      "name": "footer",
+      "type": "ReactNode",
+      "required": false,
+      "description": "Content rendered at the bottom of the card with a separator line"
+    },
+    {
+      "name": "header",
+      "type": "ReactNode",
+      "required": false,
+      "description": "Deprecated. Use title + subtitle or children instead"
+    }
+  ]
 }

@@ -12,5 +12,32 @@
   "registryDependencies": [],
   "tags": ["loading", "placeholder"],
   "hasTests": false,
-  "hasAccessibility": true
+  "hasAccessibility": true,
+  "props": [
+    {
+      "name": "variant",
+      "type": "'text' | 'circular' | 'rectangular' | 'avatar' | 'button' | 'card' | 'listItem' | 'image'",
+      "default": "text",
+      "required": false,
+      "description": "Shape preset of the skeleton placeholder"
+    },
+    {
+      "name": "width",
+      "type": "number | string",
+      "required": false,
+      "description": "Width of the skeleton; accepts numbers or percentage strings. Falls back to variant-specific defaults."
+    },
+    {
+      "name": "height",
+      "type": "number",
+      "required": false,
+      "description": "Height of the skeleton in pixels. Falls back to variant-specific defaults."
+    },
+    {
+      "name": "style",
+      "type": "ViewStyle",
+      "required": false,
+      "description": "Additional style applied to the skeleton view"
+    }
+  ]
 }

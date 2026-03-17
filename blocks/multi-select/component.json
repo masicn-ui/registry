@@ -24,5 +24,62 @@
     "input"
   ],
   "hasTests": false,
-  "hasAccessibility": true
+  "hasAccessibility": true,
+  "props": [
+    {
+      "name": "options",
+      "type": "MultiSelectOption[]",
+      "required": true,
+      "description": "All available options to display. Each option has a label (display text) and value (unique identifier)."
+    },
+    {
+      "name": "value",
+      "type": "string[]",
+      "required": true,
+      "description": "Array of currently selected option values."
+    },
+    {
+      "name": "onValueChange",
+      "type": "(value: string[]) => void",
+      "required": true,
+      "description": "Called with the updated selection array whenever an option is toggled."
+    },
+    {
+      "name": "label",
+      "type": "string",
+      "required": false,
+      "description": "Label text displayed above the option chips."
+    },
+    {
+      "name": "error",
+      "type": "string",
+      "required": false,
+      "description": "Error message displayed below the options; also activates the error colour on the label."
+    },
+    {
+      "name": "helperText",
+      "type": "string",
+      "required": false,
+      "description": "Helper text displayed below the options when there is no error."
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "default": "false",
+      "required": false,
+      "description": "Disables all option chips, preventing selection changes."
+    },
+    {
+      "name": "maxSelect",
+      "type": "number",
+      "required": false,
+      "description": "Maximum number of options that can be selected simultaneously. Unlimited when omitted."
+    },
+    {
+      "name": "renderItem",
+      "type": "(option: MultiSelectOption, selected: boolean, disabled: boolean) => ReactNode",
+      "required": false,
+      "description": "Custom renderer for each option chip. Replaces the default chip UI when provided."
+    }
+  ]
 }

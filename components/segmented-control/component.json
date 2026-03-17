@@ -21,5 +21,32 @@
     "navigation"
   ],
   "hasTests": false,
-  "hasAccessibility": true
+  "hasAccessibility": true,
+  "props": [
+    {
+      "name": "options",
+      "type": "SegmentedControlOption[]",
+      "required": true,
+      "description": "Array of segment options to display."
+    },
+    {
+      "name": "value",
+      "type": "string",
+      "required": true,
+      "description": "The value of the currently selected segment."
+    },
+    {
+      "name": "onChange",
+      "type": "(value: string) => void",
+      "required": true,
+      "description": "Callback fired when the user selects a different segment."
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "default": "false",
+      "required": false,
+      "description": "When true, all segments are non-interactive and the control is visually dimmed."
+    }
+  ]
 }

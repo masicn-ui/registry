@@ -12,5 +12,31 @@
   "registryDependencies": [],
   "tags": ["layout", "scroll"],
   "hasTests": false,
-  "hasAccessibility": false
+  "hasAccessibility": false,
+  "props": [
+    {
+      "name": "children",
+      "type": "ReactNode",
+      "required": true,
+      "description": "Content rendered inside the scroll view."
+    },
+    {
+      "name": "refreshing",
+      "type": "boolean",
+      "required": true,
+      "description": "Whether the refresh indicator is currently showing."
+    },
+    {
+      "name": "onRefresh",
+      "type": "() => void",
+      "required": true,
+      "description": "Callback fired when the user pulls down to refresh."
+    },
+    {
+      "name": "contentContainerStyle",
+      "type": "ViewStyle",
+      "required": false,
+      "description": "Style applied to the scroll view's content container."
+    }
+  ]
 }

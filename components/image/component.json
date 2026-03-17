@@ -12,5 +12,84 @@
   "registryDependencies": [],
   "tags": ["media"],
   "hasTests": false,
-  "hasAccessibility": true
+  "hasAccessibility": true,
+  "props": [
+    {
+      "name": "source",
+      "type": "ImageSourcePropType",
+      "required": true,
+      "description": "Image source — a URI object or local require()."
+    },
+    {
+      "name": "aspectRatio",
+      "type": "'square' | '4:3' | '16:9' | '3:4' | '9:16' | '21:9'",
+      "required": false,
+      "description": "Aspect ratio preset applied to the image container."
+    },
+    {
+      "name": "fit",
+      "type": "'cover' | 'contain' | 'stretch' | 'center'",
+      "default": "cover",
+      "required": false,
+      "description": "How the image fits within its container (maps to resizeMode)."
+    },
+    {
+      "name": "borderRadius",
+      "type": "keyof typeof radius",
+      "required": false,
+      "description": "Border radius preset from the theme radius tokens."
+    },
+    {
+      "name": "size",
+      "type": "'thumbnail' | 'small' | 'medium' | 'large' | 'full'",
+      "required": false,
+      "description": "Size preset controlling the width and height of the image."
+    },
+    {
+      "name": "showLoader",
+      "type": "boolean",
+      "default": "true",
+      "required": false,
+      "description": "When true, displays an activity indicator while the image is loading."
+    },
+    {
+      "name": "fallback",
+      "type": "ReactNode",
+      "required": false,
+      "description": "Custom component rendered when the image fails to load."
+    },
+    {
+      "name": "errorMessage",
+      "type": "string",
+      "default": "Failed to load image",
+      "required": false,
+      "description": "Error text shown when the image fails to load and no fallback is provided."
+    },
+    {
+      "name": "containerStyle",
+      "type": "ViewStyle",
+      "required": false,
+      "description": "Additional style applied to the image container."
+    },
+    {
+      "name": "overlay",
+      "type": "boolean",
+      "default": "false",
+      "required": false,
+      "description": "When true, renders a gradient overlay on top of the image."
+    },
+    {
+      "name": "overlayColors",
+      "type": "[string, string]",
+      "required": false,
+      "description": "Tuple of [from, to] colors for the overlay gradient."
+    },
+    {
+      "name": "enablePreview",
+      "type": "boolean",
+      "default": "false",
+      "required": false,
+      "description": "When true, a long-press opens a full-screen preview; releasing dismisses it."
+    }
+  ]
 }

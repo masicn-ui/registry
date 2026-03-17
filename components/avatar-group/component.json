@@ -21,5 +21,34 @@
     "group"
   ],
   "hasTests": false,
-  "hasAccessibility": false
+  "hasAccessibility": false,
+  "props": [
+    {
+      "name": "avatars",
+      "type": "AvatarGroupItem[]",
+      "required": true,
+      "description": "Array of avatar data objects, each with optional source, initials, and color"
+    },
+    {
+      "name": "max",
+      "type": "number",
+      "default": "4",
+      "required": false,
+      "description": "Maximum number of avatars to display before showing the +N overflow indicator"
+    },
+    {
+      "name": "size",
+      "type": "'sm' | 'md' | 'lg'",
+      "default": "md",
+      "required": false,
+      "description": "Size preset passed to each Avatar in the group"
+    },
+    {
+      "name": "overlap",
+      "type": "number",
+      "default": "8",
+      "required": false,
+      "description": "Pixel amount each avatar overlaps the previous one"
+    }
+  ]
 }

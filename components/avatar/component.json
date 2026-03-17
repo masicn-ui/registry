@@ -19,5 +19,45 @@
     "image"
   ],
   "hasTests": false,
-  "hasAccessibility": true
+  "hasAccessibility": true,
+  "props": [
+    {
+      "name": "source",
+      "type": "ImageSourcePropType",
+      "required": false,
+      "description": "Image source for the avatar photo; falls back to initials or fallback if omitted or fails to load"
+    },
+    {
+      "name": "initials",
+      "type": "string",
+      "required": false,
+      "description": "Text initials displayed when no image is available"
+    },
+    {
+      "name": "size",
+      "type": "'sm' | 'md' | 'lg'",
+      "default": "md",
+      "required": false,
+      "description": "Size preset controlling the avatar diameter"
+    },
+    {
+      "name": "color",
+      "type": "'primary' | 'secondary' | 'tertiary' | 'accent'",
+      "default": "primary",
+      "required": false,
+      "description": "Background color token used for the initials/fallback circle"
+    },
+    {
+      "name": "fallback",
+      "type": "string | ReactNode",
+      "required": false,
+      "description": "Custom fallback content; string shows as text, ReactNode renders directly"
+    },
+    {
+      "name": "badge",
+      "type": "ReactNode",
+      "required": false,
+      "description": "Optional badge content positioned at the bottom-right of the avatar"
+    }
+  ]
 }

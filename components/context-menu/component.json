@@ -20,5 +20,31 @@
     "overlay"
   ],
   "hasTests": false,
-  "hasAccessibility": false
+  "hasAccessibility": false,
+  "props": [
+    {
+      "name": "items",
+      "type": "ContextMenuItem[]",
+      "required": true,
+      "description": "Array of context menu item definitions to display."
+    },
+    {
+      "name": "onSelect",
+      "type": "(value: string) => void",
+      "required": true,
+      "description": "Callback fired when the user selects a menu item."
+    },
+    {
+      "name": "children",
+      "type": "ReactElement",
+      "required": true,
+      "description": "Trigger element that opens the menu on long-press."
+    },
+    {
+      "name": "menuStyle",
+      "type": "ViewStyle",
+      "required": false,
+      "description": "Additional style applied to the floating menu container."
+    }
+  ]
 }

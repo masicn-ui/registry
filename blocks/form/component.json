@@ -23,5 +23,37 @@
     "validation"
   ],
   "hasTests": false,
-  "hasAccessibility": true
+  "hasAccessibility": true,
+  "props": [
+    {
+      "name": "initialValues",
+      "type": "Record<string, unknown>",
+      "required": false,
+      "description": "Initial values for all form fields. Keys should match the field names used in Form.Field."
+    },
+    {
+      "name": "validations",
+      "type": "FieldValidation[]",
+      "required": false,
+      "description": "Array of field validation rules. Each entry has a field name and a validate function returning an error string or undefined."
+    },
+    {
+      "name": "onSubmit",
+      "type": "(values: TValues) => void | Promise<void>",
+      "required": true,
+      "description": "Called with the typed form values object when the form passes validation and is submitted."
+    },
+    {
+      "name": "onError",
+      "type": "(errors: Record<string, string>) => void",
+      "required": false,
+      "description": "Called with the validation error map when form submission fails validation."
+    },
+    {
+      "name": "children",
+      "type": "ReactNode | ((props: { handleSubmit: () => Promise<void> }) => ReactNode)",
+      "required": true,
+      "description": "Form content. Can be static ReactNode or a render function that receives handleSubmit to trigger form submission."
+    }
+  ]
 }

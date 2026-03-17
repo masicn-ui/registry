@@ -24,5 +24,63 @@
     "picker"
   ],
   "hasTests": false,
-  "hasAccessibility": true
+  "hasAccessibility": true,
+  "props": [
+    {
+      "name": "value",
+      "type": "string",
+      "required": false,
+      "description": "Controlled ISO date string value in YYYY-MM-DD format."
+    },
+    {
+      "name": "onValueChange",
+      "type": "(value: string) => void",
+      "required": false,
+      "description": "Called with an ISO YYYY-MM-DD date string once the user has typed a complete valid date."
+    },
+    {
+      "name": "label",
+      "type": "string",
+      "required": false,
+      "description": "Label text displayed above the input field."
+    },
+    {
+      "name": "placeholder",
+      "type": "string",
+      "default": "DD/MM/YYYY",
+      "required": false,
+      "description": "Placeholder text shown when the input is empty."
+    },
+    {
+      "name": "error",
+      "type": "string",
+      "required": false,
+      "description": "Error message displayed below the field; also activates the error colour state."
+    },
+    {
+      "name": "helperText",
+      "type": "string",
+      "required": false,
+      "description": "Helper text displayed below the field when there is no error."
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "default": "false",
+      "required": false,
+      "description": "Disables the input field, preventing user interaction."
+    },
+    {
+      "name": "containerStyle",
+      "type": "ViewStyle",
+      "required": false,
+      "description": "Style applied to the outer container wrapping the label, input, and helper text."
+    },
+    {
+      "name": "testID",
+      "type": "string",
+      "required": false,
+      "description": "Stable test identifier passed to the underlying TextInput for automated testing."
+    }
+  ]
 }

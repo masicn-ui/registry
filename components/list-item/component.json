@@ -20,5 +20,38 @@
     "row"
   ],
   "hasTests": false,
-  "hasAccessibility": false
+  "hasAccessibility": false,
+  "props": [
+    {
+      "name": "title",
+      "type": "string",
+      "required": true,
+      "description": "Primary label text of the list item."
+    },
+    {
+      "name": "subtitle",
+      "type": "string",
+      "required": false,
+      "description": "Optional secondary description text displayed below the title."
+    },
+    {
+      "name": "leading",
+      "type": "ReactNode",
+      "required": false,
+      "description": "Optional element rendered on the left side (e.g. icon, avatar)."
+    },
+    {
+      "name": "trailing",
+      "type": "ReactNode",
+      "required": false,
+      "description": "Optional element rendered on the right side (e.g. chevron, switch, badge). Defaults to a chevron."
+    },
+    {
+      "name": "separator",
+      "type": "boolean",
+      "default": "false",
+      "required": false,
+      "description": "When true, renders a hairline separator below the row."
+    }
+  ]
 }

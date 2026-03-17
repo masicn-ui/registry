@@ -18,5 +18,32 @@
     "loading"
   ],
   "hasTests": false,
-  "hasAccessibility": false
+  "hasAccessibility": false,
+  "props": [
+    {
+      "name": "size",
+      "type": "'small' | 'large'",
+      "default": "large",
+      "required": false,
+      "description": "Size of the activity indicator"
+    },
+    {
+      "name": "label",
+      "type": "string",
+      "required": false,
+      "description": "Optional text label displayed below the spinner"
+    },
+    {
+      "name": "color",
+      "type": "string",
+      "required": false,
+      "description": "Color of the spinner; defaults to the primary theme color"
+    },
+    {
+      "name": "style",
+      "type": "ViewStyle",
+      "required": false,
+      "description": "Additional style applied to the container or the ActivityIndicator"
+    }
+  ]
 }

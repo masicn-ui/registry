@@ -22,5 +22,51 @@
     "sheet"
   ],
   "hasTests": false,
-  "hasAccessibility": true
+  "hasAccessibility": true,
+  "props": [
+    {
+      "name": "onClose",
+      "type": "() => void",
+      "required": true,
+      "description": "Callback invoked when the sheet is dismissed via drag, backdrop press, or Android back"
+    },
+    {
+      "name": "children",
+      "type": "ReactNode",
+      "required": true,
+      "description": "Content rendered inside the bottom sheet"
+    },
+    {
+      "name": "visible",
+      "type": "boolean",
+      "required": false,
+      "description": "Controlled visibility; when omitted the sheet manages its own state via the ref API"
+    },
+    {
+      "name": "maxHeight",
+      "type": "number",
+      "default": "0.8",
+      "required": false,
+      "description": "Maximum sheet height as a fraction of the screen height (0–1)"
+    },
+    {
+      "name": "showHandle",
+      "type": "boolean",
+      "default": "true",
+      "required": false,
+      "description": "Whether to show the drag handle indicator at the top of the sheet"
+    },
+    {
+      "name": "style",
+      "type": "ViewStyle",
+      "required": false,
+      "description": "Additional style applied to the sheet container"
+    },
+    {
+      "name": "accessibilityLabel",
+      "type": "string",
+      "required": false,
+      "description": "Accessibility label for the sheet; defaults to 'Bottom sheet'"
+    }
+  ]
 }

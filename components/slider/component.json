@@ -15,5 +15,66 @@
   "registryDependencies": [],
   "tags": ["form"],
   "hasTests": false,
-  "hasAccessibility": true
+  "hasAccessibility": true,
+  "props": [
+    {
+      "name": "value",
+      "type": "number",
+      "required": true,
+      "description": "Current value of the slider."
+    },
+    {
+      "name": "onValueChange",
+      "type": "(value: number) => void",
+      "required": true,
+      "description": "Callback fired as the user drags the slider thumb."
+    },
+    {
+      "name": "minimumValue",
+      "type": "number",
+      "default": "0",
+      "required": false,
+      "description": "Minimum allowed value."
+    },
+    {
+      "name": "maximumValue",
+      "type": "number",
+      "default": "100",
+      "required": false,
+      "description": "Maximum allowed value."
+    },
+    {
+      "name": "step",
+      "type": "number",
+      "default": "1",
+      "required": false,
+      "description": "Increment step size when dragging or using accessibility actions."
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "default": "false",
+      "required": false,
+      "description": "When true, the slider is non-interactive and visually dimmed."
+    },
+    {
+      "name": "showValue",
+      "type": "boolean",
+      "default": "false",
+      "required": false,
+      "description": "When true, displays the current numeric value above the track."
+    },
+    {
+      "name": "label",
+      "type": "string",
+      "required": false,
+      "description": "Optional text label displayed above the slider track."
+    },
+    {
+      "name": "containerStyle",
+      "type": "ViewStyle",
+      "required": false,
+      "description": "Additional style applied to the outer container."
+    }
+  ]
 }

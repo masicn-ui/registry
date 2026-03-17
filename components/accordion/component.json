@@ -22,5 +22,26 @@
     "disclosure"
   ],
   "hasTests": false,
-  "hasAccessibility": true
+  "hasAccessibility": true,
+  "props": [
+    {
+      "name": "children",
+      "type": "ReactNode",
+      "required": true,
+      "description": "AccordionItem elements to render inside the accordion group."
+    },
+    {
+      "name": "containerStyle",
+      "type": "ViewStyle",
+      "required": false,
+      "description": "Additional style applied to the outer accordion container."
+    },
+    {
+      "name": "allowMultiple",
+      "type": "boolean",
+      "default": "false",
+      "required": false,
+      "description": "When true, multiple accordion items can be expanded simultaneously."
+    }
+  ]
 }

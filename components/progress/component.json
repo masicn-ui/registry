@@ -12,5 +12,59 @@
   "registryDependencies": [],
   "tags": ["feedback"],
   "hasTests": false,
-  "hasAccessibility": true
+  "hasAccessibility": true,
+  "props": [
+    {
+      "name": "value",
+      "type": "number",
+      "required": true,
+      "description": "Progress value from 0 to 100"
+    },
+    {
+      "name": "variant",
+      "type": "'linear' | 'circular'",
+      "default": "linear",
+      "required": false,
+      "description": "Shape variant of the progress indicator"
+    },
+    {
+      "name": "showValue",
+      "type": "boolean",
+      "default": "false",
+      "required": false,
+      "description": "Whether to display the numeric percentage value"
+    },
+    {
+      "name": "label",
+      "type": "string",
+      "required": false,
+      "description": "Text label displayed above the linear progress bar"
+    },
+    {
+      "name": "height",
+      "type": "number",
+      "required": false,
+      "description": "Height of the linear progress track in pixels; defaults to theme size token"
+    },
+    {
+      "name": "size",
+      "type": "number",
+      "default": "48",
+      "required": false,
+      "description": "Diameter of the circular progress indicator in pixels"
+    },
+    {
+      "name": "indeterminate",
+      "type": "boolean",
+      "default": "false",
+      "required": false,
+      "description": "When true, shows an animated indeterminate sweep instead of a fixed fill"
+    },
+    {
+      "name": "containerStyle",
+      "type": "ViewStyle",
+      "required": false,
+      "description": "Additional style applied to the outer container"
+    }
+  ]
 }

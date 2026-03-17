@@ -12,5 +12,37 @@
   "registryDependencies": [],
   "tags": ["layout", "list"],
   "hasTests": false,
-  "hasAccessibility": false
+  "hasAccessibility": false,
+  "props": [
+    {
+      "name": "data",
+      "type": "T[]",
+      "required": true,
+      "description": "Array of data items to render in the list."
+    },
+    {
+      "name": "renderItem",
+      "type": "FlatListProps<T>['renderItem']",
+      "required": true,
+      "description": "Function that renders each list item."
+    },
+    {
+      "name": "keyExtractor",
+      "type": "FlatListProps<T>['keyExtractor']",
+      "required": true,
+      "description": "Function that returns a unique key for each item."
+    },
+    {
+      "name": "refreshing",
+      "type": "boolean",
+      "required": true,
+      "description": "Whether the refresh indicator is currently showing."
+    },
+    {
+      "name": "onRefresh",
+      "type": "() => void",
+      "required": true,
+      "description": "Callback fired when the user pulls down to refresh."
+    }
+  ]
 }
