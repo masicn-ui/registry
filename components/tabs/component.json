@@ -19,5 +19,64 @@
     "tabs"
   ],
   "hasTests": false,
-  "hasAccessibility": true
+  "hasAccessibility": true,
+  "props": [
+    {
+      "name": "tabs",
+      "type": "TabItem[]",
+      "required": true,
+      "description": "Array of tab definitions to render."
+    },
+    {
+      "name": "activeTab",
+      "type": "string",
+      "required": true,
+      "description": "The key of the currently active tab."
+    },
+    {
+      "name": "onTabChange",
+      "type": "(key: string) => void",
+      "required": true,
+      "description": "Callback fired when the user taps a different tab."
+    },
+    {
+      "name": "variant",
+      "type": "'underline' | 'filled' | 'pill'",
+      "default": "underline",
+      "required": false,
+      "description": "Visual style variant of the tab bar."
+    },
+    {
+      "name": "scrollable",
+      "type": "boolean",
+      "default": "false",
+      "required": false,
+      "description": "When true, the tab bar scrolls horizontally to accommodate many tabs."
+    },
+    {
+      "name": "style",
+      "type": "ViewStyle",
+      "required": false,
+      "description": "Additional style applied to the tab bar container."
+    },
+    {
+      "name": "accessibilityLabel",
+      "type": "string",
+      "required": false,
+      "description": "Accessibility label for the tab list region."
+    },
+    {
+      "name": "textThreshold",
+      "type": "number",
+      "default": "150",
+      "required": false,
+      "description": "Maximum character count before tab body text is truncated with a show-more toggle."
+    },
+    {
+      "name": "panelStyle",
+      "type": "ViewStyle",
+      "required": false,
+      "description": "Style applied to the content panel area rendered below the tab bar."
+    }
+  ]
 }

@@ -18,5 +18,46 @@
     "display"
   ],
   "hasTests": false,
-  "hasAccessibility": false
+  "hasAccessibility": false,
+  "props": [
+    {
+      "name": "label",
+      "type": "string",
+      "required": true,
+      "description": "The key/label text displayed on the left."
+    },
+    {
+      "name": "value",
+      "type": "string",
+      "required": true,
+      "description": "The value text displayed on the right."
+    },
+    {
+      "name": "onPress",
+      "type": "() => void",
+      "required": false,
+      "description": "Optional press handler; when provided the row becomes pressable (e.g. copy to clipboard)."
+    },
+    {
+      "name": "feedbackLabel",
+      "type": "string",
+      "default": "Copied!",
+      "required": false,
+      "description": "Brief feedback text shown in place of the value after press."
+    },
+    {
+      "name": "valueAlign",
+      "type": "'left' | 'right'",
+      "default": "right",
+      "required": false,
+      "description": "Text alignment of the value."
+    },
+    {
+      "name": "separator",
+      "type": "boolean",
+      "default": "false",
+      "required": false,
+      "description": "When true, renders a hairline separator below the row."
+    }
+  ]
 }

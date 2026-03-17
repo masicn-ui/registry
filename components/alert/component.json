@@ -21,5 +21,50 @@
     "status"
   ],
   "hasTests": false,
-  "hasAccessibility": true
+  "hasAccessibility": true,
+  "props": [
+    {
+      "name": "variant",
+      "type": "'success' | 'error' | 'warning' | 'info'",
+      "required": true,
+      "description": "Semantic color variant of the alert banner"
+    },
+    {
+      "name": "title",
+      "type": "string",
+      "required": true,
+      "description": "Primary heading text of the alert"
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "required": false,
+      "description": "Secondary body text displayed below the title"
+    },
+    {
+      "name": "dismissible",
+      "type": "boolean",
+      "default": "false",
+      "required": false,
+      "description": "When true, renders a dismiss (✕) button"
+    },
+    {
+      "name": "onDismiss",
+      "type": "() => void",
+      "required": false,
+      "description": "Callback invoked when the dismiss button is pressed; requires dismissible to be true"
+    },
+    {
+      "name": "containerStyle",
+      "type": "ViewStyle",
+      "required": false,
+      "description": "Additional style applied to the alert container"
+    },
+    {
+      "name": "icon",
+      "type": "string",
+      "required": false,
+      "description": "Custom icon string overriding the default variant icon"
+    }
+  ]
 }

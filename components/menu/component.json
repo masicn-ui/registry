@@ -19,5 +19,37 @@
     "navigation"
   ],
   "hasTests": false,
-  "hasAccessibility": true
+  "hasAccessibility": true,
+  "props": [
+    {
+      "name": "items",
+      "type": "MenuItem[]",
+      "required": true,
+      "description": "Array of menu item definitions to display."
+    },
+    {
+      "name": "onSelect",
+      "type": "(value: string) => void",
+      "required": true,
+      "description": "Callback fired when the user selects a menu item."
+    },
+    {
+      "name": "children",
+      "type": "ReactElement",
+      "required": true,
+      "description": "Trigger element that opens the menu when pressed."
+    },
+    {
+      "name": "title",
+      "type": "string",
+      "required": false,
+      "description": "Optional title displayed at the top of the menu."
+    },
+    {
+      "name": "containerStyle",
+      "type": "ViewStyle",
+      "required": false,
+      "description": "Additional style applied to the trigger wrapper container."
+    }
+  ]
 }

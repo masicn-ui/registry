@@ -19,5 +19,48 @@
     "typography"
   ],
   "hasTests": false,
-  "hasAccessibility": false
+  "hasAccessibility": false,
+  "props": [
+    {
+      "name": "children",
+      "type": "string",
+      "required": true,
+      "description": "The text content to display with optional truncation."
+    },
+    {
+      "name": "numberOfLines",
+      "type": "number",
+      "default": "3",
+      "required": false,
+      "description": "Number of visible lines before truncation occurs."
+    },
+    {
+      "name": "variant",
+      "type": "TextVariant",
+      "default": "body",
+      "required": false,
+      "description": "Typography variant used to render the text."
+    },
+    {
+      "name": "color",
+      "type": "TextColor",
+      "default": "textPrimary",
+      "required": false,
+      "description": "Color token applied to the text."
+    },
+    {
+      "name": "expandLabel",
+      "type": "string",
+      "default": "Read more",
+      "required": false,
+      "description": "Label of the toggle button when the text is collapsed."
+    },
+    {
+      "name": "collapseLabel",
+      "type": "string",
+      "default": "Show less",
+      "required": false,
+      "description": "Label of the toggle button when the text is expanded."
+    }
+  ]
 }

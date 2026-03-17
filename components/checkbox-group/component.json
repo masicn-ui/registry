@@ -20,5 +20,56 @@
     "form"
   ],
   "hasTests": false,
-  "hasAccessibility": true
+  "hasAccessibility": true,
+  "props": [
+    {
+      "name": "options",
+      "type": "CheckboxGroupOption[]",
+      "required": true,
+      "description": "Array of option objects, each with label, value, and optional description and disabled"
+    },
+    {
+      "name": "value",
+      "type": "string[]",
+      "required": true,
+      "description": "Array of currently selected option values"
+    },
+    {
+      "name": "onValueChange",
+      "type": "(value: string[]) => void",
+      "required": true,
+      "description": "Callback invoked with the updated selection array when an option is toggled"
+    },
+    {
+      "name": "label",
+      "type": "string",
+      "required": false,
+      "description": "Group label rendered above the checkboxes"
+    },
+    {
+      "name": "error",
+      "type": "string",
+      "required": false,
+      "description": "Error message rendered below the group; also changes the label color"
+    },
+    {
+      "name": "helperText",
+      "type": "string",
+      "required": false,
+      "description": "Helper text rendered below the group; hidden when an error is present"
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "default": "false",
+      "required": false,
+      "description": "Disables all checkboxes in the group"
+    },
+    {
+      "name": "containerStyle",
+      "type": "ViewStyle",
+      "required": false,
+      "description": "Additional style applied to the outer container"
+    }
+  ]
 }

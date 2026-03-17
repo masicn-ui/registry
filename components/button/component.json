@@ -19,5 +19,71 @@
     "pressable"
   ],
   "hasTests": false,
-  "hasAccessibility": true
+  "hasAccessibility": true,
+  "props": [
+    {
+      "name": "children",
+      "type": "ReactNode",
+      "required": false,
+      "description": "Button content — supports text, icons, or any composition"
+    },
+    {
+      "name": "variant",
+      "type": "'primary' | 'secondary' | 'tertiary' | 'outline' | 'ghost' | 'destructive'",
+      "default": "primary",
+      "required": false,
+      "description": "Visual style variant of the button"
+    },
+    {
+      "name": "size",
+      "type": "'sm' | 'md' | 'lg'",
+      "default": "md",
+      "required": false,
+      "description": "Size preset controlling padding and minimum height"
+    },
+    {
+      "name": "loading",
+      "type": "boolean",
+      "default": "false",
+      "required": false,
+      "description": "Shows a loading spinner and disables user interaction"
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "default": "false",
+      "required": false,
+      "description": "Disables the button and applies disabled styling"
+    },
+    {
+      "name": "leftIcon",
+      "type": "ReactNode",
+      "required": false,
+      "description": "Icon rendered before the button label"
+    },
+    {
+      "name": "rightIcon",
+      "type": "ReactNode",
+      "required": false,
+      "description": "Icon rendered after the button label"
+    },
+    {
+      "name": "containerStyle",
+      "type": "ViewStyle",
+      "required": false,
+      "description": "Additional style applied to the outer Pressable container"
+    },
+    {
+      "name": "accessibilityLabel",
+      "type": "string",
+      "required": false,
+      "description": "Accessibility label; defaults to string children when omitted"
+    },
+    {
+      "name": "accessibilityHint",
+      "type": "string",
+      "required": false,
+      "description": "Accessibility hint describing the result of pressing the button"
+    }
+  ]
 }

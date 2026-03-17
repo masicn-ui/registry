@@ -10,5 +10,20 @@
   "registryDependencies": [],
   "tags": ["feedback", "notification", "portal"],
   "hasTests": false,
-  "hasAccessibility": true
+  "hasAccessibility": true,
+  "props": [
+    {
+      "name": "children",
+      "type": "ReactNode",
+      "required": true,
+      "description": "App content wrapped by the provider; toasts render above it via a portal"
+    },
+    {
+      "name": "defaultPosition",
+      "type": "'top' | 'bottom'",
+      "default": "top",
+      "required": false,
+      "description": "Default screen edge where toasts appear when no per-call position is specified"
+    }
+  ]
 }

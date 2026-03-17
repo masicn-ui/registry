@@ -14,5 +14,27 @@
   "registryDependencies": [],
   "tags": ["status", "indicator", "presence"],
   "hasTests": false,
-  "hasAccessibility": true
+  "hasAccessibility": true,
+  "props": [
+    {
+      "name": "status",
+      "type": "'online' | 'away' | 'busy' | 'offline'",
+      "required": true,
+      "description": "The presence status to display."
+    },
+    {
+      "name": "size",
+      "type": "'sm' | 'md' | 'lg'",
+      "default": "md",
+      "required": false,
+      "description": "Diameter preset of the dot."
+    },
+    {
+      "name": "pulse",
+      "type": "boolean",
+      "default": "false",
+      "required": false,
+      "description": "When true, shows an animated ripple ring; only active for the online status."
+    }
+  ]
 }

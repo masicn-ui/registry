@@ -22,5 +22,60 @@
     "floating"
   ],
   "hasTests": false,
-  "hasAccessibility": true
+  "hasAccessibility": true,
+  "props": [
+    {
+      "name": "onPress",
+      "type": "() => void",
+      "required": true,
+      "description": "Handler called when the FAB is pressed."
+    },
+    {
+      "name": "icon",
+      "type": "string",
+      "default": "+",
+      "required": false,
+      "description": "Icon character (emoji or unicode) displayed inside the button."
+    },
+    {
+      "name": "label",
+      "type": "string",
+      "required": false,
+      "description": "Text label shown alongside the icon in extended variant, and used as accessibility label."
+    },
+    {
+      "name": "size",
+      "type": "'small' | 'medium' | 'large'",
+      "default": "medium",
+      "required": false,
+      "description": "Size preset controlling the diameter of the circular button."
+    },
+    {
+      "name": "position",
+      "type": "'bottom-right' | 'bottom-left' | 'bottom-center' | 'top-right' | 'top-left'",
+      "default": "bottom-right",
+      "required": false,
+      "description": "Absolute position on the screen, respecting safe-area insets."
+    },
+    {
+      "name": "variant",
+      "type": "'circular' | 'extended'",
+      "default": "circular",
+      "required": false,
+      "description": "Shape variant — circular shows only the icon; extended adds a text label."
+    },
+    {
+      "name": "style",
+      "type": "ViewStyle",
+      "required": false,
+      "description": "Additional style applied to the button."
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "default": "false",
+      "required": false,
+      "description": "When true, the button is non-interactive and uses a disabled background color."
+    }
+  ]
 }

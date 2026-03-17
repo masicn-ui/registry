@@ -23,5 +23,94 @@
     "country"
   ],
   "hasTests": false,
-  "hasAccessibility": true
+  "hasAccessibility": true,
+  "props": [
+    {
+      "name": "value",
+      "type": "string",
+      "required": true,
+      "description": "Phone number digits only — no country code prefix."
+    },
+    {
+      "name": "onValueChange",
+      "type": "(value: string) => void",
+      "required": true,
+      "description": "Called with updated phone digit string whenever the input changes."
+    },
+    {
+      "name": "countries",
+      "type": "CountryOption[]",
+      "required": false,
+      "description": "Rich country list with dialCode and optional name. Preferred over countryCodes. Shows a picker when more than one entry is provided."
+    },
+    {
+      "name": "countryCodes",
+      "type": "string[]",
+      "required": false,
+      "description": "Simple list of dial code strings (e.g. ['+1', '+44']). Used when countries is not provided."
+    },
+    {
+      "name": "dialCode",
+      "type": "string",
+      "required": false,
+      "description": "Currently selected dial code (controlled). Defaults to the first entry in the country list."
+    },
+    {
+      "name": "onDialCodeChange",
+      "type": "(code: string) => void",
+      "required": false,
+      "description": "Called when the user selects a different dial code from the picker."
+    },
+    {
+      "name": "maxDigits",
+      "type": "number",
+      "default": "10",
+      "required": false,
+      "description": "Maximum number of phone number digits the user can enter."
+    },
+    {
+      "name": "label",
+      "type": "string",
+      "required": false,
+      "description": "Label text displayed above the input."
+    },
+    {
+      "name": "placeholder",
+      "type": "string",
+      "default": "Enter phone number",
+      "required": false,
+      "description": "Placeholder text shown inside the phone number field."
+    },
+    {
+      "name": "error",
+      "type": "string",
+      "required": false,
+      "description": "Error message displayed below the field; also activates the error border colour."
+    },
+    {
+      "name": "helperText",
+      "type": "string",
+      "required": false,
+      "description": "Helper text displayed below the field when there is no error."
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "default": "false",
+      "required": false,
+      "description": "Disables all interaction including the dial code picker and phone number field."
+    },
+    {
+      "name": "containerStyle",
+      "type": "ViewStyle",
+      "required": false,
+      "description": "Style applied to the outer container."
+    },
+    {
+      "name": "testID",
+      "type": "string",
+      "required": false,
+      "description": "Stable test identifier passed to the underlying TextInput for automated testing."
+    }
+  ]
 }

@@ -10,5 +10,20 @@
   "registryDependencies": [],
   "tags": ["feedback", "notification", "portal"],
   "hasTests": false,
-  "hasAccessibility": true
+  "hasAccessibility": true,
+  "props": [
+    {
+      "name": "children",
+      "type": "ReactNode",
+      "required": true,
+      "description": "App content wrapped by the provider; snackbars render above it via a portal"
+    },
+    {
+      "name": "defaultPosition",
+      "type": "'top' | 'bottom'",
+      "default": "bottom",
+      "required": false,
+      "description": "Default screen edge where snackbars appear when no per-call position is specified"
+    }
+  ]
 }

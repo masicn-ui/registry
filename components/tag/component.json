@@ -19,5 +19,40 @@
     "status"
   ],
   "hasTests": false,
-  "hasAccessibility": false
+  "hasAccessibility": false,
+  "props": [
+    {
+      "name": "label",
+      "type": "string",
+      "required": true,
+      "description": "Text content of the tag"
+    },
+    {
+      "name": "variant",
+      "type": "'default' | 'success' | 'warning' | 'error' | 'info'",
+      "default": "default",
+      "required": false,
+      "description": "Semantic color variant controlling background, text, and border colors"
+    },
+    {
+      "name": "size",
+      "type": "'sm' | 'md' | 'lg'",
+      "default": "md",
+      "required": false,
+      "description": "Size preset controlling padding and text variant"
+    },
+    {
+      "name": "removable",
+      "type": "boolean",
+      "default": "false",
+      "required": false,
+      "description": "Whether to display a remove (✕) button inside the tag"
+    },
+    {
+      "name": "onRemove",
+      "type": "() => void",
+      "required": false,
+      "description": "Callback invoked when the remove button is pressed"
+    }
+  ]
 }

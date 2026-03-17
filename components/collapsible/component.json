@@ -20,5 +20,44 @@
     "navigation"
   ],
   "hasTests": false,
-  "hasAccessibility": false
+  "hasAccessibility": false,
+  "props": [
+    {
+      "name": "title",
+      "type": "string",
+      "required": true,
+      "description": "Header text displayed in the pressable toggle row."
+    },
+    {
+      "name": "children",
+      "type": "ReactNode",
+      "required": true,
+      "description": "Content revealed when the collapsible is expanded."
+    },
+    {
+      "name": "defaultOpen",
+      "type": "boolean",
+      "default": "false",
+      "required": false,
+      "description": "Initial open state for uncontrolled usage."
+    },
+    {
+      "name": "open",
+      "type": "boolean",
+      "required": false,
+      "description": "Controlled open state; when provided the component is fully controlled."
+    },
+    {
+      "name": "onToggle",
+      "type": "(open: boolean) => void",
+      "required": false,
+      "description": "Callback fired when the header is pressed, receives the new open state."
+    },
+    {
+      "name": "icon",
+      "type": "ReactNode",
+      "required": false,
+      "description": "Custom element to replace the default chevron icon in the header."
+    }
+  ]
 }

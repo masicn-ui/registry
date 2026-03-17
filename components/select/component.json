@@ -20,5 +20,95 @@
     "dropdown"
   ],
   "hasTests": false,
-  "hasAccessibility": true
+  "hasAccessibility": true,
+  "props": [
+    {
+      "name": "value",
+      "type": "string",
+      "required": true,
+      "description": "The currently selected option value."
+    },
+    {
+      "name": "onValueChange",
+      "type": "(value: string) => void",
+      "required": true,
+      "description": "Callback fired when the user selects a different option."
+    },
+    {
+      "name": "options",
+      "type": "SelectOption[]",
+      "required": true,
+      "description": "Array of options to display in the picker list."
+    },
+    {
+      "name": "placeholder",
+      "type": "string",
+      "default": "Select an option",
+      "required": false,
+      "description": "Placeholder text shown when no option is selected."
+    },
+    {
+      "name": "label",
+      "type": "string",
+      "required": false,
+      "description": "Optional label text displayed above the trigger."
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "default": "false",
+      "required": false,
+      "description": "When true, the select is non-interactive."
+    },
+    {
+      "name": "error",
+      "type": "boolean",
+      "default": "false",
+      "required": false,
+      "description": "When true, applies an error border color to the trigger."
+    },
+    {
+      "name": "errorMessage",
+      "type": "string",
+      "required": false,
+      "description": "Error message displayed below the trigger when error is true."
+    },
+    {
+      "name": "containerStyle",
+      "type": "ViewStyle",
+      "required": false,
+      "description": "Additional style applied to the outer container."
+    },
+    {
+      "name": "children",
+      "type": "(selectedOption: SelectOption | undefined) => ReactNode",
+      "required": false,
+      "description": "Custom trigger renderer; receives the currently selected option."
+    },
+    {
+      "name": "renderItem",
+      "type": "(option: SelectOption, selected: boolean) => ReactNode",
+      "required": false,
+      "description": "Custom option row renderer; replaces the default label/description layout."
+    },
+    {
+      "name": "searchable",
+      "type": "boolean",
+      "default": "false",
+      "required": false,
+      "description": "When true, shows a search input inside the picker to filter options."
+    },
+    {
+      "name": "accessibilityLabel",
+      "type": "string",
+      "required": false,
+      "description": "Accessibility label for the trigger; defaults to the label prop."
+    },
+    {
+      "name": "accessibilityHint",
+      "type": "string",
+      "required": false,
+      "description": "Accessibility hint for the trigger element."
+    }
+  ]
 }

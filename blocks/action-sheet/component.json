@@ -23,5 +23,51 @@
     "actions"
   ],
   "hasTests": false,
-  "hasAccessibility": true
+  "hasAccessibility": true,
+  "props": [
+    {
+      "name": "visible",
+      "type": "boolean",
+      "required": true,
+      "description": "Controls whether the action sheet is visible."
+    },
+    {
+      "name": "onClose",
+      "type": "() => void",
+      "required": true,
+      "description": "Called when the action sheet is dismissed."
+    },
+    {
+      "name": "options",
+      "type": "ActionSheetOption[]",
+      "required": true,
+      "description": "List of action items to display. Each option has a label, optional icon, and onPress callback."
+    },
+    {
+      "name": "title",
+      "type": "string",
+      "required": false,
+      "description": "Optional heading displayed at the top of the action sheet."
+    },
+    {
+      "name": "message",
+      "type": "string",
+      "required": false,
+      "description": "Optional descriptive text displayed below the title."
+    },
+    {
+      "name": "showCancel",
+      "type": "boolean",
+      "default": "true",
+      "required": false,
+      "description": "Whether to show a cancel button at the bottom of the action sheet."
+    },
+    {
+      "name": "cancelLabel",
+      "type": "string",
+      "default": "Cancel",
+      "required": false,
+      "description": "Label for the cancel button."
+    }
+  ]
 }

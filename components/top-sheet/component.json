@@ -22,5 +22,45 @@
     "sheet"
   ],
   "hasTests": false,
-  "hasAccessibility": true
+  "hasAccessibility": true,
+  "props": [
+    {
+      "name": "visible",
+      "type": "boolean",
+      "required": true,
+      "description": "Controls whether the sheet is shown"
+    },
+    {
+      "name": "onClose",
+      "type": "() => void",
+      "required": true,
+      "description": "Callback invoked when the sheet is dismissed via upward drag or backdrop press"
+    },
+    {
+      "name": "children",
+      "type": "ReactNode",
+      "required": true,
+      "description": "Content rendered inside the top sheet"
+    },
+    {
+      "name": "maxHeight",
+      "type": "number",
+      "default": "0.8",
+      "required": false,
+      "description": "Maximum sheet height as a fraction of the screen height (0–1)"
+    },
+    {
+      "name": "showHandle",
+      "type": "boolean",
+      "default": "true",
+      "required": false,
+      "description": "Whether to show the drag handle indicator at the bottom of the sheet"
+    },
+    {
+      "name": "style",
+      "type": "ViewStyle",
+      "required": false,
+      "description": "Additional style applied to the sheet container"
+    }
+  ]
 }

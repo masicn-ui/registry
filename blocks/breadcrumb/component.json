@@ -22,5 +22,25 @@
     "path"
   ],
   "hasTests": false,
-  "hasAccessibility": true
+  "hasAccessibility": true,
+  "props": [
+    {
+      "name": "items",
+      "type": "BreadcrumbItem[]",
+      "required": true,
+      "description": "Ordered list of breadcrumb items. The last item is treated as the current page (non-pressable, primary colour)."
+    },
+    {
+      "name": "separator",
+      "type": "ReactNode",
+      "required": false,
+      "description": "Custom separator element rendered between items. Defaults to a '/' text character."
+    },
+    {
+      "name": "containerStyle",
+      "type": "ViewStyle",
+      "required": false,
+      "description": "Style applied to the outer container row."
+    }
+  ]
 }
