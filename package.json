@@ -1,0 +1,9 @@
+{
+  "name": "@masicn/registry",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "validate": "node scripts/validate.js",
+    "validate:all": "node scripts/validate.js --all"
+  }
+}

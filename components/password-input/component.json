@@ -21,5 +21,52 @@
     "input"
   ],
   "hasTests": false,
-  "hasAccessibility": true
+  "hasAccessibility": true,
+  "props": [
+    {
+      "name": "label",
+      "type": "string",
+      "required": false,
+      "description": "Floating label text rendered above the input field"
+    },
+    {
+      "name": "helperText",
+      "type": "string",
+      "required": false,
+      "description": "Helper text displayed below the input; hidden when an error is present"
+    },
+    {
+      "name": "error",
+      "type": "string",
+      "required": false,
+      "description": "Error message displayed below the input; puts the input in error state"
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "default": "false",
+      "required": false,
+      "description": "Disables the input and applies disabled styling"
+    },
+    {
+      "name": "size",
+      "type": "'sm' | 'md' | 'lg'",
+      "default": "md",
+      "required": false,
+      "description": "Size preset controlling padding and minimum height"
+    },
+    {
+      "name": "startAdornment",
+      "type": "ReactNode",
+      "required": false,
+      "description": "Content rendered at the left edge of the input container"
+    },
+    {
+      "name": "clearButton",
+      "type": "boolean",
+      "default": "false",
+      "required": false,
+      "description": "When true and the field has text, shows a clear (×) button"
+    }
+  ]
 }

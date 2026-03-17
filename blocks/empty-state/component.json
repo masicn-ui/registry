@@ -22,5 +22,44 @@
     "placeholder"
   ],
   "hasTests": false,
-  "hasAccessibility": true
+  "hasAccessibility": true,
+  "props": [
+    {
+      "name": "title",
+      "type": "string",
+      "required": true,
+      "description": "Main heading text displayed in the empty state."
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "required": false,
+      "description": "Secondary descriptive text shown below the title."
+    },
+    {
+      "name": "icon",
+      "type": "string",
+      "default": "📭",
+      "required": false,
+      "description": "Emoji or text character used as the illustration above the title."
+    },
+    {
+      "name": "actionLabel",
+      "type": "string",
+      "required": false,
+      "description": "Label for the CTA button. Button is only rendered when both actionLabel and onAction are provided."
+    },
+    {
+      "name": "onAction",
+      "type": "() => void",
+      "required": false,
+      "description": "Callback fired when the CTA button is pressed."
+    },
+    {
+      "name": "containerStyle",
+      "type": "ViewStyle",
+      "required": false,
+      "description": "Additional style applied to the outer container view."
+    }
+  ]
 }

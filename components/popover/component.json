@@ -18,5 +18,64 @@
     "overlay"
   ],
   "hasTests": false,
-  "hasAccessibility": false
+  "hasAccessibility": false,
+  "props": [
+    {
+      "name": "content",
+      "type": "ReactNode",
+      "required": true,
+      "description": "Content rendered inside the popover card."
+    },
+    {
+      "name": "children",
+      "type": "ReactElement",
+      "required": true,
+      "description": "Trigger element that opens the popover when interacted with."
+    },
+    {
+      "name": "placement",
+      "type": "'top' | 'bottom' | 'left' | 'right'",
+      "default": "bottom",
+      "required": false,
+      "description": "Preferred placement of the popover relative to the trigger element."
+    },
+    {
+      "name": "trigger",
+      "type": "'press' | 'longPress'",
+      "default": "press",
+      "required": false,
+      "description": "Interaction that opens the popover."
+    },
+    {
+      "name": "showArrow",
+      "type": "boolean",
+      "default": "true",
+      "required": false,
+      "description": "When true, renders a directional arrow pointing toward the trigger."
+    },
+    {
+      "name": "visible",
+      "type": "boolean",
+      "required": false,
+      "description": "Controlled visibility; when provided the popover is fully controlled."
+    },
+    {
+      "name": "onVisibilityChange",
+      "type": "(visible: boolean) => void",
+      "required": false,
+      "description": "Callback fired when the popover opens or closes."
+    },
+    {
+      "name": "contentStyle",
+      "type": "ViewStyle",
+      "required": false,
+      "description": "Additional style applied to the popover container."
+    },
+    {
+      "name": "testID",
+      "type": "string",
+      "required": false,
+      "description": "Stable selector used in automated tests."
+    }
+  ]
 }

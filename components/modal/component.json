@@ -23,5 +23,52 @@
     "overlay"
   ],
   "hasTests": false,
-  "hasAccessibility": true
+  "hasAccessibility": true,
+  "props": [
+    {
+      "name": "onClose",
+      "type": "() => void",
+      "required": true,
+      "description": "Callback invoked when the modal is requested to close (overlay press, close button, or Android back)"
+    },
+    {
+      "name": "children",
+      "type": "ReactNode",
+      "required": true,
+      "description": "Content rendered inside the modal dialog"
+    },
+    {
+      "name": "visible",
+      "type": "boolean",
+      "required": false,
+      "description": "Controlled visibility; when omitted the modal manages its own state via the ref API"
+    },
+    {
+      "name": "accessibilityLabel",
+      "type": "string",
+      "required": false,
+      "description": "Accessibility label for the modal container; defaults to 'Dialog'"
+    },
+    {
+      "name": "maxWidth",
+      "type": "'narrow' | 'medium'",
+      "default": "medium",
+      "required": false,
+      "description": "Maximum width constraint of the modal sheet"
+    },
+    {
+      "name": "showCloseButton",
+      "type": "boolean",
+      "default": "true",
+      "required": false,
+      "description": "Whether to render the close (×) button in the top-right corner"
+    },
+    {
+      "name": "closeOnOverlayPress",
+      "type": "boolean",
+      "default": "true",
+      "required": false,
+      "description": "Whether pressing the backdrop dismisses the modal"
+    }
+  ]
 }

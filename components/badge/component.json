@@ -18,5 +18,40 @@
     "status"
   ],
   "hasTests": false,
-  "hasAccessibility": true
+  "hasAccessibility": true,
+  "props": [
+    {
+      "name": "label",
+      "type": "string",
+      "required": false,
+      "description": "Text content of the badge; when omitted renders as a small status dot"
+    },
+    {
+      "name": "variant",
+      "type": "'error' | 'success' | 'warning' | 'info'",
+      "default": "error",
+      "required": false,
+      "description": "Semantic color variant of the badge"
+    },
+    {
+      "name": "circular",
+      "type": "boolean",
+      "default": "false",
+      "required": false,
+      "description": "Renders the badge as a fixed-size circle instead of a pill"
+    },
+    {
+      "name": "size",
+      "type": "'sm' | 'md' | 'lg'",
+      "default": "md",
+      "required": false,
+      "description": "Size preset; only affects the circular badge shape"
+    },
+    {
+      "name": "accessibilityLabel",
+      "type": "string",
+      "required": false,
+      "description": "Custom accessibility label; defaults to 'label variant' when omitted"
+    }
+  ]
 }

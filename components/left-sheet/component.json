@@ -22,5 +22,52 @@
     "sheet"
   ],
   "hasTests": false,
-  "hasAccessibility": true
+  "hasAccessibility": true,
+  "props": [
+    {
+      "name": "visible",
+      "type": "boolean",
+      "required": true,
+      "description": "Controls whether the sheet is shown"
+    },
+    {
+      "name": "onClose",
+      "type": "() => void",
+      "required": true,
+      "description": "Callback invoked when the sheet is dismissed via leftward drag or backdrop press"
+    },
+    {
+      "name": "children",
+      "type": "ReactNode",
+      "required": true,
+      "description": "Content rendered inside the left sheet"
+    },
+    {
+      "name": "width",
+      "type": "number",
+      "default": "0.75",
+      "required": false,
+      "description": "Sheet width as a fraction of the screen width (0–1)"
+    },
+    {
+      "name": "showHandle",
+      "type": "boolean",
+      "default": "false",
+      "required": false,
+      "description": "Whether to show a handle indicator on the sheet"
+    },
+    {
+      "name": "style",
+      "type": "ViewStyle",
+      "required": false,
+      "description": "Additional style applied to the sheet container"
+    },
+    {
+      "name": "hideBackdrop",
+      "type": "boolean",
+      "default": "false",
+      "required": false,
+      "description": "When true, the dimmed backdrop is hidden and touches pass through it"
+    }
+  ]
 }

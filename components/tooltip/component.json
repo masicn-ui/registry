@@ -20,5 +20,25 @@
     "information"
   ],
   "hasTests": false,
-  "hasAccessibility": false
+  "hasAccessibility": false,
+  "props": [
+    {
+      "name": "content",
+      "type": "string",
+      "required": true,
+      "description": "Text content displayed inside the tooltip bubble."
+    },
+    {
+      "name": "children",
+      "type": "ReactElement",
+      "required": true,
+      "description": "The trigger element; press-and-hold shows the tooltip, releasing hides it."
+    },
+    {
+      "name": "containerStyle",
+      "type": "ViewStyle",
+      "required": false,
+      "description": "Additional style applied to the trigger wrapper container."
+    }
+  ]
 }

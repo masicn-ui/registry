@@ -20,5 +20,51 @@
     "input"
   ],
   "hasTests": false,
-  "hasAccessibility": false
+  "hasAccessibility": false,
+  "props": [
+    {
+      "name": "value",
+      "type": "string",
+      "required": true,
+      "description": "Current text value of the search input."
+    },
+    {
+      "name": "onChangeText",
+      "type": "(text: string) => void",
+      "required": true,
+      "description": "Callback fired as the user types in the search field."
+    },
+    {
+      "name": "onClear",
+      "type": "() => void",
+      "required": false,
+      "description": "Optional callback fired when the clear button is pressed."
+    },
+    {
+      "name": "onSearch",
+      "type": "(text: string) => void",
+      "required": false,
+      "description": "Optional callback fired when the user submits the search (keyboard action)."
+    },
+    {
+      "name": "placeholder",
+      "type": "string",
+      "default": "Search...",
+      "required": false,
+      "description": "Placeholder text shown when the input is empty."
+    },
+    {
+      "name": "containerStyle",
+      "type": "ViewStyle",
+      "required": false,
+      "description": "Additional style applied to the search bar container."
+    },
+    {
+      "name": "searchIcon",
+      "type": "string",
+      "default": "🔍",
+      "required": false,
+      "description": "Custom icon character displayed on the left of the input."
+    }
+  ]
 }

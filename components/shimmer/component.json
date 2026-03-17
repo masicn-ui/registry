@@ -1,7 +1,7 @@
 {
   "name": "shimmer",
   "displayName": "Shimmer",
-  "description": "Animated shimmer overlay for loading placeholders. Includes ShimmerGroup for synchronizing multiple shimmer instances.",
+  "description": "Animated shimmer overlay for loading placeholders. Exports two components from one file: Shimmer (standalone with its own animation loop) and ShimmerGroup (context provider that synchronizes multiple Shimmer instances into a single shared animation loop for better performance).",
   "category": "feedback",
   "version": "1.0.0",
   "files": [
@@ -12,5 +12,49 @@
   "registryDependencies": [],
   "tags": ["loading", "animation"],
   "hasTests": false,
-  "hasAccessibility": false
+  "hasAccessibility": false,
+  "props": [
+    {
+      "name": "children",
+      "type": "ReactNode",
+      "required": true,
+      "description": "Content over which the shimmer sweep animation plays"
+    },
+    {
+      "name": "borderRadius",
+      "type": "number",
+      "required": false,
+      "description": "Border radius applied to the shimmer container to clip the sweep animation"
+    },
+    {
+      "name": "style",
+      "type": "StyleProp<ViewStyle>",
+      "required": false,
+      "description": "Additional style applied to the shimmer container"
+    },
+    {
+      "name": "duration",
+      "type": "number",
+      "default": "1200",
+      "required": false,
+      "description": "Duration of one shimmer sweep cycle in milliseconds; ignored when inside a ShimmerGroup"
+    }
+  ],
+  "subComponentProps": {
+    "ShimmerGroup": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true,
+        "description": "Shimmer components whose animations will be synchronized"
+      },
+      {
+        "name": "duration",
+        "type": "number",
+        "default": "1200",
+        "required": false,
+        "description": "Animation cycle duration in milliseconds shared across all child Shimmers"
+      }
+    ]
+  }
 }

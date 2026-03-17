@@ -19,5 +19,46 @@
     "filter"
   ],
   "hasTests": false,
-  "hasAccessibility": true
+  "hasAccessibility": true,
+  "props": [
+    {
+      "name": "label",
+      "type": "string",
+      "required": true,
+      "description": "Text label displayed inside the chip"
+    },
+    {
+      "name": "variant",
+      "type": "'filled' | 'outline'",
+      "default": "filled",
+      "required": false,
+      "description": "Visual style variant of the chip"
+    },
+    {
+      "name": "selected",
+      "type": "boolean",
+      "default": "false",
+      "required": false,
+      "description": "Whether the chip is in a selected/active state"
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "default": "false",
+      "required": false,
+      "description": "Disables press interaction and applies disabled styling"
+    },
+    {
+      "name": "icon",
+      "type": "ReactNode",
+      "required": false,
+      "description": "Optional icon rendered before the label"
+    },
+    {
+      "name": "onRemove",
+      "type": "() => void",
+      "required": false,
+      "description": "If provided, shows a remove (×) button and calls this handler when pressed"
+    }
+  ]
 }

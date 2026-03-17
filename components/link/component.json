@@ -18,5 +18,40 @@
     "navigation"
   ],
   "hasTests": false,
-  "hasAccessibility": true
+  "hasAccessibility": true,
+  "props": [
+    {
+      "name": "children",
+      "type": "string",
+      "required": true,
+      "description": "The text content of the link"
+    },
+    {
+      "name": "size",
+      "type": "'sm' | 'md' | 'lg'",
+      "default": "md",
+      "required": false,
+      "description": "Size preset that maps to text variants (caption, body, bodyLarge)"
+    },
+    {
+      "name": "underline",
+      "type": "'none' | 'hover' | 'always'",
+      "default": "hover",
+      "required": false,
+      "description": "Controls when the underline decoration is shown"
+    },
+    {
+      "name": "color",
+      "type": "string",
+      "required": false,
+      "description": "Custom color override; defaults to primary theme color"
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "default": "false",
+      "required": false,
+      "description": "Disables press interaction and applies disabled text color"
+    }
+  ]
 }

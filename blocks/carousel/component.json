@@ -22,5 +22,85 @@
     "swipe"
   ],
   "hasTests": false,
-  "hasAccessibility": true
+  "hasAccessibility": true,
+  "props": [
+    {
+      "name": "data",
+      "type": "T[]",
+      "required": true,
+      "description": "Array of data items to render as carousel slides."
+    },
+    {
+      "name": "renderItem",
+      "type": "(item: T, index: number) => ReactNode",
+      "required": true,
+      "description": "Render function called for each slide item."
+    },
+    {
+      "name": "keyExtractor",
+      "type": "(item: T, index: number) => string",
+      "required": false,
+      "description": "Function to generate a unique key for each slide. Defaults to index-based key."
+    },
+    {
+      "name": "animation",
+      "type": "'scale' | 'fade' | 'parallax' | 'cube'",
+      "default": "scale",
+      "required": false,
+      "description": "Transition animation style applied to slides as they scroll in/out."
+    },
+    {
+      "name": "slideWidth",
+      "type": "'full' | 'peek' | number",
+      "default": "full",
+      "required": false,
+      "description": "Width of each slide. 'full' fills the screen, 'peek' shows adjacent slides (85% width), or a fixed pixel number."
+    },
+    {
+      "name": "slideHeight",
+      "type": "number",
+      "required": false,
+      "description": "Height of each slide in pixels. Defaults to the carouselSlideDefaultHeight design token."
+    },
+    {
+      "name": "slideBorderRadius",
+      "type": "keyof typeof radius",
+      "default": "lg",
+      "required": false,
+      "description": "Border radius applied to each slide, using a radius design token key."
+    },
+    {
+      "name": "gap",
+      "type": "number",
+      "required": false,
+      "description": "Gap in pixels between slides. Only effective in peek/numeric width mode."
+    },
+    {
+      "name": "showDots",
+      "type": "boolean",
+      "default": "true",
+      "required": false,
+      "description": "Whether to show pagination dot indicators below the carousel."
+    },
+    {
+      "name": "dotVariant",
+      "type": "'pill' | 'dot' | 'line'",
+      "default": "pill",
+      "required": false,
+      "description": "Visual style of the pagination dot indicators."
+    },
+    {
+      "name": "autoPlayInterval",
+      "type": "number",
+      "default": "0",
+      "required": false,
+      "description": "Milliseconds between auto-advancing slides. Set to 0 to disable auto-play."
+    },
+    {
+      "name": "onItemPress",
+      "type": "(item: T, index: number) => void",
+      "required": false,
+      "description": "Callback fired when a slide is tapped. Makes slides pressable when provided."
+    }
+  ]
 }

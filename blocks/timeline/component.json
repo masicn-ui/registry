@@ -23,5 +23,20 @@
     "events"
   ],
   "hasTests": false,
-  "hasAccessibility": true
+  "hasAccessibility": true,
+  "props": [
+    {
+      "name": "items",
+      "type": "TimelineItem[]",
+      "required": true,
+      "description": "Array of timeline events to display. Each item has a title and optional description, timestamp, icon, and status."
+    },
+    {
+      "name": "showLine",
+      "type": "boolean",
+      "default": "true",
+      "required": false,
+      "description": "Whether to render the vertical connecting line between timeline dots."
+    }
+  ]
 }

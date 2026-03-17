@@ -22,5 +22,32 @@
     "navigation"
   ],
   "hasTests": false,
-  "hasAccessibility": true
+  "hasAccessibility": true,
+  "props": [
+    {
+      "name": "page",
+      "type": "number",
+      "required": true,
+      "description": "Current active page, 1-based index."
+    },
+    {
+      "name": "totalPages",
+      "type": "number",
+      "required": true,
+      "description": "Total number of pages available."
+    },
+    {
+      "name": "onPageChange",
+      "type": "(page: number) => void",
+      "required": true,
+      "description": "Called with the new page number when a page button or prev/next arrow is pressed."
+    },
+    {
+      "name": "maxVisible",
+      "type": "number",
+      "default": "5",
+      "required": false,
+      "description": "Maximum number of page buttons visible before collapsing excess pages to an ellipsis."
+    }
+  ]
 }

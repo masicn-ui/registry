@@ -19,5 +19,32 @@
     "interactive"
   ],
   "hasTests": false,
-  "hasAccessibility": true
+  "hasAccessibility": true,
+  "props": [
+    {
+      "name": "buttons",
+      "type": "ToggleButton[]",
+      "required": true,
+      "description": "Array of button definitions to render in the group."
+    },
+    {
+      "name": "value",
+      "type": "string",
+      "required": true,
+      "description": "The value of the currently selected button."
+    },
+    {
+      "name": "onValueChange",
+      "type": "(value: string) => void",
+      "required": true,
+      "description": "Callback fired when the user selects a different button."
+    },
+    {
+      "name": "fullWidth",
+      "type": "boolean",
+      "default": "false",
+      "required": false,
+      "description": "When true, each button expands to fill an equal share of the container width."
+    }
+  ]
 }
