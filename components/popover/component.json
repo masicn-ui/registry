@@ -3,7 +3,7 @@
   "displayName": "Popover",
   "description": "Floating content card anchored to a trigger element with two-pass measurement, screen-edge clamping, and optional arrow.",
   "category": "overlay",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "files": [
     {
       "path": "Popover.tsx",

@@ -3,7 +3,7 @@
   "displayName": "Accordion",
   "description": "Animated expand/collapse accordion with single or multiple open items, controlled and uncontrolled modes",
   "category": "navigation",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "files": [
     {
       "path": "Accordion.tsx",

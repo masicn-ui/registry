@@ -3,7 +3,7 @@
   "displayName": "Step Indicator",
   "description": "Step progress indicator block for multi-step flows.",
   "category": "blocks",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "files": [
     {
       "path": "StepIndicator.tsx",

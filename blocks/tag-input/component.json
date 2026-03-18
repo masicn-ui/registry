@@ -3,7 +3,7 @@
   "displayName": "Tag Input",
   "description": "Tag input block allowing creation and removal of tags.",
   "category": "blocks",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "files": [
     {
       "path": "TagInput.tsx",

@@ -3,7 +3,7 @@
   "displayName": "TextInput",
   "description": "Form text input with label, helper text, error state, start/end adornments, clear button, character count, and focus ring.",
   "category": "form",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "files": [
     {
       "path": "TextInput.tsx",

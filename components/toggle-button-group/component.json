@@ -3,7 +3,7 @@
   "displayName": "ToggleButtonGroup",
   "description": "Exclusive toggle button group where only one button can be active at a time, with icon support.",
   "category": "form",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "files": [
     {
       "path": "ToggleButtonGroup.tsx",

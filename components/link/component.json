@@ -3,7 +3,7 @@
   "displayName": "Link",
   "description": "Pressable text link with size presets and underline variants (none, hover, always).",
   "category": "core",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "files": [
     {
       "path": "Link.tsx",

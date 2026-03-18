@@ -3,7 +3,7 @@
   "displayName": "Swipeable",
   "description": "Swipeable row block with hidden actions revealed on swipe.",
   "category": "blocks",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "files": [
     {
       "path": "Swipeable.tsx",

@@ -3,7 +3,7 @@
   "displayName": "Pagination",
   "description": "Pagination block with page numbers and navigation controls.",
   "category": "blocks",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "files": [
     {
       "path": "Pagination.tsx",

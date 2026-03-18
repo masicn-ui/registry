@@ -3,7 +3,7 @@
   "displayName": "Number Input",
   "description": "Number input block with increment/decrement controls.",
   "category": "blocks",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "files": [
     {
       "path": "NumberInput.tsx",

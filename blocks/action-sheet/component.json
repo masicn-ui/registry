@@ -3,7 +3,7 @@
   "displayName": "Action Sheet",
   "description": "iOS-style action sheet block with list of actions.",
   "category": "blocks",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "files": [
     {
       "path": "ActionSheet.tsx",

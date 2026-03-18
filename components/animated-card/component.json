@@ -3,7 +3,7 @@
   "displayName": "AnimatedCard",
   "description": "Pressable card with scale, lift, and rotate animation types on press using Reanimated",
   "category": "interactive",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "files": [
     { "path": "AnimatedCard.tsx", "target": "AnimatedCard.tsx", "type": "component" }
   ],

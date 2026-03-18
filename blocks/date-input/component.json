@@ -3,7 +3,7 @@
   "displayName": "Date Input",
   "description": "Date picker input block with calendar UI.",
   "category": "blocks",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "files": [
     {
       "path": "DateInput.tsx",

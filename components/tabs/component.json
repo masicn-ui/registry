@@ -3,7 +3,7 @@
   "displayName": "Tabs",
   "description": "Tab bar with underline, filled, and pill variants; scrollable mode; built-in panel with show-more body text",
   "category": "navigation",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "files": [
     {
       "path": "Tabs.tsx",

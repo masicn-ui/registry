@@ -3,7 +3,7 @@
   "displayName": "Phone Input",
   "description": "Phone number input block with country code selector.",
   "category": "blocks",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "files": [
     {
       "path": "PhoneInput.tsx",

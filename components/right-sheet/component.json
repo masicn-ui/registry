@@ -3,7 +3,7 @@
   "displayName": "RightSheet",
   "description": "Gesture-driven side sheet that slides in from the right edge with drag-to-dismiss support.",
   "category": "feedback",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "files": [
     {
       "path": "RightSheet.tsx",

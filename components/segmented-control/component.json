@@ -3,7 +3,7 @@
   "displayName": "SegmentedControl",
   "description": "Animated segmented control with a sliding indicator, tablist accessibility role, and disabled state support.",
   "category": "form",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "files": [
     {
       "path": "SegmentedControl.tsx",

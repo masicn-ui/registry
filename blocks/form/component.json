@@ -3,7 +3,7 @@
   "displayName": "Form",
   "description": "A complete form block with validation, labels, and error handling.",
   "category": "blocks",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "files": [
     {
       "path": "Form.tsx",

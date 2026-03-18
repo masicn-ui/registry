@@ -3,7 +3,7 @@
   "displayName": "Snackbar",
   "description": "Bottom snackbar notifications with optional action via useSnackbar hook.",
   "category": "feedback",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "files": [{ "path": "Snackbar.tsx", "target": "Snackbar.tsx", "type": "component" }],
   "masicnVersion": "^0.1.0",
   "peerDependencies": {},

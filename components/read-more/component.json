@@ -3,7 +3,7 @@
   "displayName": "ReadMore",
   "description": "Text block that truncates at a configurable line count with an expand/collapse toggle.",
   "category": "core",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "files": [
     {
       "path": "ReadMore.tsx",

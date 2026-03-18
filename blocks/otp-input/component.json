@@ -3,7 +3,7 @@
   "displayName": "OTP Input",
   "description": "One-time password input block with auto-focus and paste support.",
   "category": "blocks",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "files": [
     {
       "path": "OTPInput.tsx",

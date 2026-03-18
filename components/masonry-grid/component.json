@@ -3,7 +3,7 @@
   "displayName": "MasonryGrid",
   "description": "Pinterest-style masonry grid that balances items across columns by height.",
   "category": "layout",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "files": [{ "path": "MasonryGrid.tsx", "target": "MasonryGrid.tsx", "type": "component" }],
   "masicnVersion": "^0.1.0",
   "peerDependencies": {},

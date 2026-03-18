@@ -3,7 +3,7 @@
   "displayName": "Shimmer",
   "description": "Animated shimmer overlay for loading placeholders. Exports two components from one file: Shimmer (standalone with its own animation loop) and ShimmerGroup (context provider that synchronizes multiple Shimmer instances into a single shared animation loop for better performance).",
   "category": "feedback",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "files": [
     { "path": "Shimmer.tsx", "target": "Shimmer.tsx", "type": "component" }
   ],
