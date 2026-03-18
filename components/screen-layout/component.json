@@ -5,7 +5,7 @@
   "category": "layout",
   "version": "0.0.1",
   "files": [{ "path": "ScreenLayout.tsx", "target": "ScreenLayout.tsx", "type": "component" }],
-  "masicnVersion": "^0.1.0",
+  "masicnVersion": "^0.0.1",
   "peerDependencies": {},
   "registryDependencies": [],
   "tags": ["layout", "screen"],
