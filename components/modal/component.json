@@ -3,7 +3,7 @@
   "displayName": "Modal",
   "description": "Animated dialog modal with backdrop, spring/timing enter/exit animations, optional close button, focus trap, and Android back button support.",
   "category": "feedback",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "files": [
     {
       "path": "Modal.tsx",

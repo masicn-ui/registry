@@ -3,7 +3,7 @@
   "displayName": "Switch",
   "description": "Animated toggle switch with track color interpolation, thumb translation, label, and description.",
   "category": "form",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "files": [
     {
       "path": "Switch.tsx",

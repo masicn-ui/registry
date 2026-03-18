@@ -3,7 +3,7 @@
   "displayName": "RadioGroup",
   "description": "RadioGroup context provider \u2014 wraps Radio components to provide exclusive selection state.",
   "category": "form",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "files": [
     {
       "path": "Radio.tsx",

@@ -3,7 +3,7 @@
   "displayName": "BottomSheet",
   "description": "Gesture-driven bottom sheet with drag-to-dismiss, keyboard avoidance, safe area insets, and focus trap.",
   "category": "feedback",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "files": [
     {
       "path": "BottomSheet.tsx",

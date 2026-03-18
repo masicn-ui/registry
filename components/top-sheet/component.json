@@ -3,7 +3,7 @@
   "displayName": "TopSheet",
   "description": "Gesture-driven top sheet that slides down from the top edge with drag-to-dismiss support.",
   "category": "feedback",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "files": [
     {
       "path": "TopSheet.tsx",

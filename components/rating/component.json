@@ -3,7 +3,7 @@
   "displayName": "Rating",
   "description": "Interactive or read-only star rating with configurable icon, half-value granularity, and accessibility increment/decrement actions.",
   "category": "interactive",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "files": [
     {
       "path": "Rating.tsx",

@@ -218,10 +218,13 @@
 │       ├── component.json
 │       └── TopSheet.tsx
 ├── package-lock.json
+├── package.json
 ├── README.md
 ├── registry.json
 ├── schema
 │   └── masicn.json
+├── scripts
+│   └── validate.js
 └── tree.txt
 
-76 directories, 149 files
+77 directories, 151 files

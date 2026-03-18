@@ -3,7 +3,7 @@
   "displayName": "Timeline",
   "description": "Timeline block for displaying chronological events.",
   "category": "blocks",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "files": [
     {
       "path": "Timeline.tsx",
@@ -11,7 +11,7 @@
       "type": "component"
     }
   ],
-  "masicnVersion": ">=1.0.0",
+  "masicnVersion": "^0.1.0",
   "peerDependencies": {},
   "registryDependencies": [
     "avatar",

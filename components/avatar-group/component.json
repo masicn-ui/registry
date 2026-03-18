@@ -3,7 +3,7 @@
   "displayName": "AvatarGroup",
   "description": "Stacked row of Avatars with configurable max count and +N overflow indicator.",
   "category": "core",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "files": [
     {
       "path": "AvatarGroup.tsx",

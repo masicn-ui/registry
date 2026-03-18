@@ -3,7 +3,7 @@
   "displayName": "CheckboxGroup",
   "description": "Group of Checkbox items sharing a value array, with group label, error message, and helper text.",
   "category": "form",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "files": [
     {
       "path": "CheckboxGroup.tsx",

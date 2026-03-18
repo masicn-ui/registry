@@ -3,7 +3,7 @@
   "displayName": "Swipeable",
   "description": "Swipeable row block with hidden actions revealed on swipe.",
   "category": "blocks",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "files": [
     {
       "path": "Swipeable.tsx",
@@ -11,7 +11,7 @@
       "type": "component"
     }
   ],
-  "masicnVersion": ">=1.0.0",
+  "masicnVersion": "^0.1.0",
   "peerDependencies": {
     "react-native-gesture-handler": ">=2.0.0",
     "react-native-reanimated": ">=3.0.0"

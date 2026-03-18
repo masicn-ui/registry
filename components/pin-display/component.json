@@ -3,7 +3,7 @@
   "displayName": "PinDisplay",
   "description": "PIN/OTP dot progress display showing filled and empty dots with default, error, and success variants.",
   "category": "core",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "files": [
     {
       "path": "PinDisplay.tsx",
