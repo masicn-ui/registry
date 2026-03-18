@@ -11,7 +11,7 @@
       "type": "component"
     }
   ],
-  "masicnVersion": ">=1.0.0",
+  "masicnVersion": "^0.1.0",
   "peerDependencies": {},
   "registryDependencies": [
     "button"
