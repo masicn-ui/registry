@@ -11,7 +11,7 @@
       "type": "component"
     }
   ],
-  "masicnVersion": "^0.1.0",
+  "masicnVersion": "^0.0.1",
   "peerDependencies": {},
   "registryDependencies": [
     "avatar",
