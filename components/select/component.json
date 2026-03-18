@@ -3,7 +3,7 @@
   "displayName": "Select",
   "description": "Dropdown select with searchable option list, custom trigger, custom item renderer, and accessibility",
   "category": "form",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "files": [
     {
       "path": "Select.tsx",
@@ -11,7 +11,7 @@
       "type": "component"
     }
   ],
-  "masicnVersion": "^0.1.0",
+  "masicnVersion": "^0.0.1",
   "peerDependencies": {},
   "registryDependencies": [],
   "tags": [

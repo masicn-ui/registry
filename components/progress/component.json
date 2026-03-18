@@ -3,11 +3,11 @@
   "displayName": "Progress",
   "description": "Linear and circular progress bar with determinate and indeterminate modes, animated fill, and optional label.",
   "category": "feedback",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "files": [
     { "path": "Progress.tsx", "target": "Progress.tsx", "type": "component" }
   ],
-  "masicnVersion": "^0.1.0",
+  "masicnVersion": "^0.0.1",
   "peerDependencies": {},
   "registryDependencies": [],
   "tags": ["feedback"],

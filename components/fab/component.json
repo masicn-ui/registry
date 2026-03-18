@@ -3,7 +3,7 @@
   "displayName": "FAB",
   "description": "Floating action button with circular and extended variants, size presets, and position options",
   "category": "navigation",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "files": [
     {
       "path": "FAB.tsx",
@@ -11,7 +11,7 @@
       "type": "component"
     }
   ],
-  "masicnVersion": "^0.1.0",
+  "masicnVersion": "^0.0.1",
   "peerDependencies": {
     "react-native-safe-area-context": ">=4.0.0"
   },

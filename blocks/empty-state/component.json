@@ -3,7 +3,7 @@
   "displayName": "Empty State",
   "description": "Empty state block with illustration, title, description, and CTA.",
   "category": "blocks",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "files": [
     {
       "path": "EmptyState.tsx",
@@ -11,7 +11,7 @@
       "type": "component"
     }
   ],
-  "masicnVersion": ">=1.0.0",
+  "masicnVersion": "^0.0.1",
   "peerDependencies": {},
   "registryDependencies": [
     "button"

@@ -3,7 +3,7 @@
   "displayName": "Confirm Dialog",
   "description": "Confirmation dialog block with title, message, and action buttons.",
   "category": "blocks",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "files": [
     {
       "path": "ConfirmDialog.tsx",
@@ -11,7 +11,7 @@
       "type": "component"
     }
   ],
-  "masicnVersion": ">=1.0.0",
+  "masicnVersion": "^0.0.1",
   "peerDependencies": {},
   "registryDependencies": [
     "modal",

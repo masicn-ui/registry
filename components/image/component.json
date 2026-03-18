@@ -3,11 +3,11 @@
   "displayName": "Image",
   "description": "Enhanced image component with aspect ratio presets, loading indicator, error fallback, overlay, and long-press full-screen preview.",
   "category": "core",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "files": [
     { "path": "Image.tsx", "target": "Image.tsx", "type": "component" }
   ],
-  "masicnVersion": "^0.1.0",
+  "masicnVersion": "^0.0.1",
   "peerDependencies": {},
   "registryDependencies": [],
   "tags": ["media"],

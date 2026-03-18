@@ -3,7 +3,7 @@
   "displayName": "Radio",
   "description": "Radio button with animated dot, label, description, and RadioGroup context for exclusive selection.",
   "category": "form",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "files": [
     {
       "path": "Radio.tsx",
@@ -11,7 +11,7 @@
       "type": "component"
     }
   ],
-  "masicnVersion": "^0.1.0",
+  "masicnVersion": "^0.0.1",
   "peerDependencies": {},
   "registryDependencies": [],
   "tags": [

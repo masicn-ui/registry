@@ -3,9 +3,9 @@
   "displayName": "SplitSheet",
   "description": "Side-by-side sheet layout combining LeftSheet (1/3) + RightSheet (2/3) panels.",
   "category": "block",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "files": [{ "path": "SplitSheet.tsx", "target": "SplitSheet.tsx", "type": "component" }],
-  "masicnVersion": "^0.1.0",
+  "masicnVersion": "^0.0.1",
   "peerDependencies": {
     "react-native-reanimated": ">=3.0.0"
   },

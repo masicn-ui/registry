@@ -3,7 +3,7 @@
   "displayName": "Multi Select",
   "description": "Multi-selection dropdown block with search and chip display.",
   "category": "blocks",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "files": [
     {
       "path": "MultiSelect.tsx",
@@ -11,7 +11,7 @@
       "type": "component"
     }
   ],
-  "masicnVersion": ">=1.0.0",
+  "masicnVersion": "^0.0.1",
   "peerDependencies": {},
   "registryDependencies": [
     "select",

@@ -3,11 +3,11 @@
   "displayName": "Skeleton",
   "description": "Loading placeholder with text, circular, rectangular, avatar, button, card, listItem, and image shape variants.",
   "category": "feedback",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "files": [
     { "path": "Skeleton.tsx", "target": "Skeleton.tsx", "type": "component" }
   ],
-  "masicnVersion": "^0.1.0",
+  "masicnVersion": "^0.0.1",
   "peerDependencies": {},
   "registryDependencies": [],
   "tags": ["loading", "placeholder"],

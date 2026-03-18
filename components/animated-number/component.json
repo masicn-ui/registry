@@ -3,11 +3,11 @@
   "displayName": "AnimatedNumber",
   "description": "Smoothly animates between numeric values using React Native Animated. Useful for counters, prices, and scores.",
   "category": "interactive",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "files": [
     { "path": "AnimatedNumber.tsx", "target": "AnimatedNumber.tsx", "type": "component" }
   ],
-  "masicnVersion": "^0.1.0",
+  "masicnVersion": "^0.0.1",
   "peerDependencies": { "react-native-reanimated": ">=3.0.0" },
   "registryDependencies": [],
   "tags": ["interactive", "animation"],
