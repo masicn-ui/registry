@@ -17,10 +17,27 @@ interface ShimmerContextValue {
 const ShimmerContext = React.createContext<ShimmerContextValue | null>(null);
 
 interface ShimmerGroupProps {
+  /** Child `Shimmer` elements whose animations will be synchronised. */
   children: React.ReactNode;
+  /** Duration of one full sweep cycle in milliseconds. Defaults to 1200. */
   duration?: number;
 }
 
+/**
+ * Synchronises the shimmer animation across multiple `Shimmer` children by
+ * sharing a single animated progress value through context. Wrap a group of
+ * skeleton placeholders in `ShimmerGroup` so they all sweep in unison.
+ *
+ * @example
+ * <ShimmerGroup>
+ *   <Shimmer borderRadius={8} style={{ height: 20, marginBottom: 8 }}>
+ *     <View style={{ height: 20 }} />
+ *   </Shimmer>
+ *   <Shimmer borderRadius={8} style={{ height: 20 }}>
+ *     <View style={{ height: 20 }} />
+ *   </Shimmer>
+ * </ShimmerGroup>
+ */
 export function ShimmerGroup({ children, duration = 1200 }: ShimmerGroupProps) {
   const reducedMotion = useReducedMotion();
   const progress = useSharedValue(0);
@@ -42,12 +59,27 @@ export function ShimmerGroup({ children, duration = 1200 }: ShimmerGroupProps) {
 }
 
 interface ShimmerProps {
+  /** Content rendered inside the shimmer container (typically a placeholder view). */
   children: React.ReactNode;
+  /** Border radius applied to the shimmer container to match the shape of the real content. */
   borderRadius?: number;
+  /** Additional styles applied to the container view. */
   style?: StyleProp<ViewStyle>;
+  /** Duration of one full sweep cycle in milliseconds when used standalone. Defaults to 1200. */
   duration?: number;
 }
 
+/**
+ * Renders a repeating horizontal light-sweep animation over its children to
+ * indicate that content is loading. Can be used standalone or nested inside a
+ * `ShimmerGroup` to synchronise the animation with sibling shimmers.
+ *
+ * @example
+ * // Standalone
+ * <Shimmer borderRadius={8} style={{ height: 20, width: '80%' }}>
+ *   <View style={{ height: 20 }} />
+ * </Shimmer>
+ */
 export function Shimmer({ children, borderRadius, style, duration = 1200 }: ShimmerProps) {
   const { theme } = useTheme();
   const reducedMotion = useReducedMotion();

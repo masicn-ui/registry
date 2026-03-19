@@ -14,9 +14,9 @@ export interface DateInputProps {
   onValueChange?: (value: string) => void;
   /** Label above the field */
   label?: string;
-  /** Placeholder shown when the field is empty */
+  /** Placeholder shown when the field is empty (default "DD/MM/YYYY") */
   placeholder?: string;
-  /** Error message */
+  /** Error message — activates error colour on the border and label */
   error?: string;
   /** Helper text shown below the field */
   helperText?: string;
@@ -29,15 +29,27 @@ export interface DateInputProps {
 }
 
 /**
- * Date input with keyboard-driven DD/MM/YYYY masking.
- * Automatically inserts slashes as the user types and calls `onValueChange`
- * with an ISO `YYYY-MM-DD` string once a valid date is entered.
+ * DateInput — keyboard-driven date field with automatic DD/MM/YYYY masking.
+ *
+ * Accepts and emits dates as ISO `YYYY-MM-DD` strings while displaying them
+ * in the more human-friendly `DD/MM/YYYY` format. Slashes are inserted
+ * automatically as the user types digits, so the keyboard stays numeric
+ * throughout. `onValueChange` is only called once a complete, calendar-valid
+ * date has been entered — invalid combinations like Feb 30 are silently
+ * rejected.
+ *
+ * External value changes (e.g. resetting a form) are detected via a ref-based
+ * comparison so the display string stays in sync without triggering unnecessary
+ * re-renders.
  *
  * @example
+ * const [dob, setDob] = React.useState('');
+ *
  * <DateInput
  *   label="Date of birth"
- *   value={date}
- *   onValueChange={setDate}
+ *   value={dob}
+ *   onValueChange={setDob}
+ *   error={dobError}
  * />
  */
 export function DateInput({

@@ -15,19 +15,21 @@ type CardVariant = 'elevated' | 'filled' | 'outlined';
 type Surface = 'primary' | 'secondary' | 'tertiary';
 
 interface AnimatedCardProps {
+  /** Content rendered inside the card. */
   children: React.ReactNode;
+  /** Optional press handler. When omitted the card is non-interactive and no animation plays. */
   onPress?: () => void;
-  /** Animation type on press */
+  /** Press animation type — 'scale' shrinks slightly, 'lift' moves up, 'rotate' tilts and scales, 'none' skips animation. Defaults to 'scale'. */
   animation?: AnimationType;
-  /** Card variant */
+  /** Visual style — 'elevated' adds a shadow, 'filled' uses a flat surface colour, 'outlined' adds a border. Defaults to 'elevated'. */
   variant?: CardVariant;
-  /** Surface color */
+  /** Surface colour token — 'primary', 'secondary', or 'tertiary'. Defaults to 'primary'. */
   surface?: Surface;
-  /** Shadow level */
+  /** Shadow depth when `variant` is 'elevated'. Defaults to 'lg'. */
   shadow?: keyof Elevation;
-  /** Disabled state */
+  /** Disables interaction and reduces opacity. Defaults to false. */
   disabled?: boolean;
-  /** Custom style */
+  /** Additional style applied to the card. */
   style?: ViewStyle;
 }
 
@@ -37,6 +39,26 @@ const surfaceMap = {
   tertiary: 'surfaceTertiary',
 } as const;
 
+/**
+ * AnimatedCard — a pressable surface card with spring-based press animations.
+ *
+ * Wraps content in an animated `Pressable` that plays one of four animations
+ * on press-in/out: 'scale' (slight shrink), 'lift' (upward translate),
+ * 'rotate' (tilt + scale), or 'none'. Supports the same visual variants as
+ * `<Card>` (elevated, filled, outlined) and honours the disabled state.
+ *
+ * @example
+ * // Scale animation (default)
+ * <AnimatedCard onPress={() => navigate('detail')}>
+ *   <Text>Tap me</Text>
+ * </AnimatedCard>
+ *
+ * @example
+ * // Lift animation with outlined style
+ * <AnimatedCard variant="outlined" animation="lift" onPress={handlePress}>
+ *   <ProductInfo />
+ * </AnimatedCard>
+ */
 export function AnimatedCard({
   children,
   onPress,

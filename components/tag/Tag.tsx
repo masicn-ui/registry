@@ -6,13 +6,30 @@ type TagVariant = 'default' | 'success' | 'warning' | 'error' | 'info';
 type TagSize = 'sm' | 'md' | 'lg';
 
 interface TagProps extends ViewProps {
+  /** Text content displayed inside the tag. */
   label: string;
+  /** Colour scheme of the tag. Defaults to `'default'` (neutral). */
   variant?: TagVariant;
+  /** Size of the tag, controlling padding and typography. Defaults to `'md'`. */
   size?: TagSize;
+  /** When true, a dismiss (✕) button is rendered at the end of the tag. */
   removable?: boolean;
+  /** Callback fired when the user presses the remove button. */
   onRemove?: () => void;
 }
 
+/**
+ * A compact label chip used to categorise or annotate content. Supports
+ * semantic colour variants (success, warning, error, info) and an optional
+ * remove button for dismissible tags.
+ *
+ * @example
+ * // Static informational tag
+ * <Tag label="In Progress" variant="warning" />
+ *
+ * // Removable filter tag
+ * <Tag label="React Native" removable onRemove={() => removeFilter('React Native')} />
+ */
 export function Tag({
   label,
   variant = 'default',

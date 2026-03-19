@@ -4,14 +4,45 @@ import { Svg, Circle } from 'react-native-svg';
 import { Text, fonts, sizes, spacing, useTheme } from '../../../masicn'
 
 interface ProgressCircleProps {
+  /** Current progress from 0 to 100. Values outside this range are clamped. */
   value: number;
+  /** Outer diameter of the SVG circle in pixels. Defaults to `sizes.progressCircleDefault`. */
   size?: number;
+  /** Width of the progress arc stroke in pixels. Defaults to 8. */
   strokeWidth?: number;
+  /** When true (default), renders the rounded percentage label in the center of the circle. */
   showValue?: boolean;
+  /** Override the arc stroke color. Defaults to the theme's primary color. */
   color?: string;
+  /** Optional text label rendered below the percentage value in the center. */
   label?: string;
 }
 
+/**
+ * ProgressCircle — an SVG-based circular progress indicator with a centered value label.
+ *
+ * Uses `react-native-svg` to draw two concentric circles: a static background
+ * track (using `surfaceSecondary`) and an animated arc whose dash offset is
+ * derived from the current `value`. The arc starts at the 12 o'clock position
+ * (achieved via a -90° SVG rotation) and has rounded end caps.
+ *
+ * The `value` is clamped to [0, 100] before rendering. When `showValue` is true,
+ * the rounded integer percentage is displayed in bold in the center, with an
+ * optional `label` line below it.
+ *
+ * @example
+ * // Basic usage
+ * <ProgressCircle value={75} />
+ *
+ * // Custom color, size, and label
+ * <ProgressCircle
+ *   value={completionRate}
+ *   size={120}
+ *   strokeWidth={10}
+ *   color={theme.colors.success}
+ *   label="Complete"
+ * />
+ */
 export function ProgressCircle({
   value,
   size = sizes.progressCircleDefault,

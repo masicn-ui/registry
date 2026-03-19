@@ -5,15 +5,45 @@ import { Text, borders, opacity as opacityTokens, radius, spacing, useTheme } fr
 type AlertVariant = 'success' | 'error' | 'warning' | 'info';
 
 interface AlertProps {
+  /** Semantic variant controlling background and icon colour — 'success', 'error', 'warning', or 'info'. Required. */
   variant: AlertVariant;
+  /** Bold heading text displayed in the alert. Required. */
   title: string;
+  /** Optional body copy rendered below `title` at a slightly reduced opacity. */
   description?: string;
+  /** When true and `onDismiss` is also provided, a dismiss (×) button is shown on the right. Defaults to false. */
   dismissible?: boolean;
+  /** Callback fired when the user presses the dismiss button. Only relevant when `dismissible` is true. */
   onDismiss?: () => void;
+  /** Additional style applied to the alert container. */
   containerStyle?: ViewStyle;
+  /** Custom icon character (emoji or unicode) to override the default variant icon. */
   icon?: string;
 }
 
+/**
+ * Alert — an inline feedback banner for communicating status to the user.
+ *
+ * Renders with a semantically appropriate background and icon for each
+ * variant: success (green ✓), error (red ✕), warning (amber ⚠), and info
+ * (blue ℹ). The icon can be replaced with a custom character via the `icon`
+ * prop. When `dismissible` is true and `onDismiss` is provided, a close
+ * button appears on the right.
+ *
+ * @example
+ * // Success alert
+ * <Alert variant="success" title="Saved!" description="Your changes have been saved." />
+ *
+ * @example
+ * // Dismissible error
+ * <Alert
+ *   variant="error"
+ *   title="Something went wrong"
+ *   description={error.message}
+ *   dismissible
+ *   onDismiss={clearError}
+ * />
+ */
 export function Alert({
   variant,
   title,

@@ -31,6 +31,30 @@ interface AccordionItemProps {
   containerStyle?: ViewStyle;
 }
 
+/**
+ * AccordionItem — a single collapsible section with an animated height transition.
+ *
+ * Can be used standalone (uncontrolled via `defaultExpanded`, or fully
+ * controlled via `expanded` + `onToggle`) or composed inside an `<Accordion>`
+ * wrapper which manages the expand/collapse state for all children and
+ * optionally enforces single-open behaviour.
+ *
+ * @example
+ * // Standalone uncontrolled item
+ * <AccordionItem title="FAQ Question" defaultExpanded>
+ *   <Text>Answer text here</Text>
+ * </AccordionItem>
+ *
+ * @example
+ * // Controlled item
+ * <AccordionItem
+ *   title="Details"
+ *   expanded={isOpen}
+ *   onToggle={setIsOpen}
+ * >
+ *   <Text>Details content</Text>
+ * </AccordionItem>
+ */
 export function AccordionItem({
   title,
   children,
@@ -149,6 +173,23 @@ interface AccordionProps {
   allowMultiple?: boolean;
 }
 
+/**
+ * Accordion — a container that coordinates expand/collapse state across multiple `<AccordionItem>` children.
+ *
+ * By default only one item can be open at a time. Set `allowMultiple` to
+ * allow several items to be expanded simultaneously. Each child `AccordionItem`
+ * uses its `title` as a unique key within the group.
+ *
+ * @example
+ * <Accordion allowMultiple>
+ *   <AccordionItem title="Section 1">
+ *     <Text>Content A</Text>
+ *   </AccordionItem>
+ *   <AccordionItem title="Section 2">
+ *     <Text>Content B</Text>
+ *   </AccordionItem>
+ * </Accordion>
+ */
 export function Accordion({
   children,
   containerStyle,

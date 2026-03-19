@@ -13,17 +13,17 @@ export interface NumberInputProps {
   value: number;
   /** Called whenever the value changes */
   onValueChange: (value: number) => void;
-  /** Minimum allowed value */
+  /** Minimum allowed value (default `-Infinity`) */
   min?: number;
-  /** Maximum allowed value */
+  /** Maximum allowed value (default `Infinity`) */
   max?: number;
-  /** Increment / decrement step */
+  /** Amount added or subtracted on each button press (default `1`) */
   step?: number;
   /** Field label shown above */
   label?: string;
   /** Helper text shown below */
   helperText?: string;
-  /** Error message */
+  /** Error message — activates error border and label colour */
   error?: string;
   /** Disable all interaction */
   disabled?: boolean;
@@ -34,11 +34,26 @@ export interface NumberInputProps {
 }
 
 /**
- * Numeric stepper — two bordered buttons flank a centered editable input.
- * Supports min/max bounds, configurable step, and direct keyboard entry.
+ * NumberInput — a numeric stepper with two bordered increment/decrement buttons
+ * flanking a centred, directly-editable text input.
+ *
+ * The `−` and `+` buttons are automatically disabled when the value is at `min`
+ * or `max` respectively, and the step buttons call `onValueChange` with the
+ * clamped next value. Direct keyboard entry is supported — the raw text is kept
+ * in local state while the user is typing to avoid jumpy cursor behaviour. On
+ * blur the displayed text snaps to the actual clamped value.
+ *
+ * Both the stepper row and the text input meet WCAG 2.1 touch-target size (48px).
  *
  * @example
- * <NumberInput label="Quantity" value={qty} onValueChange={setQty} min={1} max={99} />
+ * <NumberInput
+ *   label="Quantity"
+ *   value={qty}
+ *   onValueChange={setQty}
+ *   min={1}
+ *   max={99}
+ *   step={1}
+ * />
  */
 export function NumberInput({
   value,

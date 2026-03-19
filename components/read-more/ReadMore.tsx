@@ -12,15 +12,41 @@ type TextVariant = keyof Typography;
 type TextColor = keyof Theme['colors'];
 
 interface ReadMoreProps {
+  /** The string content to display. */
   children: string;
   /** Number of lines before truncating. Defaults to 3. */
   numberOfLines?: number;
+  /** Text variant applied to both the main text and the toggle button. Defaults to `'body'`. */
   variant?: TextVariant;
+  /** Text color token for the main body text. Defaults to `'textPrimary'`. */
   color?: TextColor;
+  /** Label for the expand toggle. Defaults to `'Read more'`. */
   expandLabel?: string;
+  /** Label for the collapse toggle. Defaults to `'Show less'`. */
   collapseLabel?: string;
 }
 
+/**
+ * ReadMore — a text block that truncates long content and provides an inline
+ * expand/collapse toggle.
+ *
+ * On first render a hidden, unclamped copy of the text is measured to determine
+ * whether truncation is necessary. If the full text exceeds `numberOfLines`, the
+ * visible copy is clamped and a toggle button is shown. Tapping the toggle
+ * expands the text to its full length; tapping again collapses it. If the text
+ * fits within `numberOfLines` no toggle is rendered and the measurement layer is
+ * removed after the first measurement.
+ *
+ * @example
+ * <ReadMore numberOfLines={4}>
+ *   {longBiographyText}
+ * </ReadMore>
+ *
+ * // Custom labels
+ * <ReadMore expandLabel="See more" collapseLabel="See less" numberOfLines={2}>
+ *   {description}
+ * </ReadMore>
+ */
 export function ReadMore({
   children,
   numberOfLines = 3,

@@ -2,10 +2,13 @@ import React from 'react';
 import { View, Pressable, StyleSheet, type ViewStyle } from 'react-native';
 import { Text, spacing, useTheme } from '../../../masicn';
 
+/**
+ * A single crumb in the breadcrumb trail.
+ */
 export interface BreadcrumbItem {
-  /** Display label */
+  /** Display label shown for this crumb. */
   label: string;
-  /** If provided, the item is pressable */
+  /** If provided, the item is rendered as a pressable link that calls this handler. */
   onPress?: () => void;
 }
 
@@ -19,8 +22,23 @@ interface BreadcrumbProps {
 }
 
 /**
- * Breadcrumb — horizontal navigation trail.
- * The last item is treated as the current page (non-pressable, primary text).
+ * Breadcrumb — horizontal navigation trail showing the current page's hierarchy.
+ *
+ * Items are rendered left-to-right separated by "/" (or a custom `separator`).
+ * The last item is always treated as the active/current page: it is non-pressable
+ * and rendered in `textPrimary` colour. All preceding items that carry an
+ * `onPress` handler are styled as links using the theme's `secondary` colour.
+ *
+ * The component wraps naturally if the total width exceeds the container.
+ *
+ * @example
+ * <Breadcrumb
+ *   items={[
+ *     { label: 'Home',     onPress: () => router.push('/') },
+ *     { label: 'Settings', onPress: () => router.push('/settings') },
+ *     { label: 'Profile' },
+ *   ]}
+ * />
  */
 export function Breadcrumb({
   items,

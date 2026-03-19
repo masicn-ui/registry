@@ -9,18 +9,31 @@ type CardPadding = 'none' | 'sm' | 'md' | 'lg' | 'xl';
 const DEFAULT_TEXT_THRESHOLD = 150;
 
 export interface CardProps extends ViewProps {
+  /** Visual style — 'elevated' adds drop shadow, 'filled' uses a flat surface colour, 'outlined' adds a thin border. Defaults to 'elevated'. */
   variant?: CardVariant;
+  /** Background surface token — 'primary', 'secondary', or 'tertiary'. Defaults to 'primary'. */
   surface?: Surface;
+  /** Shadow depth used when `variant` is 'elevated'. Defaults to 'md'. */
   shadow?: keyof Elevation;
+  /** Inner padding preset — 'none' | 'sm' | 'md' | 'lg' | 'xl'. Defaults to 'lg'. */
   padding?: CardPadding;
+  /** When provided the card becomes a pressable element that calls this handler on tap. */
   onPress?: () => void;
+  /** Disables interaction and reduces opacity when `onPress` is set. */
   disabled?: boolean;
+  /** Node rendered at the top of the card before any text content (e.g. an image or banner). */
   media?: React.ReactNode;
+  /** Bold heading text rendered in the card content area. */
   title?: string;
+  /** Subdued text rendered below `title`. */
   subtitle?: string;
+  /** Body copy. Automatically truncated at `textThreshold` characters with a "Show more" toggle. */
   body?: string;
+  /** Character count before `body` text is truncated. Defaults to 150. */
   textThreshold?: number;
+  /** Arbitrary content rendered between the heading block and the footer. */
   children?: React.ReactNode;
+  /** Node rendered at the bottom of the card, separated by a divider line. */
   footer?: React.ReactNode;
   /** @deprecated Use `title` + `subtitle` or `children` instead. */
   header?: React.ReactNode;
@@ -40,6 +53,30 @@ const paddingMap: Record<CardPadding, number> = {
   xl: spacing.xl,
 };
 
+/**
+ * Card — a flexible surface container for grouping related content.
+ *
+ * Supports three visual styles (elevated, filled, outlined), configurable
+ * padding, an optional media slot at the top, structured title/subtitle/body
+ * slots with automatic "Show more" truncation, a footer zone, and optional
+ * press interaction. When `onPress` is provided the card becomes a fully
+ * accessible pressable element.
+ *
+ * @example
+ * // Static informational card
+ * <Card title="Getting Started" subtitle="Read the docs" body={longText}>
+ *   <Button onPress={openDocs}>Open Docs</Button>
+ * </Card>
+ *
+ * @example
+ * // Tappable card with media
+ * <Card
+ *   variant="elevated"
+ *   media={<Image source={banner} aspectRatio="16:9" />}
+ *   title="Article Title"
+ *   onPress={() => navigate('article')}
+ * />
+ */
 export function Card({
   variant = 'elevated',
   surface = 'primary',

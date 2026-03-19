@@ -37,6 +37,15 @@ export interface ConfirmDialogProps {
  * Use `destructive` to trigger the danger visual mode — red accent banner,
  * error-coloured title, and a prominent outlined cancel button.
  *
+ * In standard mode the confirm button uses the `primary` variant and the cancel
+ * button uses `ghost`. In destructive mode the layout flips: cancel gets `outline`
+ * so it reads as the "safe" escape, and confirm uses `destructive` to clearly
+ * communicate the severity.
+ *
+ * Pressing cancel calls `onCancel` (if provided) and then `onClose`. Pressing
+ * confirm calls `onConfirm` only — the caller is responsible for closing the
+ * dialog afterwards (or keeping it open while `loading` is true).
+ *
  * @example
  * // Standard
  * <ConfirmDialog

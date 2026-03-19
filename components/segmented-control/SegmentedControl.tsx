@@ -7,19 +7,43 @@ import Animated, {
 } from 'react-native-reanimated';
 import { Text, elevation, motion, motionEasing, opacity as opacityTokens, radius, spacing, useReducedMotion, useTheme } from '../../../masicn'
 
+/** A single option entry for SegmentedControl. */
 export interface SegmentedControlOption {
+  /** Display text for the segment. */
   label: string;
+  /** Unique value identifier for the segment. */
   value: string;
+  /** Whether this individual segment is disabled. */
   disabled?: boolean;
 }
 
 interface SegmentedControlProps {
+  /** Array of selectable options rendered as segments. */
   options: SegmentedControlOption[];
+  /** The currently selected option value. */
   value: string;
+  /** Callback fired when the user selects a different segment. */
   onChange: (value: string) => void;
+  /** When true, all segments are non-interactive. */
   disabled?: boolean;
 }
 
+/**
+ * A horizontal tab-like control that allows the user to pick one option from
+ * a small set of mutually-exclusive choices. An animated indicator slides
+ * beneath the active segment. Respects the system reduced-motion preference.
+ *
+ * @example
+ * const [view, setView] = useState('list');
+ * <SegmentedControl
+ *   options={[
+ *     { label: 'List', value: 'list' },
+ *     { label: 'Grid', value: 'grid' },
+ *   ]}
+ *   value={view}
+ *   onChange={setView}
+ * />
+ */
 export function SegmentedControl({
   options,
   value,

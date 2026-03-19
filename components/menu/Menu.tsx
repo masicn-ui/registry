@@ -28,14 +28,37 @@ interface MenuProps {
   items: MenuItem[];
   /** Callback when item is selected */
   onSelect: (value: string) => void;
-  /** Trigger element */
+  /** Trigger element that opens the menu when pressed. */
   children: React.ReactElement;
-  /** Menu title */
+  /** Optional heading rendered above the item list. */
   title?: string;
-  /** Additional container style */
+  /** Additional style applied to the outermost wrapper `View`. */
   containerStyle?: ViewStyle;
 }
 
+/**
+ * Menu — a modal context-menu that presents a list of actions when the trigger
+ * element is pressed.
+ *
+ * The menu opens a centered `Modal` with a fade animation and a tappable
+ * backdrop to dismiss. Items can carry an optional icon, description, and
+ * `destructive` flag (which renders the label in the error/red color). Disabled
+ * items are visually dimmed and cannot be pressed. Selecting a non-disabled item
+ * calls `onSelect` with the item's `value` and closes the menu automatically.
+ *
+ * @example
+ * <Menu
+ *   title="Actions"
+ *   items={[
+ *     { label: 'Edit', value: 'edit', icon: '✏️' },
+ *     { label: 'Share', value: 'share', icon: '↗️' },
+ *     { label: 'Delete', value: 'delete', icon: '🗑', destructive: true },
+ *   ]}
+ *   onSelect={(value) => handleAction(value)}
+ * >
+ *   <IconButton icon="more-horizontal" />
+ * </Menu>
+ */
 export function Menu({
   items,
   onSelect,

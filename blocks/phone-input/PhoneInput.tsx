@@ -12,6 +12,7 @@ import { Modal as PickerModal } from '../../components';
 
 /** Full country entry — pass via `countries` for name-in-picker support. */
 export interface CountryOption {
+  /** E.164-style dial code prefix, e.g. `"+91"` or `"+1"`. */
   dialCode: string;
   /** Country name shown in the picker list (not shown in the input row) */
   name?: string;
@@ -55,13 +56,23 @@ export interface PhoneInputProps {
 }
 
 /**
- * Phone number input with an integrated country dial-code selector.
+ * PhoneInput — phone number field with an integrated country dial-code selector.
  *
- * - Pass `countries` for a rich picker that shows country names.
- * - Pass `countryCodes` for a simple code-only picker (legacy).
- * - Auto-strips the country code when the user pastes a full international number.
- * - `maxDigits` clamps the phone number length (default 10).
- * - The dial code is only shown in the input row; names only appear in the picker.
+ * The component accepts both a controlled (`dialCode` + `onDialCodeChange`) and
+ * an uncontrolled internal-state model for the dial code. The phone digits are
+ * always controlled via `value` / `onValueChange`.
+ *
+ * Picker behaviour:
+ * - Pass `countries` for a rich picker that shows the country name alongside the code.
+ * - Pass `countryCodes` (string array) for a code-only picker — each string is
+ *   normalised into a `CountryOption` internally.
+ * - If only one entry is present the dial-code area is non-pressable (no picker needed).
+ *
+ * Paste handling:
+ * - Auto-strips the dial code when the user pastes a full international number
+ *   (e.g. `+918789338305` becomes `8789338305` with `+91` selected).
+ * - `maxLength` is intentionally omitted from the native `TextInput` so the full
+ *   pasted string reaches `handleChangeText` before being clipped to `maxDigits`.
  *
  * @example
  * <PhoneInput

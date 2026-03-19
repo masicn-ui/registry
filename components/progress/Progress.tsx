@@ -12,18 +12,55 @@ import { Text, borders, motion, radius, sizes, spacing, useTheme } from '../../.
 type ProgressVariant = 'linear' | 'circular';
 
 interface ProgressProps {
+  /** Current progress value from 0 to 100. */
   value: number;
+  /**
+   * Layout variant.
+   * - `'linear'` — horizontal bar (default)
+   * - `'circular'` — circular track (placeholder; full SVG arc not yet implemented)
+   */
   variant?: ProgressVariant;
+  /** Show the numeric percentage label alongside the bar. Defaults to false. */
   showValue?: boolean;
+  /** Descriptive label rendered above the bar on the left. */
   label?: string;
+  /** Height of the linear track in pixels. Defaults to `sizes.progressBarDefault`. */
   height?: number;
+  /** Diameter of the circular variant in pixels. Defaults to 48. */
   size?: number;
+  /**
+   * When true, the bar animates in a looping sweep to indicate an unknown
+   * duration. The `value` prop is ignored while `indeterminate` is active.
+   * Defaults to false.
+   */
   indeterminate?: boolean;
+  /** Additional style applied to the outermost container. */
   containerStyle?: ViewStyle;
 }
 
 const INDETERMINATE_FILL = 0.35;
 
+/**
+ * Progress — a linear or circular progress indicator.
+ *
+ * In determinate mode (`indeterminate={false}`) the fill width animates smoothly
+ * to the current `value` (0–100) using `Animated.timing`. In indeterminate mode
+ * a fixed-width sweep tile translates continuously across the track using
+ * Reanimated to convey ongoing but unmeasured progress.
+ *
+ * The circular variant renders a bordered ring with an optional centered
+ * percentage label; a full SVG arc fill is not yet implemented in this variant.
+ *
+ * @example
+ * // Determinate linear bar with label and value
+ * <Progress value={uploadProgress} label="Uploading…" showValue />
+ *
+ * // Indeterminate loading bar
+ * <Progress value={0} indeterminate />
+ *
+ * // Circular indicator
+ * <Progress value={72} variant="circular" size={64} showValue />
+ */
 export function Progress({
   value,
   variant = 'linear',

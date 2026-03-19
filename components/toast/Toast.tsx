@@ -28,6 +28,14 @@ interface ToastContextValue {
 
 const ToastContext = createContext<ToastContextValue | undefined>(undefined);
 
+/**
+ * Returns the toast imperative API from the nearest `ToastProvider`.
+ * Throws if called outside a provider.
+ *
+ * @example
+ * const toast = useToast();
+ * toast.success('File saved!');
+ */
 export function useToast() {
   const context = useContext(ToastContext);
   if (!context) {
@@ -37,10 +45,30 @@ export function useToast() {
 }
 
 interface ToastProviderProps {
+  /** Application subtree that will have access to the toast context. */
   children: React.ReactNode;
+  /** Default screen position for toasts when none is specified per-call. Defaults to `'top'`. */
   defaultPosition?: ToastPosition;
 }
 
+/**
+ * Provides the toast context to the component tree. Renders active toasts in
+ * a portal above all other UI. Wrap your root layout with this provider and
+ * call `useToast()` anywhere inside to trigger brief status notifications.
+ *
+ * Toasts are non-interactive (no action button) and auto-dismiss after the
+ * specified duration. For interactive notifications, use `SnackbarProvider`.
+ *
+ * @example
+ * // In your root layout:
+ * <ToastProvider defaultPosition="bottom">
+ *   <App />
+ * </ToastProvider>
+ *
+ * // Inside any screen:
+ * const toast = useToast();
+ * toast.error('Connection failed');
+ */
 export function ToastProvider({ children, defaultPosition = 'top' }: ToastProviderProps) {
   const [toasts, setToasts] = useState<ToastMessage[]>([]);
 

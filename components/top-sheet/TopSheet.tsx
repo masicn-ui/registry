@@ -21,16 +21,33 @@ import { useTheme, spacing, radius, elevation, sizes, motion, motionEasing } fro
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 interface TopSheetProps {
+  /** Controls whether the sheet is visible. */
   visible: boolean;
+  /** Callback fired when the user dismisses the sheet (backdrop press or swipe up). */
   onClose: () => void;
+  /** Content rendered inside the scrollable area of the sheet. */
   children: React.ReactNode;
+  /** Maximum height as a fraction of the screen height (0–1). Defaults to `0.8`. */
   maxHeight?: number;
+  /** Whether to show the drag handle at the bottom of the sheet. Defaults to `true`. */
   showHandle?: boolean;
+  /** Additional styles applied to the sheet surface. */
   style?: ViewStyle;
 }
 
 const DISMISS_THRESHOLD = 0.3;
 
+/**
+ * A panel that slides down from the top of the screen. Supports swipe-up-to-
+ * dismiss, backdrop tap, and `KeyboardAvoidingView` for forms. The sheet
+ * springs open and eases closed with a configurable maximum height.
+ *
+ * @example
+ * const [open, setOpen] = useState(false);
+ * <TopSheet visible={open} onClose={() => setOpen(false)}>
+ *   <Text>Sheet content</Text>
+ * </TopSheet>
+ */
 export function TopSheet({
   visible,
   onClose,

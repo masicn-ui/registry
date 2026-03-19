@@ -23,8 +23,29 @@ interface CollapsibleProps {
 }
 
 /**
- * Collapsible / expandable section.
- * Supports both controlled (`open` + `onToggle`) and uncontrolled (`defaultOpen`) modes.
+ * Collapsible — a lightweight expandable section with an animated chevron.
+ *
+ * Renders a pressable header row with a title and a chevron that rotates
+ * 180° when expanded. The body content is shown/hidden using
+ * `LayoutAnimation` (with reduced-motion fallback). Supports both controlled
+ * (`open` + `onToggle`) and uncontrolled (`defaultOpen`) modes. The default
+ * chevron can be replaced with any node via the `icon` prop.
+ *
+ * @example
+ * // Uncontrolled, starts expanded
+ * <Collapsible title="Advanced Settings" defaultOpen>
+ *   <Toggle label="Enable debug mode" />
+ * </Collapsible>
+ *
+ * @example
+ * // Controlled
+ * <Collapsible
+ *   title="Filters"
+ *   open={filtersOpen}
+ *   onToggle={setFiltersOpen}
+ * >
+ *   <FilterPanel />
+ * </Collapsible>
  */
 export function Collapsible({
   title,

@@ -2,8 +2,13 @@ import React from 'react';
 import { View, Pressable, StyleSheet } from 'react-native';
 import { Stack, Text, borders, radius, spacing, useTheme } from '../../../masicn';
 
+/**
+ * A single option in the MultiSelect chip list.
+ */
 export interface MultiSelectOption {
+  /** Text label rendered inside the chip. */
   label: string;
+  /** Unique value used to track selection state. */
   value: string;
 }
 
@@ -16,11 +21,11 @@ interface MultiSelectProps {
   onValueChange: (value: string[]) => void;
   /** Label above the list */
   label?: string;
-  /** Error message */
+  /** Error message — activates error colour on the label */
   error?: string;
-  /** Helper text */
+  /** Helper text shown below the chip list */
   helperText?: string;
-  /** Disable all options */
+  /** Disable all options — no toggling is possible */
   disabled?: boolean;
   /** Max number of items that can be selected (undefined = unlimited) */
   maxSelect?: number;
@@ -32,7 +37,29 @@ interface MultiSelectProps {
 }
 
 /**
- * Multi-select chip list — users can tap options to add/remove them from the selection.
+ * MultiSelect — a wrapping chip list where users tap options to toggle selection.
+ *
+ * Each option is rendered as a pill-shaped chip. Tapping a deselected chip adds
+ * it to the selection; tapping a selected chip removes it. When `maxSelect` is
+ * reached, all unselected chips are disabled (greyed out) until a chip is removed.
+ *
+ * Provide `renderItem` to replace the default chip with a completely custom element
+ * — the `Pressable` wrapper and accessibility state are still applied automatically.
+ *
+ * @example
+ * const [selected, setSelected] = React.useState<string[]>([]);
+ *
+ * <MultiSelect
+ *   label="Interests"
+ *   options={[
+ *     { label: 'Design',     value: 'design' },
+ *     { label: 'Engineering', value: 'eng' },
+ *     { label: 'Marketing',  value: 'mktg' },
+ *   ]}
+ *   value={selected}
+ *   onValueChange={setSelected}
+ *   maxSelect={2}
+ * />
  */
 export function MultiSelect({
   options,

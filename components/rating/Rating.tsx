@@ -25,6 +25,30 @@ export interface RatingProps {
   label?: string;
 }
 
+/**
+ * Rating — a star (or custom icon) rating input with optional half-step granularity.
+ *
+ * Renders a row of `max` icons. Each icon can be in one of three states: empty,
+ * half-filled, or fully filled, based on the `value` prop relative to each
+ * icon's index. The half-fill effect is achieved by rendering a full-width
+ * "base" icon followed by a clipped "overlay" icon at 50% width.
+ *
+ * When `allowHalf` is true, a transparent pressable overlay covers the left
+ * half of each icon and sets `value` to `index + 0.5` when tapped.
+ *
+ * The component is fully accessible: it carries an `adjustable` role and
+ * responds to `increment` / `decrement` accessibility actions.
+ *
+ * @example
+ * // Controlled 5-star input
+ * <Rating value={rating} onValueChange={setRating} label="Quality" />
+ *
+ * // Read-only display with half-star precision
+ * <Rating value={4.5} readOnly allowHalf size={20} />
+ *
+ * // Custom icon and colors
+ * <Rating value={hearts} max={5} icon="♥" filledColor="red" onValueChange={setHearts} />
+ */
 export function Rating({
   value,
   max = 5,

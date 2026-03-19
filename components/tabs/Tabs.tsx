@@ -49,6 +49,37 @@ export interface TabsProps {
   panelStyle?: ViewStyle;
 }
 
+/**
+ * Tabs — a horizontally scrollable or fixed tab bar with optional content panels.
+ *
+ * Supports three visual variants: 'underline' (active tab has a coloured
+ * bottom border), 'filled' (active tab has a filled background inside a
+ * rounded container), and 'pill' (each tab is a pill-shaped button). When
+ * tabs include a `body` string or `content` node the active panel is rendered
+ * below the tab bar with automatic "Show more" truncation for long text.
+ *
+ * @example
+ * // Basic underline tabs
+ * const [active, setActive] = useState('details');
+ * <Tabs
+ *   tabs={[
+ *     { key: 'details', label: 'Details', body: descriptionText },
+ *     { key: 'reviews', label: 'Reviews', content: <ReviewList /> },
+ *   ]}
+ *   activeTab={active}
+ *   onTabChange={setActive}
+ * />
+ *
+ * @example
+ * // Scrollable pill tabs
+ * <Tabs
+ *   tabs={categories}
+ *   activeTab={activeCategory}
+ *   onTabChange={setActiveCategory}
+ *   variant="pill"
+ *   scrollable
+ * />
+ */
 const Tabs = React.forwardRef<View, TabsProps>(function Tabs(
   {
     tabs,
