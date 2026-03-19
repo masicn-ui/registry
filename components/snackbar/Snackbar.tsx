@@ -1,6 +1,3 @@
-// File: components/snackbar/Snackbar.tsx
-
-
 import React, { createContext, useContext, useState, useCallback } from 'react';
 import {
   View,
@@ -9,13 +6,15 @@ import {
   Pressable,
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { Masicn, Text, elevation, motion, radius, spacing, useTheme } from '@masicn/ui';
+import { Masicn, Text, elevation, motion, radius, spacing, useTheme } from '../../../masicn';
 
 type SnackbarType = 'success' | 'error' | 'warning' | 'info' | 'default';
 type SnackbarPosition = 'top' | 'bottom';
 
 interface SnackbarAction {
+  /** Button label text displayed inside the snackbar. */
   label: string;
+  /** Callback fired when the action button is pressed. The snackbar is also dismissed. */
   onPress: () => void;
 }
 
@@ -38,6 +37,14 @@ interface SnackbarContextValue {
 
 const SnackbarContext = createContext<SnackbarContextValue | undefined>(undefined);
 
+/**
+ * Returns the snackbar imperative API from the nearest `SnackbarProvider`.
+ * Throws if called outside a provider.
+ *
+ * @example
+ * const snackbar = useSnackbar();
+ * snackbar.success('Saved!');
+ */
 export function useSnackbar() {
   const context = useContext(SnackbarContext);
   if (!context) {
@@ -47,10 +54,31 @@ export function useSnackbar() {
 }
 
 interface SnackbarProviderProps {
+  /** Application subtree that will have access to the snackbar context. */
   children: React.ReactNode;
+  /** Default screen position for snackbars when none is specified per-call. Defaults to `'bottom'`. */
   defaultPosition?: SnackbarPosition;
 }
 
+/**
+ * Provides the snackbar context to the component tree. Renders active
+ * snackbars in a portal above the rest of the UI. Wrap your root layout or
+ * screen with this provider and use `useSnackbar()` anywhere inside to trigger
+ * notifications programmatically.
+ *
+ * Unlike `Toast`, snackbars support an optional action button and a close
+ * button, making them better suited for undoable or interactive feedback.
+ *
+ * @example
+ * // In your root layout:
+ * <SnackbarProvider>
+ *   <App />
+ * </SnackbarProvider>
+ *
+ * // Inside any screen:
+ * const snackbar = useSnackbar();
+ * snackbar.error('Upload failed', 5000, { label: 'Retry', onPress: retry });
+ */
 export function SnackbarProvider({ children, defaultPosition = 'bottom' }: SnackbarProviderProps) {
   const [snackbars, setSnackbars] = useState<SnackbarMessage[]>([]);
 

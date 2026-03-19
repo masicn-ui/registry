@@ -1,5 +1,3 @@
-// File: components/bottom-sheet/BottomSheet.tsx
-
 import React, { useImperativeHandle, useState, useCallback } from 'react';
 import {
   Pressable,
@@ -20,27 +18,59 @@ import Animated, {
   withTiming,
 } from 'react-native-reanimated';
 import { GestureDetector, Gesture } from 'react-native-gesture-handler';
-import { useTheme, spacing, radius, elevation, sizes, motion, motionEasing, useReducedMotion, useFocusTrap } from '@masicn/ui';
+import { useTheme, spacing, radius, elevation, sizes, motion, motionEasing, useReducedMotion, useFocusTrap, Masicn } from '../../../masicn';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { Masicn } from '@masicn/ui';
 
+/** Imperative handle exposed via `ref` for programmatic open/close control. */
 export interface BottomSheetRef {
+  /** Slides the sheet up into view. */
   open: () => void;
+  /** Dismisses the sheet and fires `onClose`. */
   close: () => void;
 }
 
 interface BottomSheetProps {
+  /** Controlled visibility. Omit to drive the sheet via the imperative `ref` API. */
   visible?: boolean;
+  /** Called when the sheet should close (backdrop press, swipe-down, or Android back). */
   onClose: () => void;
+  /** Content rendered inside the scrollable sheet body. */
   children: React.ReactNode;
+  /** Maximum height as a fraction of screen height (0–1). Defaults to 0.8. */
   maxHeight?: number;
+  /** Whether to render the drag handle pill at the top of the sheet. Defaults to true. */
   showHandle?: boolean;
+  /** Additional style applied to the sheet panel. */
   style?: ViewStyle;
+  /** Accessibility label announced by screen readers when the sheet gains focus. Defaults to 'Bottom sheet'. */
   accessibilityLabel?: string;
 }
 
 const DISMISS_THRESHOLD = 0.3;
 
+/**
+ * BottomSheet — a gesture-driven panel that slides up from the bottom of the screen.
+ *
+ * Supports swipe-to-dismiss (configurable threshold), keyboard avoidance so
+ * that form fields inside the sheet remain visible, safe-area-aware bottom
+ * padding, and both controlled (`visible` prop) and imperative (`ref`) APIs.
+ * Respects reduced-motion preferences. On Android the hardware back button
+ * dismisses the sheet.
+ *
+ * @example
+ * // Imperative usage
+ * const sheetRef = useRef<BottomSheetRef>(null);
+ * <Button onPress={() => sheetRef.current?.open()}>Open Sheet</Button>
+ * <BottomSheet ref={sheetRef} onClose={() => {}}>
+ *   <Text>Sheet content</Text>
+ * </BottomSheet>
+ *
+ * @example
+ * // Controlled with custom max height
+ * <BottomSheet visible={open} onClose={() => setOpen(false)} maxHeight={0.5}>
+ *   <FilterOptions />
+ * </BottomSheet>
+ */
 const BottomSheet = React.forwardRef<BottomSheetRef, BottomSheetProps>(
   function BottomSheet(
     {

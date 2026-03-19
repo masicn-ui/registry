@@ -1,5 +1,3 @@
-// File: components/left-sheet/LeftSheet.tsx
-
 import React from 'react';
 import {
   Pressable,
@@ -19,21 +17,47 @@ import Animated, {
   withTiming,
 } from 'react-native-reanimated';
 import { GestureDetector, Gesture } from 'react-native-gesture-handler';
-import { useTheme, spacing, radius, elevation, sizes, motion, motionEasing } from '@masicn/ui';
+import { useTheme, spacing, radius, elevation, sizes, motion, motionEasing } from '../../../masicn'
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 interface LeftSheetProps {
+  /** Whether the sheet is currently open. */
   visible: boolean;
+  /** Called when the sheet should close (backdrop press or swipe-left gesture). */
   onClose: () => void;
+  /** Content rendered inside the scrollable sheet body. */
   children: React.ReactNode;
+  /** Sheet width as a fraction of screen width. Defaults to 0.75 (75%). */
   width?: number;
+  /** Show a vertical drag handle indicator at the top of the sheet. Defaults to false. */
   showHandle?: boolean;
+  /** Additional style applied to the sheet panel. */
   style?: ViewStyle;
+  /** When true, the semi-transparent backdrop is not rendered. Defaults to false. */
   hideBackdrop?: boolean;
 }
 
 const DISMISS_THRESHOLD = 0.3;
 
+/**
+ * LeftSheet — an animated side-drawer that slides in from the left edge of the screen.
+ *
+ * The sheet springs open when `visible` becomes true and accelerates off-screen when
+ * `visible` becomes false. Users can drag the sheet leftward to dismiss it; a swipe
+ * exceeding 30% of the sheet width or a fast flick (velocityX < -500) triggers
+ * `onClose`. Safe-area insets are applied automatically so content never overlaps
+ * the status bar or home indicator.
+ *
+ * The sheet body is wrapped in a `KeyboardAvoidingView` + `ScrollView` so forms
+ * and inputs work without extra setup.
+ *
+ * @example
+ * const [open, setOpen] = React.useState(false);
+ *
+ * <LeftSheet visible={open} onClose={() => setOpen(false)} width={0.8}>
+ *   <Text>Navigation content</Text>
+ * </LeftSheet>
+ */
 export function LeftSheet({
   visible,
   onClose,

@@ -1,6 +1,3 @@
-// File: blocks/carousel/Carousel.tsx
-
-
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import {
   Pressable,
@@ -18,26 +15,69 @@ import Animated, {
   type SharedValue,
 } from 'react-native-reanimated';
 import { Gesture, GestureDetector } from 'react-native-gesture-handler';
-import { useTheme, spacing, radius, sizes, borders, motion } from '@masicn/ui';
+import { useTheme, spacing, radius, sizes, borders, motion } from '../../../masicn';
 
 // ─── Types ─────────────────────────────────────────────────────────────────
 
+/**
+ * Visual transition style applied to each slide as it moves in/out of focus.
+ *
+ * - `'scale'`    — active slide is full-size; adjacent slides shrink and fade slightly.
+ * - `'fade'`     — adjacent slides fade to near-transparent.
+ * - `'parallax'` — the slide's inner content scrolls at a slower rate than the container,
+ *                  creating a depth effect (inner layer is 1.4× wide with offset margins).
+ * - `'cube'`     — slides rotate on the Y-axis as if faces of a 3-D cube (perspective 800).
+ */
 export type CarouselAnimation = 'scale' | 'fade' | 'parallax' | 'cube';
+
+/**
+ * Shape of the page-progress indicator rendered below the carousel.
+ *
+ * - `'pill'` — active dot expands into a wider pill; inactive dots are small circles.
+ * - `'dot'`  — uniform circles; active dot changes colour only.
+ * - `'line'` — full-width bars that span the available width equally; active bar is taller.
+ */
 export type CarouselDotVariant = 'pill' | 'dot' | 'line';
+
+/**
+ * How wide each slide should be.
+ *
+ * - `'full'`   — slide fills the entire screen width (no peeking).
+ * - `'peek'`   — slide is 85% of screen width, revealing the edges of adjacent slides.
+ * - `number`   — explicit pixel width.
+ */
 export type CarouselSlideWidth = 'full' | 'peek' | number;
 
+/**
+ * Props for the generic `Carousel` component.
+ */
 export interface CarouselProps<T> {
+  /** Array of data items to render; one slide is created per item. */
   data: T[];
+  /** Renders the content of a single slide; receives the item and its index. */
   renderItem: (item: T, index: number) => React.ReactNode;
+  /** Returns a stable string key for each item (defaults to `carousel-{index}`). */
   keyExtractor?: (item: T, index: number) => string;
+  /** Visual transition style applied while swiping (default `'scale'`). */
   animation?: CarouselAnimation;
+  /** Width strategy for each slide (default `'full'`). */
   slideWidth?: CarouselSlideWidth;
+  /** Fixed height of every slide in pixels (default from `sizes.carouselSlideDefaultHeight`). */
   slideHeight?: number;
+  /** Border radius token applied to every slide (default `'lg'`). */
   slideBorderRadius?: keyof typeof radius;
+  /** Gap in pixels between slides — only applied in peek/fixed-width modes (default `spacing.sm`). */
   gap?: number;
+  /** Whether to render the dot/line progress indicator below the carousel (default `true`). */
   showDots?: boolean;
+  /** Visual style of the dot indicator (default `'pill'`). */
   dotVariant?: CarouselDotVariant;
+  /**
+   * Auto-advance interval in milliseconds. Set to `0` (default) to disable.
+   * Auto-play restarts from the beginning once the last slide is reached.
+   */
   autoPlayInterval?: number;
+  /** Called when a slide is pressed (requires `onItemPress` to be defined to make slides pressable). */
   onItemPress?: (item: T, index: number) => void;
 }
 
@@ -57,16 +97,36 @@ const slideStyles = StyleSheet.create({
 // ─── AnimatedSlide ─────────────────────────────────────────────────────────
 
 interface AnimatedSlideProps {
+  /** Shared value tracking the current scroll offset in pixels. */
   offset: SharedValue<number>;
+  /** Zero-based position of this slide in the data array. */
   index: number;
+  /** Pixel width of this slide. */
   itemWidth: number;
+  /** Pixel distance between consecutive snap points (`itemWidth + gap`). */
   scrollStep: number;
+  /** Animation variant to apply. */
   animation: CarouselAnimation;
+  /** Resolved border radius value in pixels. */
   borderRadiusValue: number;
+  /** Slide height in pixels. */
   height: number;
+  /** Slide content. */
   children: React.ReactNode;
 }
 
+/**
+ * AnimatedSlide — internal wrapper that applies the chosen animation effect
+ * to a single carousel slide using Reanimated worklets.
+ *
+ * All animation variants derive a normalised `progress` value:
+ *   `progress = (offset - index * scrollStep) / scrollStep`
+ *
+ * `progress === 0` means the slide is perfectly centred; `±1` means it is
+ * exactly one full step away. The `parallax` variant wraps content in a second
+ * `Animated.View` whose `translateX` moves at 20% of the container width,
+ * creating the layered depth effect.
+ */
 function AnimatedSlide({
   offset,
   index,
@@ -169,11 +229,19 @@ function AnimatedSlide({
 // ─── Dot Indicators ────────────────────────────────────────────────────────
 
 interface DotsProps {
+  /** Total number of slides. */
   count: number;
+  /** Zero-based index of the currently visible slide. */
   activeIndex: number;
+  /** Visual style variant for the indicators. */
   variant: CarouselDotVariant;
 }
 
+/**
+ * Dots — internal progress indicator row rendered below the carousel.
+ * Renders `count` indicators and highlights the one at `activeIndex`.
+ * The `line` variant stretches each indicator to fill equal horizontal space.
+ */
 function Dots({ count, activeIndex, variant }: DotsProps) {
   const { theme } = useTheme();
 
@@ -246,7 +314,7 @@ function Dots({ count, activeIndex, variant }: DotsProps) {
 // ─── Carousel ──────────────────────────────────────────────────────────────
 
 /**
- * Horizontal carousel built on Gesture.Pan() + Reanimated.
+ * Carousel — horizontal swipe-based slide viewer built on Gesture.Pan() + Reanimated.
  *
  * Scroll math (single source of truth):
  *   scrollStep  = itemWidth + gap
@@ -256,7 +324,35 @@ function Dots({ count, activeIndex, variant }: DotsProps) {
  * Active index is derived from the snap target in onEnd.
  * All animation variants share the same progress formula.
  *
+ * Layout values (`scrollStep`, `maxOffset`, `dataLength`, `horizontalPadding`) are
+ * kept in sync via shared values updated synchronously on every render, so the
+ * gesture worklet always reads the latest layout without needing to be recreated
+ * on orientation change.
+ *
+ * Rubber-banding is applied at both ends (coefficient 0.15) so the gesture feels
+ * natural when the user drags past the first or last slide. Velocity lookahead
+ * (0.15 s) lets a fast flick jump more than one slide.
+ *
  * Note: slides render eagerly (no virtualization). Suitable for ~30 slides.
+ *
+ * @example
+ * // Full-width scale carousel with auto-play
+ * <Carousel
+ *   data={slides}
+ *   renderItem={(item) => <Image source={{ uri: item.image }} style={{ flex: 1 }} />}
+ *   animation="scale"
+ *   autoPlayInterval={3000}
+ * />
+ *
+ * @example
+ * // Peek mode with cube animation
+ * <Carousel
+ *   data={cards}
+ *   renderItem={(card) => <Card {...card} />}
+ *   slideWidth="peek"
+ *   animation="cube"
+ *   dotVariant="dot"
+ * />
  */
 export function Carousel<T>({
   data,

@@ -1,17 +1,21 @@
-// File: components/avatar/Avatar.tsx
-
 import React from 'react';
 import { View, Image, StyleSheet, type ImageSourcePropType } from 'react-native';
-import { Text, radius, sizes, type Typography, useTheme } from '@masicn/ui';
+import { Text, radius, sizes, type Typography, useTheme } from '../../../masicn';
 
 export type AvatarSize = 'sm' | 'md' | 'lg';
 
 interface AvatarProps {
+  /** Image source URI or local `require()`. When provided and loads successfully, the image is shown. On error falls back to initials/fallback. */
   source?: ImageSourcePropType;
+  /** 1–2 character string shown when no image is available. Defaults to '?' if neither initials nor fallback is set. */
   initials?: string;
+  /** Size preset — 'sm', 'md', or 'lg'. Defaults to 'md'. */
   size?: AvatarSize;
+  /** Background fill colour token used for the initials view. Defaults to 'primary'. */
   color?: 'primary' | 'secondary' | 'tertiary' | 'accent';
+  /** Override the initials fallback with a custom string or arbitrary React node. */
   fallback?: string | React.ReactNode;
+  /** Optional overlay node (e.g. a `<Badge />`) positioned at the bottom-right of the avatar. */
   badge?: React.ReactNode;
 }
 
@@ -34,6 +38,22 @@ const onColorMap = {
   accent: 'onPrimary',
 } as const;
 
+/**
+ * Avatar — a circular user representation that shows a photo, initials, or custom fallback.
+ *
+ * When `source` is provided the image is rendered; if it fails to load the
+ * component falls back to the `initials` string or the `fallback` prop. An
+ * optional `badge` node (e.g. a status indicator or `<Badge />`) can be
+ * overlaid at the bottom-right corner.
+ *
+ * @example
+ * // Image avatar
+ * <Avatar source={{ uri: user.avatarUrl }} initials="JD" size="lg" />
+ *
+ * @example
+ * // Initials-only with badge
+ * <Avatar initials="AB" color="secondary" badge={<Badge variant="success" />} />
+ */
 export function Avatar({
   source,
   initials,

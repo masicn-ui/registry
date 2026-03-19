@@ -1,6 +1,3 @@
-// File: components/masonry-grid/MasonryGrid.tsx
-
-
 import React, { useState, useCallback } from 'react';
 import {
   View,
@@ -8,7 +5,7 @@ import {
   type ViewStyle,
   type LayoutChangeEvent,
 } from 'react-native';
-import { spacing } from '@masicn/ui';
+import { spacing } from '../../../masicn'
 
 interface MasonryGridProps<T> {
   /** Number of columns */
@@ -26,8 +23,31 @@ interface MasonryGridProps<T> {
 }
 
 /**
- * Masonry Grid component for Pinterest-style layouts
- * Automatically balances items across columns based on their heights
+ * MasonryGrid — a Pinterest-style multi-column layout that balances items across
+ * columns based on measured item heights.
+ *
+ * Items are distributed greedily: each new item is placed into the column whose
+ * cumulative height is currently the smallest, creating a visually balanced
+ * staggered grid. Heights are captured via `onLayout` and the distribution
+ * recalculates whenever they change.
+ *
+ * The component is fully generic (`MasonryGrid<T>`) so `data`, `renderItem`, and
+ * `keyExtractor` are all type-safe.
+ *
+ * Note: Because column distribution depends on layout measurements, items may
+ * reposition after the first render. Avoid using this inside a `ScrollView`
+ * without a fixed container height, as `onLayout` requires a bounded parent.
+ *
+ * @example
+ * <MasonryGrid
+ *   data={photos}
+ *   columns={2}
+ *   gap="sm"
+ *   keyExtractor={(item) => item.id}
+ *   renderItem={(item) => (
+ *     <Image source={{ uri: item.url }} style={{ height: item.height }} />
+ *   )}
+ * />
  */
 export function MasonryGrid<T>({
   columns = 2,

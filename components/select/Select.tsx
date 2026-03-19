@@ -1,5 +1,3 @@
-// File: components/select/Select.tsx
-
 import React, { useState } from 'react';
 import {
   View,
@@ -10,7 +8,7 @@ import {
   TextInput as RNTextInput,
   type ViewStyle,
 } from 'react-native';
-import { Text, borders, radius, spacing, typography, useFocusTrap, useTheme } from '@masicn/ui';
+import { Text, borders, radius, spacing, typography, useFocusTrap, useTheme } from '../../../masicn'
 
 export interface SelectOption {
   label: string;

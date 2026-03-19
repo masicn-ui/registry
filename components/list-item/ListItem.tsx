@@ -1,22 +1,51 @@
-// File: components/list-item/ListItem.tsx
-
 import React from 'react';
 import { Pressable, View, StyleSheet, type PressableProps } from 'react-native';
-import { Text, opacity as opacityTokens, spacing, useTheme } from '@masicn/ui';
+import { Text, opacity as opacityTokens, spacing, useTheme } from '../../../masicn'
 
 interface ListItemProps extends Omit<PressableProps, 'children'> {
-  /** Primary label */
+  /** Primary label displayed in the main body of the row. */
   title: string;
-  /** Secondary description */
+  /** Optional secondary description rendered below the title in a smaller, tertiary style. */
   subtitle?: string;
-  /** Leading element (icon, avatar, etc.) */
+  /** Leading slot — typically an icon, avatar, or thumbnail rendered before the text block. */
   leading?: React.ReactNode;
-  /** Trailing element (chevron, switch, badge, etc.) */
+  /**
+   * Trailing slot — rendered after the text block.
+   * Commonly used for a chevron, badge, switch, or status indicator.
+   * If omitted, a default disclosure chevron ('›') is rendered.
+   */
   trailing?: React.ReactNode;
-  /** Show bottom separator */
+  /** When true, a hairline separator is drawn below the row. Defaults to false. */
   separator?: boolean;
 }
 
+/**
+ * ListItem — a single-row list cell with leading, content, and trailing slots.
+ *
+ * Suitable for navigation lists, settings screens, or any collection of tappable rows.
+ * The row dims to `opacityTokens.pressed` while being pressed. When `leading` is
+ * provided and `separator` is true, the separator is inset to align with the text
+ * block (iOS-style inset separator). If no `trailing` is provided, a disclosure
+ * arrow is shown automatically.
+ *
+ * All `PressableProps` (e.g. `onPress`, `disabled`, `accessibilityLabel`) are
+ * forwarded to the underlying `Pressable`.
+ *
+ * @example
+ * <ListItem
+ *   title="Profile"
+ *   subtitle="Edit your personal information"
+ *   leading={<Avatar source={avatarUri} />}
+ *   onPress={() => navigation.navigate('Profile')}
+ *   separator
+ * />
+ *
+ * // Custom trailing element
+ * <ListItem
+ *   title="Notifications"
+ *   trailing={<Switch value={enabled} onValueChange={setEnabled} />}
+ * />
+ */
 export function ListItem({
   title,
   subtitle,

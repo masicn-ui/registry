@@ -1,8 +1,6 @@
-// File: components/pin-display/PinDisplay.tsx
-
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
-import { useTheme, spacing, radius, borders } from '@masicn/ui';
+import { useTheme, spacing, radius, borders } from '../../../masicn'
 
 export type PinDisplayVariant = 'default' | 'error' | 'success';
 
@@ -11,14 +9,50 @@ interface PinDisplayProps {
   length: number;
   /** Number of filled dots (characters entered so far). */
   filled: number;
+  /**
+   * Visual state of the dots.
+   * - `'default'` — filled dots use the primary color (default)
+   * - `'error'` — filled dots use the error/red color
+   * - `'success'` — filled dots use the success/green color
+   */
   variant?: PinDisplayVariant;
+  /**
+   * Diameter of each dot.
+   * - `'sm'` → 8 px
+   * - `'md'` → 12 px (default)
+   * - `'lg'` → 16 px
+   */
   size?: 'sm' | 'md' | 'lg';
+  /**
+   * Spacing between dots.
+   * - `'sm'` → spacing.sm
+   * - `'md'` → spacing.md (default)
+   * - `'lg'` → spacing.lg
+   */
   gap?: 'sm' | 'md' | 'lg';
 }
 
 const DOT_SIZES = { sm: 8, md: 12, lg: 16 } as const;
 const GAP_SIZES = { sm: spacing.sm, md: spacing.md, lg: spacing.lg } as const;
 
+/**
+ * PinDisplay — a row of circular dot indicators used to visualise PIN entry progress.
+ *
+ * Renders `length` dots in a horizontal row. The first `filled` dots are drawn
+ * as solid circles in the active color dictated by `variant`; the remaining
+ * dots appear as outlined empty circles. The component carries appropriate
+ * accessibility semantics (`progressbar` role with min/max/now values).
+ *
+ * Pair this with a hidden `TextInput` (or a custom numpad) to build a PIN
+ * entry screen.
+ *
+ * @example
+ * // 4-digit PIN with 2 digits entered
+ * <PinDisplay length={4} filled={pin.length} />
+ *
+ * // Error state after a failed attempt
+ * <PinDisplay length={4} filled={4} variant="error" size="lg" />
+ */
 export function PinDisplay({
   length,
   filled,

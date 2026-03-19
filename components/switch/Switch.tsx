@@ -1,5 +1,3 @@
-// File: components/switch/Switch.tsx
-
 import React from 'react';
 import {
   Pressable,
@@ -8,22 +6,44 @@ import {
   Animated,
   Easing,
 } from 'react-native';
-import { Text, elevation, motion, opacity as opacityTokens, sizes, spacing, useReducedMotion, useTheme } from '@masicn/ui';
+import { Text, elevation, motion, opacity as opacityTokens, sizes, spacing, useReducedMotion, useTheme } from '../../../masicn';
 
 interface SwitchProps {
+  /** Current on/off state of the switch. */
   value: boolean;
+  /** Callback fired when the user toggles the switch. Receives the new value. */
   onValueChange: (value: boolean) => void;
+  /** Primary label text displayed next to the track. */
   label?: string;
+  /** Secondary helper text displayed below the label. */
   description?: string;
+  /** Side the label is placed relative to the track. Defaults to `'right'`. */
   labelPosition?: 'left' | 'right';
+  /** When true, the switch is non-interactive and visually dimmed. */
   disabled?: boolean;
+  /** Overrides the accessibility label (defaults to the `label` prop value). */
   accessibilityLabel?: string;
+  /** Accessibility hint describing the result of toggling. */
   accessibilityHint?: string;
 }
 
 const THUMB_OFFSET = spacing.xxs;
 const ANIMATION_DURATION = motion.duration.normal;
 
+/**
+ * A fully custom animated toggle switch with an optional label and description.
+ * The thumb slides smoothly between on/off positions and scales slightly on
+ * press. Respects the system reduced-motion preference.
+ *
+ * @example
+ * const [enabled, setEnabled] = useState(false);
+ * <Switch
+ *   value={enabled}
+ *   onValueChange={setEnabled}
+ *   label="Push notifications"
+ *   description="Receive alerts when you're mentioned"
+ * />
+ */
 const Switch = React.forwardRef<View, SwitchProps>(function Switch(
   {
     value,

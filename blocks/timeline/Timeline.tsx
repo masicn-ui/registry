@@ -1,9 +1,6 @@
-// File: blocks/timeline/Timeline.tsx
-
-
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
-import { Text, borders, radius, sizes, spacing, useTheme } from '@masicn/ui';
+import { Text, borders, radius, sizes, spacing, useTheme } from '../../../masicn';
 
 export interface TimelineItem {
   /** Item title */

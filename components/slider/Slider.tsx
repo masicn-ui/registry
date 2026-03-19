@@ -1,5 +1,3 @@
-// File: components/slider/Slider.tsx
-
 import React from 'react';
 import {
   View,
@@ -7,7 +5,7 @@ import {
   type ViewStyle,
 } from 'react-native';
 import { GestureDetector, Gesture } from 'react-native-gesture-handler';
-import { Text, borders, radius, sizes, spacing, useTheme } from '@masicn/ui';
+import { Text, borders, radius, sizes, spacing, useTheme } from '../../../masicn';
 
 interface SliderProps {
   /** Current value */
@@ -104,63 +102,63 @@ export function Slider({
         </View>
       )}
       <GestureDetector gesture={pan}>
-      <View
-        accessible={true}
-        accessibilityRole="adjustable"
-        accessibilityLabel={label}
-        accessibilityValue={{
-          min: minimumValue,
-          max: maximumValue,
-          now: value,
-          text: String(value),
-        }}
-        onAccessibilityAction={(event) => {
-          if (event.nativeEvent.actionName === 'increment') {
-            const next = Math.min(maximumValue, value + step);
-            if (next !== value) { onValueChange(next); }
-          } else if (event.nativeEvent.actionName === 'decrement') {
-            const prev = Math.max(minimumValue, value - step);
-            if (prev !== value) { onValueChange(prev); }
-          }
-        }}
-        style={styles.sliderContainer}
-        onLayout={e => {
-          setSliderWidth(e.nativeEvent.layout.width);
-        }}>
-        {/* Track */}
         <View
-          style={[
-            styles.track,
-            { backgroundColor: theme.colors.disabled },
-          ]}
-        />
-        {/* Active track */}
-        <View
-          style={[
-            styles.activeTrack,
-            {
-              backgroundColor: disabled
-                ? theme.colors.disabled
-                : theme.colors.primary,
-              width: thumbPosition,
-            },
-          ]}
-        />
-        {/* Thumb */}
-        <View
-          style={[
-            styles.thumb,
-            {
-              backgroundColor: disabled
-                ? theme.colors.disabled
-                : theme.colors.primary,
-              left: thumbPosition - sizes.sliderThumb / 2,
-              transform: [{ scale: dragging ? 1.2 : 1 }],
-              borderColor: theme.colors.surfacePrimary,
-            },
-          ]}
-        />
-      </View>
+          accessible={true}
+          accessibilityRole="adjustable"
+          accessibilityLabel={label}
+          accessibilityValue={{
+            min: minimumValue,
+            max: maximumValue,
+            now: value,
+            text: String(value),
+          }}
+          onAccessibilityAction={(event) => {
+            if (event.nativeEvent.actionName === 'increment') {
+              const next = Math.min(maximumValue, value + step);
+              if (next !== value) { onValueChange(next); }
+            } else if (event.nativeEvent.actionName === 'decrement') {
+              const prev = Math.max(minimumValue, value - step);
+              if (prev !== value) { onValueChange(prev); }
+            }
+          }}
+          style={styles.sliderContainer}
+          onLayout={e => {
+            setSliderWidth(e.nativeEvent.layout.width);
+          }}>
+          {/* Track */}
+          <View
+            style={[
+              styles.track,
+              { backgroundColor: theme.colors.disabled },
+            ]}
+          />
+          {/* Active track */}
+          <View
+            style={[
+              styles.activeTrack,
+              {
+                backgroundColor: disabled
+                  ? theme.colors.disabled
+                  : theme.colors.primary,
+                width: thumbPosition,
+              },
+            ]}
+          />
+          {/* Thumb */}
+          <View
+            style={[
+              styles.thumb,
+              {
+                backgroundColor: disabled
+                  ? theme.colors.disabled
+                  : theme.colors.primary,
+                left: thumbPosition - sizes.sliderThumb / 2,
+                transform: [{ scale: dragging ? 1.2 : 1 }],
+                borderColor: theme.colors.surfacePrimary,
+              },
+            ]}
+          />
+        </View>
       </GestureDetector>
     </View>
   );

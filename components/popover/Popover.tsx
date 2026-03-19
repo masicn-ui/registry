@@ -1,5 +1,3 @@
-// File: components/popover/Popover.tsx
-
 import React, { useState, useRef, useCallback } from 'react';
 import {
   View,
@@ -10,7 +8,7 @@ import {
   type ViewStyle,
   type LayoutRectangle,
 } from 'react-native';
-import { useTheme, spacing, radius, elevation, borders, sizes } from '@masicn/ui';
+import { useTheme, spacing, radius, elevation, borders, sizes } from '../../../masicn'
 
 type PopoverPlacement = 'top' | 'bottom' | 'left' | 'right';
 type PopoverTrigger = 'press' | 'longPress';
@@ -27,22 +25,65 @@ export interface PopoverProps {
   content: React.ReactNode;
   /** Element that opens the popover when triggered */
   children: React.ReactElement;
-  /** Preferred placement relative to the trigger element */
+  /**
+   * Preferred placement of the popover relative to the trigger element.
+   * - `'top'` — above the trigger
+   * - `'bottom'` — below the trigger (default)
+   * - `'left'` — to the left of the trigger
+   * - `'right'` — to the right of the trigger
+   *
+   * The popover is clamped to screen bounds regardless of preference.
+   */
   placement?: PopoverPlacement;
-  /** Interaction that opens the popover */
+  /**
+   * Gesture that opens the popover.
+   * - `'press'` — single tap toggles open/closed (default)
+   * - `'longPress'` — long press opens the popover
+   */
   trigger?: PopoverTrigger;
-  /** Show an arrow pointing toward the trigger element */
+  /** Show an arrow pointing toward the trigger element. Defaults to true. */
   showArrow?: boolean;
-  /** Controlled visibility */
+  /** Controlled visibility. When provided, the component operates in controlled mode. */
   visible?: boolean;
-  /** Callback fired when visibility changes */
+  /** Callback fired when the popover visibility should change. */
   onVisibilityChange?: (visible: boolean) => void;
-  /** Additional style applied to the popover container */
+  /** Additional style applied to the popover container. */
   contentStyle?: ViewStyle;
   /** Stable selector for tests */
   testID?: string;
 }
 
+/**
+ * Popover — a floating content panel anchored to a trigger element.
+ *
+ * Opens as a transparent `Modal` and positions itself relative to the trigger's
+ * screen coordinates (measured with `measureInWindow`). The popover is clamped
+ * to stay within screen bounds with `spacing.md` padding. An optional directional
+ * arrow helps the user see the relationship between the popover and its trigger.
+ *
+ * Supports both uncontrolled (internal state) and controlled (`visible` +
+ * `onVisibilityChange`) modes. Tapping the backdrop dismisses the popover.
+ *
+ * @example
+ * // Uncontrolled — press trigger to toggle
+ * <Popover
+ *   content={<Text>Hello from popover</Text>}
+ *   placement="bottom"
+ * >
+ *   <Button>Open</Button>
+ * </Popover>
+ *
+ * // Controlled
+ * <Popover
+ *   content={<FilterPanel />}
+ *   visible={filterOpen}
+ *   onVisibilityChange={setFilterOpen}
+ *   placement="top"
+ *   showArrow={false}
+ * >
+ *   <IconButton icon="filter" />
+ * </Popover>
+ */
 export function Popover({
   content,
   children,

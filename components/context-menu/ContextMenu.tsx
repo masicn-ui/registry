@@ -1,5 +1,3 @@
-// File: components/context-menu/ContextMenu.tsx
-
 import React, { useState, useRef, useCallback } from 'react';
 import {
   View,
@@ -10,7 +8,7 @@ import {
   type ViewStyle,
   type LayoutRectangle,
 } from 'react-native';
-import { Text, borders, elevation, opacity as opacityTokens, radius, sizes, spacing, useTheme } from '@masicn/ui';
+import { Text, borders, elevation, opacity as opacityTokens, radius, sizes, spacing, useTheme } from '../../../masicn';
 
 export interface ContextMenuItem {
   /** Menu item label */

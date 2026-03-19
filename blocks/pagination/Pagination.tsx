@@ -1,9 +1,6 @@
-// File: blocks/pagination/Pagination.tsx
-
-
 import React from 'react';
 import { View, Pressable, StyleSheet } from 'react-native';
-import { Text, borders, radius, sizes, spacing, useTheme } from '@masicn/ui';
+import { Text, borders, radius, sizes, spacing, useTheme } from '../../../masicn';
 
 interface PaginationProps {
   /** Current page (1-based) */
@@ -12,12 +9,37 @@ interface PaginationProps {
   totalPages: number;
   /** Called when a page is selected */
   onPageChange: (page: number) => void;
-  /** Max page buttons visible before collapsing to ellipsis */
+  /** Max page buttons visible before collapsing to ellipsis (default 5) */
   maxVisible?: number;
 }
 
 /**
- * Pagination control — renders numbered page buttons with prev/next arrows.
+ * Pagination — numbered page buttons with prev/next arrow controls.
+ *
+ * Renders a horizontal row containing a `‹` prev arrow, numbered page
+ * buttons, and a `›` next arrow. When `totalPages` exceeds `maxVisible`,
+ * the control collapses the middle pages into an ellipsis (`…`) while
+ * always keeping the first and last page visible. The window of visible
+ * page numbers stays centred around `page`.
+ *
+ * The `‹` and `›` buttons are automatically disabled (rendered without
+ * an `onPress`) when the user is on the first or last page respectively.
+ *
+ * @example
+ * <Pagination
+ *   page={currentPage}
+ *   totalPages={totalPages}
+ *   onPageChange={setCurrentPage}
+ * />
+ *
+ * @example
+ * // Show up to 7 page buttons before collapsing
+ * <Pagination
+ *   page={currentPage}
+ *   totalPages={50}
+ *   onPageChange={setCurrentPage}
+ *   maxVisible={7}
+ * />
  */
 export function Pagination({
   page,

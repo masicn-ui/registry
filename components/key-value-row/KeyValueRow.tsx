@@ -1,11 +1,11 @@
-// File: components/key-value-row/KeyValueRow.tsx
-
 import React from 'react';
 import { Pressable, StyleSheet, View } from 'react-native';
-import { Text, borders, opacity as opacityTokens, spacing, useTheme } from '@masicn/ui';
+import { Text, borders, opacity as opacityTokens, spacing, useTheme } from '../../../masicn';
 
 interface KeyValueRowProps {
+  /** The descriptor label shown on the left side of the row. */
   label: string;
+  /** The data value shown on the right side of the row. */
   value: string;
   /** Called when the row is pressed (e.g. copy to clipboard). */
   onPress?: () => void;
@@ -17,6 +17,28 @@ interface KeyValueRowProps {
   separator?: boolean;
 }
 
+/**
+ * KeyValueRow — a horizontal row that displays a label–value pair, with optional
+ * press-to-copy behaviour and inline feedback.
+ *
+ * When `onPress` is provided the row becomes a `Pressable`. After the press
+ * handler fires, the value text is temporarily replaced by `feedbackLabel`
+ * (default "Copied!") rendered in the success color, then reverts after 1.5 s.
+ * Without `onPress` the row renders as a plain `View`.
+ *
+ * @example
+ * // Static display
+ * <KeyValueRow label="Email" value="user@example.com" separator />
+ *
+ * // Tap-to-copy with custom feedback
+ * <KeyValueRow
+ *   label="API Key"
+ *   value={apiKey}
+ *   onPress={() => Clipboard.setString(apiKey)}
+ *   feedbackLabel="Copied!"
+ *   valueAlign="right"
+ * />
+ */
 export function KeyValueRow({
   label,
   value,

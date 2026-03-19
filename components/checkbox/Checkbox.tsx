@@ -1,5 +1,3 @@
-// File: components/checkbox/Checkbox.tsx
-
 import React from 'react';
 import { Pressable, View, StyleSheet, type ViewStyle } from 'react-native';
 import Animated, {
@@ -8,21 +6,56 @@ import Animated, {
   withSpring,
   withTiming,
 } from 'react-native-reanimated';
-import { Text, borders, iconSizes, radius, sizes, spacing, useReducedMotion, useTheme } from '@masicn/ui';
+import { Text, borders, iconSizes, radius, sizes, spacing, useReducedMotion, useTheme } from '../../../masicn';
 
 interface CheckboxProps {
+  /** Whether the checkbox is checked. Required (controlled component). */
   checked: boolean;
+  /** Called with the new checked value when the user toggles the checkbox. */
   onValueChange: (checked: boolean) => void;
+  /** Primary label text rendered to the right of the checkbox. */
   label?: string;
+  /** Subdued description text rendered below `label`. */
   description?: string;
+  /** Custom content rendered to the right of the checkbox instead of `label`/`description`. */
   children?: React.ReactNode;
+  /** Disables interaction and dims the control. Defaults to false. */
   disabled?: boolean;
+  /** When true renders a dash (—) instead of a tick — useful for "select all" states. Defaults to false. */
   indeterminate?: boolean;
+  /** Additional style applied to the outer pressable container. */
   containerStyle?: ViewStyle;
+  /** Accessibility label. Defaults to the `label` prop value. */
   accessibilityLabel?: string;
+  /** Accessibility hint passed to the native element. */
   accessibilityHint?: string;
 }
 
+/**
+ * Checkbox — an accessible, animated boolean toggle with optional label and description.
+ *
+ * The check mark animates in/out with a spring scale when `checked` changes.
+ * Reduced-motion preferences are respected (instant transition). Supports an
+ * `indeterminate` state (renders a dash) for "select all" scenarios. Can also
+ * render arbitrary `children` to the right instead of the built-in label/description.
+ *
+ * @example
+ * // Simple labelled checkbox
+ * <Checkbox
+ *   checked={agreed}
+ *   onValueChange={setAgreed}
+ *   label="I agree to the terms"
+ * />
+ *
+ * @example
+ * // Indeterminate state
+ * <Checkbox
+ *   checked={someSelected}
+ *   indeterminate={!allSelected && someSelected}
+ *   onValueChange={toggleAll}
+ *   label="Select all"
+ * />
+ */
 const Checkbox = React.forwardRef<View, CheckboxProps>(function Checkbox(
   {
     checked,

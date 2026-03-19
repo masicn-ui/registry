@@ -1,12 +1,34 @@
-// File: components/password-input/PasswordInput.tsx
-
 import React, { useState } from 'react';
 import { Pressable, StyleSheet } from 'react-native';
-import { Text, borders, radius, spacing, useTheme } from '@masicn/ui';
-import { TextInput, type TextInputProps } from '@/components/ui/TextInput';
+import { Text, borders, radius, spacing, useTheme } from '../../../masicn'
+import { TextInput, type TextInputProps } from '../text-input/TextInput';
 
-interface PasswordInputProps extends Omit<TextInputProps, 'secureTextEntry' | 'endAdornment'> {}
+interface PasswordInputProps extends Omit<TextInputProps, 'secureTextEntry' | 'endAdornment'> { }
 
+/**
+ * PasswordInput — a secure text input with a toggleable show/hide button.
+ *
+ * Extends the base `TextInput` component, pre-configuring `secureTextEntry`,
+ * `autoCapitalize="none"`, and `autoCorrect={false}` for password fields.
+ * A "Show" / "Hide" button is injected as the `endAdornment`; tapping it
+ * toggles the `secureTextEntry` state so users can verify what they typed.
+ *
+ * All other `TextInput` props (e.g. `label`, `error`, `onChangeText`,
+ * `placeholder`) are forwarded as-is.
+ *
+ * The component is implemented with `React.forwardRef` so a `ref` can be
+ * attached to the underlying input for programmatic focus management.
+ *
+ * @example
+ * <PasswordInput
+ *   label="Password"
+ *   value={password}
+ *   onChangeText={setPassword}
+ *   placeholder="Enter your password"
+ *   error={!!errors.password}
+ *   errorMessage={errors.password}
+ * />
+ */
 export const PasswordInput = React.forwardRef<any, PasswordInputProps>(
   function PasswordInput(props, ref) {
     const { theme } = useTheme();
@@ -36,7 +58,7 @@ export const PasswordInput = React.forwardRef<any, PasswordInputProps>(
   },
 );
 
-PasswordInput.displayName = 'PasswordInput';
+ PasswordInput.displayName = 'PasswordInput';
 
 const styles = StyleSheet.create({
   toggle: {

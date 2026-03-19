@@ -1,8 +1,6 @@
-// File: components/animated-number/AnimatedNumber.tsx
-
 import React from 'react';
 import { Animated, type TextStyle } from 'react-native';
-import { Text, motion, type TypographyVariant } from '@masicn/ui';
+import { Text, motion, type TypographyVariant } from '../../../masicn';
 
 interface AnimatedNumberProps {
   /** Target numeric value — the component smoothly animates to this */
@@ -55,7 +53,7 @@ export function AnimatedNumber({
       animated.removeListener(listener);
       anim.stop();
     };
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [safeValue, duration]);
 
   return (

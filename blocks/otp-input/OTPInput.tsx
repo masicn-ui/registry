@@ -1,28 +1,48 @@
-// File: blocks/otp-input/OTPInput.tsx
-
-
 import React, { useState, useRef, useEffect } from 'react';
 import { View, TextInput, StyleSheet, Pressable } from 'react-native';
-import { Text, borders, opacity as opacityTokens, radius, sizes, spacing, typography, useTheme } from '@masicn/ui';
+import { Text, borders, opacity as opacityTokens, radius, sizes, spacing, typography, useTheme } from '../../../masicn';
 
 interface OTPInputProps {
   /** Number of digits (default: 6) */
   length?: number;
-  /** Current OTP value */
+  /** Current OTP value — controlled; should contain only digit characters */
   value: string;
-  /** Callback when OTP changes */
+  /** Called with the updated digit string on every keystroke */
   onChangeText: (otp: string) => void;
-  /** Callback when OTP is complete */
+  /** Called once when the OTP reaches the required `length` (fires only once per completion) */
   onComplete?: (otp: string) => void;
-  /** Error state */
+  /** Error message — activates error-coloured borders on all boxes */
   error?: string;
-  /** Disabled state */
+  /** Disabled state — prevents focus and all input */
   disabled?: boolean;
 }
 
 /**
- * OTP Input component for one-time password entry
- * Uses a hidden input for smooth typing experience
+ * OTPInput — one-time password entry with individual digit boxes.
+ *
+ * Uses a single hidden `TextInput` as the true focus target to ensure a smooth,
+ * native typing experience (paste, auto-fill, backspace all work as expected).
+ * The visible boxes are purely decorative — tapping any box focuses the hidden
+ * input and updates the `focusedIndex` so the correct box receives the focus ring.
+ *
+ * Non-digit characters are stripped automatically. `onComplete` fires exactly
+ * once per fully-entered code; it is reset if the user deletes any digit, allowing
+ * re-completion after an edit.
+ *
+ * The `autoComplete="one-time-code"` and `textContentType="oneTimeCode"` attributes
+ * are set on the hidden input so the OS SMS auto-fill suggestion appears on both
+ * iOS and Android.
+ *
+ * @example
+ * const [otp, setOtp] = React.useState('');
+ *
+ * <OTPInput
+ *   length={6}
+ *   value={otp}
+ *   onChangeText={setOtp}
+ *   onComplete={(code) => verifyCode(code)}
+ *   error={otpError}
+ * />
  */
 export function OTPInput({
   length = 6,

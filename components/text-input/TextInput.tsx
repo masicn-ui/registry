@@ -1,5 +1,3 @@
-// File: components/text-input/TextInput.tsx
-
 import React, { useState, useId } from 'react';
 import {
   TextInput as RNTextInput,
@@ -8,22 +6,69 @@ import {
   StyleSheet,
   type TextInputProps as RNTextInputProps,
 } from 'react-native';
-import { Stack, Text, borders, iconSizes, radius, sizes, spacing, typography, useTheme } from '@masicn/ui';
+import { Stack, Text, borders, iconSizes, radius, sizes, spacing, typography, useTheme } from '../../../masicn';
 
 type TextInputSize = 'sm' | 'md' | 'lg';
 
 interface TextInputProps extends RNTextInputProps {
+  /** Floating label rendered above the input field. */
   label?: string;
+  /** Descriptive text shown below the input when there is no error. */
   helperText?: string;
+  /** Validation error message. When set, the border and label turn red and the message replaces `helperText`. */
   error?: string;
+  /** When true, the input is non-editable and rendered with a disabled background. Defaults to false. */
   disabled?: boolean;
+  /** Size preset controlling minimum height and padding — 'sm', 'md', or 'lg'. Defaults to 'md'. */
   size?: TextInputSize;
+  /** Node rendered to the left of the text field, useful for search icons or currency symbols. */
   startAdornment?: React.ReactNode;
+  /** Node rendered to the right of the text field, useful for password-reveal toggles or suffix icons. */
   endAdornment?: React.ReactNode;
+  /** When true, a clear (×) button appears inside the field whenever it has a value. Defaults to false. */
   clearButton?: boolean;
+  /** Additional accessibility hint passed to the native input. Falls back to the `error` string when in an error state. */
   accessibilityHint?: string;
 }
 
+/**
+ * TextInput — a styled, accessible single-line (or multi-line) text field.
+ *
+ * Wraps React Native's `TextInput` with a label, helper text, error state,
+ * character counter (when `maxLength` is set), optional start/end adornments,
+ * and an inline clear button. Border and label colour respond to focus and
+ * error states automatically.
+ *
+ * @example
+ * // Basic labelled input
+ * <TextInput
+ *   label="Email"
+ *   placeholder="you@example.com"
+ *   value={email}
+ *   onChangeText={setEmail}
+ * />
+ *
+ * @example
+ * // Input with error and clear button
+ * <TextInput
+ *   label="Username"
+ *   value={username}
+ *   onChangeText={setUsername}
+ *   error={usernameError}
+ *   clearButton
+ * />
+ *
+ * @example
+ * // Input with icons and character limit
+ * <TextInput
+ *   label="Bio"
+ *   startAdornment={<Icon name="user" />}
+ *   maxLength={160}
+ *   multiline
+ *   value={bio}
+ *   onChangeText={setBio}
+ * />
+ */
 const TextInput = React.forwardRef<RNTextInput, TextInputProps>(
   function TextInput(
     {

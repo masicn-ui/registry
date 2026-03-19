@@ -1,6 +1,3 @@
-// File: blocks/tag-input/TagInput.tsx
-
-
 import React, { useState, useRef } from 'react';
 import {
   View,
@@ -9,7 +6,7 @@ import {
   StyleSheet,
   type ViewStyle,
 } from 'react-native';
-import { Stack, Text, borders, radius, sizes, spacing, typography, useTheme } from '@masicn/ui';
+import { Stack, Text, borders, radius, sizes, spacing, typography, useTheme } from '../../../masicn';
 
 interface TagInputProps {
   /** Current tags */

@@ -1,5 +1,3 @@
-// File: components/button/Button.tsx
-
 import React from 'react';
 import {
   Pressable,
@@ -9,7 +7,7 @@ import {
   type ViewStyle,
   type PressableProps,
 } from 'react-native';
-import { Text, borders, opacity as opacityTokens, radius, spacing, useReducedMotion, useTheme } from '@masicn/ui';
+import { Text, borders, opacity as opacityTokens, radius, spacing, useReducedMotion, useTheme } from '../../../masicn';
 
 type ButtonVariant =
   | 'primary'
@@ -25,9 +23,9 @@ interface ButtonProps
   extends Omit<PressableProps, 'children'> {
   /** Button content — supports text, icons, or any composition */
   children?: React.ReactNode;
-  /** Visual variant */
+  /** Visual style — 'primary' fills with brand color, 'secondary' uses secondary brand color, 'tertiary' uses tertiary color, 'outline' shows a bordered transparent button, 'ghost' has no border or fill, 'destructive' uses error color. Defaults to 'primary'. */
   variant?: ButtonVariant;
-  /** Size preset */
+  /** Size preset — 'sm' is compact, 'md' is default, 'lg' is larger touch target. Defaults to 'md'. */
   size?: ButtonSize;
   /** Show loading spinner and disable interaction */
   loading?: boolean;
@@ -43,6 +41,31 @@ interface ButtonProps
   accessibilityHint?: string;
 }
 
+/**
+ * Button — the primary interactive element for triggering actions.
+ *
+ * Supports 6 visual variants (primary, secondary, tertiary, outline, ghost, destructive),
+ * 3 size presets (sm, md, lg), optional left/right icon slots, and a loading state
+ * that shows a spinner and blocks interaction.
+ *
+ * Automatically respects reduced-motion preferences via `useReducedMotion`.
+ *
+ * @example
+ * // Primary button with icon
+ * <Button variant="primary" leftIcon={<Icon />} onPress={handleSubmit}>
+ *   Save Changes
+ * </Button>
+ *
+ * @example
+ * // Loading state
+ * <Button loading onPress={handleSubmit}>Submit</Button>
+ *
+ * @example
+ * // Destructive outline button
+ * <Button variant="destructive" size="sm" onPress={handleDelete}>
+ *   Delete
+ * </Button>
+ */
 const Button = React.forwardRef<View, ButtonProps>(function Button(
   {
     children,

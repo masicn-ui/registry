@@ -1,5 +1,3 @@
-// File: components/modal/Modal.tsx
-
 import React, { useImperativeHandle, useState, useCallback } from 'react';
 import { Pressable, StyleSheet, BackHandler, Platform, View } from 'react-native';
 import Animated, {
@@ -8,24 +6,57 @@ import Animated, {
   withTiming,
   withSpring,
 } from 'react-native-reanimated';
-import { Text, elevation, layout, motion, radius, spacing, useFocusTrap, useReducedMotion, useTheme } from '@masicn/ui';
-import { Masicn } from '@masicn/ui';
+import { Text, elevation, layout, motion, radius, spacing, useFocusTrap, useReducedMotion, useTheme, Masicn } from '../../../masicn'
 
+/** Imperative handle exposed via `ref` for programmatic open/close control. */
 export interface ModalRef {
+  /** Opens the modal. */
   open: () => void;
+  /** Closes the modal and fires `onClose`. */
   close: () => void;
 }
 
 interface ModalProps {
+  /** Controlled visibility. Omit to use the imperative `ref.open()` / `ref.close()` API instead. */
   visible?: boolean;
+  /** Called when the modal should close (overlay press, close button, or Android back). Required so the parent can sync state. */
   onClose: () => void;
+  /** Content rendered inside the modal panel. */
   children: React.ReactNode;
+  /** Accessibility label announced by screen readers when the dialog gains focus. Defaults to 'Dialog'. */
   accessibilityLabel?: string;
+  /** Maximum width of the modal panel — 'narrow' is more compact, 'medium' is the default width. Defaults to 'medium'. */
   maxWidth?: 'narrow' | 'medium';
+  /** Whether to render the × close button in the top-right corner. Defaults to true. */
   showCloseButton?: boolean;
+  /** Whether tapping outside the panel dismisses the modal. Defaults to true. */
   closeOnOverlayPress?: boolean;
 }
 
+/**
+ * Modal — a centred dialog overlay with animated backdrop and spring entry.
+ *
+ * Can be driven by a controlled `visible` prop or imperatively via a `ref`
+ * (call `ref.current.open()` / `ref.current.close()`). Animates in/out with a
+ * spring scale and opacity fade, and falls back to an instant transition when
+ * the user has reduced-motion enabled. Automatically intercepts the Android
+ * hardware back button while open and traps focus inside the panel.
+ *
+ * @example
+ * // Controlled usage
+ * const [open, setOpen] = useState(false);
+ * <Modal visible={open} onClose={() => setOpen(false)}>
+ *   <Text>Hello from modal</Text>
+ * </Modal>
+ *
+ * @example
+ * // Imperative usage via ref
+ * const modalRef = useRef<ModalRef>(null);
+ * <Button onPress={() => modalRef.current?.open()}>Open</Button>
+ * <Modal ref={modalRef} onClose={() => {}}>
+ *   <Text>Modal content</Text>
+ * </Modal>
+ */
 const Modal = React.forwardRef<ModalRef, ModalProps>(function Modal(
   {
     visible: controlledVisible,

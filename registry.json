@@ -436,5 +436,7 @@
       "category": "block",
       "path": "blocks/split-sheet/component.json"
     }
-  ]
+  ],
+  "flows": [],
+  "screens": []
 }

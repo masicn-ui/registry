@@ -1,30 +1,64 @@
-// File: blocks/action-sheet/ActionSheet.tsx
-
-
 import React from 'react';
 import { View, StyleSheet, Pressable } from 'react-native';
-import { Text, borders, spacing, useTheme } from '@masicn/ui';
-import { BottomSheet } from '@/components/ui/BottomSheet';
+import { Text, borders, spacing, useTheme } from '../../../masicn';
+import { BottomSheet } from '../../components';
 
+/**
+ * Represents a single tappable row inside an ActionSheet.
+ */
 export interface ActionSheetOption {
+  /** Display text for the option row. */
   label: string;
   /** Icon node — pass any React element (icon component, emoji in Text, etc.) */
   icon?: React.ReactNode;
+  /** When true, renders the label in error/red colour to signal a dangerous action. */
   destructive?: boolean;
+  /** Prevents the option from being pressed; renders it dimmed. */
   disabled?: boolean;
+  /** Called when the user taps this option. The sheet is automatically closed after this fires. */
   onPress: () => void;
 }
 
 interface ActionSheetProps {
+  /** Controls whether the sheet is visible. */
   visible: boolean;
+  /** Called when the sheet should close (backdrop tap, cancel press, or after an option fires). */
   onClose: () => void;
+  /** Optional heading shown above the options list. */
   title?: string;
+  /** Optional descriptive message shown below the title. */
   message?: string;
+  /** Ordered list of action rows rendered in the sheet. */
   options: ActionSheetOption[];
+  /** Whether to show the cancel button at the bottom (default true). */
   showCancel?: boolean;
+  /** Label for the cancel button (default "Cancel"). */
   cancelLabel?: string;
 }
 
+/**
+ * ActionSheet — an iOS-style bottom sheet presenting a list of contextual actions.
+ *
+ * Built on top of `BottomSheet`. Each option can carry an icon, be marked
+ * destructive (renders in error colour), or disabled (dimmed, unresponsive).
+ * Tapping a non-disabled option fires its `onPress` callback and then
+ * automatically dismisses the sheet via `onClose`.
+ *
+ * An optional cancel button is rendered below the options, separated by a
+ * hairline border, and always calls `onClose` when pressed.
+ *
+ * @example
+ * <ActionSheet
+ *   visible={sheetVisible}
+ *   onClose={() => setSheetVisible(false)}
+ *   title="Choose an action"
+ *   options={[
+ *     { label: 'Edit',   icon: <EditIcon />, onPress: handleEdit },
+ *     { label: 'Share',  icon: <ShareIcon />, onPress: handleShare },
+ *     { label: 'Delete', destructive: true,  onPress: handleDelete },
+ *   ]}
+ * />
+ */
 export function ActionSheet({
   visible,
   onClose,

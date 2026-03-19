@@ -1,26 +1,50 @@
-// File: blocks/empty-state/EmptyState.tsx
-
-
 import React from 'react';
 import { View, StyleSheet, type ViewStyle } from 'react-native';
-import { Text, layout, sizes, spacing } from '@masicn/ui';
-import { Button } from '@/components/ui/Button';
+import { Text, layout, sizes, spacing } from '../../../masicn';
+import { Button } from '../../components';
 
 interface EmptyStateProps {
   /** Main title */
   title: string;
-  /** Description text */
+  /** Description text shown below the title */
   description?: string;
-  /** Icon or illustration (emoji or text) */
+  /** Icon or illustration rendered above the title — accepts an emoji string or any text (default "📭") */
   icon?: string;
-  /** Action button label */
+  /** Label for the primary call-to-action button; button is hidden when omitted */
   actionLabel?: string;
-  /** Action button callback */
+  /** Callback fired when the action button is pressed; button is hidden when omitted */
   onAction?: () => void;
   /** Additional container style */
   containerStyle?: ViewStyle;
 }
 
+/**
+ * EmptyState — a centred placeholder shown when a list or view has no content.
+ *
+ * Renders a large icon (emoji or text), a heading, an optional description,
+ * and an optional primary call-to-action button. Both `actionLabel` and
+ * `onAction` must be provided together for the button to appear.
+ *
+ * Use this component in place of an empty list, search results with no matches,
+ * or any screen that has no data to show yet.
+ *
+ * @example
+ * // Basic empty list
+ * <EmptyState
+ *   title="No tasks yet"
+ *   description="Tap the button below to create your first task."
+ *   actionLabel="Create task"
+ *   onAction={handleCreate}
+ * />
+ *
+ * @example
+ * // Custom icon, no action
+ * <EmptyState
+ *   icon="🔍"
+ *   title="No results found"
+ *   description="Try adjusting your search terms."
+ * />
+ */
 export function EmptyState({
   title,
   description,

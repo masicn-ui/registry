@@ -1,15 +1,26 @@
-// File: components/skeleton/Skeleton.tsx
-
 import React from 'react';
 import { View, StyleSheet, type ViewStyle } from 'react-native';
-import { useTheme, spacing, radius, sizes } from '@masicn/ui';
+import { useTheme, spacing, radius, sizes } from '../../../masicn';
 
 type SkeletonVariant = 'text' | 'circular' | 'rectangular' | 'avatar' | 'button' | 'card' | 'listItem' | 'image';
 
 interface SkeletonProps {
+  /**
+   * Pre-built shape variant. Each variant has sensible default dimensions:
+   * - `text` — full-width text line placeholder
+   * - `circular` / `avatar` — round shape for avatars or icons
+   * - `button` — pill-shaped button placeholder
+   * - `card` — large rounded rectangle
+   * - `listItem` — avatar + two text lines side by side
+   * - `image` — wide rectangle with rounded corners
+   * - `rectangular` — generic large block
+   */
   variant?: SkeletonVariant;
+  /** Override the default width for the chosen variant. */
   width?: number | string;
+  /** Override the default height for the chosen variant. */
   height?: number;
+  /** Additional styles merged onto the outermost view. */
   style?: ViewStyle;
 }
 
@@ -41,6 +52,18 @@ const styles = StyleSheet.create({
   },
 });
 
+/**
+ * A static loading-state placeholder that renders a theme-coloured shape in
+ * place of content that hasn't arrived yet. Unlike `Shimmer`, `Skeleton` has
+ * no animation — use `Shimmer` to add a sweep effect on top of it when needed.
+ *
+ * @example
+ * // Simple text line placeholder
+ * <Skeleton variant="text" width="60%" />
+ *
+ * // Full list-item placeholder
+ * <Skeleton variant="listItem" />
+ */
 export function Skeleton({
   variant = 'text',
   width,

@@ -1,5 +1,3 @@
-// File: components/radio/Radio.tsx
-
 import React, { createContext, useContext } from 'react';
 import { Pressable, View, StyleSheet, type ViewStyle } from 'react-native';
 import Animated, {
@@ -7,7 +5,7 @@ import Animated, {
   useAnimatedStyle,
   withSpring,
 } from 'react-native-reanimated';
-import { Text, borders, iconSizes, radius, sizes, spacing, useTheme } from '@masicn/ui';
+import { Text, borders, iconSizes, radius, sizes, spacing, useTheme } from '../../../masicn'
 
 interface RadioGroupContextValue {
   value: string;
@@ -18,13 +16,34 @@ interface RadioGroupContextValue {
 const RadioGroupContext = createContext<RadioGroupContextValue | undefined>(undefined);
 
 interface RadioGroupProps {
+  /** The currently selected value within the group. */
   value: string;
+  /** Callback invoked when a radio option is selected. */
   onValueChange: (value: string) => void;
+  /** One or more `Radio` child components. */
   children: React.ReactNode;
+  /** Disables all radio options within the group. Defaults to false. */
   disabled?: boolean;
+  /** Additional style applied to the group container. */
   containerStyle?: ViewStyle;
 }
 
+/**
+ * RadioGroup — a controlled container that manages exclusive selection among
+ * a set of `Radio` child components.
+ *
+ * Provides selection state via React context so individual `Radio` items do not
+ * need to manage their own selected state. Must wrap all `Radio` components that
+ * belong to the same selection group. Throws if a `Radio` is rendered outside a
+ * `RadioGroup`.
+ *
+ * @example
+ * <RadioGroup value={plan} onValueChange={setPlan}>
+ *   <Radio value="free" label="Free" />
+ *   <Radio value="pro" label="Pro" description="Unlimited usage" />
+ *   <Radio value="enterprise" label="Enterprise" disabled />
+ * </RadioGroup>
+ */
 export function RadioGroup({
   value,
   onValueChange,
@@ -40,13 +59,31 @@ export function RadioGroup({
 }
 
 interface RadioProps {
+  /** The value this option represents — compared against the group's current value to determine selection. */
   value: string;
+  /** Primary text label displayed next to the radio button. */
   label: string;
+  /** Optional secondary description rendered below the label. */
   description?: string;
+  /** Disables this specific option regardless of the group-level disabled prop. Defaults to false. */
   disabled?: boolean;
+  /** Additional style applied to the pressable row container. */
   containerStyle?: ViewStyle;
 }
 
+/**
+ * Radio — a single radio button option intended to be used inside a `RadioGroup`.
+ *
+ * Renders a circular border with an animated spring-scaled inner dot that
+ * appears when the option is selected. Merges the item-level `disabled` prop
+ * with the group-level disabled state. Accessibility role is `radio` with
+ * appropriate `checked` and `disabled` states.
+ *
+ * Must be rendered as a descendant of `RadioGroup` — throws an error otherwise.
+ *
+ * @example
+ * <Radio value="dark" label="Dark mode" description="Easier on the eyes" />
+ */
 export function Radio({
   value,
   label,

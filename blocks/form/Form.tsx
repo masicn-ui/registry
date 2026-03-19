@@ -1,12 +1,14 @@
-// File: blocks/form/Form.tsx
-
-
 import React, { createContext, useContext, useState, useCallback } from 'react';
 import { View, StyleSheet, type ViewProps } from 'react-native';
-import { spacing } from '@masicn/ui';
+import { spacing } from '../../../masicn';
 
+/** A function that validates a single field value and returns an error string, or `undefined` if valid. */
 export type FieldValidator<V = unknown> = (value: V) => string | undefined;
 
+/**
+ * Pairs a field name with its validator function.
+ * Pass an array of these to `Form`'s `validations` prop.
+ */
 export interface FieldValidation<V = unknown> {
   /** Field name */
   name: string;
@@ -37,6 +39,25 @@ interface FormContextValue {
 
 const FormContext = createContext<FormContextValue | null>(null);
 
+/**
+ * useFormField — connects an individual input to the nearest Form context.
+ *
+ * Returns the field's current value, error, and touched state along with
+ * imperative setters. Must be called inside a component that is rendered
+ * within a `<Form>` tree.
+ *
+ * @example
+ * function EmailField() {
+ *   const { value, error, setValue, setTouched } = useFormField('email');
+ *   return (
+ *     <TextInput
+ *       value={value as string}
+ *       onChangeText={setValue}
+ *       onBlur={() => setTouched(true)}
+ *     />
+ *   );
+ * }
+ */
 export function useFormField(name: string) {
   const context = useContext(FormContext);
   if (!context) {
@@ -53,6 +74,19 @@ export function useFormField(name: string) {
   };
 }
 
+/**
+ * useFormContext — returns the full Form context object.
+ *
+ * Use when you need low-level access to all field values, errors, and setters
+ * from a component that is nested anywhere inside a `<Form>`. Prefer
+ * `useFormField` for per-field access.
+ *
+ * @example
+ * function SubmitButton() {
+ *   const { values } = useFormContext();
+ *   return <Button onPress={() => console.log(values)}>Submit</Button>;
+ * }
+ */
 export function useFormContext() {
   const context = useContext(FormContext);
   if (!context) {
@@ -78,16 +112,20 @@ interface FormProps<TValues extends Record<string, unknown> = Record<string, unk
 /**
  * Form.Field render-prop — connects any input to the nearest Form context.
  *
- * ```tsx
+ * Receives a render function that is called with the field's current state
+ * and change/blur handlers, eliminating boilerplate for each field.
+ *
+ * @example
  * <Form.Field name="email">
  *   {({ value, error, onChange, onBlur }) => (
  *     <TextInput value={value as string} onChangeText={onChange} onBlur={onBlur} />
  *   )}
  * </Form.Field>
- * ```
  */
 interface FormFieldProps<T = unknown> {
+  /** The field name — must match a key in `initialValues` or a `validations` entry. */
   name: string;
+  /** Render function that receives the field's state and interaction handlers. */
   children: (fieldProps: {
     value: T;
     error: string | undefined;
@@ -113,27 +151,41 @@ function FormField<T = unknown>({ name, children }: FormFieldProps<T>) {
 }
 
 /**
- * Form component with validation and state management.
+ * Form — context-based form with field-level validation and typed values.
  *
- * ```tsx
+ * Maintains a shared context (`FormContext`) that stores values, errors, and
+ * touch state for every registered field. Fields communicate with the form
+ * through `useFormField` or the `Form.Field` render-prop helper.
+ *
+ * Validation runs per-field on change (once the field has been touched) and
+ * across all fields on submit. `handleSubmit` marks every field as touched,
+ * runs all validators, then either calls `onSubmit` with the values or calls
+ * `onError` with the error map — never both.
+ *
+ * Children can be plain React nodes or a render function that receives
+ * `handleSubmit`, making it easy to wire up a submit button anywhere in the tree.
+ *
+ * @example
  * type LoginValues = { email: string; password: string };
  *
  * <Form<LoginValues>
  *   initialValues={{ email: '', password: '' }}
- *   validations={[{ name: 'email', validate: (v) => !v ? 'Required' : undefined }]}
- *   onSubmit={(values) => console.log(values.email)}>
+ *   validations={[
+ *     { name: 'email',    validate: (v) => !v ? 'Required' : undefined },
+ *     { name: 'password', validate: (v) => (v as string).length < 8 ? 'Too short' : undefined },
+ *   ]}
+ *   onSubmit={(values) => login(values.email, values.password)}>
  *   {({ handleSubmit }) => (
  *     <>
  *       <Form.Field name="email">
- *         {({ value, onChange }) => (
- *           <TextInput value={value as string} onChangeText={onChange} />
+ *         {({ value, error, onChange, onBlur }) => (
+ *           <TextInput value={value as string} onChangeText={onChange} onBlur={onBlur} />
  *         )}
  *       </Form.Field>
- *       <Button onPress={handleSubmit}>Submit</Button>
+ *       <Button onPress={handleSubmit}>Log in</Button>
  *     </>
  *   )}
  * </Form>
- * ```
  */
 function FormBase<TValues extends Record<string, unknown> = Record<string, unknown>>({
   initialValues = {} as TValues,

@@ -1,42 +1,68 @@
-// File: components/screen-layout/ScreenLayout.tsx
-
-
 import React, { type ReactNode } from 'react';
 import { StyleSheet, View, ScrollView, KeyboardAvoidingView, Platform } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { Box, Row, Text, layout, radius, spacing, useResponsive, useTheme } from '@masicn/ui';
-import { Button } from '@/components/ui/Button';
+import { Box, Row, Text, layout, radius, spacing, useResponsive, useTheme } from '../../../masicn'
+import { Button } from '../button/Button';
 
 export interface RightAction {
+  /** Button label displayed in the header action button. */
   label: string;
+  /** Called when the action button is pressed. */
   onPress: () => void;
 }
 
 interface ScreenLayoutProps {
+  /** Screen body content rendered inside the scroll view. */
   children: ReactNode;
+  /** Screen title displayed in the header. */
   title: string;
+  /** Optional descriptive text rendered below the title in the scroll area. */
   subtitle?: string;
+  /** Whether to show the back button in the header. Defaults to true. */
   showBackButton?: boolean;
   /** Called when the back button is pressed. If omitted, back button is hidden even when showBackButton=true. */
   onBack?: () => void;
+  /** Whether to show the light/dark theme toggle button in the header. Defaults to true. */
   showThemeToggle?: boolean;
   /** Up to 2 extra action buttons rendered on the right side of the header. */
   rightActions?: RightAction[];
+  /** Horizontal content padding key from the spacing scale. Defaults to `'md'`. */
   paddingHorizontal?: keyof typeof spacing;
+  /** Top content padding key from the spacing scale. Defaults to `spacing.lg`. */
   paddingTop?: keyof typeof spacing;
+  /** Bottom content padding key from the spacing scale. Defaults to `spacing.xl`. */
   paddingBottom?: keyof typeof spacing;
   /** When true (default), header stays fixed above the scroll area. When false, header scrolls with content. */
   stickyHeader?: boolean;
 }
 
 /**
- * Reusable screen layout component with consistent header and back button.
- * Decoupled from React Navigation — pass `onBack` instead of relying on useNavigation().
+ * ScreenLayout — a full-screen scaffold with a responsive header, back navigation,
+ * and scrollable content area.
  *
- * Right-side header supports up to 2 buttons total (rightActions + optional theme toggle).
- * Layouts:
- *   - No back button:  [Title ─────────────── RightBtn1? RightBtn2?]
+ * Decoupled from React Navigation — pass `onBack` instead of relying on `useNavigation()`.
+ * The header adapts its layout based on whether a back button is present:
+ *
+ *   - No back button:   [Title ──────────────── RightBtn1? RightBtn2?]
  *   - With back button: [Back] [─── Title ───] [RightBtn1? RightBtn2?]
+ *
+ * On tablets and large tablets, the horizontal content padding is automatically
+ * increased via `useResponsive`. A `KeyboardAvoidingView` wraps the entire layout
+ * so inputs near the bottom are not obscured by the software keyboard.
+ *
+ * The optional `subtitle` is rendered below the header inside the scroll area.
+ * Right-side header accepts a maximum of 2 buttons (custom actions + optional
+ * theme toggle). Surplus actions are silently truncated.
+ *
+ * @example
+ * <ScreenLayout
+ *   title="Settings"
+ *   showBackButton
+ *   onBack={() => navigation.goBack()}
+ *   rightActions={[{ label: 'Save', onPress: handleSave }]}
+ * >
+ *   <SettingsForm />
+ * </ScreenLayout>
  */
 export function ScreenLayout({
   children,
