@@ -8,7 +8,7 @@ import Animated, {
   Easing,
   type SharedValue,
 } from 'react-native-reanimated';
-import { useTheme, useReducedMotion } from '@masicn/ui';
+import { useTheme, useReducedMotion } from '../../../masicn';
 
 interface ShimmerContextValue {
   progress: SharedValue<number>;

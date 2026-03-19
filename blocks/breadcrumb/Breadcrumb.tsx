@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Pressable, StyleSheet, type ViewStyle } from 'react-native';
-import { Text, spacing, useTheme } from '@masicn/ui';
+import { Text, spacing, useTheme } from '../../../masicn';
 
 export interface BreadcrumbItem {
   /** Display label */

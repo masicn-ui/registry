@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Pressable, StyleSheet } from 'react-native';
-import { Stack, Text, borders, radius, spacing, useTheme } from '@masicn/ui';
+import { Stack, Text, borders, radius, spacing, useTheme } from '../../../masicn';
 
 export interface MultiSelectOption {
   label: string;

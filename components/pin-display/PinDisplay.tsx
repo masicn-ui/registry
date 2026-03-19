@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
-import { useTheme, spacing, radius, borders } from '@masicn/ui';
+import { useTheme, spacing, radius, borders } from '../../../masicn'
 
 export type PinDisplayVariant = 'default' | 'error' | 'success';
 

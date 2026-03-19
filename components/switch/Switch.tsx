@@ -6,7 +6,7 @@ import {
   Animated,
   Easing,
 } from 'react-native';
-import { Text, elevation, motion, opacity as opacityTokens, sizes, spacing, useReducedMotion, useTheme } from '@masicn/ui';
+import { Text, elevation, motion, opacity as opacityTokens, sizes, spacing, useReducedMotion, useTheme } from '../../../masicn';
 
 interface SwitchProps {
   value: boolean;

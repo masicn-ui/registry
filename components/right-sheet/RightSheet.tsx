@@ -17,7 +17,7 @@ import Animated, {
   withTiming,
 } from 'react-native-reanimated';
 import { GestureDetector, Gesture } from 'react-native-gesture-handler';
-import { useTheme, spacing, radius, elevation, sizes, motion, motionEasing } from '@masicn/ui';
+import { useTheme, spacing, radius, elevation, sizes, motion, motionEasing } from '../../../masicn'
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 interface RightSheetProps {

@@ -8,7 +8,7 @@ import {
   type ViewStyle,
   type LayoutRectangle,
 } from 'react-native';
-import { useTheme, spacing, radius, elevation, borders, sizes } from '@masicn/ui';
+import { useTheme, spacing, radius, elevation, borders, sizes } from '../../../masicn'
 
 type PopoverPlacement = 'top' | 'bottom' | 'left' | 'right';
 type PopoverTrigger = 'press' | 'longPress';

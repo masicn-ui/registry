@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Pressable, View, StyleSheet, ScrollView, type ViewStyle } from 'react-native';
-import { Text, borders, radius, spacing, useTheme } from '@masicn/ui';
+import { Text, borders, radius, spacing, useTheme } from '../../../masicn';
 
 const DEFAULT_TEXT_THRESHOLD = 150;
 

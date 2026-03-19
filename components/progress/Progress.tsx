@@ -7,7 +7,7 @@ import Reanimated, {
   withTiming,
   cancelAnimation,
 } from 'react-native-reanimated';
-import { Text, borders, motion, radius, sizes, spacing, useTheme } from '@masicn/ui';
+import { Text, borders, motion, radius, sizes, spacing, useTheme } from '../../../masicn'
 
 type ProgressVariant = 'linear' | 'circular';
 
@@ -63,7 +63,7 @@ export function Progress({
       cancelAnimation(indAnim);
       indAnim.value = 0;
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [indeterminate, trackWidth]);
 
   const indAnimStyle = useAnimatedStyle(() => ({

@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
-import { Text, radius, sizes, spacing, useTheme } from '@masicn/ui';
+import { Text, radius, sizes, spacing, useTheme } from '../../../masicn';
 
 type BadgeVariant = 'error' | 'success' | 'warning' | 'info';
 

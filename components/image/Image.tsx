@@ -19,7 +19,7 @@ import Animated, {
   withDelay,
 } from 'react-native-reanimated';
 import { scheduleOnRN } from 'react-native-worklets';
-import { Text, motion, opacity, radius, sizes, spacing, useTheme } from '@masicn/ui';
+import { Text, motion, opacity, radius, sizes, spacing, useTheme } from '../../../masicn';
 
 // ─── Types ─────────────────────────────────────────────────────────────────
 
@@ -91,7 +91,7 @@ const ImagePreview = forwardRef<ImagePreviewHandle, ImagePreviewProps>(
     const previewTranslateY = useSharedValue<number>(spacing.lg);
     const hintOpacity = useSharedValue(0);
 
-    const dismissImpl = useRef(() => {});
+    const dismissImpl = useRef(() => { });
     dismissImpl.current = () => {
       backdropOpacity.value = withTiming(0, { duration: motion.duration.fast });
       hintOpacity.value = withTiming(0, { duration: motion.duration.fast });
@@ -115,7 +115,7 @@ const ImagePreview = forwardRef<ImagePreviewHandle, ImagePreviewProps>(
           withTiming(1, { duration: motion.duration.normal }),
         );
       }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+      // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [visible]);
 
     const backdropStyle = useAnimatedStyle(() => ({

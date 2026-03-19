@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Image, StyleSheet, type ImageSourcePropType } from 'react-native';
-import { Text, radius, sizes, type Typography, useTheme } from '@masicn/ui';
+import { Text, radius, sizes, type Typography, useTheme } from '../../../masicn';
 
 export type AvatarSize = 'sm' | 'md' | 'lg';
 

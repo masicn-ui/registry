@@ -7,7 +7,7 @@ import {
   type TextInputProps,
   type ViewStyle,
 } from 'react-native';
-import { Text, borders, fonts, iconSizes, radius, sizes, spacing, typography, useTheme } from '@masicn/ui';
+import { Text, borders, fonts, iconSizes, radius, sizes, spacing, typography, useTheme } from '../../../masicn'
 
 interface SearchBarProps extends Omit<TextInputProps, 'style'> {
   /** Current search value */

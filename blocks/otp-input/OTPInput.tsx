@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { View, TextInput, StyleSheet, Pressable } from 'react-native';
-import { Text, borders, opacity as opacityTokens, radius, sizes, spacing, typography, useTheme } from '@masicn/ui';
+import { Text, borders, opacity as opacityTokens, radius, sizes, spacing, typography, useTheme } from '../../../masicn';
 
 interface OTPInputProps {
   /** Number of digits (default: 6) */

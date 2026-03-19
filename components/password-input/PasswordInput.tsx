@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { Pressable, StyleSheet } from 'react-native';
-import { Text, borders, radius, spacing, useTheme } from '@masicn/ui';
-import { TextInput, type TextInputProps } from '@/components/ui/TextInput';
+import { Text, borders, radius, spacing, useTheme } from '../../../masicn'
+import { TextInput, type TextInputProps } from '../text-input/TextInput';
 
-interface PasswordInputProps extends Omit<TextInputProps, 'secureTextEntry' | 'endAdornment'> {}
+interface PasswordInputProps extends Omit<TextInputProps, 'secureTextEntry' | 'endAdornment'> { }
 
 export const PasswordInput = React.forwardRef<any, PasswordInputProps>(
   function PasswordInput(props, ref) {

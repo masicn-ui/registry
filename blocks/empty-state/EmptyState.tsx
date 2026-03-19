@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, StyleSheet, type ViewStyle } from 'react-native';
-import { Text, layout, sizes, spacing } from '@masicn/ui';
-import { Button } from '@/components/ui/Button';
+import { Text, layout, sizes, spacing } from '../../../masicn';
+import { Button } from '../../components';
 
 interface EmptyStateProps {
   /** Main title */

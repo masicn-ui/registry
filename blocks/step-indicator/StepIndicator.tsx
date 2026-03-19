@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, StyleSheet, type ViewStyle } from 'react-native';
-import { Text, borders, radius, sizes, spacing, useTheme } from '@masicn/ui';
+import { Text, borders, radius, sizes, spacing, useTheme } from '../../../masicn';
 
 export interface Step {
   /** Step label */

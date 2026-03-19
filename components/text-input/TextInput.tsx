@@ -6,7 +6,7 @@ import {
   StyleSheet,
   type TextInputProps as RNTextInputProps,
 } from 'react-native';
-import { Stack, Text, borders, iconSizes, radius, sizes, spacing, typography, useTheme } from '@masicn/ui';
+import { Stack, Text, borders, iconSizes, radius, sizes, spacing, typography, useTheme } from '../../../masicn';
 
 type TextInputSize = 'sm' | 'md' | 'lg';
 

@@ -7,7 +7,7 @@ import Animated, {
   withTiming,
   Easing,
 } from 'react-native-reanimated';
-import { useTheme, radius, useReducedMotion } from '@masicn/ui';
+import { useTheme, radius, useReducedMotion } from '../../../masicn';
 
 export type StatusDotStatus = 'online' | 'away' | 'busy' | 'offline';
 

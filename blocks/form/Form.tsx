@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState, useCallback } from 'react';
 import { View, StyleSheet, type ViewProps } from 'react-native';
-import { spacing } from '@masicn/ui';
+import { spacing } from '../../../masicn';
 
 export type FieldValidator<V = unknown> = (value: V) => string | undefined;
 

@@ -6,7 +6,7 @@ import Animated, {
   withSpring,
   withTiming,
 } from 'react-native-reanimated';
-import { useTheme, spacing, radius, elevation, borders, motion, type Elevation, opacity as opacityTokens } from '@masicn/ui';
+import { useTheme, spacing, radius, elevation, borders, motion, type Elevation, opacity as opacityTokens } from '../../../masicn';
 
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 

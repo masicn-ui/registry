@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Pressable, StyleSheet } from 'react-native';
-import { Text, borders, radius, sizes, spacing, useTheme } from '@masicn/ui';
+import { Text, borders, radius, sizes, spacing, useTheme } from '../../../masicn';
 
 interface PaginationProps {
   /** Current page (1-based) */

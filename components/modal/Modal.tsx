@@ -6,8 +6,7 @@ import Animated, {
   withTiming,
   withSpring,
 } from 'react-native-reanimated';
-import { Text, elevation, layout, motion, radius, spacing, useFocusTrap, useReducedMotion, useTheme } from '@masicn/ui';
-import { Masicn } from '@masicn/ui';
+import { Text, elevation, layout, motion, radius, spacing, useFocusTrap, useReducedMotion, useTheme, Masicn } from '../../../masicn'
 
 export interface ModalRef {
   open: () => void;

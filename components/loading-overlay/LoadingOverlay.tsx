@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Modal, StyleSheet, ActivityIndicator } from 'react-native';
-import { Text, elevation, radius, sizes, spacing, useTheme } from '@masicn/ui';
+import { Text, elevation, radius, sizes, spacing, useTheme } from '../../../masicn'
 
 interface LoadingOverlayProps {
   visible: boolean;

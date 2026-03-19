@@ -1,6 +1,6 @@
 import React from 'react';
 import { Pressable, StyleSheet, View } from 'react-native';
-import { Text, borders, opacity as opacityTokens, spacing, useTheme } from '@masicn/ui';
+import { Text, borders, opacity as opacityTokens, spacing, useTheme } from '../../../masicn';
 
 interface KeyValueRowProps {
   label: string;

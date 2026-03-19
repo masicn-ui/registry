@@ -7,7 +7,7 @@ import {
   type ViewStyle,
   type PressableProps,
 } from 'react-native';
-import { Text, borders, opacity as opacityTokens, radius, spacing, useReducedMotion, useTheme } from '@masicn/ui';
+import { Text, borders, opacity as opacityTokens, radius, spacing, useReducedMotion, useTheme } from '../../../masicn';
 
 type ButtonVariant =
   | 'primary'

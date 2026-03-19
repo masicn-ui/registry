@@ -15,7 +15,7 @@ import Animated, {
   type SharedValue,
 } from 'react-native-reanimated';
 import { Gesture, GestureDetector } from 'react-native-gesture-handler';
-import { useTheme, spacing, radius, sizes, borders, motion } from '@masicn/ui';
+import { useTheme, spacing, radius, sizes, borders, motion } from '../../../masicn';
 
 // ─── Types ─────────────────────────────────────────────────────────────────
 

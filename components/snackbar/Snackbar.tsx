@@ -6,7 +6,7 @@ import {
   Pressable,
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { Masicn, Text, elevation, motion, radius, spacing, useTheme } from '@masicn/ui';
+import { Masicn, Text, elevation, motion, radius, spacing, useTheme } from '../../../masicn';
 
 type SnackbarType = 'success' | 'error' | 'warning' | 'info' | 'default';
 type SnackbarPosition = 'top' | 'bottom';

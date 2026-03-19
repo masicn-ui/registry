@@ -1,8 +1,8 @@
 import React, { type ReactNode } from 'react';
 import { StyleSheet, View, ScrollView, KeyboardAvoidingView, Platform } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { Box, Row, Text, layout, radius, spacing, useResponsive, useTheme } from '@masicn/ui';
-import { Button } from '@/components/ui/Button';
+import { Box, Row, Text, layout, radius, spacing, useResponsive, useTheme } from '../../../masicn'
+import { Button } from '../button/Button';
 
 export interface RightAction {
   label: string;

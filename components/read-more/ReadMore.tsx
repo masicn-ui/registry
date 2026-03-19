@@ -3,10 +3,10 @@ import {
   Pressable,
   StyleSheet,
   View,
-  type NativeSyntheticEvent,
-  type TextLayoutEventData,
+  type TextLayoutEvent,
 } from 'react-native';
-import { Text, spacing, type Theme, type Typography } from '@masicn/ui';
+
+import { Text, spacing, type Theme, type Typography } from '../../../masicn'
 
 type TextVariant = keyof Typography;
 type TextColor = keyof Theme['colors'];
@@ -34,7 +34,7 @@ export function ReadMore({
   const [measured, setMeasured] = React.useState(false);
 
   const handleMeasure = React.useCallback(
-    (e: NativeSyntheticEvent<TextLayoutEventData>) => {
+    (e: TextLayoutEvent) => {
       if (!measured) {
         setIsTruncated(e.nativeEvent.lines.length > numberOfLines);
         setMeasured(true);

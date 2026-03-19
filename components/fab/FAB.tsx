@@ -1,7 +1,7 @@
 import React from 'react';
 import { Pressable, View, StyleSheet, type ViewStyle } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { Text, elevation, iconSizes, opacity as opacityTokens, radius, sizes, spacing, useTheme } from '@masicn/ui';
+import { Text, elevation, iconSizes, opacity as opacityTokens, radius, sizes, spacing, useTheme } from '../../../masicn';
 
 type FABSize = 'small' | 'medium' | 'large';
 type FABPosition = 'bottom-right' | 'bottom-left' | 'bottom-center' | 'top-right' | 'top-left';

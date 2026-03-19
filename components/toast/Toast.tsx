@@ -5,7 +5,7 @@ import {
   Animated,
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { Masicn, Text, elevation, motion, radius, sizes, spacing, useReducedMotion, useTheme } from '@masicn/ui';
+import { Masicn, Text, elevation, motion, radius, sizes, spacing, useReducedMotion, useTheme } from '../../../masicn';
 
 type ToastType = 'success' | 'error' | 'warning' | 'info';
 type ToastPosition = 'top' | 'bottom';

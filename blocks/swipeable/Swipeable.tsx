@@ -6,7 +6,7 @@ import Animated, {
   withSpring,
 } from 'react-native-reanimated';
 import { GestureDetector, Gesture } from 'react-native-gesture-handler';
-import { Text, radius, sizes, spacing, type Theme, useTheme } from '@masicn/ui';
+import { Text, radius, sizes, spacing, type Theme, useTheme } from '../../../masicn';
 
 export interface SwipeAction {
   /** Action label */

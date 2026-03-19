@@ -1,6 +1,6 @@
 import React from 'react';
 import { Pressable, View, StyleSheet, type PressableProps } from 'react-native';
-import { Text, opacity as opacityTokens, spacing, useTheme } from '@masicn/ui';
+import { Text, opacity as opacityTokens, spacing, useTheme } from '../../../masicn'
 
 interface ListItemProps extends Omit<PressableProps, 'children'> {
   /** Primary label */

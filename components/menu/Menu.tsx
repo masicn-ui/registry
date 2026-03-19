@@ -6,7 +6,7 @@ import {
   Modal,
   type ViewStyle,
 } from 'react-native';
-import { Divider, Text, elevation, radius, sizes, spacing, useTheme } from '@masicn/ui';
+import { Divider, Text, elevation, radius, sizes, spacing, useTheme } from '../../../masicn'
 
 export interface MenuItem {
   /** Menu item label */

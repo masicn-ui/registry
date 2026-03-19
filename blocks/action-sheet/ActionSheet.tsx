@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, StyleSheet, Pressable } from 'react-native';
-import { Text, borders, spacing, useTheme } from '@masicn/ui';
-import { BottomSheet } from '@/components/ui/BottomSheet';
+import { Text, borders, spacing, useTheme } from '../../../masicn';
+import { BottomSheet } from '../../components';
 
 export interface ActionSheetOption {
   label: string;

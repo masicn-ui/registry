@@ -6,7 +6,7 @@ import Animated, {
   withSpring,
   withTiming,
 } from 'react-native-reanimated';
-import { Text, borders, iconSizes, radius, sizes, spacing, useReducedMotion, useTheme } from '@masicn/ui';
+import { Text, borders, iconSizes, radius, sizes, spacing, useReducedMotion, useTheme } from '../../../masicn';
 
 interface CheckboxProps {
   checked: boolean;

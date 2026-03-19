@@ -7,8 +7,8 @@ import {
   StyleSheet,
   type ViewStyle,
 } from 'react-native';
-import { Stack, Text, borders, iconSizes, radius, rgba, sizes, spacing, typography, useTheme } from '@masicn/ui';
-import { Modal as PickerModal } from '@/components/ui/Modal';
+import { Stack, Text, borders, iconSizes, radius, rgba, sizes, spacing, typography, useTheme } from '../../../masicn';
+import { Modal as PickerModal } from '../../components';
 
 /** Full country entry — pass via `countries` for name-in-picker support. */
 export interface CountryOption {

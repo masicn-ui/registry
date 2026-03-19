@@ -1,6 +1,6 @@
 import React from 'react';
 import { RefreshControl, ScrollView, type ViewStyle } from 'react-native';
-import { useTheme } from '@masicn/ui';
+import { useTheme } from '../../../masicn'
 
 interface RefreshableScrollViewProps {
   children: React.ReactNode;

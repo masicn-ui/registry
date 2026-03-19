@@ -7,7 +7,7 @@ import {
   type ViewStyle,
   type LayoutRectangle,
 } from 'react-native';
-import { Masicn, Text, elevation, radius, sizes, spacing, useTheme } from '@masicn/ui';
+import { Masicn, Text, elevation, radius, sizes, spacing, useTheme } from '../../../masicn';
 
 interface TooltipProps {
   /** Tooltip content */

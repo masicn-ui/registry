@@ -5,7 +5,7 @@ import {
   type ViewStyle,
   type LayoutChangeEvent,
 } from 'react-native';
-import { spacing } from '@masicn/ui';
+import { spacing } from '../../../masicn'
 
 interface MasonryGridProps<T> {
   /** Number of columns */

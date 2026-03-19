@@ -11,9 +11,9 @@ import Animated, {
   useAnimatedStyle,
   withTiming,
 } from 'react-native-reanimated';
-import { useTheme, spacing, motion, motionEasing } from '@masicn/ui';
-import { LeftSheet } from '@/components/ui/LeftSheet';
-import { RightSheet } from '@/components/ui/RightSheet';
+import { useTheme, spacing, motion, motionEasing } from '../../../masicn';
+import { LeftSheet } from '../../components';
+import { RightSheet } from '../../components';
 
 interface SplitSheetProps {
   /** Whether the split sheet layout is visible */

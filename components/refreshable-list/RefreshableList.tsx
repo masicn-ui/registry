@@ -4,7 +4,7 @@ import {
   RefreshControl,
   type FlatListProps,
 } from 'react-native';
-import { useTheme } from '@masicn/ui';
+import { useTheme } from '../../../masicn'
 
 interface RefreshableListProps<T> extends Omit<FlatListProps<T>, 'refreshControl'> {
   data: T[];

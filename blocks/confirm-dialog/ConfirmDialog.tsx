@@ -1,8 +1,8 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
-import { Text, radius, rgba, spacing, useTheme } from '@masicn/ui';
-import { Modal } from '@/components/ui/Modal';
-import { Button } from '@/components/ui/Button';
+import { Text, radius, rgba, spacing, useTheme } from '../../../masicn';
+import { Modal } from '../../components';
+import { Button } from '../../components';
 
 export interface ConfirmDialogProps {
   /** Controls visibility */

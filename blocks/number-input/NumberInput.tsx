@@ -6,7 +6,7 @@ import {
   StyleSheet,
   type ViewStyle,
 } from 'react-native';
-import { Stack, Text, borders, radius, sizes, spacing, typography, useTheme } from '@masicn/ui';
+import { Stack, Text, borders, radius, sizes, spacing, typography, useTheme } from '../../../masicn';
 
 export interface NumberInputProps {
   /** Current numeric value */

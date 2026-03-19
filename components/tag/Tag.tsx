@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Pressable, StyleSheet, type ViewProps } from 'react-native';
-import { Text, borders, radius, rgba, spacing, useTheme } from '@masicn/ui';
+import { Text, borders, radius, rgba, spacing, useTheme } from '../../../masicn';
 
 type TagVariant = 'default' | 'success' | 'warning' | 'error' | 'info';
 type TagSize = 'sm' | 'md' | 'lg';

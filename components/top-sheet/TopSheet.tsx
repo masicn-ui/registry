@@ -17,7 +17,7 @@ import Animated, {
   withTiming,
 } from 'react-native-reanimated';
 import { GestureDetector, Gesture } from 'react-native-gesture-handler';
-import { useTheme, spacing, radius, elevation, sizes, motion, motionEasing } from '@masicn/ui';
+import { useTheme, spacing, radius, elevation, sizes, motion, motionEasing } from '../../../masicn';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 interface TopSheetProps {
@@ -118,47 +118,47 @@ export function TopSheet({
         />
       </Animated.View>
       <GestureDetector gesture={pan}>
-      <Animated.View
-        style={[
-          styles.sheet,
-          elevation.xl,
-          {
-            maxHeight: maxSheetHeight,
-            height: sheetHeight || undefined,
-            backgroundColor: theme.colors.surfacePrimary,
-            shadowColor: theme.colors.shadow,
-          },
-          style,
-          animatedSheetStyle,
-        ]}>
-        <KeyboardAvoidingView
-          style={styles.flex1}
-          behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
-          <ScrollView
+        <Animated.View
+          style={[
+            styles.sheet,
+            elevation.xl,
+            {
+              maxHeight: maxSheetHeight,
+              height: sheetHeight || undefined,
+              backgroundColor: theme.colors.surfacePrimary,
+              shadowColor: theme.colors.shadow,
+            },
+            style,
+            animatedSheetStyle,
+          ]}>
+          <KeyboardAvoidingView
             style={styles.flex1}
-            contentContainerStyle={[
-              styles.contentContainer,
-              { paddingTop: insets.top + spacing.lg },
-            ]}
-            keyboardShouldPersistTaps="handled"
-            bounces={false}
-            onContentSizeChange={(_w, h) => {
-              setContentHeight(h);
-            }}>
-            {children}
-          </ScrollView>
-        </KeyboardAvoidingView>
-        {showHandle && (
-          <View style={styles.handleContainer}>
-            <View
-              style={[
-                styles.handle,
-                { backgroundColor: theme.colors.borderPrimary },
+            behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
+            <ScrollView
+              style={styles.flex1}
+              contentContainerStyle={[
+                styles.contentContainer,
+                { paddingTop: insets.top + spacing.lg },
               ]}
-            />
-          </View>
-        )}
-      </Animated.View>
+              keyboardShouldPersistTaps="handled"
+              bounces={false}
+              onContentSizeChange={(_w, h) => {
+                setContentHeight(h);
+              }}>
+              {children}
+            </ScrollView>
+          </KeyboardAvoidingView>
+          {showHandle && (
+            <View style={styles.handleContainer}>
+              <View
+                style={[
+                  styles.handle,
+                  { backgroundColor: theme.colors.borderPrimary },
+                ]}
+              />
+            </View>
+          )}
+        </Animated.View>
       </GestureDetector>
     </View>
   );
