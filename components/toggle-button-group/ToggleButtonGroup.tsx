@@ -1,5 +1,3 @@
-// File: components/toggle-button-group/ToggleButtonGroup.tsx
-
 import React from 'react';
 import { View, Pressable, StyleSheet } from 'react-native';
 import { Text, opacity as opacityTokens, radius, sizes, spacing, useTheme } from '@masicn/ui';

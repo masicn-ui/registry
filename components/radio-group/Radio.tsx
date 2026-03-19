@@ -1,5 +1,3 @@
-// File: components/radio-group/Radio.tsx
-
 import React, { createContext, useContext } from 'react';
 import { Pressable, View, StyleSheet, type ViewStyle } from 'react-native';
 import Animated, {

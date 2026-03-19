@@ -1,5 +1,3 @@
-// File: components/read-more/ReadMore.tsx
-
 import React from 'react';
 import {
   Pressable,

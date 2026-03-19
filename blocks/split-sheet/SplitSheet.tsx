@@ -1,6 +1,3 @@
-// File: blocks/split-sheet/SplitSheet.tsx
-
-
 import React from 'react';
 import {
   View,

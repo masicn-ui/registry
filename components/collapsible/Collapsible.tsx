@@ -1,5 +1,3 @@
-// File: components/collapsible/Collapsible.tsx
-
 import React, { useState } from 'react';
 import { Pressable, View, StyleSheet, LayoutAnimation, Platform, UIManager } from 'react-native';
 import { Text, borders, iconSizes, spacing, useReducedMotion, useTheme } from '@masicn/ui';

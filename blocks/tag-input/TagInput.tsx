@@ -1,6 +1,3 @@
-// File: blocks/tag-input/TagInput.tsx
-
-
 import React, { useState, useRef } from 'react';
 import {
   View,

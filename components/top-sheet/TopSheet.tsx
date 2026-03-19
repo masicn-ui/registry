@@ -1,5 +1,3 @@
-// File: components/top-sheet/TopSheet.tsx
-
 import React from 'react';
 import {
   Pressable,

@@ -1,6 +1,3 @@
-// File: blocks/action-sheet/ActionSheet.tsx
-
-
 import React from 'react';
 import { View, StyleSheet, Pressable } from 'react-native';
 import { Text, borders, spacing, useTheme } from '@masicn/ui';

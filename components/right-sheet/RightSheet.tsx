@@ -1,5 +1,3 @@
-// File: components/right-sheet/RightSheet.tsx
-
 import React from 'react';
 import {
   Pressable,

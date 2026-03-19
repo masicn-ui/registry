@@ -1,6 +1,3 @@
-// File: blocks/breadcrumb/Breadcrumb.tsx
-
-
 import React from 'react';
 import { View, Pressable, StyleSheet, type ViewStyle } from 'react-native';
 import { Text, spacing, useTheme } from '@masicn/ui';

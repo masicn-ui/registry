@@ -1,6 +1,3 @@
-// File: components/toast/Toast.tsx
-
-
 import React, { createContext, useContext, useState, useCallback } from 'react';
 import {
   View,

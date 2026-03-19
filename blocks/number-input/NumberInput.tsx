@@ -1,6 +1,3 @@
-// File: blocks/number-input/NumberInput.tsx
-
-
 import React, { useState } from 'react';
 import {
   TextInput as RNTextInput,

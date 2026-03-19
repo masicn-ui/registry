@@ -1,5 +1,3 @@
-// File: components/slider/Slider.tsx
-
 import React from 'react';
 import {
   View,

@@ -1,6 +1,3 @@
-// File: blocks/multi-select/MultiSelect.tsx
-
-
 import React from 'react';
 import { View, Pressable, StyleSheet } from 'react-native';
 import { Stack, Text, borders, radius, spacing, useTheme } from '@masicn/ui';

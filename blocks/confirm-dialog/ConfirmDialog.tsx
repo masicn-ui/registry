@@ -1,6 +1,3 @@
-// File: blocks/confirm-dialog/ConfirmDialog.tsx
-
-
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Text, radius, rgba, spacing, useTheme } from '@masicn/ui';

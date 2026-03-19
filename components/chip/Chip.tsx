@@ -1,5 +1,3 @@
-// File: components/chip/Chip.tsx
-
 import React from 'react';
 import { Pressable, View, StyleSheet, type PressableProps } from 'react-native';
 import { Text, borders, radius, spacing, useTheme } from '@masicn/ui';

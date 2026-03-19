@@ -1,5 +1,3 @@
-// File: components/button/Button.tsx
-
 import React from 'react';
 import {
   Pressable,

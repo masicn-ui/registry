@@ -1,5 +1,3 @@
-// File: components/popover/Popover.tsx
-
 import React, { useState, useRef, useCallback } from 'react';
 import {
   View,

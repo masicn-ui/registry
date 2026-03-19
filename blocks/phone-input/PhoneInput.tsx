@@ -1,6 +1,3 @@
-// File: blocks/phone-input/PhoneInput.tsx
-
-
 import React, { useState, useEffect, useCallback } from 'react';
 import {
   TextInput as RNTextInput,

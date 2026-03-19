@@ -1,5 +1,3 @@
-// File: components/modal/Modal.tsx
-
 import React, { useImperativeHandle, useState, useCallback } from 'react';
 import { Pressable, StyleSheet, BackHandler, Platform, View } from 'react-native';
 import Animated, {

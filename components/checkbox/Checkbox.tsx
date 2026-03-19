@@ -1,5 +1,3 @@
-// File: components/checkbox/Checkbox.tsx
-
 import React from 'react';
 import { Pressable, View, StyleSheet, type ViewStyle } from 'react-native';
 import Animated, {

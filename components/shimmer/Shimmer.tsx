@@ -1,5 +1,3 @@
-// File: components/shimmer/Shimmer.tsx
-
 import React, { useContext, useMemo } from 'react';
 import { StyleSheet, View, type StyleProp, type ViewStyle } from 'react-native';
 import Animated, {

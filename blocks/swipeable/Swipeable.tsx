@@ -1,6 +1,3 @@
-// File: blocks/swipeable/Swipeable.tsx
-
-
 import React from 'react';
 import { View, StyleSheet, type ViewStyle } from 'react-native';
 import Animated, {

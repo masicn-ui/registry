@@ -1,5 +1,3 @@
-// File: components/refreshable-list/RefreshableList.tsx
-
 import React from 'react';
 import {
   FlatList,

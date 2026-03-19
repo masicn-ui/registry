@@ -1,5 +1,3 @@
-// File: components/avatar-group/AvatarGroup.tsx
-
 import React from 'react';
 import { View, StyleSheet, type ImageSourcePropType } from 'react-native';
 import { Text, borders, radius, useTheme } from '@masicn/ui';

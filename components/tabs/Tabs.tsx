@@ -1,5 +1,3 @@
-// File: components/tabs/Tabs.tsx
-
 import React, { useState } from 'react';
 import { Pressable, View, StyleSheet, ScrollView, type ViewStyle } from 'react-native';
 import { Text, borders, radius, spacing, useTheme } from '@masicn/ui';

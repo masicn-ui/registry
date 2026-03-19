@@ -1,5 +1,3 @@
-// File: components/switch/Switch.tsx
-
 import React from 'react';
 import {
   Pressable,

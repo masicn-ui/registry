@@ -1,6 +1,3 @@
-// File: components/masonry-grid/MasonryGrid.tsx
-
-
 import React, { useState, useCallback } from 'react';
 import {
   View,

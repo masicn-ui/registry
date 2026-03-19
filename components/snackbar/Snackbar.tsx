@@ -1,6 +1,3 @@
-// File: components/snackbar/Snackbar.tsx
-
-
 import React, { createContext, useContext, useState, useCallback } from 'react';
 import {
   View,

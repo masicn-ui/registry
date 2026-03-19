@@ -1,5 +1,3 @@
-// File: components/tag/Tag.tsx
-
 import React from 'react';
 import { View, Pressable, StyleSheet, type ViewProps } from 'react-native';
 import { Text, borders, radius, rgba, spacing, useTheme } from '@masicn/ui';

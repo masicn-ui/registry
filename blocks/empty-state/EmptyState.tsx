@@ -1,6 +1,3 @@
-// File: blocks/empty-state/EmptyState.tsx
-
-
 import React from 'react';
 import { View, StyleSheet, type ViewStyle } from 'react-native';
 import { Text, layout, sizes, spacing } from '@masicn/ui';

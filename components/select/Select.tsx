@@ -1,5 +1,3 @@
-// File: components/select/Select.tsx
-
 import React, { useState } from 'react';
 import {
   View,

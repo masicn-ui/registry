@@ -1,5 +1,3 @@
-// File: components/search-bar/SearchBar.tsx
-
 import React from 'react';
 import {
   View,

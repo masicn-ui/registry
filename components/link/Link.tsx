@@ -1,5 +1,3 @@
-// File: components/link/Link.tsx
-
 import React from 'react';
 import { Pressable, StyleSheet, type PressableProps } from 'react-native';
 import { Text, opacity as opacityTokens, spacing, useTheme } from '@masicn/ui';

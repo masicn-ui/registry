@@ -1,5 +1,3 @@
-// File: components/card/Card.tsx
-
 import React, { useState } from 'react';
 import { View, Pressable, StyleSheet, type ViewProps } from 'react-native';
 import { Text, borders, elevation, opacity as opacityTokens, radius, spacing, type Elevation, useTheme } from '@masicn/ui';

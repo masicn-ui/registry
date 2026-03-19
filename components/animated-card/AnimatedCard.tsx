@@ -1,5 +1,3 @@
-// File: components/animated-card/AnimatedCard.tsx
-
 import React from 'react';
 import { Pressable, StyleSheet, type ViewStyle } from 'react-native';
 import Animated, {

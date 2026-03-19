@@ -1,5 +1,3 @@
-// File: components/text-input/TextInput.tsx
-
 import React, { useState, useId } from 'react';
 import {
   TextInput as RNTextInput,

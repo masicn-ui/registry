@@ -1,5 +1,3 @@
-// File: components/progress/Progress.tsx
-
 import React from 'react';
 import { View, StyleSheet, type ViewStyle, Animated } from 'react-native';
 import Reanimated, {

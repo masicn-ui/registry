@@ -1,5 +1,3 @@
-// File: components/refreshable-scroll-view/RefreshableScrollView.tsx
-
 import React from 'react';
 import { RefreshControl, ScrollView, type ViewStyle } from 'react-native';
 import { useTheme } from '@masicn/ui';

@@ -1,5 +1,3 @@
-// File: components/accordion/Accordion.tsx
-
 import React, { useState, useCallback, createContext, useContext } from 'react';
 import { View, Pressable, StyleSheet, type ViewStyle, type LayoutChangeEvent } from 'react-native';
 import Animated, { useSharedValue, useAnimatedStyle, withTiming } from 'react-native-reanimated';

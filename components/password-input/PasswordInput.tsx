@@ -1,5 +1,3 @@
-// File: components/password-input/PasswordInput.tsx
-
 import React, { useState } from 'react';
 import { Pressable, StyleSheet } from 'react-native';
 import { Text, borders, radius, spacing, useTheme } from '@masicn/ui';

@@ -1,5 +1,3 @@
-// File: components/alert/Alert.tsx
-
 import React from 'react';
 import { View, StyleSheet, Pressable, type ViewStyle } from 'react-native';
 import { Text, borders, opacity as opacityTokens, radius, spacing, useTheme } from '@masicn/ui';

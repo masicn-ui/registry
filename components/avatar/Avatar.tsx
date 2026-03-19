@@ -1,5 +1,3 @@
-// File: components/avatar/Avatar.tsx
-
 import React from 'react';
 import { View, Image, StyleSheet, type ImageSourcePropType } from 'react-native';
 import { Text, radius, sizes, type Typography, useTheme } from '@masicn/ui';

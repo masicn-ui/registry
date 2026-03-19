@@ -1,5 +1,3 @@
-// File: components/badge/Badge.tsx
-
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Text, radius, sizes, spacing, useTheme } from '@masicn/ui';

@@ -1,5 +1,3 @@
-// File: components/skeleton/Skeleton.tsx
-
 import React from 'react';
 import { View, StyleSheet, type ViewStyle } from 'react-native';
 import { useTheme, spacing, radius, sizes } from '@masicn/ui';

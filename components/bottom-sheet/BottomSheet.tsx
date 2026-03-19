@@ -1,5 +1,3 @@
-// File: components/bottom-sheet/BottomSheet.tsx
-
 import React, { useImperativeHandle, useState, useCallback } from 'react';
 import {
   Pressable,
