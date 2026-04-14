@@ -1,8 +1,12 @@
 # masicn registry
 
-Component template registry for [masicn](https://masicn.dev) — the copy-paste React Native UI ecosystem.
+Component template registry for [masicn](https://github.com/masicn-ui) — the copy-paste React Native UI ecosystem.
 
 This repo holds the source files and metadata for every component and block that the [masicn CLI](https://www.npmjs.com/package/masicn) can install. You don't use this repo directly — the CLI fetches from it over GitHub raw URLs.
+
+**Built from scratch by [Manish Kumar](https://manishh.in) ([@lordofthemind](https://github.com/lordofthemind)) at [skipp.co.in](https://skipp.co.in)**
+
+> **मसि** (masi) means _ink_ in Sanskrit and several Indian languages. Just as ink is the medium for writing anything, masicn is the medium for building anything in React Native.
 
 ## How It Works
 
@@ -25,7 +29,7 @@ When a user runs `npx masicn add button`, the CLI:
 3. Fetches `components/button/Button.tsx` and copies it into the user's project
 4. Resolves any `registryDependencies` and installs those too
 
-## Components (55)
+## Components (55+)
 
 ### Core
 `avatar` `avatar-group` `badge` `button` `card` `chip` `image` `key-value-row` `link` `pin-display` `read-more` `status-dot` `tag`
@@ -170,4 +174,6 @@ Same as above but in `blocks/<name>/`. Blocks are more opinionated, pre-composed
 
 ## License
 
-MIT
+[MIT](./LICENSE) — free to use, modify, and distribute. Copyright © 2026 [Skipp](https://skipp.co.in).
+
+The component source files in this registry are MIT licensed. When the CLI copies them into a user's project, those files become part of that project and remain under MIT — the user owns them and can change, ship, or extend them freely with no restrictions.
