@@ -79,7 +79,7 @@ const Modal = React.forwardRef<ModalRef, ModalProps>(function Modal(
   const { containerRef } = useFocusTrap({ active: isVisible });
 
   const backdropOpacity = useSharedValue(0);
-  const contentScale = useSharedValue(0.92);
+  const contentScale = useSharedValue<number>(motion.enter.scaleFrom);
   const contentOpacity = useSharedValue(0);
 
   const handleClose = useCallback(() => {
@@ -108,7 +108,7 @@ const Modal = React.forwardRef<ModalRef, ModalProps>(function Modal(
         : withSpring(1, motion.spring.dialog);
     } else {
       backdropOpacity.value = withTiming(0, { duration: dur });
-      contentScale.value = withTiming(0.92, { duration: dur });
+      contentScale.value = withTiming(motion.enter.scaleFrom, { duration: dur });
       contentOpacity.value = withTiming(0, { duration: dur });
       const timeout = setTimeout(() => setShouldRender(false), dur);
       return () => clearTimeout(timeout);
@@ -142,7 +142,7 @@ const Modal = React.forwardRef<ModalRef, ModalProps>(function Modal(
   return (
     <Masicn>
       <Animated.View
-        style={[styles.overlay, animatedBackdropStyle, { backgroundColor: theme.colors.backdrop }]}
+        style={[styles.overlay, animatedBackdropStyle, { backgroundColor: theme.colors.overlay }]}
         pointerEvents="box-none">
         <Pressable
           style={styles.backdrop}
@@ -200,14 +200,14 @@ const styles = StyleSheet.create({
     bottom: 0,
     justifyContent: 'center',
     alignItems: 'center',
-    padding: spacing.xxl,
+    padding: spacing.lg,
   },
   backdrop: {
     ...StyleSheet.absoluteFillObject,
   },
   sheet: {
     width: '100%',
-    padding: spacing.xl,
+    padding: spacing.lg,
     borderRadius: radius.xxl,
     gap: spacing.md,
   },

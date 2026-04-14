@@ -2,15 +2,23 @@
   "name": "image",
   "displayName": "Image",
   "description": "Enhanced image component with aspect ratio presets, loading indicator, error fallback, overlay, and long-press full-screen preview.",
-  "category": "core",
+  "category": "display",
   "version": "0.0.1",
   "files": [
-    { "path": "Image.tsx", "target": "Image.tsx", "type": "component" }
+    {
+      "path": "Image.tsx",
+      "target": "Image.tsx",
+      "type": "component"
+    }
   ],
   "masicnVersion": "^0.0.1",
-  "peerDependencies": {},
+  "peerDependencies": {
+    "react-native-reanimated": ">=3.0.0"
+  },
   "registryDependencies": [],
-  "tags": ["media"],
+  "tags": [
+    "media"
+  ],
   "hasTests": false,
   "hasAccessibility": true,
   "props": [

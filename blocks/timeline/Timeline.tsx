@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, type ViewStyle } from 'react-native';
 import { Text, borders, radius, sizes, spacing, useTheme } from '../../../masicn';
 
 export interface TimelineItem {
@@ -15,18 +15,35 @@ export interface TimelineItem {
   status?: 'default' | 'success' | 'error' | 'warning' | 'info';
 }
 
-interface TimelineProps {
+export interface TimelineProps {
   /** Timeline items */
   items: TimelineItem[];
   /** Show connecting line */
   showLine?: boolean;
+  /** Additional style applied to the outermost container. */
+  containerStyle?: ViewStyle;
+  /** Test identifier — forwarded as `${testID}-item-${index}` to each item. */
+  testID?: string;
 }
 
 /**
- * Timeline component for displaying events in chronological order
- * Vertical layout with dots and connecting lines
+ * Timeline — a vertical list of chronological events with status-coloured dots and connecting lines.
+ *
+ * Each item renders a coloured dot (driven by `status`), an optional icon inside the dot,
+ * a title, timestamp, and description. Items are connected by a vertical line unless
+ * `showLine` is false or the item is the last one.
+ *
+ * @example
+ * <Timeline
+ *   items={[
+ *     { title: 'Order placed', timestamp: '9:00 AM', status: 'success' },
+ *     { title: 'Payment confirmed', timestamp: '9:05 AM', status: 'success' },
+ *     { title: 'Preparing', timestamp: '9:10 AM', status: 'info' },
+ *     { title: 'Out for delivery', status: 'default' },
+ *   ]}
+ * />
  */
-export function Timeline({ items, showLine = true }: TimelineProps) {
+export const Timeline = React.memo(function Timeline({ items, showLine = true, containerStyle, testID }: TimelineProps) {
   const { theme } = useTheme();
 
   const getStatusColor = (status?: TimelineItem['status']) => {
@@ -45,13 +62,19 @@ export function Timeline({ items, showLine = true }: TimelineProps) {
   };
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, containerStyle]} accessibilityRole="list" testID={testID}>
       {items.map((item, index) => {
         const isLast = index === items.length - 1;
         const statusColor = getStatusColor(item.status);
 
         return (
-          <View key={index} style={styles.itemContainer}>
+          <View
+            key={index}
+            style={styles.itemContainer}
+            accessibilityRole="none"
+            accessibilityLabel={`${item.title}${item.timestamp ? ', ' + item.timestamp : ''}`}
+            testID={testID ? `${testID}-item-${index}` : undefined}
+          >
             <View style={styles.leftColumn}>
               <View
                 style={[
@@ -98,7 +121,7 @@ export function Timeline({ items, showLine = true }: TimelineProps) {
       })}
     </View>
   );
-}
+});
 
 const styles = StyleSheet.create({
   container: {

@@ -23,6 +23,8 @@ export interface RatingProps {
   emptyColor?: string;
   /** Label shown above the rating row */
   label?: string;
+  /** Test identifier for automated testing */
+  testID?: string;
 }
 
 /**
@@ -60,6 +62,7 @@ export function Rating({
   filledColor,
   emptyColor,
   label,
+  testID,
 }: RatingProps) {
   const { theme } = useTheme();
 
@@ -79,6 +82,7 @@ export function Rating({
         </Text>
       )}
       <View
+        testID={testID}
         style={styles.row}
         accessible={true}
         accessibilityRole="adjustable"

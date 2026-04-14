@@ -2,7 +2,7 @@
   "name": "badge",
   "displayName": "Badge",
   "description": "Status badge with error, success, warning, and info variants. Supports dot, pill, and circular modes.",
-  "category": "core",
+  "category": "display",
   "version": "0.0.1",
   "files": [
     {

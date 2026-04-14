@@ -2,7 +2,7 @@
   "name": "tooltip",
   "displayName": "Tooltip",
   "description": "Press-triggered tooltip bubble that positions itself above or below the trigger based on available space",
-  "category": "overlay",
+  "category": "overlays",
   "version": "0.0.1",
   "files": [
     {
@@ -20,7 +20,7 @@
     "information"
   ],
   "hasTests": false,
-  "hasAccessibility": false,
+  "hasAccessibility": true,
   "props": [
     {
       "name": "content",

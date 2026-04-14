@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { View, Pressable, StyleSheet } from 'react-native';
 import { Text, borders, radius, sizes, spacing, useTheme } from '../../../masicn';
 
-interface PaginationProps {
+export interface PaginationProps {
   /** Current page (1-based) */
   page: number;
   /** Total number of pages */
@@ -11,6 +11,8 @@ interface PaginationProps {
   onPageChange: (page: number) => void;
   /** Max page buttons visible before collapsing to ellipsis (default 5) */
   maxVisible?: number;
+  /** Test identifier — forwarded as `${testID}-page-${p}` to each page button. */
+  testID?: string;
 }
 
 /**
@@ -41,15 +43,16 @@ interface PaginationProps {
  *   maxVisible={7}
  * />
  */
-export function Pagination({
+export const Pagination = React.memo(function Pagination({
   page,
   totalPages,
   onPageChange,
   maxVisible = 5,
+  testID,
 }: PaginationProps) {
   const { theme } = useTheme();
 
-  const getPages = (): Array<number | '…'> => {
+  const pages = useMemo((): Array<number | '…'> => {
     if (totalPages <= maxVisible) {
       return Array.from({ length: totalPages }, (_, i) => i + 1);
     }
@@ -61,17 +64,15 @@ export function Pagination({
     if (page - half < 2) { end = Math.min(totalPages - 1, maxVisible - 1); }
     if (page + half > totalPages - 1) { start = Math.max(2, totalPages - maxVisible + 2); }
 
-    const pages: Array<number | '…'> = [1];
-    if (start > 2) { pages.push('…'); }
-    for (let i = start; i <= end; i++) { pages.push(i); }
-    if (end < totalPages - 1) { pages.push('…'); }
-    pages.push(totalPages);
-    return pages;
-  };
+    const result: Array<number | '…'> = [1];
+    if (start > 2) { result.push('…'); }
+    for (let i = start; i <= end; i++) { result.push(i); }
+    if (end < totalPages - 1) { result.push('…'); }
+    result.push(totalPages);
+    return result;
+  }, [page, totalPages, maxVisible]);
 
-  const pages = getPages();
-
-  const renderButton = (label: string | number, target: number | null, active = false) => {
+  const renderButton = (label: string | number, target: number | null, active = false, buttonTestID?: string) => {
     const disabled = target === null;
     const bg = active ? theme.colors.primary : theme.colors.surfaceSecondary;
     const textColor = active ? theme.colors.onPrimary : disabled ? theme.colors.textDisabled : theme.colors.textPrimary;
@@ -84,6 +85,8 @@ export function Pagination({
         accessibilityRole="button"
         accessibilityLabel={typeof label === 'number' ? `Page ${label}` : String(label)}
         accessibilityState={{ selected: active, disabled }}
+        testID={buttonTestID}
+        hitSlop={spacing.sm}
         style={[styles.button, { backgroundColor: bg, borderColor: theme.colors.borderSecondary }]}>
         <Text variant="caption" style={{ color: textColor }}>
           {label}
@@ -93,17 +96,17 @@ export function Pagination({
   };
 
   return (
-    <View style={styles.row} accessibilityRole="tablist" accessibilityLabel="Pagination">
+    <View style={styles.row} accessibilityRole="tablist" accessibilityLabel="Pagination" testID={testID}>
       {renderButton('‹', page > 1 ? page - 1 : null)}
       {pages.map((p, i) =>
         p === '…'
           ? <Text key={`ellipsis-${i}`} variant="caption" color="textSecondary" style={styles.ellipsis}>…</Text>
-          : renderButton(p, p, p === page),
+          : renderButton(p, p, p === page, testID ? `${testID}-page-${p}` : undefined),
       )}
       {renderButton('›', page < totalPages ? page + 1 : null)}
     </View>
   );
-}
+});
 
 const styles = StyleSheet.create({
   row: {

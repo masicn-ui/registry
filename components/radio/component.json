@@ -2,7 +2,7 @@
   "name": "radio",
   "displayName": "Radio",
   "description": "Radio button with animated dot, label, description, and RadioGroup context for exclusive selection.",
-  "category": "form",
+  "category": "selection",
   "version": "0.0.1",
   "files": [
     {
@@ -12,7 +12,9 @@
     }
   ],
   "masicnVersion": "^0.0.1",
-  "peerDependencies": {},
+  "peerDependencies": {
+    "react-native-reanimated": ">=3.0.0"
+  },
   "registryDependencies": [],
   "tags": [
     "form"

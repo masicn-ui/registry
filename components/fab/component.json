@@ -2,7 +2,7 @@
   "name": "fab",
   "displayName": "FAB",
   "description": "Floating action button with circular and extended variants, size presets, and position options",
-  "category": "navigation",
+  "category": "buttons",
   "version": "0.0.1",
   "files": [
     {

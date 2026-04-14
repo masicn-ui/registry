@@ -2,7 +2,7 @@
   "name": "carousel",
   "displayName": "Carousel",
   "description": "Horizontally scrollable carousel block with pagination indicators.",
-  "category": "blocks",
+  "category": "display",
   "version": "0.0.1",
   "files": [
     {
@@ -12,10 +12,11 @@
     }
   ],
   "masicnVersion": "^0.0.1",
-  "peerDependencies": {},
-  "registryDependencies": [
-    "image"
-  ],
+  "peerDependencies": {
+    "react-native-reanimated": ">=3.0.0",
+    "react-native-gesture-handler": ">=2.0.0"
+  },
+  "registryDependencies": [],
   "tags": [
     "carousel",
     "slider",
@@ -101,6 +102,12 @@
       "type": "(item: T, index: number) => void",
       "required": false,
       "description": "Callback fired when a slide is tapped. Makes slides pressable when provided."
+    },
+    {
+      "name": "testID",
+      "type": "string",
+      "required": false,
+      "description": "Test identifier; each slide Pressable receives `{testID}-slide-{index}`."
     }
   ]
 }

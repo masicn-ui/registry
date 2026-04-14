@@ -6,7 +6,7 @@ import Animated, {
   withSpring,
   withTiming,
 } from 'react-native-reanimated';
-import { Text, borders, iconSizes, radius, sizes, spacing, useReducedMotion, useTheme } from '../../../masicn';
+import { Text, borders, iconSizes, motion, radius, sizes, spacing, useReducedMotion, useTheme } from '../../../masicn';
 
 interface CheckboxProps {
   /** Whether the checkbox is checked. Required (controlled component). */
@@ -29,6 +29,8 @@ interface CheckboxProps {
   accessibilityLabel?: string;
   /** Accessibility hint passed to the native element. */
   accessibilityHint?: string;
+  /** Test identifier for automated testing. */
+  testID?: string;
 }
 
 /**
@@ -68,6 +70,7 @@ const Checkbox = React.forwardRef<View, CheckboxProps>(function Checkbox(
     containerStyle,
     accessibilityLabel,
     accessibilityHint,
+    testID,
   },
   ref,
 ) {
@@ -79,7 +82,7 @@ const Checkbox = React.forwardRef<View, CheckboxProps>(function Checkbox(
     const target = checked || indeterminate ? 1 : 0;
     scale.value = reducedMotion
       ? withTiming(target, { duration: 0 })
-      : withSpring(target, { damping: 12, stiffness: 200 });
+      : withSpring(target, motion.spring.check);
   }, [checked, indeterminate, scale, reducedMotion]);
 
   const animatedCheckStyle = useAnimatedStyle(() => ({
@@ -106,6 +109,7 @@ const Checkbox = React.forwardRef<View, CheckboxProps>(function Checkbox(
       ref={ref}
       onPress={handlePress}
       disabled={disabled}
+      testID={testID}
       style={[styles.container, containerStyle]}
       accessibilityRole="checkbox"
       accessibilityLabel={accessibilityLabel ?? label}

@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, StyleSheet, Pressable, type ViewStyle } from 'react-native';
-import { Text, borders, opacity as opacityTokens, radius, spacing, useTheme } from '../../../masicn';
+import { Text, borders, iconSizes, opacity as opacityTokens, radius, spacing, useTheme, CheckIcon, XIcon, WarningIcon, InfoIcon } from '../../../masicn';
 
 type AlertVariant = 'success' | 'error' | 'warning' | 'info';
 
@@ -15,10 +15,14 @@ interface AlertProps {
   dismissible?: boolean;
   /** Callback fired when the user presses the dismiss button. Only relevant when `dismissible` is true. */
   onDismiss?: () => void;
+  /** Additional style applied to the alert container. Alias: `containerStyle`. */
+  style?: ViewStyle;
   /** Additional style applied to the alert container. */
   containerStyle?: ViewStyle;
-  /** Custom icon character (emoji or unicode) to override the default variant icon. */
-  icon?: string;
+  /** Custom icon element to override the default variant icon. */
+  icon?: React.ReactNode;
+  /** Test identifier forwarded to the alert container. */
+  testID?: string;
 }
 
 /**
@@ -44,64 +48,69 @@ interface AlertProps {
  *   onDismiss={clearError}
  * />
  */
-export function Alert({
+export const Alert = React.memo(function Alert({
   variant,
   title,
   description,
   dismissible = false,
   onDismiss,
+  style,
   containerStyle,
   icon,
+  testID,
 }: AlertProps) {
   const { theme } = useTheme();
 
-  const getColors = () => {
-    switch (variant) {
-      case 'success':
-        return { bg: theme.colors.success, text: theme.colors.onSuccess, icon: '✓' };
-      case 'error':
-        return { bg: theme.colors.error, text: theme.colors.onError, icon: '✕' };
-      case 'warning':
-        return { bg: theme.colors.warning, text: theme.colors.onWarning, icon: '⚠' };
-      case 'info':
-        return { bg: theme.colors.info, text: theme.colors.onInfo, icon: 'ℹ' };
-    }
-  };
+  const variantMap = {
+    success: { bg: theme.colors.success, text: theme.colors.onSuccess, Icon: CheckIcon },
+    error:   { bg: theme.colors.error,   text: theme.colors.onError,   Icon: XIcon },
+    warning: { bg: theme.colors.warning, text: theme.colors.onWarning, Icon: WarningIcon },
+    info:    { bg: theme.colors.info,    text: theme.colors.onInfo,    Icon: InfoIcon },
+  } as const;
 
-  const colors = getColors();
-  const displayIcon = icon !== undefined ? icon : colors.icon;
+  const { bg, text, Icon: DefaultIcon } = variantMap[variant];
+  const resolvedIcon = icon !== undefined ? icon : (
+    <DefaultIcon size={iconSizes.action} color={text} />
+  );
 
   return (
     <View
       accessibilityRole="alert"
+      testID={testID}
       style={[
         styles.container,
-        { backgroundColor: colors.bg, borderColor: colors.bg },
+        { backgroundColor: bg, borderColor: bg },
+        style,
         containerStyle,
       ]}>
-      {displayIcon && (
-        <Text variant="bodyLarge" style={[styles.icon, { color: colors.text }]}>
-          {displayIcon}
-        </Text>
+      {resolvedIcon && (
+        <View style={styles.icon}>
+          {typeof resolvedIcon === 'string'
+            ? <Text style={{ color: text }}>{resolvedIcon}</Text>
+            : resolvedIcon}
+        </View>
       )}
       <View style={styles.content}>
-        <Text variant="body" bold style={{ color: colors.text }}>
+        <Text variant="body" bold style={{ color: text }}>
           {title}
         </Text>
         {description && (
-          <Text variant="bodySmall" style={[styles.description, { color: colors.text }]}>
+          <Text variant="bodySmall" style={[styles.description, { color: text }]}>
             {description}
           </Text>
         )}
       </View>
       {dismissible && onDismiss && (
-        <Pressable onPress={onDismiss} style={styles.closeButton} hitSlop={spacing.sm}>
-          <Text variant="body" style={{ color: colors.text }}>✕</Text>
+        <Pressable onPress={onDismiss} style={styles.closeButton} hitSlop={spacing.sm}
+          accessibilityRole="button"
+          accessibilityLabel="Dismiss alert"
+          accessibilityHint="Removes this alert">
+          <XIcon size={iconSizes.action} color={text} />
         </Pressable>
       )}
     </View>
   );
-}
+});
 
 const styles = StyleSheet.create({
   container: {
@@ -112,7 +121,7 @@ const styles = StyleSheet.create({
     borderWidth: borders.thin,
     gap: spacing.sm,
   },
-  icon: { marginTop: spacing.xxs },
+  icon: { alignItems: 'center', justifyContent: 'center' },
   content: { flex: 1, gap: spacing.xs },
   description: { opacity: opacityTokens.hover },
   closeButton: { padding: spacing.xxs },

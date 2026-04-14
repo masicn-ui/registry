@@ -1,0 +1,66 @@
+{
+  "name": "ticker",
+  "displayName": "Ticker",
+  "description": "Smoothly animates between numeric values with a custom formatter.",
+  "category": "display",
+  "version": "0.0.1",
+  "files": [
+    {
+      "path": "Ticker.tsx",
+      "target": "Ticker.tsx",
+      "type": "component"
+    }
+  ],
+  "masicnVersion": "^0.0.1",
+  "peerDependencies": {
+    "react-native-reanimated": ">=3.0.0"
+  },
+  "registryDependencies": [],
+  "tags": [
+    "ticker",
+    "counter",
+    "animation",
+    "number"
+  ],
+  "hasTests": false,
+  "hasAccessibility": true,
+  "props": [
+    {
+      "name": "value",
+      "type": "number",
+      "required": true,
+      "description": "Target numeric value — the component smoothly animates to this."
+    },
+    {
+      "name": "duration",
+      "type": "number",
+      "required": false,
+      "description": "Animation duration in milliseconds. Defaults to motion.duration.slow."
+    },
+    {
+      "name": "formatter",
+      "type": "(value: number) => string",
+      "required": false,
+      "description": "Formats the interpolated value to a display string. Defaults to Math.round."
+    },
+    {
+      "name": "variant",
+      "type": "TypographyVariant",
+      "default": "body",
+      "required": false,
+      "description": "Typography variant used to render the animated number."
+    },
+    {
+      "name": "style",
+      "type": "TextStyle",
+      "required": false,
+      "description": "Additional text style applied to the rendered value."
+    },
+    {
+      "name": "color",
+      "type": "TextColor",
+      "required": false,
+      "description": "Color token applied to the text."
+    }
+  ]
+}

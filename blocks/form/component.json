@@ -2,7 +2,7 @@
   "name": "form",
   "displayName": "Form",
   "description": "A complete form block with validation, labels, and error handling.",
-  "category": "blocks",
+  "category": "forms",
   "version": "0.0.1",
   "files": [
     {
@@ -13,10 +13,7 @@
   ],
   "masicnVersion": "^0.0.1",
   "peerDependencies": {},
-  "registryDependencies": [
-    "text-input",
-    "button"
-  ],
+  "registryDependencies": [],
   "tags": [
     "form",
     "input",

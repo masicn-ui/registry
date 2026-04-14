@@ -2,8 +2,8 @@ import React, { createContext, useContext, useState, useCallback } from 'react';
 import { View, StyleSheet, type ViewProps } from 'react-native';
 import { spacing } from '../../../masicn';
 
-/** A function that validates a single field value and returns an error string, or `undefined` if valid. */
-export type FieldValidator<V = unknown> = (value: V) => string | undefined;
+/** A function that validates a single field value and returns an error string, or `undefined` if valid. Optionally receives all form values as the second argument for cross-field validation. */
+export type FieldValidator<V = unknown> = (value: V, allValues: Record<string, unknown>) => string | undefined;
 
 /**
  * Pairs a field name with its validator function.
@@ -207,11 +207,11 @@ function FormBase<TValues extends Record<string, unknown> = Record<string, unkno
     if (touched[name]) {
       const validation = validations.find((v) => v.name === name);
       if (validation) {
-        const error = validation.validate(value);
+        const error = validation.validate(value, values);
         setErrors((prev) => ({ ...prev, [name]: error || '' }));
       }
     }
-  }, [validations, touched]);
+  }, [validations, touched, values]);
 
   const setFieldError = useCallback((name: string, error: string | undefined) => {
     setErrors((prev) => ({ ...prev, [name]: error || '' }));
@@ -231,7 +231,7 @@ function FormBase<TValues extends Record<string, unknown> = Record<string, unkno
     let isValid = true;
 
     validations.forEach((validation) => {
-      const error = validation.validate(values[validation.name]);
+      const error = validation.validate(values[validation.name], values);
       if (error) {
         newErrors[validation.name] = error;
         isValid = false;
@@ -270,7 +270,7 @@ function FormBase<TValues extends Record<string, unknown> = Record<string, unkno
 
   return (
     <FormContext.Provider value={contextValue}>
-      <View style={[styles.form, style]} {...rest}>
+      <View accessibilityRole="none" style={[styles.form, style]} {...rest}>
         {typeof children === 'function' ? children({ handleSubmit }) : children}
       </View>
     </FormContext.Provider>

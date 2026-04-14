@@ -1,0 +1,84 @@
+{
+  "name": "chip-input",
+  "displayName": "Tag Input",
+  "description": "Tag input block allowing creation and removal of tags.",
+  "category": "forms",
+  "version": "0.0.1",
+  "files": [
+    {
+      "path": "ChipInput.tsx",
+      "target": "ChipInput.tsx",
+      "type": "component"
+    }
+  ],
+  "masicnVersion": "^0.0.1",
+  "peerDependencies": {},
+  "registryDependencies": [
+    "chip"
+  ],
+  "tags": [
+    "tag",
+    "input",
+    "chips"
+  ],
+  "hasTests": false,
+  "hasAccessibility": true,
+  "props": [
+    {
+      "name": "value",
+      "type": "string[]",
+      "required": true,
+      "description": "Current array of tag strings."
+    },
+    {
+      "name": "onValueChange",
+      "type": "(value: string[]) => void",
+      "required": true,
+      "description": "Called with the updated tag array when tags are added or removed."
+    },
+    {
+      "name": "placeholder",
+      "type": "string",
+      "default": "Add a tag…",
+      "required": false,
+      "description": "Placeholder text shown in the text field when no tags have been added."
+    },
+    {
+      "name": "label",
+      "type": "string",
+      "required": false,
+      "description": "Label text displayed above the input."
+    },
+    {
+      "name": "error",
+      "type": "string",
+      "required": false,
+      "description": "Error message displayed below the input; also activates the error border colour."
+    },
+    {
+      "name": "helperText",
+      "type": "string",
+      "required": false,
+      "description": "Helper text displayed below the input when there is no error."
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "default": "false",
+      "required": false,
+      "description": "Disables adding new tags and hides the remove button on existing tags."
+    },
+    {
+      "name": "maxTags",
+      "type": "number",
+      "required": false,
+      "description": "Maximum number of tags allowed. The text input is hidden once this limit is reached."
+    },
+    {
+      "name": "containerStyle",
+      "type": "ViewStyle",
+      "required": false,
+      "description": "Style applied to the outer container."
+    }
+  ]
+}

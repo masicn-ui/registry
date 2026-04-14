@@ -1,0 +1,48 @@
+{
+  "name": "json-tree",
+  "displayName": "JSON Viewer",
+  "description": "Recursively collapsible JSON tree viewer with type-coloured primitives and circular reference detection.",
+  "category": "display",
+  "version": "0.0.1",
+  "files": [
+    {
+      "path": "JsonTree.tsx",
+      "target": "JsonTree.tsx",
+      "type": "component"
+    }
+  ],
+  "masicnVersion": "^0.0.1",
+  "peerDependencies": {},
+  "registryDependencies": [],
+  "tags": [
+    "json",
+    "viewer",
+    "debug",
+    "tree",
+    "collapsible",
+    "devtools"
+  ],
+  "hasTests": false,
+  "hasAccessibility": true,
+  "props": [
+    {
+      "name": "data",
+      "type": "unknown",
+      "required": true,
+      "description": "The data to render. Accepts any JavaScript value — object, array, string, number, boolean, null, or undefined."
+    },
+    {
+      "name": "defaultDepth",
+      "type": "number",
+      "default": "2",
+      "required": false,
+      "description": "Number of depth levels expanded on first render. Nodes deeper than this start collapsed. Pass Infinity to expand all levels."
+    },
+    {
+      "name": "title",
+      "type": "string",
+      "required": false,
+      "description": "Optional title shown in the header bar above the tree."
+    }
+  ]
+}

@@ -2,7 +2,7 @@
   "name": "chip",
   "displayName": "Chip",
   "description": "Interactive filter chip with filled and outline variants, selected state, leading icon, and optional remove button.",
-  "category": "core",
+  "category": "selection",
   "version": "0.0.1",
   "files": [
     {

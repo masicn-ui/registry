@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, type ViewStyle, Animated } from 'react-native';
+import { View, StyleSheet, type ViewStyle } from 'react-native';
 import Reanimated, {
   useSharedValue,
   useAnimatedStyle,
@@ -7,7 +7,7 @@ import Reanimated, {
   withTiming,
   cancelAnimation,
 } from 'react-native-reanimated';
-import { Text, borders, motion, radius, sizes, spacing, useTheme } from '../../../masicn'
+import { Text, borders, motion, radius, sizes, spacing, useReducedMotion, useTheme } from '../../../masicn';
 
 type ProgressVariant = 'linear' | 'circular';
 
@@ -72,18 +72,24 @@ export function Progress({
   containerStyle,
 }: ProgressProps) {
   const { theme } = useTheme();
-  const animatedValue = React.useRef(new Animated.Value(0)).current;
+  const reducedMotion = useReducedMotion();
+  const animWidth = useSharedValue(0);
+  const hasMeasured = React.useRef(false);
   const [trackWidth, setTrackWidth] = React.useState(0);
 
   React.useEffect(() => {
-    if (!indeterminate) {
-      Animated.timing(animatedValue, {
-        toValue: value,
-        duration: motion.duration.slow,
-        useNativeDriver: false,
-      }).start();
+    if (!indeterminate && trackWidth > 0) {
+      const targetWidth = (value / 100) * trackWidth;
+      if (!hasMeasured.current) {
+        hasMeasured.current = true;
+        animWidth.value = targetWidth;
+      } else {
+        animWidth.value = withTiming(targetWidth, {
+          duration: reducedMotion ? motion.duration.instant : motion.duration.slow,
+        });
+      }
     }
-  }, [value, animatedValue, indeterminate]);
+  }, [value, trackWidth, indeterminate, reducedMotion, animWidth]);
 
   const indAnim = useSharedValue(0);
 
@@ -92,7 +98,7 @@ export function Progress({
       const fillPx = trackWidth * INDETERMINATE_FILL;
       indAnim.value = -fillPx;
       indAnim.value = withRepeat(
-        withTiming(trackWidth, { duration: 1400 }),
+        withTiming(trackWidth, { duration: motion.duration.sweep }),
         -1,
         false,
       );
@@ -107,10 +113,9 @@ export function Progress({
     transform: [{ translateX: indAnim.value }],
   }));
 
-  const width = animatedValue.interpolate({
-    inputRange: [0, 100],
-    outputRange: ['0%', '100%'],
-  });
+  const animWidthStyle = useAnimatedStyle(() => ({
+    width: animWidth.value,
+  }));
 
   if (variant === 'circular') {
     return (
@@ -161,10 +166,11 @@ export function Progress({
             ]}
           />
         ) : (
-          <Animated.View
+          <Reanimated.View
             style={[
               styles.fill,
-              { width, height, backgroundColor: theme.colors.primary, borderRadius: trackBorderRadius },
+              { height, backgroundColor: theme.colors.primary, borderRadius: trackBorderRadius },
+              animWidthStyle,
             ]}
           />
         )}

@@ -8,7 +8,7 @@ import {
   type ViewStyle,
   type LayoutRectangle,
 } from 'react-native';
-import { useTheme, spacing, radius, elevation, borders, sizes } from '../../../masicn'
+import { useTheme, spacing, radius, elevation, borders, sizes } from '../../../masicn';
 
 type PopoverPlacement = 'top' | 'bottom' | 'left' | 'right';
 type PopoverTrigger = 'press' | 'longPress';
@@ -18,6 +18,81 @@ interface TriggerLayout {
   y: number;
   width: number;
   height: number;
+}
+
+/** Final clamped position of the popover panel. */
+interface PopoverPosition {
+  left: number;
+  top: number;
+}
+
+function getTriggerCenterX(layout: TriggerLayout) {
+  return layout.x + layout.width / 2;
+}
+
+function getTriggerCenterY(layout: TriggerLayout) {
+  return layout.y + layout.height / 2;
+}
+
+function computePosition(
+  triggerLayout: TriggerLayout,
+  popoverLayout: LayoutRectangle,
+  placement: PopoverPlacement,
+  screenWidth: number,
+  screenHeight: number,
+): PopoverPosition {
+  const OFFSET = spacing.sm;
+  const SCREEN_PAD = spacing.md;
+
+  let left = 0;
+  let top = 0;
+  let translateX = 0;
+  let translateY = 0;
+
+  switch (placement) {
+    case 'top':
+      left = getTriggerCenterX(triggerLayout);
+      top = triggerLayout.y - OFFSET;
+      translateX = -popoverLayout.width / 2;
+      translateY = -popoverLayout.height;
+      break;
+    case 'bottom':
+      left = getTriggerCenterX(triggerLayout);
+      top = triggerLayout.y + triggerLayout.height + OFFSET;
+      translateX = -popoverLayout.width / 2;
+      translateY = 0;
+      break;
+    case 'left':
+      left = triggerLayout.x - OFFSET;
+      top = getTriggerCenterY(triggerLayout);
+      translateX = -popoverLayout.width;
+      translateY = -popoverLayout.height / 2;
+      break;
+    case 'right':
+      left = triggerLayout.x + triggerLayout.width + OFFSET;
+      top = getTriggerCenterY(triggerLayout);
+      translateX = 0;
+      translateY = -popoverLayout.height / 2;
+      break;
+  }
+
+  let finalX = left + translateX;
+  let finalY = top + translateY;
+
+  if (finalX + popoverLayout.width > screenWidth - SCREEN_PAD) {
+    finalX = screenWidth - SCREEN_PAD - popoverLayout.width;
+  }
+  if (finalX < SCREEN_PAD) {
+    finalX = SCREEN_PAD;
+  }
+  if (finalY + popoverLayout.height > screenHeight - SCREEN_PAD) {
+    finalY = screenHeight - SCREEN_PAD - popoverLayout.height;
+  }
+  if (finalY < SCREEN_PAD) {
+    finalY = SCREEN_PAD;
+  }
+
+  return { left: finalX, top: finalY };
 }
 
 export interface PopoverProps {
@@ -60,6 +135,8 @@ export interface PopoverProps {
  * screen coordinates (measured with `measureInWindow`). The popover is clamped
  * to stay within screen bounds with `spacing.md` padding. An optional directional
  * arrow helps the user see the relationship between the popover and its trigger.
+ * For left/right placements the arrow tracks the trigger centre even when the
+ * popover panel has been clamped vertically.
  *
  * Supports both uncontrolled (internal state) and controlled (`visible` +
  * `onVisibilityChange`) modes. Tapping the backdrop dismisses the popover.
@@ -135,63 +212,8 @@ export function Popover({
     if (!triggerLayout || !popoverLayout) {
       return styles.measurePass;
     }
-
-    const OFFSET = spacing.sm;
-    const SCREEN_PAD = spacing.md;
-
-    let left = 0;
-    let top = 0;
-    let translateX = 0;
-    let translateY = 0;
-
-    switch (placement) {
-      case 'top':
-        left = triggerLayout.x + triggerLayout.width / 2;
-        top = triggerLayout.y - OFFSET;
-        translateX = -popoverLayout.width / 2;
-        translateY = -popoverLayout.height;
-        break;
-      case 'bottom':
-        left = triggerLayout.x + triggerLayout.width / 2;
-        top = triggerLayout.y + triggerLayout.height + OFFSET;
-        translateX = -popoverLayout.width / 2;
-        translateY = 0;
-        break;
-      case 'left':
-        left = triggerLayout.x - OFFSET;
-        top = triggerLayout.y + triggerLayout.height / 2;
-        translateX = -popoverLayout.width;
-        translateY = -popoverLayout.height / 2;
-        break;
-      case 'right':
-        left = triggerLayout.x + triggerLayout.width + OFFSET;
-        top = triggerLayout.y + triggerLayout.height / 2;
-        translateX = 0;
-        translateY = -popoverLayout.height / 2;
-        break;
-    }
-
-    let finalX = left + translateX;
-    let finalY = top + translateY;
-
-    if (finalX + popoverLayout.width > screenWidth - SCREEN_PAD) {
-      finalX = screenWidth - SCREEN_PAD - popoverLayout.width;
-    }
-    if (finalX < SCREEN_PAD) {
-      finalX = SCREEN_PAD;
-    }
-    if (finalY + popoverLayout.height > screenHeight - SCREEN_PAD) {
-      finalY = screenHeight - SCREEN_PAD - popoverLayout.height;
-    }
-    if (finalY < SCREEN_PAD) {
-      finalY = SCREEN_PAD;
-    }
-
-    return {
-      position: 'absolute',
-      left: finalX,
-      top: finalY,
-    };
+    const { left, top } = computePosition(triggerLayout, popoverLayout, placement, screenWidth, screenHeight);
+    return { position: 'absolute', left, top };
   };
 
   const childProps = children.props as Record<string, unknown>;
@@ -218,7 +240,7 @@ export function Popover({
               styles.popover,
               getPopoverStyle(),
               {
-                backgroundColor: theme.colors.surfacePrimary,
+                backgroundColor: theme.colors.surfaceOverlay,
                 borderColor: theme.colors.borderPrimary,
                 ...elevation.lg,
                 shadowColor: theme.colors.shadow,
@@ -231,30 +253,8 @@ export function Popover({
               <PopoverArrow
                 placement={placement}
                 triggerLayout={triggerLayout}
-                popoverFinalLeft={(() => {
-                  if (!triggerLayout || !popoverLayout) { return 0; }
-                  const OFFSET = spacing.sm;
-                  const SCREEN_PAD = spacing.md;
-                  let left = 0;
-                  let translateX = 0;
-                  if (placement === 'top' || placement === 'bottom') {
-                    left = triggerLayout.x + triggerLayout.width / 2;
-                    translateX = -popoverLayout.width / 2;
-                  } else if (placement === 'left') {
-                    left = triggerLayout.x - OFFSET;
-                    translateX = -popoverLayout.width;
-                  } else {
-                    left = triggerLayout.x + triggerLayout.width + OFFSET;
-                    translateX = 0;
-                  }
-                  let finalX = left + translateX;
-                  if (finalX + popoverLayout.width > screenWidth - SCREEN_PAD) {
-                    finalX = screenWidth - SCREEN_PAD - popoverLayout.width;
-                  }
-                  if (finalX < SCREEN_PAD) { finalX = SCREEN_PAD; }
-                  return finalX;
-                })()}
-                color={theme.colors.surfacePrimary}
+                popoverPosition={computePosition(triggerLayout, popoverLayout, placement, screenWidth, screenHeight)}
+                color={theme.colors.surfaceOverlay}
               />
             )}
             {content}
@@ -270,15 +270,15 @@ export function Popover({
 interface PopoverArrowProps {
   placement: PopoverPlacement;
   triggerLayout: TriggerLayout;
-  popoverFinalLeft: number;
+  popoverPosition: PopoverPosition;
   color: string;
 }
 
-function PopoverArrow({ placement, triggerLayout, popoverFinalLeft, color }: PopoverArrowProps) {
+function PopoverArrow({ placement, triggerLayout, popoverPosition, color }: PopoverArrowProps) {
   const ARROW = spacing.sm;
 
   if (placement === 'bottom') {
-    const arrowLeft = triggerLayout.x + triggerLayout.width / 2 - popoverFinalLeft - ARROW;
+    const arrowLeft = getTriggerCenterX(triggerLayout) - popoverPosition.left - ARROW;
     return (
       <View
         style={[
@@ -290,7 +290,7 @@ function PopoverArrow({ placement, triggerLayout, popoverFinalLeft, color }: Pop
     );
   }
   if (placement === 'top') {
-    const arrowLeft = triggerLayout.x + triggerLayout.width / 2 - popoverFinalLeft - ARROW;
+    const arrowLeft = getTriggerCenterX(triggerLayout) - popoverPosition.left - ARROW;
     return (
       <View
         style={[
@@ -301,16 +301,21 @@ function PopoverArrow({ placement, triggerLayout, popoverFinalLeft, color }: Pop
       />
     );
   }
+
+  // For left/right: compute dynamic `top` so the arrow tracks the trigger centre
+  // even when the popover panel has been clamped vertically.
+  const arrowTop = getTriggerCenterY(triggerLayout) - popoverPosition.top - ARROW;
+
   if (placement === 'right') {
     return (
       <View
-        style={[arrowStyles.arrow, arrowStyles.arrowLeft, { borderRightColor: color }]}
+        style={[arrowStyles.arrow, arrowStyles.arrowLeft, { top: arrowTop, borderRightColor: color }]}
       />
     );
   }
   return (
     <View
-      style={[arrowStyles.arrow, arrowStyles.arrowRight, { borderLeftColor: color }]}
+      style={[arrowStyles.arrow, arrowStyles.arrowRight, { top: arrowTop, borderLeftColor: color }]}
     />
   );
 }
@@ -361,8 +366,6 @@ const arrowStyles = StyleSheet.create({
   },
   arrowLeft: {
     left: -ARROW_SIZE,
-    top: '50%',
-    marginTop: -ARROW_SIZE,
     borderTopWidth: ARROW_SIZE,
     borderBottomWidth: ARROW_SIZE,
     borderRightWidth: ARROW_SIZE,
@@ -371,8 +374,6 @@ const arrowStyles = StyleSheet.create({
   },
   arrowRight: {
     right: -ARROW_SIZE,
-    top: '50%',
-    marginTop: -ARROW_SIZE,
     borderTopWidth: ARROW_SIZE,
     borderBottomWidth: ARROW_SIZE,
     borderLeftWidth: ARROW_SIZE,

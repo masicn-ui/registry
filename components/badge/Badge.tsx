@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, type ViewStyle } from 'react-native';
 import { Text, radius, sizes, spacing, useTheme } from '../../../masicn';
 
 type BadgeVariant = 'error' | 'success' | 'warning' | 'info';
@@ -15,6 +15,10 @@ interface BadgeProps {
   size?: 'sm' | 'md' | 'lg';
   /** Overrides the default accessibility label. Defaults to "{label} {variant}" or just "{variant}" for dot mode. */
   accessibilityLabel?: string;
+  /** Additional style applied to the outermost element. */
+  style?: ViewStyle;
+  /** Test identifier forwarded to the badge element. */
+  testID?: string;
 }
 
 const onColorMap: Record<BadgeVariant, 'onError' | 'onSuccess' | 'textInverse' | 'onTertiary'> = {
@@ -53,7 +57,7 @@ const circularSizes = {
  * // Inline status pill
  * <Badge label="Active" variant="success" />
  */
-export function Badge({ label, variant = 'error', circular = false, size = 'md', accessibilityLabel }: BadgeProps) {
+export const Badge = React.memo(function Badge({ label, variant = 'error', circular = false, size = 'md', accessibilityLabel, style, testID }: BadgeProps) {
   const { theme } = useTheme();
   const a11yLabel = accessibilityLabel ?? (label ? `${label} ${variant}` : variant);
 
@@ -63,7 +67,8 @@ export function Badge({ label, variant = 'error', circular = false, size = 'md',
         accessible={true}
         accessibilityRole="text"
         accessibilityLabel={a11yLabel}
-        style={[styles.dot, { backgroundColor: theme.colors[variant] }]}
+        testID={testID}
+        style={[styles.dot, { backgroundColor: theme.colors[variant] }, style]}
       />
     );
   }
@@ -75,6 +80,7 @@ export function Badge({ label, variant = 'error', circular = false, size = 'md',
         accessible={true}
         accessibilityRole="text"
         accessibilityLabel={a11yLabel}
+        testID={testID}
         style={[
           styles.circular,
           {
@@ -83,6 +89,7 @@ export function Badge({ label, variant = 'error', circular = false, size = 'md',
             height: dim,
             borderRadius: dim / 2,
           },
+          style,
         ]}>
         <Text
           variant="captionSmall"
@@ -99,13 +106,14 @@ export function Badge({ label, variant = 'error', circular = false, size = 'md',
       accessible={true}
       accessibilityRole="text"
       accessibilityLabel={a11yLabel}
-      style={[styles.badge, { backgroundColor: theme.colors[variant] }]}>
+      testID={testID}
+      style={[styles.badge, { backgroundColor: theme.colors[variant] }, style]}>
       <Text variant="captionSmall" style={{ color: theme.colors[onColorMap[variant]] }}>
         {label}
       </Text>
     </View>
   );
-}
+});
 
 const styles = StyleSheet.create({
   dot: {

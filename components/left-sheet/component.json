@@ -2,7 +2,7 @@
   "name": "left-sheet",
   "displayName": "LeftSheet",
   "description": "Gesture-driven side sheet that slides in from the left edge with drag-to-dismiss support.",
-  "category": "feedback",
+  "category": "overlays",
   "version": "0.0.1",
   "files": [
     {
@@ -14,7 +14,8 @@
   "masicnVersion": "^0.0.1",
   "peerDependencies": {
     "react-native-gesture-handler": ">=2.0.0",
-    "react-native-reanimated": ">=3.0.0"
+    "react-native-reanimated": ">=3.0.0",
+    "react-native-safe-area-context": ">=4.0.0"
   },
   "registryDependencies": [],
   "tags": [

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   View,
   TextInput as RNTextInput,
@@ -7,7 +7,7 @@ import {
   type TextInputProps,
   type ViewStyle,
 } from 'react-native';
-import { Text, borders, fonts, iconSizes, radius, sizes, spacing, typography, useTheme } from '../../../masicn'
+import { borders, fonts, iconSizes, radius, sizes, spacing, typography, useTheme, type IconComponent, SearchIcon, XIcon } from '../../../masicn';
 
 interface SearchBarProps extends Omit<TextInputProps, 'style'> {
   /** Current search value */
@@ -22,8 +22,12 @@ interface SearchBarProps extends Omit<TextInputProps, 'style'> {
   placeholder?: string;
   /** Additional container style */
   containerStyle?: ViewStyle;
-  /** Custom search icon character or emoji. Defaults to '🔍'. */
-  searchIcon?: string;
+  /** Custom search icon component. Defaults to SearchIcon. */
+  searchIcon?: IconComponent;
+  /** Border radius override. Defaults to radius.full (pill). */
+  borderRadius?: number;
+  /** Test identifier; clear button receives `{testID}-clear`. */
+  testID?: string;
 }
 
 /**
@@ -55,10 +59,15 @@ export function SearchBar({
   onSearch,
   placeholder = 'Search...',
   containerStyle,
-  searchIcon = '🔍',
+  searchIcon: SearchIconProp = SearchIcon,
+  borderRadius: borderRadiusProp,
+  testID,
+  onFocus,
+  onBlur,
   ...textInputProps
 }: SearchBarProps) {
   const { theme } = useTheme();
+  const [focused, setFocused] = useState(false);
 
   const handleClear = () => {
     onChangeText('');
@@ -69,42 +78,54 @@ export function SearchBar({
     onSearch?.(value);
   };
 
+  const borderColor = focused
+    ? theme.colors.borderFocused
+    : theme.colors.inputBorder;
+
   return (
     <View
       style={[
         styles.container,
         {
           backgroundColor: theme.colors.inputBackground,
-          borderColor: theme.colors.inputBorder,
+          borderColor,
+          borderRadius: borderRadiusProp ?? radius.full,
         },
         containerStyle,
       ]}>
-      <Text variant="body" style={styles.icon}>
-        {searchIcon}
-      </Text>
+      <SearchIconProp size={iconSizes.action} color={theme.colors.inputPlaceholder} />
       <RNTextInput
         value={value}
         onChangeText={onChangeText}
         placeholder={placeholder}
         placeholderTextColor={theme.colors.inputPlaceholder}
+        underlineColorAndroid="transparent"
         style={[
           styles.input,
           { color: theme.colors.textPrimary },
         ]}
         returnKeyType="search"
         onSubmitEditing={handleSubmit}
+        onFocus={e => {
+          setFocused(true);
+          onFocus?.(e);
+        }}
+        onBlur={e => {
+          setFocused(false);
+          onBlur?.(e);
+        }}
         {...textInputProps}
       />
-      {value.length > 0 && (
-        <Pressable
-          onPress={handleClear}
-          style={styles.clearButton}
-          hitSlop={spacing.sm}>
-          <Text variant="body" color="textSecondary">
-            ✕
-          </Text>
-        </Pressable>
-      )}
+      <Pressable
+        onPress={handleClear}
+        style={[styles.clearButton, value.length === 0 && styles.clearButtonHidden]}
+        hitSlop={spacing.sm}
+        accessibilityRole="button"
+        accessibilityLabel="Clear search"
+        pointerEvents={value.length > 0 ? 'auto' : 'none'}
+        testID={testID ? `${testID}-clear` : undefined}>
+        <XIcon size={iconSizes.action} color={theme.colors.textSecondary} />
+      </Pressable>
     </View>
   );
 }
@@ -114,23 +135,21 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     paddingHorizontal: spacing.md,
-    paddingVertical: spacing.sm,
-    borderRadius: radius.full,
     borderWidth: borders.thin,
     gap: spacing.sm,
-    minHeight: sizes.touchTarget,
-  },
-  icon: {
-    fontSize: iconSizes.default,
+    height: sizes.inputLg,
   },
   input: {
     flex: 1,
-    padding: 0,
-    margin: 0,
+    padding: spacing.none,
+    margin: spacing.none,
     fontFamily: fonts.ui.regular,
     fontSize: typography.body.fontSize,
   },
   clearButton: {
     padding: spacing.xs,
+  },
+  clearButtonHidden: {
+    opacity: 0,
   },
 });

@@ -4,8 +4,9 @@ import Animated, {
   useSharedValue,
   useAnimatedStyle,
   withSpring,
+  withTiming,
 } from 'react-native-reanimated';
-import { Text, borders, iconSizes, radius, sizes, spacing, useTheme } from '../../../masicn'
+import { Text, borders, iconSizes, motion, radius, sizes, spacing, useReducedMotion, useTheme } from '../../../masicn';
 
 interface RadioGroupContextValue {
   value: string;
@@ -92,6 +93,7 @@ export function Radio({
   containerStyle,
 }: RadioProps) {
   const { theme } = useTheme();
+  const reducedMotion = useReducedMotion();
   const context = useContext(RadioGroupContext);
   const scale = useSharedValue(0);
 
@@ -103,8 +105,10 @@ export function Radio({
   const isDisabled = disabled || context.disabled;
 
   React.useEffect(() => {
-    scale.value = withSpring(isSelected ? 1 : 0, { damping: 12, stiffness: 200 });
-  }, [isSelected, scale]);
+    scale.value = reducedMotion
+      ? withTiming(isSelected ? 1 : 0, { duration: 0 })
+      : withSpring(isSelected ? 1 : 0, motion.spring.indicator);
+  }, [isSelected, scale, reducedMotion]);
 
   const animatedDotStyle = useAnimatedStyle(() => ({
     transform: [{ scale: scale.value }],

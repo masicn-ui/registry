@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { View, StyleSheet, type ViewStyle } from 'react-native';
 import { Text, spacing, useTheme } from '../../../masicn';
 import { Checkbox } from '../checkbox/Checkbox';
@@ -29,6 +29,8 @@ interface CheckboxGroupProps {
   helperText?: string;
   /** Disables all checkboxes in the group. Individual options may also carry their own `disabled` flag. Defaults to false. */
   disabled?: boolean;
+  /** Additional style applied to the outer container. Alias: `containerStyle`. */
+  style?: ViewStyle;
   /** Additional style applied to the outer container. */
   containerStyle?: ViewStyle;
 }
@@ -62,21 +64,22 @@ export function CheckboxGroup({
   error,
   helperText,
   disabled = false,
+  style,
   containerStyle,
 }: CheckboxGroupProps) {
   const { theme } = useTheme();
   const hasError = !!error;
 
-  const toggle = (optValue: string) => {
+  const toggle = useCallback((optValue: string) => {
     if (value.includes(optValue)) {
       onValueChange(value.filter(v => v !== optValue));
     } else {
       onValueChange([...value, optValue]);
     }
-  };
+  }, [value, onValueChange]);
 
   return (
-    <View style={[styles.container, containerStyle]}>
+    <View style={[styles.container, style, containerStyle]}>
       {label && (
         <Text variant="label" style={{ color: hasError ? theme.colors.error : theme.colors.textPrimary }}>
           {label}

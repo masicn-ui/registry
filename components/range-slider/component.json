@@ -1,0 +1,101 @@
+{
+  "name": "range-slider",
+  "displayName": "Range Slider",
+  "description": "Two-thumb slider for selecting a numeric range with step and gap constraints.",
+  "category": "forms",
+  "version": "0.0.1",
+  "files": [
+    {
+      "path": "RangeSlider.tsx",
+      "target": "RangeSlider.tsx",
+      "type": "component"
+    }
+  ],
+  "masicnVersion": "^0.0.1",
+  "peerDependencies": {
+    "react-native-gesture-handler": ">=2.0.0"
+  },
+  "registryDependencies": [],
+  "tags": [
+    "slider",
+    "range",
+    "input",
+    "forms"
+  ],
+  "hasTests": false,
+  "hasAccessibility": true,
+  "props": [
+    {
+      "name": "minValue",
+      "type": "number",
+      "required": true,
+      "description": "Current low (start) value of the range."
+    },
+    {
+      "name": "maxValue",
+      "type": "number",
+      "required": true,
+      "description": "Current high (end) value of the range."
+    },
+    {
+      "name": "onRangeChange",
+      "type": "(min: number, max: number) => void",
+      "required": true,
+      "description": "Callback invoked when either thumb moves; receives the updated [min, max] values."
+    },
+    {
+      "name": "min",
+      "type": "number",
+      "default": "0",
+      "required": false,
+      "description": "Absolute minimum the low thumb can reach."
+    },
+    {
+      "name": "max",
+      "type": "number",
+      "default": "100",
+      "required": false,
+      "description": "Absolute maximum the high thumb can reach."
+    },
+    {
+      "name": "step",
+      "type": "number",
+      "default": "1",
+      "required": false,
+      "description": "Step increment for both thumbs."
+    },
+    {
+      "name": "minGap",
+      "type": "number",
+      "default": "0",
+      "required": false,
+      "description": "Minimum gap enforced between the two thumbs."
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "default": "false",
+      "required": false,
+      "description": "When true, the slider is non-interactive and visually dimmed."
+    },
+    {
+      "name": "showValues",
+      "type": "boolean",
+      "default": "false",
+      "required": false,
+      "description": "When true, displays the current numeric values above the thumbs."
+    },
+    {
+      "name": "label",
+      "type": "string",
+      "required": false,
+      "description": "Optional text label rendered above the slider."
+    },
+    {
+      "name": "containerStyle",
+      "type": "ViewStyle",
+      "required": false,
+      "description": "Additional style applied to the outer container."
+    }
+  ]
+}

@@ -2,11 +2,11 @@ import React, { createContext, useContext, useState, useCallback } from 'react';
 import {
   View,
   StyleSheet,
-  Animated,
   Pressable,
 } from 'react-native';
+import Reanimated, { useSharedValue, useAnimatedStyle, withTiming, withSpring } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { Masicn, Text, elevation, motion, radius, spacing, useTheme } from '../../../masicn';
+import { Masicn, Text, elevation, iconSizes, motion, motionEasing, radius, spacing, useReducedMotion, useTheme, XIcon } from '../../../masicn';
 
 type SnackbarType = 'success' | 'error' | 'warning' | 'info' | 'default';
 type SnackbarPosition = 'top' | 'bottom';
@@ -25,14 +25,16 @@ interface SnackbarMessage {
   duration?: number;
   action?: SnackbarAction;
   position?: SnackbarPosition;
+  /** Optional callback fired when the snackbar body is tapped. Use for navigation (e.g. navigate to detail screen). The snackbar is dismissed after the callback. */
+  onPress?: () => void;
 }
 
 interface SnackbarContextValue {
-  show: (message: string, type?: SnackbarType, duration?: number, action?: SnackbarAction, position?: SnackbarPosition) => void;
-  success: (message: string, duration?: number, action?: SnackbarAction, position?: SnackbarPosition) => void;
-  error: (message: string, duration?: number, action?: SnackbarAction, position?: SnackbarPosition) => void;
-  warning: (message: string, duration?: number, action?: SnackbarAction, position?: SnackbarPosition) => void;
-  info: (message: string, duration?: number, action?: SnackbarAction, position?: SnackbarPosition) => void;
+  show: (message: string, type?: SnackbarType, duration?: number, action?: SnackbarAction, position?: SnackbarPosition, onPress?: () => void) => void;
+  success: (message: string, duration?: number, action?: SnackbarAction, position?: SnackbarPosition, onPress?: () => void) => void;
+  error: (message: string, duration?: number, action?: SnackbarAction, position?: SnackbarPosition, onPress?: () => void) => void;
+  warning: (message: string, duration?: number, action?: SnackbarAction, position?: SnackbarPosition, onPress?: () => void) => void;
+  info: (message: string, duration?: number, action?: SnackbarAction, position?: SnackbarPosition, onPress?: () => void) => void;
 }
 
 const SnackbarContext = createContext<SnackbarContextValue | undefined>(undefined);
@@ -83,39 +85,39 @@ export function SnackbarProvider({ children, defaultPosition = 'bottom' }: Snack
   const [snackbars, setSnackbars] = useState<SnackbarMessage[]>([]);
 
   const show = useCallback(
-    (message: string, type: SnackbarType = 'default', duration = 4000, action?: SnackbarAction, position?: SnackbarPosition) => {
+    (message: string, type: SnackbarType = 'default', duration = 4000, action?: SnackbarAction, position?: SnackbarPosition, onPress?: () => void) => {
       const id = Date.now().toString();
       const finalPosition = position ?? defaultPosition;
-      setSnackbars(prev => [...prev, { id, message, type, duration, action, position: finalPosition }]);
+      setSnackbars(prev => [...prev, { id, message, type, duration, action, position: finalPosition, onPress }]);
 
       setTimeout(() => {
         setSnackbars(prev => prev.filter(snackbar => snackbar.id !== id));
-      }, duration);
+      }, duration + 100);
     },
     [defaultPosition],
   );
 
   const success = useCallback(
-    (message: string, duration?: number, action?: SnackbarAction, position?: SnackbarPosition) =>
-      show(message, 'success', duration, action, position),
+    (message: string, duration?: number, action?: SnackbarAction, position?: SnackbarPosition, onPress?: () => void) =>
+      show(message, 'success', duration, action, position, onPress),
     [show],
   );
 
   const error = useCallback(
-    (message: string, duration?: number, action?: SnackbarAction, position?: SnackbarPosition) =>
-      show(message, 'error', duration, action, position),
+    (message: string, duration?: number, action?: SnackbarAction, position?: SnackbarPosition, onPress?: () => void) =>
+      show(message, 'error', duration, action, position, onPress),
     [show],
   );
 
   const warning = useCallback(
-    (message: string, duration?: number, action?: SnackbarAction, position?: SnackbarPosition) =>
-      show(message, 'warning', duration, action, position),
+    (message: string, duration?: number, action?: SnackbarAction, position?: SnackbarPosition, onPress?: () => void) =>
+      show(message, 'warning', duration, action, position, onPress),
     [show],
   );
 
   const info = useCallback(
-    (message: string, duration?: number, action?: SnackbarAction, position?: SnackbarPosition) =>
-      show(message, 'info', duration, action, position),
+    (message: string, duration?: number, action?: SnackbarAction, position?: SnackbarPosition, onPress?: () => void) =>
+      show(message, 'info', duration, action, position, onPress),
     [show],
   );
 
@@ -190,42 +192,34 @@ interface SnackbarItemProps {
 
 function SnackbarItem({ snackbar, onDismiss }: SnackbarItemProps) {
   const { theme } = useTheme();
-  const fadeAnim = React.useRef(new Animated.Value(0)).current;
+  const reducedMotion = useReducedMotion();
   const initialSlideValue = snackbar.position === 'top' ? -spacing.xxxl : spacing.xxxl;
-  const slideAnim = React.useRef(new Animated.Value(initialSlideValue)).current;
+  const fadeAnim = useSharedValue(0);
+  const slideAnim = useSharedValue(initialSlideValue);
 
   React.useEffect(() => {
-    Animated.parallel([
-      Animated.timing(fadeAnim, {
-        toValue: 1,
-        duration: motion.duration.slow,
-        useNativeDriver: true,
-      }),
-      Animated.spring(slideAnim, {
-        toValue: 0,
-        tension: 40,
-        friction: 8,
-        useNativeDriver: true,
-      }),
-    ]).start();
+    const dur = reducedMotion ? motion.duration.instant : motion.duration.slow;
+    fadeAnim.value = withTiming(1, { duration: dur });
+    slideAnim.value = reducedMotion
+      ? withTiming(0, { duration: dur })
+      : withSpring(0, motion.spring.gentle);
 
+    const exitSlideValue = snackbar.position === 'top' ? -spacing.xxxl : spacing.xxxl;
     const timeout = setTimeout(() => {
-      Animated.parallel([
-        Animated.timing(fadeAnim, {
-          toValue: 0,
-          duration: motion.duration.normal,
-          useNativeDriver: true,
-        }),
-        Animated.timing(slideAnim, {
-          toValue: snackbar.position === 'top' ? -spacing.xxxl : spacing.xxxl,
-          duration: motion.duration.normal,
-          useNativeDriver: true,
-        }),
-      ]).start();
+      fadeAnim.value = withTiming(0, { duration: motion.duration.normal });
+      slideAnim.value = withTiming(exitSlideValue, {
+        duration: motion.duration.normal,
+        easing: motionEasing.accelerate,
+      });
     }, (snackbar.duration || 4000) - motion.duration.normal);
 
     return () => clearTimeout(timeout);
-  }, [fadeAnim, slideAnim, snackbar.duration, snackbar.position]);
+  }, [fadeAnim, slideAnim, snackbar.duration, snackbar.position, reducedMotion]);
+
+  const animatedStyle = useAnimatedStyle(() => ({
+    opacity: fadeAnim.value,
+    transform: [{ translateY: slideAnim.value }],
+  }));
 
   const getBackgroundColor = () => {
     switch (snackbar.type) {
@@ -244,7 +238,13 @@ function SnackbarItem({ snackbar, onDismiss }: SnackbarItemProps) {
   };
 
   const getTextColor = () => {
-    return snackbar.type === 'default' ? theme.colors.textPrimary : theme.colors.onSuccess;
+    switch (snackbar.type) {
+      case 'success': return theme.colors.onSuccess;
+      case 'error':   return theme.colors.onError;
+      case 'warning': return theme.colors.textInverse;
+      case 'info':    return theme.colors.onTertiary;
+      default:        return theme.colors.textPrimary;
+    }
   };
 
   const handleActionPress = () => {
@@ -252,18 +252,23 @@ function SnackbarItem({ snackbar, onDismiss }: SnackbarItemProps) {
     onDismiss();
   };
 
-  return (
-    <Animated.View
-      style={[
-        styles.snackbar,
-        {
-          backgroundColor: getBackgroundColor(),
-          ...elevation.lg,
-          shadowColor: theme.colors.shadow,
-          opacity: fadeAnim,
-          transform: [{ translateY: slideAnim }],
-        },
-      ]}>
+  const handleBodyPress = () => {
+    snackbar.onPress?.();
+    onDismiss();
+  };
+
+  const snackbarStyle = [
+    styles.snackbar,
+    {
+      backgroundColor: getBackgroundColor(),
+      ...elevation.lg,
+      shadowColor: theme.colors.shadow,
+    },
+    animatedStyle,
+  ];
+
+  const content = (
+    <>
       <Text
         variant="body"
         style={[styles.message, { color: getTextColor() }]}
@@ -276,7 +281,7 @@ function SnackbarItem({ snackbar, onDismiss }: SnackbarItemProps) {
           style={styles.actionButton}>
           <Text
             variant="button"
-            style={{ color: snackbar.type === 'default' ? theme.colors.primary : theme.colors.onSuccess }}
+            style={{ color: snackbar.type === 'default' ? theme.colors.primary : getTextColor() }}
             bold>
             {snackbar.action.label}
           </Text>
@@ -285,14 +290,28 @@ function SnackbarItem({ snackbar, onDismiss }: SnackbarItemProps) {
       <Pressable
         onPress={onDismiss}
         style={styles.closeButton}
-        hitSlop={spacing.sm}>
-        <Text
-          variant="body"
-          style={{ color: getTextColor() }}>
-          ✕
-        </Text>
+        hitSlop={spacing.sm}
+        accessibilityRole="button"
+        accessibilityLabel="Dismiss">
+        <XIcon size={iconSizes.action} color={getTextColor()} />
       </Pressable>
-    </Animated.View>
+    </>
+  );
+
+  if (snackbar.onPress) {
+    return (
+      <Reanimated.View style={snackbarStyle}>
+        <Pressable style={styles.snackbarRow} onPress={handleBodyPress}>
+          {content}
+        </Pressable>
+      </Reanimated.View>
+    );
+  }
+
+  return (
+    <Reanimated.View style={snackbarStyle}>
+      <View style={styles.snackbarRow}>{content}</View>
+    </Reanimated.View>
   );
 }
 
@@ -311,11 +330,14 @@ const styles = StyleSheet.create({
     bottom: 0,
   },
   snackbar: {
+    borderRadius: radius.lg,
+    overflow: 'hidden',
+  },
+  snackbarRow: {
     flexDirection: 'row',
     alignItems: 'center',
     padding: spacing.md,
     paddingRight: spacing.lg,
-    borderRadius: radius.lg,
     gap: spacing.sm,
     minHeight: spacing.xxxl,
   },

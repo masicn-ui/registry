@@ -2,10 +2,10 @@ import React, { createContext, useContext, useState, useCallback } from 'react';
 import {
   View,
   StyleSheet,
-  Animated,
 } from 'react-native';
+import Reanimated, { useSharedValue, useAnimatedStyle, withTiming, withSpring } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { Masicn, Text, elevation, motion, radius, sizes, spacing, useReducedMotion, useTheme } from '../../../masicn';
+import { Masicn, Text, elevation, iconSizes, layout, motion, motionEasing, radius, sizes, spacing, useReducedMotion, useTheme, type IconComponent, CheckIcon, XIcon, WarningIcon, InfoIcon } from '../../../masicn';
 
 type ToastType = 'success' | 'error' | 'warning' | 'info';
 type ToastPosition = 'top' | 'bottom';
@@ -80,7 +80,7 @@ export function ToastProvider({ children, defaultPosition = 'top' }: ToastProvid
 
       setTimeout(() => {
         setToasts(prev => prev.filter(toast => toast.id !== id));
-      }, duration);
+      }, duration + 100);
     },
     [defaultPosition],
   );
@@ -164,53 +164,34 @@ function ToastItem({ toast }: ToastItemProps) {
   const { theme } = useTheme();
   const reducedMotion = useReducedMotion();
 
-  const fadeAnim = React.useRef(new Animated.Value(0)).current;
-  const initialSlideValue = reducedMotion ? 0 : (toast.position === 'top' ? -spacing.xxxl : spacing.xxxl);
-  const slideAnim = React.useRef(new Animated.Value(initialSlideValue)).current;
+  const initialSlideValue = toast.position === 'top' ? -spacing.xxxl : spacing.xxxl;
+  const fadeAnim = useSharedValue(0);
+  const slideAnim = useSharedValue(initialSlideValue);
 
   React.useEffect(() => {
-    if (reducedMotion) {
-      // Instant appearance for reduced motion
-      fadeAnim.setValue(1);
-      slideAnim.setValue(0);
-    } else {
-      Animated.parallel([
-        Animated.timing(fadeAnim, {
-          toValue: 1,
-          duration: motion.duration.normal,
-          useNativeDriver: true,
-        }),
-        Animated.spring(slideAnim, {
-          toValue: 0,
-          tension: 40,
-          friction: 8,
-          useNativeDriver: true,
-        }),
-      ]).start();
-    }
+    const dur = reducedMotion ? motion.duration.instant : motion.duration.normal;
+    fadeAnim.value = withTiming(1, { duration: dur });
+    slideAnim.value = reducedMotion
+      ? withTiming(0, { duration: dur })
+      : withSpring(0, motion.spring.gentle);
 
+    const exitSlideValue = toast.position === 'top' ? -spacing.xxxl : spacing.xxxl;
     const exitDuration = (toast.duration || 3000) - motion.duration.normal;
     const timeout = setTimeout(() => {
-      if (reducedMotion) {
-        fadeAnim.setValue(0);
-      } else {
-        Animated.parallel([
-          Animated.timing(fadeAnim, {
-            toValue: 0,
-            duration: motion.duration.normal,
-            useNativeDriver: true,
-          }),
-          Animated.timing(slideAnim, {
-            toValue: toast.position === 'top' ? -spacing.xxxl : spacing.xxxl,
-            duration: motion.duration.normal,
-            useNativeDriver: true,
-          }),
-        ]).start();
-      }
+      fadeAnim.value = withTiming(0, { duration: motion.duration.normal });
+      slideAnim.value = withTiming(exitSlideValue, {
+        duration: motion.duration.normal,
+        easing: motionEasing.accelerate,
+      });
     }, exitDuration);
 
     return () => clearTimeout(timeout);
   }, [fadeAnim, slideAnim, toast.duration, toast.position, reducedMotion]);
+
+  const animatedStyle = useAnimatedStyle(() => ({
+    opacity: fadeAnim.value,
+    transform: [{ translateY: slideAnim.value }],
+  }));
 
   const bgColorMap = {
     success: theme.colors.success,
@@ -226,17 +207,18 @@ function ToastItem({ toast }: ToastItemProps) {
     info: theme.colors.onTertiary,
   } as const;
 
-  const iconMap: Record<ToastType, string> = {
-    success: '✓',
-    error: '✕',
-    warning: '⚠',
-    info: 'ℹ',
+  const iconMap: Record<ToastType, IconComponent> = {
+    success: CheckIcon,
+    error: XIcon,
+    warning: WarningIcon,
+    info: InfoIcon,
   };
 
   const textColor = textColorMap[toast.type];
+  const ToastIcon = iconMap[toast.type];
 
   return (
-    <Animated.View
+    <Reanimated.View
       accessible={true}
       accessibilityRole="alert"
       accessibilityLiveRegion="assertive"
@@ -247,17 +229,14 @@ function ToastItem({ toast }: ToastItemProps) {
           backgroundColor: bgColorMap[toast.type],
           ...elevation.md,
           shadowColor: theme.colors.shadow,
-          opacity: fadeAnim,
-          transform: [{ translateY: slideAnim }],
         },
+        animatedStyle,
       ]}>
-      <Text variant="bodySmall" style={[styles.icon, { color: textColor }]}>
-        {iconMap[toast.type]}
-      </Text>
+      <ToastIcon size={iconSizes.action} color={textColor} />
       <Text variant="body" style={[styles.message, { color: textColor }]}>
         {toast.message}
       </Text>
-    </Animated.View>
+    </Reanimated.View>
   );
 }
 
@@ -281,11 +260,8 @@ const styles = StyleSheet.create({
     padding: spacing.md,
     borderRadius: radius.lg,
     gap: spacing.sm,
-    minWidth: sizes.menuMaxWidth - sizes.touchTarget,
+    minWidth: sizes.menuMaxWidth - layout.minTouchTarget,
     maxWidth: '100%',
-  },
-  icon: {
-    // fontSize inherited from variant
   },
   message: {
     flex: 1,

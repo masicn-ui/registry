@@ -1,0 +1,64 @@
+{
+  "name": "progress-ring",
+  "displayName": "ProgressRing",
+  "description": "SVG circular progress indicator with configurable size, stroke width, color, and percentage label.",
+  "category": "progress",
+  "version": "0.0.1",
+  "files": [
+    {
+      "path": "ProgressRing.tsx",
+      "target": "ProgressRing.tsx",
+      "type": "component"
+    }
+  ],
+  "masicnVersion": "^0.0.1",
+  "peerDependencies": {
+    "react-native-reanimated": ">=3.0.0"
+  },
+  "registryDependencies": [],
+  "tags": [
+    "feedback"
+  ],
+  "hasTests": false,
+  "hasAccessibility": true,
+  "props": [
+    {
+      "name": "value",
+      "type": "number",
+      "required": true,
+      "description": "Progress value from 0 to 100; clamped automatically"
+    },
+    {
+      "name": "size",
+      "type": "number",
+      "required": false,
+      "description": "Diameter of the SVG circle in pixels; defaults to theme size token"
+    },
+    {
+      "name": "strokeWidth",
+      "type": "number",
+      "default": "8",
+      "required": false,
+      "description": "Width of the progress stroke in pixels"
+    },
+    {
+      "name": "showValue",
+      "type": "boolean",
+      "default": "true",
+      "required": false,
+      "description": "Whether to display the numeric percentage in the center"
+    },
+    {
+      "name": "color",
+      "type": "string",
+      "required": false,
+      "description": "Color of the progress arc; defaults to the primary theme color"
+    },
+    {
+      "name": "label",
+      "type": "string",
+      "required": false,
+      "description": "Optional caption text rendered below the percentage value"
+    }
+  ]
+}

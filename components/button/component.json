@@ -2,7 +2,7 @@
   "name": "button",
   "displayName": "Button",
   "description": "Pressable button with multiple variants (primary, secondary, tertiary, outline, ghost, destructive), sizes, loading state, and icon slots.",
-  "category": "core",
+  "category": "buttons",
   "version": "0.0.1",
   "files": [
     {

@@ -1,12 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { View, Pressable, StyleSheet, type ViewProps } from 'react-native';
-import { Text, borders, elevation, opacity as opacityTokens, radius, spacing, type Elevation, useTheme } from '../../../masicn';
+import Animated, {
+  useSharedValue,
+  useAnimatedStyle,
+  withSpring,
+  withTiming,
+} from 'react-native-reanimated';
+import { Text, borders, elevation, motion, opacity as opacityTokens, radius, spacing, type Elevation, useReducedMotion, useTheme } from '../../../masicn';
 
 type CardVariant = 'elevated' | 'filled' | 'outlined';
 type Surface = 'primary' | 'secondary' | 'tertiary';
 type CardPadding = 'none' | 'sm' | 'md' | 'lg' | 'xl';
+type AnimationType = 'scale' | 'lift' | 'rotate' | 'none';
 
 const DEFAULT_TEXT_THRESHOLD = 150;
+const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 
 export interface CardProps extends ViewProps {
   /** Visual style — 'elevated' adds drop shadow, 'filled' uses a flat surface colour, 'outlined' adds a thin border. Defaults to 'elevated'. */
@@ -19,6 +27,8 @@ export interface CardProps extends ViewProps {
   padding?: CardPadding;
   /** When provided the card becomes a pressable element that calls this handler on tap. */
   onPress?: () => void;
+  /** Spring-based press animation. Requires `onPress` to be set. Defaults to 'none'. */
+  animation?: AnimationType;
   /** Disables interaction and reduces opacity when `onPress` is set. */
   disabled?: boolean;
   /** Node rendered at the top of the card before any text content (e.g. an image or banner). */
@@ -60,22 +70,14 @@ const paddingMap: Record<CardPadding, number> = {
  * padding, an optional media slot at the top, structured title/subtitle/body
  * slots with automatic "Show more" truncation, a footer zone, and optional
  * press interaction. When `onPress` is provided the card becomes a fully
- * accessible pressable element.
+ * accessible pressable element. Pass `animation` to add spring-based press
+ * feedback ('scale', 'lift', or 'rotate').
  *
  * @example
- * // Static informational card
- * <Card title="Getting Started" subtitle="Read the docs" body={longText}>
- *   <Button onPress={openDocs}>Open Docs</Button>
+ * // Tappable animated card
+ * <Card title="Article" onPress={open} animation="scale">
+ *   <Text>Content</Text>
  * </Card>
- *
- * @example
- * // Tappable card with media
- * <Card
- *   variant="elevated"
- *   media={<Image source={banner} aspectRatio="16:9" />}
- *   title="Article Title"
- *   onPress={() => navigate('article')}
- * />
  */
 export function Card({
   variant = 'elevated',
@@ -83,6 +85,7 @@ export function Card({
   shadow = 'md',
   padding = 'lg',
   onPress,
+  animation = 'none',
   disabled = false,
   style,
   media,
@@ -96,7 +99,50 @@ export function Card({
   ...rest
 }: CardProps) {
   const { theme } = useTheme();
+  const reducedMotion = useReducedMotion();
   const [bodyExpanded, setBodyExpanded] = useState(false);
+
+  // Animation shared values — always initialised (rules of hooks)
+  const scale = useSharedValue(1);
+  const translateY = useSharedValue(0);
+  const rotate = useSharedValue(0);
+
+  const animatedStyle = useAnimatedStyle(() => {
+    if (animation === 'scale') {
+      return { transform: [{ scale: scale.value }] };
+    }
+    if (animation === 'lift') {
+      return { transform: [{ translateY: translateY.value }] };
+    }
+    if (animation === 'rotate') {
+      return { transform: [{ scale: scale.value }, { rotateZ: `${rotate.value}deg` }] };
+    }
+    return {};
+  });
+
+  const handlePressIn = useCallback(() => {
+    if (disabled || !onPress || reducedMotion) { return; }
+    if (animation === 'scale') {
+      scale.value = withSpring(motion.press.scale, motion.spring.snappy);
+    } else if (animation === 'lift') {
+      translateY.value = withSpring(-spacing.xs, motion.spring.snappy);
+    } else if (animation === 'rotate') {
+      scale.value = withSpring(motion.press.scaleLight, motion.spring.snappy);
+      rotate.value = withTiming(motion.press.rotateDeg, { duration: motion.duration.fast });
+    }
+  }, [disabled, onPress, reducedMotion, animation, scale, translateY, rotate]);
+
+  const handlePressOut = useCallback(() => {
+    if (disabled || !onPress || reducedMotion) { return; }
+    if (animation === 'scale') {
+      scale.value = withSpring(1, motion.spring.snappy);
+    } else if (animation === 'lift') {
+      translateY.value = withSpring(0, motion.spring.snappy);
+    } else if (animation === 'rotate') {
+      scale.value = withSpring(1, motion.spring.snappy);
+      rotate.value = withTiming(0, { duration: motion.duration.fast });
+    }
+  }, [disabled, onPress, reducedMotion, animation, scale, translateY, rotate]);
 
   const bg = theme.colors[surfaceMap[surface]];
   const pad = paddingMap[padding];
@@ -176,6 +222,27 @@ export function Card({
   );
 
   if (onPress) {
+    const useAnimation = animation !== 'none' && !reducedMotion;
+    if (useAnimation) {
+      return (
+        <AnimatedPressable
+          onPress={onPress}
+          onPressIn={handlePressIn}
+          onPressOut={handlePressOut}
+          disabled={disabled}
+          accessibilityRole="button"
+          accessibilityState={{ disabled }}
+          style={[
+            ...baseStyle,
+            disabled && styles.disabled,
+            animatedStyle,
+          ]}
+          {...rest}>
+          {inner}
+        </AnimatedPressable>
+      );
+    }
+
     return (
       <Pressable
         onPress={onPress}

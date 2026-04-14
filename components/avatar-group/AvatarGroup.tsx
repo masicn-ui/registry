@@ -80,7 +80,8 @@ export function AvatarGroup({
               borderColor: theme.colors.surfacePrimary,
             },
           ]}
-          accessibilityLabel={`${remaining} more`}>
+          accessibilityRole="text"
+          accessibilityLabel={`+${remaining} more`}>
           <Text variant="caption" color="textSecondary">
             +{remaining}
           </Text>

@@ -1,0 +1,54 @@
+{
+  "name": "dock",
+  "displayName": "Dock",
+  "description": "Pill-shaped floating navigation bar with icon + label items. Not edge-anchored — sits elevated above the screen surface. Supports 1–5 items and can be composed side-by-side.",
+  "category": "navigation",
+  "version": "0.0.1",
+  "masicnVersion": "^0.0.1",
+  "peerDependencies": {
+    "react-native-reanimated": ">=3.0.0"
+  },
+  "registryDependencies": [],
+  "tags": ["navigation", "floating", "bar"],
+  "files": [
+    {
+      "path": "Dock.tsx",
+      "target": "Dock.tsx",
+      "type": "component"
+    }
+  ],
+  "props": [
+    {
+      "name": "items",
+      "type": "DockItem[]",
+      "required": true,
+      "description": "Array of navigation items (1–5 recommended). Each item has key, icon, label, optional disabled and testID."
+    },
+    {
+      "name": "activeKey",
+      "type": "string",
+      "required": false,
+      "description": "Key of the currently active item."
+    },
+    {
+      "name": "onChange",
+      "type": "(key: string) => void",
+      "required": false,
+      "description": "Called when the user taps an item."
+    },
+    {
+      "name": "style",
+      "type": "ViewStyle",
+      "required": false,
+      "description": "Custom style override for the dock container."
+    },
+    {
+      "name": "testID",
+      "type": "string",
+      "required": false,
+      "description": "Test identifier for the dock container."
+    }
+  ],
+  "hasTests": false,
+  "hasAccessibility": true
+}

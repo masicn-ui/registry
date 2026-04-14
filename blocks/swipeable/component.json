@@ -2,7 +2,7 @@
   "name": "swipeable",
   "displayName": "Swipeable",
   "description": "Swipeable row block with hidden actions revealed on swipe.",
-  "category": "blocks",
+  "category": "lists",
   "version": "0.0.1",
   "files": [
     {
@@ -16,9 +16,7 @@
     "react-native-gesture-handler": ">=2.0.0",
     "react-native-reanimated": ">=3.0.0"
   },
-  "registryDependencies": [
-    "list-item"
-  ],
+  "registryDependencies": [],
   "tags": [
     "swipe",
     "gesture",
@@ -58,6 +56,19 @@
       "default": "80",
       "required": false,
       "description": "Swipe distance in pixels required to trigger an action."
+    },
+    {
+      "name": "size",
+      "type": "'sm' | 'md' | 'lg'",
+      "default": "md",
+      "required": false,
+      "description": "Controls the minimum row height and action button padding. 'sm' = 44px, 'md' = 64px, 'lg' = 80px."
+    },
+    {
+      "name": "testID",
+      "type": "string",
+      "required": false,
+      "description": "Test identifier forwarded to the outermost container View."
     }
   ]
 }

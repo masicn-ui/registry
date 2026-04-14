@@ -2,7 +2,7 @@
   "name": "rating",
   "displayName": "Rating",
   "description": "Interactive or read-only star rating with configurable icon, half-value granularity, and accessibility increment/decrement actions.",
-  "category": "interactive",
+  "category": "selection",
   "version": "0.0.1",
   "files": [
     {

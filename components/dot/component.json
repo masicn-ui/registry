@@ -1,0 +1,48 @@
+{
+  "name": "dot",
+  "displayName": "Dot",
+  "description": "Status indicator dot with online, away, busy, offline states and optional animated pulse ring",
+  "category": "display",
+  "version": "0.0.1",
+  "files": [
+    {
+      "path": "Dot.tsx",
+      "target": "Dot.tsx",
+      "type": "component"
+    }
+  ],
+  "masicnVersion": "^0.0.1",
+  "peerDependencies": {
+    "react-native-reanimated": ">=3.0.0"
+  },
+  "registryDependencies": [],
+  "tags": [
+    "status",
+    "indicator",
+    "presence"
+  ],
+  "hasTests": false,
+  "hasAccessibility": true,
+  "props": [
+    {
+      "name": "status",
+      "type": "'online' | 'away' | 'busy' | 'offline'",
+      "required": true,
+      "description": "The presence status to display."
+    },
+    {
+      "name": "size",
+      "type": "'sm' | 'md' | 'lg'",
+      "default": "md",
+      "required": false,
+      "description": "Diameter preset of the dot."
+    },
+    {
+      "name": "pulse",
+      "type": "boolean",
+      "default": "false",
+      "required": false,
+      "description": "When true, shows an animated ripple ring; only active for the online status."
+    }
+  ]
+}

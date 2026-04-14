@@ -13,9 +13,7 @@
   ],
   "masicnVersion": "^0.0.1",
   "peerDependencies": {},
-  "registryDependencies": [
-    "button"
-  ],
+  "registryDependencies": [],
   "tags": [
     "feedback",
     "status"

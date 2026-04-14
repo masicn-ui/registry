@@ -2,18 +2,18 @@ import React, { useState } from 'react';
 import {
   View,
   StyleSheet,
-  Pressable,
   useWindowDimensions,
   type ViewStyle,
   type LayoutRectangle,
+  type GestureResponderEvent,
 } from 'react-native';
-import { Masicn, Text, elevation, radius, sizes, spacing, useTheme } from '../../../masicn';
+import { Masicn, Pressable, Text, elevation, radius, sizes, spacing, useTheme } from '../../../masicn';
 
 interface TooltipProps {
   /** Tooltip content */
   content: string;
-  /** Trigger element */
-  children: React.ReactElement;
+  /** Trigger element — must be a Pressable-compatible component (Button, Pressable, etc.) */
+  children: React.ReactElement<any>;
   /** Additional container style */
   containerStyle?: ViewStyle;
 }
@@ -25,7 +25,18 @@ interface TriggerLayout {
   height: number;
 }
 
-/** Positioned tooltip that renders near its trigger element. */
+/**
+ * Tooltip — shows a floating label when the trigger is pressed and held.
+ *
+ * Injects `onPressIn`/`onPressOut` onto its single child (via cloneElement) so the
+ * tooltip works alongside the child's own press handlers without adding an extra
+ * Pressable wrapper that would intercept touch events.
+ *
+ * @example
+ * <Tooltip content="Save your changes">
+ *   <Button onPress={handleSave}>Save</Button>
+ * </Tooltip>
+ */
 export function Tooltip({
   content,
   children,
@@ -36,26 +47,36 @@ export function Tooltip({
   const [trigger, setTrigger] = useState<TriggerLayout | null>(null);
   const triggerRef = React.useRef<View>(null);
 
-  const handlePressIn = () => {
+  const handlePressIn = (e: GestureResponderEvent) => {
+    children.props.onPressIn?.(e);
     triggerRef.current?.measureInWindow((x, y, width, height) => {
       setTrigger({ x, y, width, height });
       setVisible(true);
     });
   };
 
+  const handlePressOut = (e: GestureResponderEvent) => {
+    children.props.onPressOut?.(e);
+    setVisible(false);
+  };
+
+  // Inject handlers directly onto the child — avoids a nested Pressable that
+  // would intercept touches before the child's own responder runs.
+  const clonedChild = React.cloneElement(children, {
+    onPressIn: handlePressIn,
+    onPressOut: handlePressOut,
+  });
+
   return (
     <View ref={triggerRef} style={containerStyle}>
-      <Pressable
-        onPressIn={handlePressIn}
-        onPressOut={() => setVisible(false)}>
-        {children}
-      </Pressable>
+      {clonedChild}
 
       {visible && trigger && (
         <Masicn>
           <Pressable
             style={StyleSheet.absoluteFill}
-            onPress={() => setVisible(false)}>
+            onPress={() => setVisible(false)}
+            accessibilityLabel="Dismiss tooltip">
             <TooltipBubble
               content={content}
               trigger={trigger}
@@ -111,7 +132,7 @@ function TooltipBubble({
         styles.tooltip,
         layout ? styles.tooltipVisible : styles.tooltipHidden,
         {
-          backgroundColor: theme.colors.surfacePrimary,
+          backgroundColor: theme.colors.surfaceOverlay,
           ...elevation.md,
           shadowColor: theme.colors.shadow,
           top: finalTop,

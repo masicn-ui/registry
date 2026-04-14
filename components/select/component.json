@@ -2,7 +2,7 @@
   "name": "select",
   "displayName": "Select",
   "description": "Dropdown select with searchable option list, custom trigger, custom item renderer, and accessibility",
-  "category": "form",
+  "category": "forms",
   "version": "0.0.1",
   "files": [
     {

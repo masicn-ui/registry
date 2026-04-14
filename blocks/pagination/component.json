@@ -2,7 +2,7 @@
   "name": "pagination",
   "displayName": "Pagination",
   "description": "Pagination block with page numbers and navigation controls.",
-  "category": "blocks",
+  "category": "navigation",
   "version": "0.0.1",
   "files": [
     {
@@ -13,9 +13,7 @@
   ],
   "masicnVersion": "^0.0.1",
   "peerDependencies": {},
-  "registryDependencies": [
-    "button"
-  ],
+  "registryDependencies": [],
   "tags": [
     "pagination",
     "page",

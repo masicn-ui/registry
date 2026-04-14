@@ -2,7 +2,7 @@
   "name": "search-bar",
   "displayName": "SearchBar",
   "description": "Search input with clear button, custom search icon, and submit handler",
-  "category": "navigation",
+  "category": "forms",
   "version": "0.0.1",
   "files": [
     {
@@ -20,7 +20,7 @@
     "input"
   ],
   "hasTests": false,
-  "hasAccessibility": false,
+  "hasAccessibility": true,
   "props": [
     {
       "name": "value",
@@ -65,6 +65,12 @@
       "default": "🔍",
       "required": false,
       "description": "Custom icon character displayed on the left of the input."
+    },
+    {
+      "name": "testID",
+      "type": "string",
+      "required": false,
+      "description": "Test identifier; clear button receives `{testID}-clear`."
     }
   ]
 }
