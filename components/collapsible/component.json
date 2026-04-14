@@ -2,7 +2,7 @@
   "name": "collapsible",
   "displayName": "Collapsible",
   "description": "Expandable section with controlled and uncontrolled modes, LayoutAnimation, and custom icon support.",
-  "category": "navigation",
+  "category": "layout",
   "version": "0.0.1",
   "files": [
     {
@@ -20,7 +20,7 @@
     "navigation"
   ],
   "hasTests": false,
-  "hasAccessibility": false,
+  "hasAccessibility": true,
   "props": [
     {
       "name": "title",
@@ -58,6 +58,12 @@
       "type": "ReactNode",
       "required": false,
       "description": "Custom element to replace the default chevron icon in the header."
+    },
+    {
+      "name": "testID",
+      "type": "string",
+      "required": false,
+      "description": "Test identifier forwarded to the header Pressable."
     }
   ]
 }

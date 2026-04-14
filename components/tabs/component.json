@@ -2,7 +2,7 @@
   "name": "tabs",
   "displayName": "Tabs",
   "description": "Tab bar with underline, filled, and pill variants; scrollable mode; built-in panel with show-more body text",
-  "category": "navigation",
+  "category": "navigation-ui",
   "version": "0.0.1",
   "files": [
     {

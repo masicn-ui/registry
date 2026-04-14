@@ -5,6 +5,7 @@ import {
   Pressable,
   StyleSheet,
   Dimensions,
+  type LayoutChangeEvent,
   type ViewStyle,
   type LayoutRectangle,
 } from 'react-native';
@@ -29,9 +30,11 @@ interface ContextMenuProps {
   /** Callback when item is selected */
   onSelect: (value: string) => void;
   /** Trigger element */
-  children: React.ReactElement;
+  children: React.ReactElement<any>;
   /** Additional menu style */
   menuStyle?: ViewStyle;
+  /** Accessibility label for the trigger — required for screen reader users to know what the long-press activates. */
+  accessibilityLabel: string;
 }
 
 /**
@@ -43,6 +46,7 @@ export function ContextMenu({
   onSelect,
   children,
   menuStyle,
+  accessibilityLabel,
 }: ContextMenuProps) {
   const { theme } = useTheme();
   const [visible, setVisible] = useState(false);
@@ -57,16 +61,16 @@ export function ContextMenu({
     });
   }, []);
 
-  const handleSelect = (value: string) => {
+  const handleSelect = useCallback((value: string) => {
     onSelect(value);
     setVisible(false);
-  };
+  }, [onSelect]);
 
   const handleClose = () => {
     setVisible(false);
   };
 
-  const handleMenuLayout = useCallback((event: any) => {
+  const handleMenuLayout = useCallback((event: LayoutChangeEvent) => {
     setMenuLayout(event.nativeEvent.layout);
   }, []);
 
@@ -108,10 +112,16 @@ export function ContextMenu({
   };
 
   return (
-    <View>
-      <Pressable ref={triggerRef} onLongPress={handleLongPress}>
-        {children}
-      </Pressable>
+    <Pressable
+      ref={triggerRef}
+      onLongPress={handleLongPress}
+      delayLongPress={500}
+      android_ripple={null}
+      accessibilityRole="button"
+      accessibilityLabel={accessibilityLabel}
+      accessibilityHint="Long press to open context menu"
+      >
+      {children}
 
       <Modal
         visible={visible}
@@ -127,7 +137,7 @@ export function ContextMenu({
               styles.menu,
               getMenuPosition(),
               {
-                backgroundColor: theme.colors.surfacePrimary,
+                backgroundColor: theme.colors.surfaceOverlay,
                 borderColor: theme.colors.borderPrimary,
                 ...elevation.lg,
                 shadowColor: theme.colors.shadow,
@@ -136,34 +146,37 @@ export function ContextMenu({
             ]}
             onPress={(e) => e.stopPropagation()}>
             {items.map((item, index) => (
-              <Pressable
-                key={item.value}
-                disabled={item.disabled}
-                onPress={() => handleSelect(item.value)}
-                style={({ pressed }) => [
-                  styles.menuItem,
-                  pressed && { backgroundColor: theme.colors.ripple },
-                  item.disabled && { opacity: opacityTokens.disabled },
-                ]}>
-                <View style={styles.menuItemContent}>
-                  {item.icon && (
-                    <Text variant="body" style={styles.menuIcon}>
-                      {item.icon}
+              <React.Fragment key={item.value}>
+                <Pressable
+                  disabled={item.disabled}
+                  onPress={() => handleSelect(item.value)}
+                  style={({ pressed }) => [
+                    styles.menuItem,
+                    index === 0 && styles.menuItemFirst,
+                    index === items.length - 1 && styles.menuItemLast,
+                    pressed && !item.disabled && { backgroundColor: theme.colors.ripple },
+                    item.disabled && { opacity: opacityTokens.disabled },
+                  ]}>
+                  <View style={styles.menuItemContent}>
+                    {item.icon && (
+                      <Text variant="body" style={styles.menuIcon}>
+                        {item.icon}
+                      </Text>
+                    )}
+                    <Text
+                      variant="body"
+                      color={
+                        item.destructive
+                          ? 'error'
+                          : item.disabled
+                            ? 'textDisabled'
+                            : 'textPrimary'
+                      }
+                      style={styles.menuLabel}>
+                      {item.label}
                     </Text>
-                  )}
-                  <Text
-                    variant="body"
-                    color={
-                      item.destructive
-                        ? 'error'
-                        : item.disabled
-                          ? 'textDisabled'
-                          : 'textPrimary'
-                    }
-                    style={styles.menuLabel}>
-                    {item.label}
-                  </Text>
-                </View>
+                  </View>
+                </Pressable>
                 {index < items.length - 1 && (
                   <View
                     style={[
@@ -172,12 +185,12 @@ export function ContextMenu({
                     ]}
                   />
                 )}
-              </Pressable>
+              </React.Fragment>
             ))}
           </Pressable>
         </Pressable>
       </Modal>
-    </View>
+    </Pressable>
   );
 }
 
@@ -195,6 +208,15 @@ const styles = StyleSheet.create({
   menuItem: {
     paddingHorizontal: spacing.md,
     paddingVertical: spacing.sm,
+    overflow: 'hidden',
+  },
+  menuItemFirst: {
+    borderTopLeftRadius: radius.md,
+    borderTopRightRadius: radius.md,
+  },
+  menuItemLast: {
+    borderBottomLeftRadius: radius.md,
+    borderBottomRightRadius: radius.md,
   },
   menuItemContent: {
     flexDirection: 'row',

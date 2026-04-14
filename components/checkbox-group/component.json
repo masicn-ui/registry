@@ -2,7 +2,7 @@
   "name": "checkbox-group",
   "displayName": "CheckboxGroup",
   "description": "Group of Checkbox items sharing a value array, with group label, error message, and helper text.",
-  "category": "form",
+  "category": "selection",
   "version": "0.0.1",
   "files": [
     {

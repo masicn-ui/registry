@@ -2,7 +2,7 @@
   "name": "popover",
   "displayName": "Popover",
   "description": "Floating content card anchored to a trigger element with two-pass measurement, screen-edge clamping, and optional arrow.",
-  "category": "overlay",
+  "category": "overlays",
   "version": "0.0.1",
   "files": [
     {

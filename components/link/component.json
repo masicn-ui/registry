@@ -2,7 +2,7 @@
   "name": "link",
   "displayName": "Link",
   "description": "Pressable text link with size presets and underline variants (none, hover, always).",
-  "category": "core",
+  "category": "navigation-ui",
   "version": "0.0.1",
   "files": [
     {

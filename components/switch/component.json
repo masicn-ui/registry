@@ -2,7 +2,7 @@
   "name": "switch",
   "displayName": "Switch",
   "description": "Animated toggle switch with track color interpolation, thumb translation, label, and description.",
-  "category": "form",
+  "category": "selection",
   "version": "0.0.1",
   "files": [
     {

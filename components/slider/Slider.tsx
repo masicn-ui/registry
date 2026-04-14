@@ -5,7 +5,7 @@ import {
   type ViewStyle,
 } from 'react-native';
 import { GestureDetector, Gesture } from 'react-native-gesture-handler';
-import { Text, borders, radius, sizes, spacing, useTheme } from '../../../masicn';
+import { Text, borders, layout, motion, opacity as opacityTokens, radius, sizes, spacing, useTheme } from '../../../masicn';
 
 interface SliderProps {
   /** Current value */
@@ -26,6 +26,8 @@ interface SliderProps {
   label?: string;
   /** Container style */
   containerStyle?: ViewStyle;
+  /** Test identifier for automated testing */
+  testID?: string;
 }
 
 export function Slider({
@@ -38,6 +40,7 @@ export function Slider({
   showValue = false,
   label,
   containerStyle,
+  testID,
 }: SliderProps) {
   const { theme } = useTheme();
   const [sliderWidth, setSliderWidth] = React.useState(0);
@@ -82,7 +85,7 @@ export function Slider({
     });
 
   return (
-    <View style={[styles.container, containerStyle]}>
+    <View style={[styles.container, disabled && styles.disabled, containerStyle]}>
       {(label || showValue) && (
         <View style={styles.header}>
           {label && (
@@ -121,6 +124,7 @@ export function Slider({
               if (prev !== value) { onValueChange(prev); }
             }
           }}
+          testID={testID}
           style={styles.sliderContainer}
           onLayout={e => {
             setSliderWidth(e.nativeEvent.layout.width);
@@ -137,9 +141,7 @@ export function Slider({
             style={[
               styles.activeTrack,
               {
-                backgroundColor: disabled
-                  ? theme.colors.disabled
-                  : theme.colors.primary,
+                backgroundColor: theme.colors.primary,
                 width: thumbPosition,
               },
             ]}
@@ -149,11 +151,9 @@ export function Slider({
             style={[
               styles.thumb,
               {
-                backgroundColor: disabled
-                  ? theme.colors.disabled
-                  : theme.colors.primary,
+                backgroundColor: theme.colors.primary,
                 left: thumbPosition - sizes.sliderThumb / 2,
-                transform: [{ scale: dragging ? 1.2 : 1 }],
+                transform: [{ scale: dragging ? motion.press.scaleLarge : 1 }],
                 borderColor: theme.colors.surfacePrimary,
               },
             ]}
@@ -168,6 +168,9 @@ const styles = StyleSheet.create({
   container: {
     paddingVertical: spacing.xs,
   },
+  disabled: {
+    opacity: opacityTokens.disabled,
+  },
   header: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -175,7 +178,7 @@ const styles = StyleSheet.create({
     marginBottom: spacing.sm,
   },
   sliderContainer: {
-    height: sizes.touchTarget,
+    height: layout.minTouchTarget,
     justifyContent: 'center',
   },
   track: {

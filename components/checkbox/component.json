@@ -2,7 +2,7 @@
   "name": "checkbox",
   "displayName": "Checkbox",
   "description": "Animated checkbox with checked, unchecked, and indeterminate states, label, description, and disabled support.",
-  "category": "form",
+  "category": "selection",
   "version": "0.0.1",
   "files": [
     {

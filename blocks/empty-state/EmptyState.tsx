@@ -3,7 +3,7 @@ import { View, StyleSheet, type ViewStyle } from 'react-native';
 import { Text, layout, sizes, spacing } from '../../../masicn';
 import { Button } from '../../components';
 
-interface EmptyStateProps {
+export interface EmptyStateProps {
   /** Main title */
   title: string;
   /** Description text shown below the title */
@@ -16,6 +16,8 @@ interface EmptyStateProps {
   onAction?: () => void;
   /** Additional container style */
   containerStyle?: ViewStyle;
+  /** Test identifier — forwarded as `${testID}-action` to the action button. */
+  testID?: string;
 }
 
 /**
@@ -45,13 +47,14 @@ interface EmptyStateProps {
  *   description="Try adjusting your search terms."
  * />
  */
-export function EmptyState({
+export const EmptyState = React.memo(function EmptyState({
   title,
   description,
   icon = '📭',
   actionLabel,
   onAction,
   containerStyle,
+  testID,
 }: EmptyStateProps) {
   return (
     <View style={[styles.container, containerStyle]}>
@@ -72,13 +75,14 @@ export function EmptyState({
         <Button
           variant="primary"
           onPress={onAction}
-          containerStyle={styles.action}>
+          containerStyle={styles.action}
+          testID={testID ? `${testID}-action` : undefined}>
           {actionLabel}
         </Button>
       )}
     </View>
   );
-}
+});
 
 const styles = StyleSheet.create({
   container: {

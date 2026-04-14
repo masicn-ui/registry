@@ -1,11 +1,7 @@
-import React, { useState } from 'react';
-import { Pressable, View, StyleSheet, LayoutAnimation, Platform, UIManager } from 'react-native';
-import { Text, borders, iconSizes, spacing, useReducedMotion, useTheme } from '../../../masicn';
-
-// Enable LayoutAnimation on Android
-if (Platform.OS === 'android' && UIManager.setLayoutAnimationEnabledExperimental) {
-  UIManager.setLayoutAnimationEnabledExperimental(true);
-}
+import React, { useState, useCallback } from 'react';
+import { Pressable, View, StyleSheet, type LayoutChangeEvent, type ViewStyle } from 'react-native';
+import Animated, { useSharedValue, useAnimatedStyle, withTiming } from 'react-native-reanimated';
+import { Text, borders, iconSizes, motion, motionEasing, radius, spacing, useReducedMotion, useTheme } from '../../../masicn';
 
 interface CollapsibleProps {
   /** Header text */
@@ -20,14 +16,20 @@ interface CollapsibleProps {
   onToggle?: (open: boolean) => void;
   /** Custom chevron/icon to replace the default ▾ glyph */
   icon?: React.ReactNode;
+  /** Additional style applied to the outermost container. */
+  style?: ViewStyle;
+  /** Additional style applied to the body content area. */
+  containerStyle?: ViewStyle;
+  /** Test identifier forwarded to the header Pressable. */
+  testID?: string;
 }
 
 /**
- * Collapsible — a lightweight expandable section with an animated chevron.
+ * Collapsible — a lightweight expandable section with an animated height transition.
  *
  * Renders a pressable header row with a title and a chevron that rotates
- * 180° when expanded. The body content is shown/hidden using
- * `LayoutAnimation` (with reduced-motion fallback). Supports both controlled
+ * 180° when expanded. The body content animates its height using Reanimated,
+ * with a reduced-motion fallback (instant toggle). Supports both controlled
  * (`open` + `onToggle`) and uncontrolled (`defaultOpen`) modes. The default
  * chevron can be replaced with any node via the `icon` prop.
  *
@@ -54,6 +56,9 @@ export function Collapsible({
   open: controlledOpen,
   onToggle,
   icon,
+  style,
+  containerStyle,
+  testID,
 }: CollapsibleProps) {
   const { theme } = useTheme();
   const reducedMotion = useReducedMotion();
@@ -61,11 +66,43 @@ export function Collapsible({
 
   const isOpen = controlledOpen ?? internalOpen;
 
+  // ── Height animation (mirrors AccordionItem pattern) ───────────────────────
+  const contentHeightRef = React.useRef(0);
+  const hasMeasured = React.useRef(false);
+  const isOpenRef = React.useRef(isOpen);
+  isOpenRef.current = isOpen;
+
+  const heightSV = useSharedValue(0);
+
+  const handleLayout = useCallback((e: LayoutChangeEvent) => {
+    const h = e.nativeEvent.layout.height;
+    contentHeightRef.current = h;
+    if (!hasMeasured.current) {
+      hasMeasured.current = true;
+      heightSV.value = isOpenRef.current ? h : 0;
+      return;
+    }
+    if (isOpenRef.current) {
+      heightSV.value = h;
+    }
+  }, [heightSV]);
+
+  React.useEffect(() => {
+    if (!hasMeasured.current) { return; }
+    heightSV.value = withTiming(
+      isOpen ? contentHeightRef.current : 0,
+      { duration: reducedMotion ? 0 : motion.duration.normal, easing: motionEasing.standard },
+    );
+  }, [isOpen, heightSV, reducedMotion]);
+
+  const animatedBodyStyle = useAnimatedStyle(() => ({
+    height: heightSV.value,
+    overflow: 'hidden',
+  }));
+  // ────────────────────────────────────────────────────────────────────────────
+
   const handleToggle = () => {
     const next = !isOpen;
-    if (!reducedMotion) {
-      LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
-    }
     setInternalOpen(next);
     onToggle?.(next);
   };
@@ -75,12 +112,14 @@ export function Collapsible({
       style={[
         styles.container,
         { borderColor: theme.colors.borderSecondary },
+        style,
       ]}>
       <Pressable
         onPress={handleToggle}
         accessibilityRole="button"
         accessibilityState={{ expanded: isOpen }}
         accessibilityLabel={title}
+        testID={testID}
         style={({ pressed }) => [
           styles.header,
           { backgroundColor: pressed ? theme.colors.highlight : theme.colors.surfacePrimary },
@@ -100,15 +139,17 @@ export function Collapsible({
         )}
       </Pressable>
 
-      {isOpen && (
+      <Animated.View style={animatedBodyStyle}>
         <View
+          onLayout={handleLayout}
           style={[
             styles.body,
             { borderTopColor: theme.colors.borderSecondary },
+            containerStyle,
           ]}>
           {children}
         </View>
-      )}
+      </Animated.View>
     </View>
   );
 }
@@ -116,7 +157,7 @@ export function Collapsible({
 const styles = StyleSheet.create({
   container: {
     borderWidth: borders.thin,
-    borderRadius: 0,
+    borderRadius: radius.none,
     overflow: 'hidden',
   },
   header: {

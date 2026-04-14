@@ -44,6 +44,8 @@ interface BottomSheetProps {
   style?: ViewStyle;
   /** Accessibility label announced by screen readers when the sheet gains focus. Defaults to 'Bottom sheet'. */
   accessibilityLabel?: string;
+  /** Test identifier for automated testing */
+  testID?: string;
 }
 
 const DISMISS_THRESHOLD = 0.3;
@@ -81,19 +83,23 @@ const BottomSheet = React.forwardRef<BottomSheetRef, BottomSheetProps>(
       showHandle = true,
       style,
       accessibilityLabel,
+      testID,
     },
     ref,
   ) {
     const { theme } = useTheme();
     const insets = useSafeAreaInsets();
     const reducedMotion = useReducedMotion();
+    // Snapshot into a ref so the async resolution never re-triggers the animation effect mid-spring.
+    const reducedMotionRef = React.useRef(reducedMotion);
+    React.useEffect(() => { reducedMotionRef.current = reducedMotion; }, [reducedMotion]);
+
     const { height: SCREEN_HEIGHT } = useWindowDimensions();
     const maxSheetHeight = SCREEN_HEIGHT * maxHeight;
     const translateY = useSharedValue(SCREEN_HEIGHT);
     const opacity = useSharedValue(0);
     const [internalVisible, setInternalVisible] = useState(false);
     const [contentHeight, setContentHeight] = useState(0);
-    const [keyboardHeight, setKeyboardHeight] = useState(0);
 
     const isVisible = controlledVisible ?? internalVisible;
     const [shouldRender, setShouldRender] = React.useState(isVisible);
@@ -116,25 +122,6 @@ const BottomSheet = React.forwardRef<BottomSheetRef, BottomSheetProps>(
     );
 
     React.useEffect(() => {
-      const showEvent =
-        Platform.OS === 'ios' ? 'keyboardWillShow' : 'keyboardDidShow';
-      const hideEvent =
-        Platform.OS === 'ios' ? 'keyboardWillHide' : 'keyboardDidHide';
-
-      const showSub = Keyboard.addListener(showEvent, (e) => {
-        setKeyboardHeight(e.endCoordinates.height);
-      });
-      const hideSub = Keyboard.addListener(hideEvent, () => {
-        setKeyboardHeight(0);
-      });
-
-      return () => {
-        showSub.remove();
-        hideSub.remove();
-      };
-    }, []);
-
-    React.useEffect(() => {
       if (!isVisible || Platform.OS !== 'android') {
         return;
       }
@@ -155,40 +142,24 @@ const BottomSheet = React.forwardRef<BottomSheetRef, BottomSheetProps>(
       maxSheetHeight,
     );
 
-    const effectiveSheetHeight = Math.min(
-      sheetHeight + keyboardHeight,
-      SCREEN_HEIGHT * 0.95,
-    );
-
+    // reducedMotion intentionally omitted from deps — read via ref to prevent
+    // the async AccessibilityInfo resolution from killing an in-progress spring.
     React.useEffect(() => {
+      const rm = reducedMotionRef.current;
       if (isVisible) {
         setShouldRender(true);
-
-        if (reducedMotion) {
-          translateY.value = withTiming(0, { duration: motion.duration.instant });
-          opacity.value = withTiming(1, { duration: motion.duration.instant });
-        } else {
-          translateY.value = withSpring(0, motion.spring.sheet);
-          opacity.value = withTiming(1, { duration: motion.duration.slow });
-        }
+        translateY.value = rm
+          ? withTiming(0, { duration: motion.duration.instant })
+          : withSpring(0, motion.spring.sheet);
+        opacity.value = withTiming(1, { duration: rm ? motion.duration.instant : motion.duration.slow });
       } else {
-        if (reducedMotion) {
-          translateY.value = withTiming(SCREEN_HEIGHT, { duration: motion.duration.instant });
-          opacity.value = withTiming(0, { duration: motion.duration.instant });
-        } else {
-          translateY.value = withTiming(SCREEN_HEIGHT, { duration: motion.duration.normal, easing: motionEasing.accelerate });
-          opacity.value = withTiming(0, { duration: motion.duration.normal, easing: motionEasing.accelerate });
-        }
-        const duration = reducedMotion ? motion.duration.instant : motion.duration.normal;
-        const timeout = setTimeout(() => setShouldRender(false), duration);
+        const exitDuration = rm ? motion.duration.instant : motion.duration.normal;
+        translateY.value = withTiming(SCREEN_HEIGHT, { duration: exitDuration, easing: motionEasing.accelerate });
+        opacity.value = withTiming(0, { duration: exitDuration, easing: motionEasing.accelerate });
+        const timeout = setTimeout(() => setShouldRender(false), exitDuration);
         return () => clearTimeout(timeout);
       }
-    }, [isVisible, translateY, opacity, reducedMotion, SCREEN_HEIGHT]);
-
-    const dismissThresholdSV = useSharedValue(0);
-    React.useEffect(() => {
-      dismissThresholdSV.value = sheetHeight * DISMISS_THRESHOLD;
-    }, [sheetHeight, dismissThresholdSV]);
+    }, [isVisible, translateY, opacity, SCREEN_HEIGHT]);
 
     const pan = Gesture.Pan()
       .runOnJS(true)
@@ -199,7 +170,7 @@ const BottomSheet = React.forwardRef<BottomSheetRef, BottomSheetProps>(
         }
       })
       .onEnd((e) => {
-        if (e.translationY > dismissThresholdSV.value || e.velocityY > 500) {
+        if (e.translationY > sheetHeight * DISMISS_THRESHOLD || e.velocityY > 500) {
           handleClose();
         } else {
           translateY.value = withSpring(0, motion.spring.sheet);
@@ -223,7 +194,7 @@ const BottomSheet = React.forwardRef<BottomSheetRef, BottomSheetProps>(
         <View style={styles.overlay}>
           <Animated.View style={[StyleSheet.absoluteFill, animatedBackdropStyle]}>
             <Pressable
-              style={[styles.backdrop, { backgroundColor: theme.colors.backdrop }]}
+              style={[styles.backdrop, { backgroundColor: theme.colors.overlay }]}
               onPress={handleClose}
               accessible={false}
             />
@@ -231,12 +202,13 @@ const BottomSheet = React.forwardRef<BottomSheetRef, BottomSheetProps>(
           <GestureDetector gesture={pan}>
             <Animated.View
               ref={containerRef}
+              testID={testID}
               style={[
                 styles.sheet,
                 elevation.xl,
                 {
                   maxHeight: maxSheetHeight,
-                  height: effectiveSheetHeight || undefined,
+                  height: sheetHeight || undefined,
                   backgroundColor: theme.colors.surfacePrimary,
                   shadowColor: theme.colors.shadow,
                   paddingBottom: insets.bottom,
@@ -259,8 +231,7 @@ const BottomSheet = React.forwardRef<BottomSheetRef, BottomSheetProps>(
               )}
               <KeyboardAvoidingView
                 style={styles.flex1}
-                behavior={Platform.OS === 'ios' ? 'padding' : undefined}
-                keyboardVerticalOffset={SCREEN_HEIGHT - effectiveSheetHeight}>
+                behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
                 <ScrollView
                   style={styles.flex1}
                   contentContainerStyle={[

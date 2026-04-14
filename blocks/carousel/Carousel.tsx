@@ -12,10 +12,11 @@ import Animated, {
   useAnimatedStyle,
   useSharedValue,
   withSpring,
+  withTiming,
   type SharedValue,
 } from 'react-native-reanimated';
 import { Gesture, GestureDetector } from 'react-native-gesture-handler';
-import { useTheme, spacing, radius, sizes, borders, motion } from '../../../masicn';
+import { useTheme, spacing, radius, sizes, borders, motion, useReducedMotion } from '../../../masicn';
 
 // ─── Types ─────────────────────────────────────────────────────────────────
 
@@ -75,10 +76,13 @@ export interface CarouselProps<T> {
   /**
    * Auto-advance interval in milliseconds. Set to `0` (default) to disable.
    * Auto-play restarts from the beginning once the last slide is reached.
+   * Auto-play is automatically disabled when the system reduce-motion preference is active.
    */
   autoPlayInterval?: number;
   /** Called when a slide is pressed (requires `onItemPress` to be defined to make slides pressable). */
   onItemPress?: (item: T, index: number) => void;
+  /** Test identifier forwarded to each slide Pressable as `{testID}-slide-{index}`. */
+  testID?: string;
 }
 
 // ─── Constants ─────────────────────────────────────────────────────────────
@@ -138,8 +142,11 @@ function AnimatedSlide({
   children,
 }: AnimatedSlideProps) {
   const hw = itemWidth / 2;
+  const reducedMotion = useReducedMotion();
 
   const outerStyle = useAnimatedStyle(() => {
+    if (reducedMotion) { return {}; }
+
     const progress = (offset.value - index * scrollStep) / scrollStep;
     const absP = Math.abs(progress);
 
@@ -181,7 +188,7 @@ function AnimatedSlide({
   });
 
   const innerParallaxStyle = useAnimatedStyle(() => {
-    if (animation !== 'parallax') { return {}; }
+    if (reducedMotion || animation !== 'parallax') { return {}; }
     const progress = (offset.value - index * scrollStep) / scrollStep;
     const translateX = interpolate(
       progress,
@@ -237,76 +244,90 @@ interface DotsProps {
   variant: CarouselDotVariant;
 }
 
-/**
- * Dots — internal progress indicator row rendered below the carousel.
- * Renders `count` indicators and highlights the one at `activeIndex`.
- * The `line` variant stretches each indicator to fill equal horizontal space.
- */
-function Dots({ count, activeIndex, variant }: DotsProps) {
+// ── AnimatedDot ─────────────────────────────────────────────────────────────
+
+interface AnimatedDotProps {
+  active: boolean;
+  variant: CarouselDotVariant;
+}
+
+function AnimatedDot({ active, variant }: AnimatedDotProps) {
   const { theme } = useTheme();
+  const reducedMotion = useReducedMotion();
+  const width = useSharedValue<number>(active ? sizes.carouselDotActive : sizes.carouselDot);
+  const height = useSharedValue<number>(active ? spacing.xs : spacing.xxs);
+
+  React.useEffect(() => {
+    const spring = reducedMotion
+      ? (v: number) => withTiming(v, { duration: 0 })
+      : (v: number) => withSpring(v, motion.spring.snappy);
+
+    if (variant === 'pill') {
+      width.value = spring(active ? sizes.carouselDotActive : sizes.carouselDot);
+    } else if (variant === 'line') {
+      height.value = spring(active ? spacing.xs : spacing.xxs);
+    }
+  }, [active, variant, reducedMotion, width, height]);
+
+  const animStyle = useAnimatedStyle(() => {
+    if (variant === 'pill') {
+      return { width: width.value };
+    }
+    if (variant === 'line') {
+      return { height: height.value };
+    }
+    return {};
+  });
+
+  const bgColor = active ? theme.colors.primary : theme.colors.borderPrimary;
 
   if (variant === 'line') {
     return (
-      <View style={dotStyles.row} accessibilityElementsHidden>
-        {Array.from({ length: count }).map((_, i) => (
-          <View
-            key={i}
-            style={[
-              dotStyles.line,
-              i === activeIndex ? dotStyles.lineActive : dotStyles.lineInactive,
-              {
-                backgroundColor:
-                  i === activeIndex
-                    ? theme.colors.primary
-                    : theme.colors.borderPrimary,
-              },
-            ]}
-          />
-        ))}
-      </View>
+      <Animated.View
+        style={[
+          dotStyles.line,
+          animStyle,
+          { backgroundColor: bgColor },
+        ]}
+      />
     );
   }
 
   if (variant === 'dot') {
     return (
-      <View style={dotStyles.row} accessibilityElementsHidden>
-        {Array.from({ length: count }).map((_, i) => (
-          <View
-            key={i}
-            style={[
-              dotStyles.circle,
-              {
-                backgroundColor:
-                  i === activeIndex
-                    ? theme.colors.primary
-                    : theme.colors.borderPrimary,
-              },
-            ]}
-          />
-        ))}
-      </View>
+      <View
+        style={[
+          dotStyles.circle,
+          { backgroundColor: bgColor },
+        ]}
+      />
     );
   }
 
+  // pill
+  return (
+    <Animated.View
+      style={[
+        dotStyles.pill,
+        animStyle,
+        { backgroundColor: bgColor },
+      ]}
+    />
+  );
+}
+
+/**
+ * Dots — internal progress indicator row rendered below the carousel.
+ * Renders `count` indicators and highlights the one at `activeIndex`.
+ * The `pill` variant animates the active dot width with a spring.
+ * The `line` variant animates bar heights. The `dot` variant changes colour only.
+ */
+function Dots({ count, activeIndex, variant }: DotsProps) {
   return (
     <View style={dotStyles.row} accessibilityElementsHidden>
-      {Array.from({ length: count }).map((_, i) => {
-        const active = i === activeIndex;
-        return (
-          <View
-            key={i}
-            style={[
-              dotStyles.pill,
-              {
-                width: active ? sizes.carouselDotActive : sizes.carouselDot,
-                backgroundColor: active
-                  ? theme.colors.primary
-                  : theme.colors.borderPrimary,
-              },
-            ]}
-          />
-        );
-      })}
+      {Array.from({ length: count }).map((_, i) => (
+        <AnimatedDot key={i} active={i === activeIndex} variant={variant} />
+      ))}
     </View>
   );
 }
@@ -367,8 +388,10 @@ export function Carousel<T>({
   dotVariant = 'pill',
   autoPlayInterval = 0,
   onItemPress,
+  testID,
 }: CarouselProps<T>) {
   const { width: screenWidth } = useWindowDimensions();
+  const reducedMotion = useReducedMotion();
   const [activeIndex, setActiveIndex] = useState(0);
 
   // Ref avoids stale closure in the auto-play interval without adding
@@ -450,14 +473,14 @@ export function Carousel<T>({
   // ── Auto-play ────────────────────────────────────────────────────────
 
   useEffect(() => {
-    if (autoPlayInterval <= 0 || data.length <= 1) { return; }
+    if (autoPlayInterval <= 0 || data.length <= 1 || reducedMotion) { return; }
     const id = setInterval(() => {
       const next = (activeIndexRef.current + 1) % data.length;
       offset.value = withSpring(next * scrollStep, SNAP_SPRING);
       setActiveIndex(next);
     }, autoPlayInterval);
     return () => clearInterval(id);
-  }, [autoPlayInterval, data.length, scrollStep, offset]);
+  }, [autoPlayInterval, data.length, scrollStep, offset, reducedMotion]);
 
   // ── Animated row ─────────────────────────────────────────────────────
 
@@ -487,7 +510,8 @@ export function Carousel<T>({
                   onPress={
                     onItemPress ? () => onItemPress(item, index) : undefined
                   }
-                  disabled={!onItemPress}>
+                  disabled={!onItemPress}
+                  testID={testID ? `${testID}-slide-${index}` : undefined}>
                   <AnimatedSlide
                     offset={offset}
                     index={index}
@@ -539,7 +563,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   dotsContainer: {
-    paddingTop: spacing.sm,
+    paddingTop: spacing.md,
   },
 });
 
@@ -563,6 +587,6 @@ const dotStyles = StyleSheet.create({
     flex: 1,
     borderRadius: borders.thin,
   },
-  lineActive: { height: 3 },
-  lineInactive: { height: 2 },
+  lineActive: { height: spacing.xs },
+  lineInactive: { height: spacing.xxs },
 });

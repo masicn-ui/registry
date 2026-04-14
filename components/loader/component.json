@@ -1,0 +1,44 @@
+{
+  "name": "loader",
+  "displayName": "Loader",
+  "description": "Full-screen loading overlay modal with activity indicator, optional message, and backdrop.",
+  "category": "overlays",
+  "version": "0.0.1",
+  "files": [
+    {
+      "path": "Loader.tsx",
+      "target": "Loader.tsx",
+      "type": "component"
+    }
+  ],
+  "masicnVersion": "^0.0.1",
+  "peerDependencies": {},
+  "registryDependencies": [],
+  "tags": [
+    "loading",
+    "overlay"
+  ],
+  "hasTests": false,
+  "hasAccessibility": true,
+  "props": [
+    {
+      "name": "visible",
+      "type": "boolean",
+      "required": true,
+      "description": "Controls whether the overlay modal is shown"
+    },
+    {
+      "name": "message",
+      "type": "string",
+      "required": false,
+      "description": "Optional text message displayed below the activity indicator"
+    },
+    {
+      "name": "backdrop",
+      "type": "boolean",
+      "default": "true",
+      "required": false,
+      "description": "Whether to render a dimmed backdrop behind the loading container"
+    }
+  ]
+}

@@ -2,7 +2,7 @@
   "name": "spinner",
   "displayName": "Spinner",
   "description": "Activity indicator with optional text label, size variants, and color override.",
-  "category": "feedback",
+  "category": "progress",
   "version": "0.0.1",
   "files": [
     {
@@ -18,7 +18,7 @@
     "loading"
   ],
   "hasTests": false,
-  "hasAccessibility": false,
+  "hasAccessibility": true,
   "props": [
     {
       "name": "size",

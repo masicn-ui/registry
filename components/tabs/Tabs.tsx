@@ -47,6 +47,8 @@ export interface TabsProps {
    * Style applied to the content panel area (only when a tab has `content` or `body`).
    */
   panelStyle?: ViewStyle;
+  /** Test identifier for automated testing */
+  testID?: string;
 }
 
 /**
@@ -91,6 +93,7 @@ const Tabs = React.forwardRef<View, TabsProps>(function Tabs(
     accessibilityLabel,
     textThreshold = DEFAULT_TEXT_THRESHOLD,
     panelStyle,
+    testID,
   },
   ref,
 ) {
@@ -229,6 +232,7 @@ const Tabs = React.forwardRef<View, TabsProps>(function Tabs(
       horizontal
       showsHorizontalScrollIndicator={false}
       contentContainerStyle={containerStyle}
+      testID={testID}
       accessibilityRole="tablist"
       accessibilityLabel={accessibilityLabel}>
       {renderTabs()}
@@ -236,6 +240,7 @@ const Tabs = React.forwardRef<View, TabsProps>(function Tabs(
   ) : (
     <View
       ref={ref}
+      testID={testID}
       style={containerStyle}
       accessibilityRole="tablist"
       accessibilityLabel={accessibilityLabel}>

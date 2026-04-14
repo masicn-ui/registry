@@ -79,6 +79,7 @@ const Button = React.forwardRef<View, ButtonProps>(function Button(
     style,
     accessibilityLabel,
     accessibilityHint,
+    hitSlop = spacing.sm,
     ...rest
   },
   ref,
@@ -142,6 +143,7 @@ const Button = React.forwardRef<View, ButtonProps>(function Button(
       accessibilityLabel={resolvedLabel}
       accessibilityHint={accessibilityHint}
       accessibilityState={{ disabled: isDisabled }}
+      hitSlop={hitSlop}
       style={({ pressed }) => [
         styles.base,
         sizeStyle,

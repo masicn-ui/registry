@@ -1,0 +1,52 @@
+{
+  "name": "segment",
+  "displayName": "Segment",
+  "description": "Animated segmented control with a sliding indicator, tablist accessibility role, and disabled state support.",
+  "category": "navigation-ui",
+  "version": "0.0.1",
+  "files": [
+    {
+      "path": "Segment.tsx",
+      "target": "Segment.tsx",
+      "type": "component"
+    }
+  ],
+  "masicnVersion": "^0.0.1",
+  "peerDependencies": {
+    "react-native-reanimated": ">=3.0.0"
+  },
+  "registryDependencies": [],
+  "tags": [
+    "form",
+    "navigation"
+  ],
+  "hasTests": false,
+  "hasAccessibility": true,
+  "props": [
+    {
+      "name": "options",
+      "type": "SegmentOption[]",
+      "required": true,
+      "description": "Array of segment options to display."
+    },
+    {
+      "name": "value",
+      "type": "string",
+      "required": true,
+      "description": "The value of the currently selected segment."
+    },
+    {
+      "name": "onChange",
+      "type": "(value: string) => void",
+      "required": true,
+      "description": "Callback fired when the user selects a different segment."
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "default": "false",
+      "required": false,
+      "description": "When true, all segments are non-interactive and the control is visually dimmed."
+    }
+  ]
+}

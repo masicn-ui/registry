@@ -1,0 +1,52 @@
+{
+  "name": "stepper",
+  "displayName": "Step Indicator",
+  "description": "Step progress indicator block for multi-step flows.",
+  "category": "progress",
+  "version": "0.0.1",
+  "files": [
+    {
+      "path": "Stepper.tsx",
+      "target": "Stepper.tsx",
+      "type": "component"
+    }
+  ],
+  "masicnVersion": "^0.0.1",
+  "peerDependencies": {},
+  "registryDependencies": [],
+  "tags": [
+    "step",
+    "stepper",
+    "progress",
+    "wizard"
+  ],
+  "hasTests": false,
+  "hasAccessibility": true,
+  "props": [
+    {
+      "name": "steps",
+      "type": "Step[]",
+      "required": true,
+      "description": "Array of steps to display. Each step has a label and an optional description (shown in vertical orientation only)."
+    },
+    {
+      "name": "currentStep",
+      "type": "number",
+      "required": true,
+      "description": "Zero-based index of the currently active step. Steps before this index are marked as completed."
+    },
+    {
+      "name": "containerStyle",
+      "type": "ViewStyle",
+      "required": false,
+      "description": "Additional style applied to the outer container."
+    },
+    {
+      "name": "orientation",
+      "type": "'horizontal' | 'vertical'",
+      "default": "horizontal",
+      "required": false,
+      "description": "Layout orientation. Horizontal arranges steps in a row; vertical stacks them with descriptions visible."
+    }
+  ]
+}

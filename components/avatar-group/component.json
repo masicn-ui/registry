@@ -2,7 +2,7 @@
   "name": "avatar-group",
   "displayName": "AvatarGroup",
   "description": "Stacked row of Avatars with configurable max count and +N overflow indicator.",
-  "category": "core",
+  "category": "display",
   "version": "0.0.1",
   "files": [
     {
@@ -21,7 +21,7 @@
     "group"
   ],
   "hasTests": false,
-  "hasAccessibility": false,
+  "hasAccessibility": true,
   "props": [
     {
       "name": "avatars",

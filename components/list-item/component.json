@@ -2,7 +2,7 @@
   "name": "list-item",
   "displayName": "ListItem",
   "description": "Pressable list row with title, subtitle, leading and trailing slots, and separator",
-  "category": "navigation",
+  "category": "lists",
   "version": "0.0.1",
   "files": [
     {

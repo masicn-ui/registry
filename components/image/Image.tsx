@@ -19,7 +19,7 @@ import Animated, {
   withDelay,
 } from 'react-native-reanimated';
 import { scheduleOnRN } from 'react-native-worklets';
-import { Text, motion, opacity, radius, sizes, spacing, useTheme } from '../../../masicn';
+import { Text, motion, opacity, radius, sizes, spacing, useReducedMotion, useTheme } from '../../../masicn';
 
 // ─── Types ─────────────────────────────────────────────────────────────────
 
@@ -85,20 +85,25 @@ interface ImagePreviewHandle {
 const ImagePreview = forwardRef<ImagePreviewHandle, ImagePreviewProps>(
   function ImagePreview({ source, visible, onDismiss }, ref) {
     const { width: screenWidth, height: screenHeight } = useWindowDimensions();
+    const { theme } = useTheme();
+    const reducedMotion = useReducedMotion();
 
     const backdropOpacity = useSharedValue(0);
     const previewScale = useSharedValue(0.88);
-    const previewTranslateY = useSharedValue<number>(spacing.lg);
+    const previewTranslateY = useSharedValue<number>(Number.isFinite(spacing.lg) ? spacing.lg : 20);
     const hintOpacity = useSharedValue(0);
 
     const dismissImpl = useRef(() => { });
     dismissImpl.current = () => {
-      backdropOpacity.value = withTiming(0, { duration: motion.duration.fast });
-      hintOpacity.value = withTiming(0, { duration: motion.duration.fast });
-      previewTranslateY.value = withSpring(spacing.lg, motion.spring.gentle);
-      previewScale.value = withSpring(0.88, motion.spring.gentle, () => {
-        scheduleOnRN(onDismiss);
-      });
+      const dur = reducedMotion ? 0 : motion.duration.fast;
+      backdropOpacity.value = withTiming(0, { duration: dur });
+      hintOpacity.value = withTiming(0, { duration: dur });
+      previewTranslateY.value = reducedMotion
+        ? withTiming(spacing.lg, { duration: 0 })
+        : withSpring(spacing.lg, motion.spring.gentle);
+      previewScale.value = reducedMotion
+        ? withTiming(0.88, { duration: 0 }, () => { scheduleOnRN(onDismiss); })
+        : withSpring(0.88, motion.spring.gentle, () => { scheduleOnRN(onDismiss); });
     };
 
     useImperativeHandle(ref, () => ({ dismiss: () => { dismissImpl.current(); } }), []);
@@ -107,16 +112,19 @@ const ImagePreview = forwardRef<ImagePreviewHandle, ImagePreviewProps>(
       if (visible) {
         previewScale.value = 0.88;
         previewTranslateY.value = spacing.lg;
-        backdropOpacity.value = withTiming(opacity.hover, { duration: motion.duration.normal });
-        previewScale.value = withSpring(1, motion.spring.responsive);
-        previewTranslateY.value = withSpring(0, motion.spring.responsive);
-        hintOpacity.value = withDelay(
-          motion.duration.slow,
-          withTiming(1, { duration: motion.duration.normal }),
-        );
+        backdropOpacity.value = withTiming(opacity.hover, { duration: reducedMotion ? 0 : motion.duration.normal });
+        previewScale.value = reducedMotion
+          ? withTiming(1, { duration: 0 })
+          : withSpring(1, motion.spring.responsive);
+        previewTranslateY.value = reducedMotion
+          ? withTiming(0, { duration: 0 })
+          : withSpring(0, motion.spring.responsive);
+        hintOpacity.value = reducedMotion
+          ? withTiming(1, { duration: 0 })
+          : withDelay(motion.duration.slow, withTiming(1, { duration: motion.duration.normal }));
       }
       // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [visible]);
+    }, [visible, reducedMotion]);
 
     const backdropStyle = useAnimatedStyle(() => ({
       opacity: backdropOpacity.value,
@@ -139,7 +147,7 @@ const ImagePreview = forwardRef<ImagePreviewHandle, ImagePreviewProps>(
         transparent
         statusBarTranslucent
         animationType="none">
-        <Animated.View style={[styles.fill, styles.previewBackdrop, backdropStyle]} />
+        <Animated.View style={[styles.fill, { backgroundColor: theme.colors.shadow }, backdropStyle]} />
 
         <View style={styles.previewContainer}>
           <Animated.Image
@@ -228,7 +236,8 @@ export function Image({
           { backgroundColor: theme.colors.surfaceSecondary },
           containerStyle,
         ]}>
-        <Text variant="caption" color="textSecondary">
+        <Text variant="h2" style={styles.fallbackIcon}>🖼</Text>
+        <Text variant="caption" color="textTertiary" style={styles.fallbackText}>
           {errorMessage}
         </Text>
       </View>
@@ -283,6 +292,9 @@ export function Image({
           }}
           pressRetentionOffset={LARGE_RETENTION_OFFSET}
           delayLongPress={400}
+          accessibilityRole="button"
+          accessibilityLabel="View full image"
+          accessibilityHint="Long press to view full screen preview"
           style={previewVisible ? styles.previewHidden : null}>
           {imageContent}
         </Pressable>
@@ -341,10 +353,14 @@ const styles = StyleSheet.create({
     width: '100%',
     justifyContent: 'center',
     alignItems: 'center',
+    gap: spacing.xs,
     padding: spacing.lg,
   },
-  previewBackdrop: {
-    backgroundColor: '#000',
+  fallbackIcon: {
+    opacity: opacity.disabled,
+  },
+  fallbackText: {
+    textAlign: 'center',
   },
   previewContainer: {
     flex: 1,

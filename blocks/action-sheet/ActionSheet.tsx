@@ -1,6 +1,6 @@
-import React from 'react';
-import { View, StyleSheet, Pressable } from 'react-native';
-import { Text, borders, spacing, useTheme } from '../../../masicn';
+import React, { useCallback } from 'react';
+import { View, StyleSheet, Pressable, type ViewStyle } from 'react-native';
+import { Stack, Text, borders, spacing, useTheme } from '../../../masicn';
 import { BottomSheet } from '../../components';
 
 /**
@@ -34,6 +34,10 @@ interface ActionSheetProps {
   showCancel?: boolean;
   /** Label for the cancel button (default "Cancel"). */
   cancelLabel?: string;
+  /** Additional style forwarded to the underlying `BottomSheet` container. */
+  style?: ViewStyle;
+  /** Test identifier; options receive `{testID}-option-{index}`, cancel receives `{testID}-cancel`. */
+  testID?: string;
 }
 
 /**
@@ -59,7 +63,7 @@ interface ActionSheetProps {
  *   ]}
  * />
  */
-export function ActionSheet({
+export const ActionSheet = React.memo(function ActionSheet({
   visible,
   onClose,
   title,
@@ -67,31 +71,33 @@ export function ActionSheet({
   options,
   showCancel = true,
   cancelLabel = 'Cancel',
+  style,
+  testID,
 }: ActionSheetProps) {
   const { theme } = useTheme();
 
-  const handleOptionPress = (option: ActionSheetOption) => {
+  const handleOptionPress = useCallback((option: ActionSheetOption) => {
     if (!option.disabled) {
       option.onPress();
       onClose();
     }
-  };
+  }, [onClose]);
 
   return (
-    <BottomSheet visible={visible} onClose={onClose}>
+    <BottomSheet visible={visible} onClose={onClose} style={style}>
       {(title || message) && (
-        <View style={styles.header}>
+        <Stack gap="md" style={styles.header}>
           {title && (
             <Text variant="h3" color="textPrimary" align="center">
               {title}
             </Text>
           )}
           {message && (
-            <Text variant="bodySmall" color="textSecondary" align="center" style={styles.message}>
+            <Text variant="bodySmall" color="textSecondary" align="center">
               {message}
             </Text>
           )}
-        </View>
+        </Stack>
       )}
 
       {/* Negative margin breaks out of BottomSheet's content padding for full-width options */}
@@ -101,6 +107,11 @@ export function ActionSheet({
             key={index}
             onPress={() => handleOptionPress(option)}
             disabled={option.disabled}
+            testID={testID ? `${testID}-option-${index}` : undefined}
+            accessibilityRole="button"
+            accessibilityState={{ disabled: !!option.disabled }}
+            accessibilityLabel={option.label}
+            hitSlop={spacing.sm}
             style={({ pressed }) => [
               styles.option,
               pressed && !option.disabled && { backgroundColor: theme.colors.highlight },
@@ -131,6 +142,10 @@ export function ActionSheet({
       {showCancel && (
         <Pressable
           onPress={onClose}
+          testID={testID ? `${testID}-cancel` : undefined}
+          accessibilityRole="button"
+          accessibilityLabel={cancelLabel}
+          hitSlop={spacing.sm}
           style={[styles.cancelButton, { borderTopColor: theme.colors.borderSecondary }]}
         >
           <Text variant="bodyLarge" color="primary" bold>
@@ -140,15 +155,11 @@ export function ActionSheet({
       )}
     </BottomSheet>
   );
-}
+});
 
 const styles = StyleSheet.create({
   header: {
     paddingBottom: spacing.md,
-    gap: spacing.sm,
-  },
-  message: {
-    marginTop: spacing.xs,
   },
   optionsWrapper: {
     marginHorizontal: spacing.negLg,

@@ -1,11 +1,13 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, forwardRef, useCallback } from 'react';
 import {
   TextInput as RNTextInput,
   View,
   StyleSheet,
   type ViewStyle,
 } from 'react-native';
-import { Stack, Text, borders, radius, spacing, typography, useTheme } from '../../../masicn';
+import { Stack, Text, borders, fonts, radius, sizes, spacing, typography, useTheme } from '../../../masicn';
+
+type DateInputSize = 'sm' | 'md' | 'lg';
 
 export interface DateInputProps {
   /** ISO date string value (YYYY-MM-DD) */
@@ -20,6 +22,8 @@ export interface DateInputProps {
   error?: string;
   /** Helper text shown below the field */
   helperText?: string;
+  /** Size preset — sm | md | lg. Defaults to 'md'. */
+  size?: DateInputSize;
   /** Disable the input */
   disabled?: boolean;
   /** Outer container style */
@@ -52,29 +56,44 @@ export interface DateInputProps {
  *   error={dobError}
  * />
  */
-export function DateInput({
+// Formats an ISO string (YYYY-MM-DD) into display format (DD/MM/YYYY)
+function isoToDisplay(iso: string): string {
+  const parts = iso.split('-');
+  if (parts.length === 3) {
+    const [yyyy, mm, dd] = parts;
+    return `${dd}/${mm}/${yyyy}`;
+  }
+  return '';
+}
+
+// Auto-inserts slashes: digits only → DD/MM/YYYY
+function formatAsDate(raw: string): string {
+  const digits = raw.replace(/\D/g, '');
+  if (digits.length <= 2) { return digits; }
+  if (digits.length <= 4) { return `${digits.slice(0, 2)}/${digits.slice(2)}`; }
+  return `${digits.slice(0, 2)}/${digits.slice(2, 4)}/${digits.slice(4, 8)}`;
+}
+
+const inputHeights: Record<DateInputSize, number> = {
+  sm: sizes.inputSm,
+  md: sizes.inputMd,
+  lg: sizes.inputLg,
+};
+
+export const DateInput = forwardRef<RNTextInput, DateInputProps>(function DateInput({
   value,
   onValueChange,
   label,
   placeholder = 'DD/MM/YYYY',
   error,
   helperText,
+  size = 'md',
   disabled = false,
   containerStyle,
   testID,
-}: DateInputProps) {
+}, ref) {
   const { theme } = useTheme();
   const [focused, setFocused] = useState(false);
-
-  // Formats an ISO string (YYYY-MM-DD) into display format (DD/MM/YYYY)
-  const isoToDisplay = (iso: string): string => {
-    const parts = iso.split('-');
-    if (parts.length === 3) {
-      const [yyyy, mm, dd] = parts;
-      return `${dd}/${mm}/${yyyy}`;
-    }
-    return '';
-  };
 
   const [displayValue, setDisplayValue] = useState(() =>
     value ? isoToDisplay(value) : '',
@@ -90,15 +109,7 @@ export function DateInput({
     }
   }, [value]);
 
-  // Auto-inserts slashes: digits only → DD/MM/YYYY
-  const formatAsDate = (raw: string): string => {
-    const digits = raw.replace(/\D/g, '');
-    if (digits.length <= 2) { return digits; }
-    if (digits.length <= 4) { return `${digits.slice(0, 2)}/${digits.slice(2)}`; }
-    return `${digits.slice(0, 2)}/${digits.slice(2, 4)}/${digits.slice(4, 8)}`;
-  };
-
-  const handleChangeText = (text: string) => {
+  const handleChangeText = useCallback((text: string) => {
     const formatted = formatAsDate(text);
     setDisplayValue(formatted);
 
@@ -123,7 +134,7 @@ export function DateInput({
         onValueChange?.(iso);
       }
     }
-  };
+  }, [onValueChange]);
 
   const hasError = !!error;
 
@@ -149,6 +160,7 @@ export function DateInput({
       <View
         style={[
           styles.container,
+          { minHeight: inputHeights[size] },
           focused && styles.focused,
           {
             backgroundColor: disabled
@@ -158,6 +170,7 @@ export function DateInput({
           },
         ]}>
         <RNTextInput
+          ref={ref}
           testID={testID}
           value={displayValue}
           onChangeText={handleChangeText}
@@ -166,15 +179,19 @@ export function DateInput({
           keyboardType="numeric"
           maxLength={10}
           editable={!disabled}
+          underlineColorAndroid="transparent"
           onFocus={() => setFocused(true)}
           onBlur={() => setFocused(false)}
           accessibilityLabel={label ?? 'Date input'}
           accessibilityValue={{ text: displayValue || placeholder }}
           accessibilityState={{ disabled }}
           style={[
-            typography.body,
             styles.input,
-            { color: disabled ? theme.colors.textDisabled : theme.colors.textPrimary },
+            {
+              fontFamily: fonts.ui.regular,
+              fontSize: typography.body.fontSize,
+              color: disabled ? theme.colors.textDisabled : theme.colors.textPrimary,
+            },
           ]}
         />
         <Text
@@ -196,7 +213,7 @@ export function DateInput({
       )}
     </Stack>
   );
-}
+});
 
 const styles = StyleSheet.create({
   container: {

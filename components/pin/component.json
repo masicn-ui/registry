@@ -1,0 +1,58 @@
+{
+  "name": "pin",
+  "displayName": "Pin",
+  "description": "PIN/OTP dot progress display showing filled and empty dots with default, error, and success variants.",
+  "category": "display",
+  "version": "0.0.1",
+  "files": [
+    {
+      "path": "Pin.tsx",
+      "target": "Pin.tsx",
+      "type": "component"
+    }
+  ],
+  "masicnVersion": "^0.0.1",
+  "peerDependencies": {},
+  "registryDependencies": [],
+  "tags": [
+    "display",
+    "security"
+  ],
+  "hasTests": false,
+  "hasAccessibility": true,
+  "props": [
+    {
+      "name": "length",
+      "type": "number",
+      "required": true,
+      "description": "Total number of dots representing the PIN length."
+    },
+    {
+      "name": "filled",
+      "type": "number",
+      "required": true,
+      "description": "Number of filled dots representing characters entered so far."
+    },
+    {
+      "name": "variant",
+      "type": "'default' | 'error' | 'success'",
+      "default": "default",
+      "required": false,
+      "description": "Color variant applied to filled dots."
+    },
+    {
+      "name": "size",
+      "type": "'sm' | 'md' | 'lg'",
+      "default": "md",
+      "required": false,
+      "description": "Diameter preset for each dot."
+    },
+    {
+      "name": "gap",
+      "type": "'sm' | 'md' | 'lg'",
+      "default": "md",
+      "required": false,
+      "description": "Spacing between dots."
+    }
+  ]
+}

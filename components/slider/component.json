@@ -2,10 +2,14 @@
   "name": "slider",
   "displayName": "Slider",
   "description": "Gesture-driven range slider with configurable min/max/step, active track, thumb, and accessibility increment/decrement actions.",
-  "category": "form",
+  "category": "forms",
   "version": "0.0.1",
   "files": [
-    { "path": "Slider.tsx", "target": "Slider.tsx", "type": "component" }
+    {
+      "path": "Slider.tsx",
+      "target": "Slider.tsx",
+      "type": "component"
+    }
   ],
   "masicnVersion": "^0.0.1",
   "peerDependencies": {
@@ -13,7 +17,9 @@
     "react-native-reanimated": ">=3.0.0"
   },
   "registryDependencies": [],
-  "tags": ["form"],
+  "tags": [
+    "form"
+  ],
   "hasTests": false,
   "hasAccessibility": true,
   "props": [

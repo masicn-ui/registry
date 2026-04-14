@@ -2,7 +2,7 @@
   "name": "menu",
   "displayName": "Menu",
   "description": "Dropdown menu with viewport-clamped positioning, icon support, disabled states, and separator dividers.",
-  "category": "overlay",
+  "category": "overlays",
   "version": "0.0.1",
   "files": [
     {
@@ -19,7 +19,7 @@
     "navigation"
   ],
   "hasTests": false,
-  "hasAccessibility": true,
+  "hasAccessibility": false,
   "props": [
     {
       "name": "items",

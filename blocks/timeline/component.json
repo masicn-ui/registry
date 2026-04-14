@@ -2,7 +2,7 @@
   "name": "timeline",
   "displayName": "Timeline",
   "description": "Timeline block for displaying chronological events.",
-  "category": "blocks",
+  "category": "display",
   "version": "0.0.1",
   "files": [
     {
@@ -13,10 +13,7 @@
   ],
   "masicnVersion": "^0.0.1",
   "peerDependencies": {},
-  "registryDependencies": [
-    "avatar",
-    "badge"
-  ],
+  "registryDependencies": [],
   "tags": [
     "timeline",
     "history",

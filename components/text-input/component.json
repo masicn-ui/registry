@@ -2,7 +2,7 @@
   "name": "text-input",
   "displayName": "TextInput",
   "description": "Form text input with label, helper text, error state, start/end adornments, clear button, character count, and focus ring.",
-  "category": "form",
+  "category": "forms",
   "version": "0.0.1",
   "files": [
     {

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useImperativeHandle } from 'react';
 import {
   Pressable,
   View,
@@ -9,6 +9,7 @@ import {
   ScrollView,
   Keyboard,
   Platform,
+  BackHandler,
 } from 'react-native';
 import Animated, {
   useSharedValue,
@@ -17,24 +18,32 @@ import Animated, {
   withTiming,
 } from 'react-native-reanimated';
 import { GestureDetector, Gesture } from 'react-native-gesture-handler';
-import { useTheme, spacing, radius, elevation, sizes, motion, motionEasing } from '../../../masicn'
+import { useTheme, spacing, radius, elevation, motion, motionEasing, useReducedMotion, useFocusTrap, Masicn } from '../../../masicn';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
+/** Imperative handle exposed via `ref` for programmatic open/close control. */
+export interface LeftSheetRef {
+  /** Slides the sheet in from the left. */
+  open: () => void;
+  /** Dismisses the sheet and fires `onClose`. */
+  close: () => void;
+}
+
 interface LeftSheetProps {
-  /** Whether the sheet is currently open. */
-  visible: boolean;
+  /** Whether the sheet is currently open. Omit to drive via the imperative `ref` API. */
+  visible?: boolean;
   /** Called when the sheet should close (backdrop press or swipe-left gesture). */
   onClose: () => void;
   /** Content rendered inside the scrollable sheet body. */
   children: React.ReactNode;
   /** Sheet width as a fraction of screen width. Defaults to 0.75 (75%). */
   width?: number;
-  /** Show a vertical drag handle indicator at the top of the sheet. Defaults to false. */
-  showHandle?: boolean;
   /** Additional style applied to the sheet panel. */
   style?: ViewStyle;
   /** When true, the semi-transparent backdrop is not rendered. Defaults to false. */
   hideBackdrop?: boolean;
+  /** Accessibility label announced by screen readers when the sheet gains focus. Defaults to 'Left sheet'. */
+  accessibilityLabel?: string;
 }
 
 const DISMISS_THRESHOLD = 0.3;
@@ -48,8 +57,8 @@ const DISMISS_THRESHOLD = 0.3;
  * `onClose`. Safe-area insets are applied automatically so content never overlaps
  * the status bar or home indicator.
  *
- * The sheet body is wrapped in a `KeyboardAvoidingView` + `ScrollView` so forms
- * and inputs work without extra setup.
+ * Supports both controlled (`visible` prop) and imperative (`ref`) APIs.
+ * On Android the hardware back button dismisses the sheet.
  *
  * @example
  * const [open, setOpen] = React.useState(false);
@@ -57,132 +66,158 @@ const DISMISS_THRESHOLD = 0.3;
  * <LeftSheet visible={open} onClose={() => setOpen(false)} width={0.8}>
  *   <Text>Navigation content</Text>
  * </LeftSheet>
+ *
+ * @example
+ * // Imperative usage
+ * const sheetRef = useRef<LeftSheetRef>(null);
+ * <LeftSheet ref={sheetRef} onClose={() => {}}>
+ *   <NavMenu />
+ * </LeftSheet>
  */
-export function LeftSheet({
-  visible,
-  onClose,
-  children,
-  width = 0.75,
-  showHandle = false,
-  style,
-  hideBackdrop = false,
-}: LeftSheetProps) {
-  const { theme } = useTheme();
-  const insets = useSafeAreaInsets();
-  const { width: SCREEN_WIDTH } = useWindowDimensions();
-  const sheetWidth = SCREEN_WIDTH * width;
-  const translateX = useSharedValue(-sheetWidth);
-  const opacity = useSharedValue(0);
-  const [shouldRender, setShouldRender] = React.useState(visible);
+export const LeftSheet = React.forwardRef<LeftSheetRef, LeftSheetProps>(
+  function LeftSheet({
+    visible: controlledVisible,
+    onClose,
+    children,
+    width = 0.75,
+    style,
+    hideBackdrop = false,
+    accessibilityLabel,
+  }: LeftSheetProps, ref) {
+    const { theme } = useTheme();
+    const reducedMotion = useReducedMotion();
+    // Snapshot into a ref so the async resolution never re-triggers the animation effect mid-spring.
+    const reducedMotionRef = React.useRef(reducedMotion);
+    React.useEffect(() => { reducedMotionRef.current = reducedMotion; }, [reducedMotion]);
 
-  React.useEffect(() => {
-    if (visible) {
-      setShouldRender(true);
-      translateX.value = withSpring(0, {
-        damping: 25,
-        stiffness: 300,
-        mass: 0.8,
-      });
-      opacity.value = withTiming(1, { duration: motion.duration.slow });
-    } else {
-      translateX.value = withTiming(-sheetWidth, { duration: motion.duration.normal, easing: motionEasing.accelerate });
-      opacity.value = withTiming(0, { duration: motion.duration.normal, easing: motionEasing.accelerate });
-      setTimeout(() => {
-        setShouldRender(false);
-      }, motion.duration.normal);
-    }
-  }, [visible, translateX, opacity, sheetWidth]);
+    const insets = useSafeAreaInsets();
+    const { width: SCREEN_WIDTH } = useWindowDimensions();
+    const sheetWidth = SCREEN_WIDTH * width;
+    const translateX = useSharedValue(-sheetWidth);
+    const opacity = useSharedValue(0);
+    const [internalVisible, setInternalVisible] = React.useState(false);
+    const isVisible = controlledVisible ?? internalVisible;
+    const [shouldRender, setShouldRender] = React.useState(isVisible);
 
-  const sheetWidthSV = useSharedValue(sheetWidth);
-  React.useEffect(() => { sheetWidthSV.value = sheetWidth; }, [sheetWidth, sheetWidthSV]);
+    const { containerRef } = useFocusTrap({ active: isVisible });
 
-  const handleDismiss = React.useCallback(() => {
-    Keyboard.dismiss();
-    onClose();
-  }, [onClose]);
+    const handleDismiss = React.useCallback(() => {
+      Keyboard.dismiss();
+      setInternalVisible(false);
+      onClose();
+    }, [onClose]);
 
-  const pan = Gesture.Pan()
-    .runOnJS(true)
-    .activeOffsetX([-10, 10])
-    .onUpdate((e) => {
-      if (e.translationX < 0) {
-        translateX.value = e.translationX;
-      }
-    })
-    .onEnd((e) => {
-      if (e.translationX < -(sheetWidthSV.value * DISMISS_THRESHOLD) || e.velocityX < -500) {
-        handleDismiss();
+    useImperativeHandle(ref, () => ({
+      open: () => setInternalVisible(true),
+      close: handleDismiss,
+    }), [handleDismiss]);
+
+    // reducedMotion intentionally omitted from deps — read via ref to prevent
+    // the async AccessibilityInfo resolution from killing an in-progress spring.
+    React.useEffect(() => {
+      const rm = reducedMotionRef.current;
+      if (isVisible) {
+        setShouldRender(true);
+        translateX.value = rm
+          ? withTiming(0, { duration: motion.duration.instant })
+          : withSpring(0, motion.spring.sheet);
+        opacity.value = withTiming(1, { duration: rm ? motion.duration.instant : motion.duration.slow });
       } else {
-        translateX.value = withSpring(0, { damping: 25, stiffness: 300, mass: 0.8 });
+        const exitDuration = rm ? motion.duration.instant : motion.duration.normal;
+        translateX.value = withTiming(-sheetWidth, { duration: exitDuration, easing: motionEasing.accelerate });
+        opacity.value = withTiming(0, { duration: exitDuration, easing: motionEasing.accelerate });
+        const timeout = setTimeout(() => setShouldRender(false), exitDuration);
+        return () => clearTimeout(timeout);
       }
-    });
+    }, [isVisible, translateX, opacity, sheetWidth]);
 
-  const animatedSheetStyle = useAnimatedStyle(() => ({
-    transform: [{ translateX: translateX.value }],
-  }));
+    React.useEffect(() => {
+      if (!isVisible || Platform.OS !== 'android') return;
+      const sub = BackHandler.addEventListener('hardwareBackPress', () => {
+        handleDismiss();
+        return true;
+      });
+      return () => sub.remove();
+    }, [isVisible, handleDismiss]);
 
-  const animatedBackdropStyle = useAnimatedStyle(() => ({
-    opacity: opacity.value,
-  }));
+    const pan = Gesture.Pan()
+      .runOnJS(true)
+      .activeOffsetX([-10, 10])
+      .onUpdate((e) => {
+        if (e.translationX < 0) {
+          translateX.value = e.translationX;
+        }
+      })
+      .onEnd((e) => {
+        if (e.translationX < -(sheetWidth * DISMISS_THRESHOLD) || e.velocityX < -500) {
+          handleDismiss();
+        } else {
+          translateX.value = withSpring(0, motion.spring.sheet);
+        }
+      });
 
-  if (!shouldRender) {
-    return null;
-  }
+    const animatedSheetStyle = useAnimatedStyle(() => ({
+      transform: [{ translateX: translateX.value }],
+    }));
 
-  return (
-    <View style={styles.overlay} pointerEvents={hideBackdrop ? 'box-none' : undefined}>
-      {!hideBackdrop && (
-        <Animated.View style={[StyleSheet.absoluteFill, animatedBackdropStyle]}>
-          <Pressable
-            style={[styles.backdrop, { backgroundColor: theme.colors.backdrop }]}
-            onPress={() => { Keyboard.dismiss(); onClose(); }}
-          />
-        </Animated.View>
-      )}
-      <GestureDetector gesture={pan}>
-        <Animated.View
-          style={[
-            styles.sheet,
-            elevation.xl,
-            {
-              width: sheetWidth,
-              backgroundColor: theme.colors.surfacePrimary,
-              shadowColor: theme.colors.shadow,
-              paddingTop: insets.top,
-              paddingBottom: insets.bottom,
-            },
-            style,
-            animatedSheetStyle,
-          ]}>
-          {showHandle && (
-            <View style={styles.handleContainer}>
-              <View
-                style={[
-                  styles.handle,
-                  { backgroundColor: theme.colors.borderPrimary },
-                ]}
+    const animatedBackdropStyle = useAnimatedStyle(() => ({
+      opacity: opacity.value,
+    }));
+
+    if (!shouldRender) {
+      return null;
+    }
+
+    return (
+      <Masicn>
+        <View style={styles.overlay} pointerEvents={hideBackdrop ? 'box-none' : undefined}>
+          {!hideBackdrop && (
+            <Animated.View style={[StyleSheet.absoluteFill, animatedBackdropStyle]}>
+              <Pressable
+                style={[styles.backdrop, { backgroundColor: theme.colors.overlay }]}
+                onPress={handleDismiss}
               />
-            </View>
+            </Animated.View>
           )}
-          <KeyboardAvoidingView
-            style={styles.content}
-            behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
-            <ScrollView
-              style={styles.flex1}
-              contentContainerStyle={[
-                styles.scrollContent,
-                { paddingBottom: spacing.lg },
-              ]}
-              keyboardShouldPersistTaps="handled"
-              bounces={false}>
-              {children}
-            </ScrollView>
-          </KeyboardAvoidingView>
-        </Animated.View>
-      </GestureDetector>
-    </View>
-  );
-}
+          <GestureDetector gesture={pan}>
+            <Animated.View
+              ref={containerRef}
+              accessibilityRole="menu"
+              accessibilityViewIsModal={true}
+              accessibilityLabel={accessibilityLabel ?? 'Left sheet'}
+              style={[
+                styles.sheet,
+                elevation.xl,
+                {
+                  width: sheetWidth,
+                  backgroundColor: theme.colors.surfacePrimary,
+                  shadowColor: theme.colors.shadow,
+                  paddingTop: insets.top,
+                  paddingBottom: insets.bottom,
+                },
+                style,
+                animatedSheetStyle,
+              ]}>
+              <KeyboardAvoidingView
+                style={styles.content}
+                behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
+                <ScrollView
+                  style={styles.flex1}
+                  contentContainerStyle={styles.scrollContent}
+                  keyboardShouldPersistTaps="handled"
+                  bounces={false}>
+                  {children}
+                </ScrollView>
+              </KeyboardAvoidingView>
+            </Animated.View>
+          </GestureDetector>
+        </View>
+      </Masicn>
+    );
+  },
+);
+
+LeftSheet.displayName = 'LeftSheet';
 
 const styles = StyleSheet.create({
   overlay: {
@@ -204,16 +239,6 @@ const styles = StyleSheet.create({
   sheet: {
     borderTopRightRadius: radius.xxl,
     borderBottomRightRadius: radius.xxl,
-  },
-  handleContainer: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    paddingHorizontal: spacing.sm,
-  },
-  handle: {
-    width: sizes.bottomSheetHandle,
-    height: sizes.bottomSheetHandleWidth,
-    borderRadius: radius.full,
   },
   content: {
     flex: 1,

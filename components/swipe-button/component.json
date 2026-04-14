@@ -1,0 +1,62 @@
+{
+  "name": "swipe-button",
+  "displayName": "SwipeButton",
+  "description": "Drag-to-confirm control where the user slides a thumb across a track to trigger an irreversible action. Track animates from surface to success on completion.",
+  "category": "inputs",
+  "version": "0.0.1",
+  "files": [
+    {
+      "path": "SwipeButton.tsx",
+      "target": "SwipeButton.tsx",
+      "type": "component"
+    }
+  ],
+  "masicnVersion": "^0.0.1",
+  "peerDependencies": {
+    "react-native-reanimated": ">=3.0.0",
+    "react-native-gesture-handler": ">=2.0.0"
+  },
+  "registryDependencies": [],
+  "tags": [
+    "gesture",
+    "confirm",
+    "swipe",
+    "action"
+  ],
+  "hasTests": false,
+  "hasAccessibility": true,
+  "props": [
+    {
+      "name": "onComplete",
+      "type": "() => void",
+      "required": true,
+      "description": "Called once when the thumb is dragged past the 85% completion threshold."
+    },
+    {
+      "name": "label",
+      "type": "string",
+      "default": "Slide to confirm",
+      "required": false,
+      "description": "Text label displayed inside the track. Fades out as the thumb moves right."
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "default": "false",
+      "required": false,
+      "description": "Disables the gesture interaction."
+    },
+    {
+      "name": "style",
+      "type": "ViewStyle",
+      "required": false,
+      "description": "Additional style applied to the track container."
+    },
+    {
+      "name": "testID",
+      "type": "string",
+      "required": false,
+      "description": "Test identifier for the track container."
+    }
+  ]
+}

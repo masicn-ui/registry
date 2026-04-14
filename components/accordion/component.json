@@ -2,7 +2,7 @@
   "name": "accordion",
   "displayName": "Accordion",
   "description": "Animated expand/collapse accordion with single or multiple open items, controlled and uncontrolled modes",
-  "category": "navigation",
+  "category": "display",
   "version": "0.0.1",
   "files": [
     {

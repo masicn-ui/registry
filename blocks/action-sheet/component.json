@@ -2,7 +2,7 @@
   "name": "action-sheet",
   "displayName": "Action Sheet",
   "description": "iOS-style action sheet block with list of actions.",
-  "category": "blocks",
+  "category": "overlays",
   "version": "0.0.1",
   "files": [
     {
@@ -14,8 +14,7 @@
   "masicnVersion": "^0.0.1",
   "peerDependencies": {},
   "registryDependencies": [
-    "bottom-sheet",
-    "button"
+    "bottom-sheet"
   ],
   "tags": [
     "action-sheet",
@@ -68,6 +67,12 @@
       "default": "Cancel",
       "required": false,
       "description": "Label for the cancel button."
+    },
+    {
+      "name": "testID",
+      "type": "string",
+      "required": false,
+      "description": "Test identifier; options receive `{testID}-option-{index}`, cancel receives `{testID}-cancel`."
     }
   ]
 }

@@ -2,7 +2,7 @@
   "name": "empty-state",
   "displayName": "Empty State",
   "description": "Empty state block with illustration, title, description, and CTA.",
-  "category": "blocks",
+  "category": "display",
   "version": "0.0.1",
   "files": [
     {
@@ -22,7 +22,7 @@
     "placeholder"
   ],
   "hasTests": false,
-  "hasAccessibility": true,
+  "hasAccessibility": false,
   "props": [
     {
       "name": "title",

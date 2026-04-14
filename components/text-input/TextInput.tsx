@@ -154,6 +154,7 @@ const TextInput = React.forwardRef<RNTextInput, TextInputProps>(
               hitSlop={spacing.xs}
               accessibilityRole="button"
               accessibilityLabel="Clear text"
+              testID={rest.testID ? `${rest.testID}-clear` : undefined}
               style={styles.adornment}>
               <Text variant="caption" style={{ color: theme.colors.textSecondary, fontSize: iconSizes.action }}>
                 ×

@@ -3,10 +3,9 @@ import {
   Pressable,
   View,
   StyleSheet,
-  Animated,
-  Easing,
 } from 'react-native';
-import { Text, elevation, motion, opacity as opacityTokens, sizes, spacing, useReducedMotion, useTheme } from '../../../masicn';
+import Reanimated, { useSharedValue, useAnimatedStyle, withTiming, interpolate, interpolateColor } from 'react-native-reanimated';
+import { Text, elevation, motion, motionEasing, opacity as opacityTokens, sizes, spacing, useReducedMotion, useTheme } from '../../../masicn';
 
 interface SwitchProps {
   /** Current on/off state of the switch. */
@@ -25,6 +24,8 @@ interface SwitchProps {
   accessibilityLabel?: string;
   /** Accessibility hint describing the result of toggling. */
   accessibilityHint?: string;
+  /** Test identifier for automated testing. */
+  testID?: string;
 }
 
 const THUMB_OFFSET = spacing.xxs;
@@ -54,68 +55,68 @@ const Switch = React.forwardRef<View, SwitchProps>(function Switch(
     disabled = false,
     accessibilityLabel,
     accessibilityHint,
+    testID,
   },
   ref,
 ) {
   const { theme } = useTheme();
   const reducedMotion = useReducedMotion();
 
-  const progress = React.useRef(new Animated.Value(value ? 1 : 0)).current;
-  const [pressing, setPressing] = React.useState(false);
+  const progress = useSharedValue(value ? 1 : 0);
+  const thumbScale = useSharedValue(1);
 
   React.useEffect(() => {
-    if (reducedMotion) {
-      progress.setValue(value ? 1 : 0);
-      return;
-    }
-    Animated.timing(progress, {
-      toValue: value ? 1 : 0,
-      duration: ANIMATION_DURATION,
-      easing: Easing.out(Easing.cubic),
-      useNativeDriver: false,
-    }).start();
+    progress.value = withTiming(value ? 1 : 0, {
+      duration: reducedMotion ? motion.duration.instant : ANIMATION_DURATION,
+      easing: motionEasing.standard,
+    });
   }, [value, reducedMotion, progress]);
 
   const handlePress = () => {
     if (!disabled) { onValueChange(!value); }
   };
 
-  const trackColor = progress.interpolate({
-    inputRange: [0, 1],
-    outputRange: [theme.colors.borderPrimary, theme.colors.primary],
-  });
+  const THUMB_MAX = sizes.switchTrackWidth - sizes.switchThumb - THUMB_OFFSET;
 
-  const thumbTranslateX = progress.interpolate({
-    inputRange: [0, 1],
-    outputRange: [THUMB_OFFSET, sizes.switchTrackWidth - sizes.switchThumb - THUMB_OFFSET],
-  });
+  const animatedTrackStyle = useAnimatedStyle(() => ({
+    backgroundColor: interpolateColor(progress.value, [0, 1], [theme.colors.borderPrimary, theme.colors.primary]),
+  }));
 
-  const thumbScale = pressing && !disabled ? 1.08 : 1;
+  const animatedThumbStyle = useAnimatedStyle(() => ({
+    transform: [
+      { translateX: interpolate(progress.value, [0, 1], [THUMB_OFFSET, THUMB_MAX]) },
+      { scale: thumbScale.value },
+    ],
+  }));
+
   const thumbColor = theme.colors.surfacePrimary;
 
   const switchElement = (
     <Pressable
+      testID={testID}
       onPress={handlePress}
-      onPressIn={() => !disabled && setPressing(true)}
-      onPressOut={() => !disabled && setPressing(false)}
+      onPressIn={() => {
+        if (!disabled) { thumbScale.value = withTiming(1.08, { duration: motion.duration.fast }); }
+      }}
+      onPressOut={() => {
+        thumbScale.value = withTiming(1, { duration: motion.duration.fast });
+      }}
       disabled={disabled}
       style={[styles.switchContainer, disabled && styles.switchDisabled]}
       accessibilityRole="switch"
       accessibilityLabel={accessibilityLabel ?? label}
       accessibilityHint={accessibilityHint}
       accessibilityState={{ checked: value, disabled }}>
-      <Animated.View style={[styles.track, { backgroundColor: trackColor }]}>
-        <Animated.View
+      <Reanimated.View style={[styles.track, animatedTrackStyle]}>
+        <Reanimated.View
           style={[
             styles.thumb,
-            {
-              backgroundColor: thumbColor,
-              transform: [{ translateX: thumbTranslateX }, { scale: thumbScale }],
-            },
-            !disabled && [styles.thumbShadow, { shadowColor: theme.colors.shadow }],
+            { backgroundColor: thumbColor },
+            !disabled && { ...elevation.sm, shadowColor: theme.colors.shadow },
+            animatedThumbStyle,
           ]}
         />
-      </Animated.View>
+      </Reanimated.View>
     </Pressable>
   );
 
@@ -152,5 +153,4 @@ const styles = StyleSheet.create({
   switchDisabled: { opacity: opacityTokens.disabled },
   track: { width: sizes.switchTrackWidth, height: sizes.switchTrackHeight, borderRadius: sizes.switchTrackHeight / 2, justifyContent: 'center' },
   thumb: { width: sizes.switchThumb, height: sizes.switchThumb, borderRadius: sizes.switchThumb / 2 },
-  thumbShadow: { ...elevation.sm },
 });

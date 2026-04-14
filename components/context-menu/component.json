@@ -2,7 +2,7 @@
   "name": "context-menu",
   "displayName": "ContextMenu",
   "description": "Long-press context menu with viewport-clamped positioning, destructive item support, and separator dividers.",
-  "category": "overlay",
+  "category": "overlays",
   "version": "0.0.1",
   "files": [
     {
@@ -13,9 +13,7 @@
   ],
   "masicnVersion": "^0.0.1",
   "peerDependencies": {},
-  "registryDependencies": [
-    "menu"
-  ],
+  "registryDependencies": [],
   "tags": [
     "overlay"
   ],

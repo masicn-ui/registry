@@ -1,0 +1,24 @@
+{
+  "$schema": "https://schemas.anthropic.com/claude-code/settings.json",
+  "permissions": {
+    "allow": [
+      "Bash(npm run validate)",
+      "Bash(npm run validate:all)",
+      "Bash(node scripts/*)",
+      "Bash(git diff*)",
+      "Bash(git log*)",
+      "Bash(git status*)",
+      "Bash(git add components/* blocks/* registry.json)",
+      "Bash(git tag *)",
+      "Bash(find components -type f *)",
+      "Bash(find blocks -type f *)"
+    ],
+    "deny": [
+      "Read(**/.env*)",
+      "Write(**/.env*)",
+      "Bash(rm -rf *)",
+      "Bash(git commit*)",
+      "Bash(git push --force*)"
+    ]
+  }
+}

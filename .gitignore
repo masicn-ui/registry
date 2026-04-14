@@ -1,3 +1,4 @@
 .tt_backups
 node_modules
-.claude
+.claude/settings.local.json
+CLAUDE.local.md

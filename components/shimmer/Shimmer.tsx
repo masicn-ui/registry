@@ -8,7 +8,7 @@ import Animated, {
   Easing,
   type SharedValue,
 } from 'react-native-reanimated';
-import { useTheme, useReducedMotion } from '../../../masicn';
+import { useTheme, useReducedMotion, rgba, opacity as opacityTokens } from '../../../masicn';
 
 interface ShimmerContextValue {
   progress: SharedValue<number>;
@@ -59,8 +59,8 @@ export function ShimmerGroup({ children, duration = 1200 }: ShimmerGroupProps) {
 }
 
 interface ShimmerProps {
-  /** Content rendered inside the shimmer container (typically a placeholder view). */
-  children: React.ReactNode;
+  /** Optional content rendered inside the shimmer container. When omitted the container itself acts as the placeholder (sized via `style`). */
+  children?: React.ReactNode;
   /** Border radius applied to the shimmer container to match the shape of the real content. */
   borderRadius?: number;
   /** Additional styles applied to the container view. */
@@ -105,8 +105,8 @@ export function Shimmer({ children, borderRadius, style, duration = 1200 }: Shim
   }, [ctx, reducedMotion, duration, ownProgress]);
 
   const sweepColor = theme.dark
-    ? 'rgba(255, 255, 255, 0.1)'
-    : 'rgba(255, 255, 255, 0.55)';
+    ? rgba(theme.colors.textPrimary, opacityTokens.shimmerSweepDark)
+    : rgba(theme.colors.textInverse, opacityTokens.shimmerSweepLight);
 
   const sweepStyle = useAnimatedStyle(() => {
     const cw = containerWidth.value;

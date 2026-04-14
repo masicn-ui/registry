@@ -2,7 +2,7 @@
   "name": "card",
   "displayName": "Card",
   "description": "Versatile surface container with elevated, filled, and outlined variants. Supports structured content slots: media, title, subtitle, body (with show-more truncation), children, and footer.",
-  "category": "core",
+  "category": "layout",
   "version": "0.0.1",
   "files": [
     {
@@ -12,14 +12,16 @@
     }
   ],
   "masicnVersion": "^0.0.1",
-  "peerDependencies": {},
+  "peerDependencies": {
+    "react-native-reanimated": ">=3.0.0"
+  },
   "registryDependencies": [],
   "tags": [
     "layout",
     "surface"
   ],
   "hasTests": false,
-  "hasAccessibility": false,
+  "hasAccessibility": true,
   "props": [
     {
       "name": "variant",
@@ -104,12 +106,6 @@
       "type": "ReactNode",
       "required": false,
       "description": "Content rendered at the bottom of the card with a separator line"
-    },
-    {
-      "name": "header",
-      "type": "ReactNode",
-      "required": false,
-      "description": "Deprecated. Use title + subtitle or children instead"
     }
   ]
 }

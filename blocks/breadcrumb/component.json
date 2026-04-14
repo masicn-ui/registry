@@ -2,7 +2,7 @@
   "name": "breadcrumb",
   "displayName": "Breadcrumb",
   "description": "Breadcrumb navigation block with separator and truncation.",
-  "category": "blocks",
+  "category": "navigation",
   "version": "0.0.1",
   "files": [
     {
@@ -13,9 +13,7 @@
   ],
   "masicnVersion": "^0.0.1",
   "peerDependencies": {},
-  "registryDependencies": [
-    "link"
-  ],
+  "registryDependencies": [],
   "tags": [
     "breadcrumb",
     "navigation",
@@ -28,7 +26,7 @@
       "name": "items",
       "type": "BreadcrumbItem[]",
       "required": true,
-      "description": "Ordered list of breadcrumb items. The last item is treated as the current page (non-pressable, primary colour)."
+      "description": "Ordered list of breadcrumb items. The last item is treated as the current page (non-pressable, primary colour). Each item accepts an optional `testID` forwarded to its Pressable."
     },
     {
       "name": "separator",

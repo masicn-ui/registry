@@ -4,6 +4,7 @@ import {
   StyleSheet,
   Pressable,
   Modal,
+  type GestureResponderEvent,
   type ViewStyle,
 } from 'react-native';
 import { Divider, Text, elevation, radius, sizes, spacing, useTheme } from '../../../masicn'
@@ -29,7 +30,7 @@ interface MenuProps {
   /** Callback when item is selected */
   onSelect: (value: string) => void;
   /** Trigger element that opens the menu when pressed. */
-  children: React.ReactElement;
+  children: React.ReactElement<any>;
   /** Optional heading rendered above the item list. */
   title?: string;
   /** Additional style applied to the outermost wrapper `View`. */
@@ -74,11 +75,18 @@ export function Menu({
     setVisible(false);
   };
 
+  // Inject onPress directly onto the child to avoid a nested Pressable that
+  // would intercept the touch before the child's own responder runs.
+  const clonedChild = React.cloneElement(children, {
+    onPress: (e: GestureResponderEvent) => {
+      children.props.onPress?.(e);
+      setVisible(true);
+    },
+  });
+
   return (
     <View style={containerStyle}>
-      <Pressable onPress={() => setVisible(true)}>
-        {children}
-      </Pressable>
+      {clonedChild}
 
       <Modal
         visible={visible}
@@ -87,14 +95,14 @@ export function Menu({
         onRequestClose={() => setVisible(false)}>
         <View style={styles.overlay} pointerEvents="box-none">
           <Pressable
-            style={[StyleSheet.absoluteFill, { backgroundColor: theme.colors.backdrop }]}
+            style={[StyleSheet.absoluteFill, { backgroundColor: theme.colors.overlay }]}
             onPress={() => setVisible(false)}
           />
           <View
             style={[
               styles.menuContainer,
               {
-                backgroundColor: theme.colors.surfacePrimary,
+                backgroundColor: theme.colors.surfaceOverlay,
                 ...elevation.lg,
                 shadowColor: theme.colors.shadow,
               },

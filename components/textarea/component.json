@@ -1,0 +1,78 @@
+{
+  "name": "textarea",
+  "displayName": "Textarea",
+  "description": "Auto-growing multi-line text input with label, helper text, and error state.",
+  "category": "forms",
+  "version": "0.0.1",
+  "files": [
+    {
+      "path": "Textarea.tsx",
+      "target": "Textarea.tsx",
+      "type": "component"
+    }
+  ],
+  "masicnVersion": "^0.0.1",
+  "peerDependencies": {},
+  "registryDependencies": [],
+  "tags": [
+    "textarea",
+    "input",
+    "forms",
+    "multiline"
+  ],
+  "hasTests": false,
+  "hasAccessibility": true,
+  "props": [
+    {
+      "name": "label",
+      "type": "string",
+      "required": false,
+      "description": "Label text rendered above the textarea."
+    },
+    {
+      "name": "helperText",
+      "type": "string",
+      "required": false,
+      "description": "Descriptive text shown below the textarea when there is no error."
+    },
+    {
+      "name": "error",
+      "type": "string",
+      "required": false,
+      "description": "Validation error message; when set the border and label turn red and it replaces helperText."
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "default": "false",
+      "required": false,
+      "description": "When true, the textarea is non-editable and rendered with a disabled background."
+    },
+    {
+      "name": "size",
+      "type": "'sm' | 'md' | 'lg'",
+      "default": "md",
+      "required": false,
+      "description": "Size preset controlling padding."
+    },
+    {
+      "name": "minRows",
+      "type": "number",
+      "default": "3",
+      "required": false,
+      "description": "Minimum number of visible text rows. The textarea starts at this height and grows upward."
+    },
+    {
+      "name": "maxHeight",
+      "type": "number",
+      "required": false,
+      "description": "Maximum height in pixels. Once reached the textarea becomes internally scrollable."
+    },
+    {
+      "name": "accessibilityHint",
+      "type": "string",
+      "required": false,
+      "description": "Additional accessibility hint. Falls back to the error string when in an error state."
+    }
+  ]
+}

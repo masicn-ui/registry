@@ -1,0 +1,49 @@
+{
+  "name": "refreshable-scroll-view",
+  "displayName": "RefreshableScrollView",
+  "description": "ScrollView wrapper with a themed RefreshControl for pull-to-refresh.",
+  "category": "layouts",
+  "version": "0.0.1",
+  "files": [
+    {
+      "path": "RefreshableScrollView.tsx",
+      "target": "RefreshableScrollView.tsx",
+      "type": "component"
+    }
+  ],
+  "masicnVersion": "^0.0.1",
+  "peerDependencies": {},
+  "registryDependencies": [],
+  "tags": [
+    "layout",
+    "scroll"
+  ],
+  "hasTests": false,
+  "hasAccessibility": false,
+  "props": [
+    {
+      "name": "children",
+      "type": "ReactNode",
+      "required": true,
+      "description": "Content rendered inside the scroll view."
+    },
+    {
+      "name": "refreshing",
+      "type": "boolean",
+      "required": true,
+      "description": "Whether the refresh indicator is currently showing."
+    },
+    {
+      "name": "onRefresh",
+      "type": "() => void",
+      "required": true,
+      "description": "Callback fired when the user pulls down to refresh."
+    },
+    {
+      "name": "contentContainerStyle",
+      "type": "ViewStyle",
+      "required": false,
+      "description": "Style applied to the scroll view's content container."
+    }
+  ]
+}

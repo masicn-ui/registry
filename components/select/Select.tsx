@@ -8,7 +8,7 @@ import {
   TextInput as RNTextInput,
   type ViewStyle,
 } from 'react-native';
-import { Text, borders, radius, spacing, typography, useFocusTrap, useTheme } from '../../../masicn'
+import { Text, borders, iconSizes, radius, spacing, typography, useFocusTrap, useTheme, ChevronUpIcon, ChevronDownIcon } from '../../../masicn';
 
 export interface SelectOption {
   label: string;
@@ -49,6 +49,8 @@ interface SelectProps {
   accessibilityLabel?: string;
   /** Accessibility hint */
   accessibilityHint?: string;
+  /** Test identifier for automated testing */
+  testID?: string;
 }
 
 const Select = React.forwardRef<View, SelectProps>(function Select(
@@ -67,6 +69,7 @@ const Select = React.forwardRef<View, SelectProps>(function Select(
     searchable = false,
     accessibilityLabel,
     accessibilityHint,
+    testID,
   },
   ref,
 ) {
@@ -75,24 +78,31 @@ const Select = React.forwardRef<View, SelectProps>(function Select(
   const [query, setQuery] = useState('');
   const { containerRef } = useFocusTrap({ active: isOpen });
 
-  const selectedOption = options.find(opt => opt.value === value);
+  const selectedOption = React.useMemo(
+    () => options.find(opt => opt.value === value),
+    [options, value],
+  );
 
-  const filteredOptions = searchable && query
-    ? options.filter(opt => opt.label.toLowerCase().includes(query.toLowerCase()))
-    : options;
+  const filteredOptions = React.useMemo(
+    () =>
+      searchable && query
+        ? options.filter(opt => opt.label.toLowerCase().includes(query.toLowerCase()))
+        : options,
+    [searchable, query, options],
+  );
 
-  const handleSelect = (optionValue: string) => {
+  const handleSelect = React.useCallback((optionValue: string) => {
     onValueChange(optionValue);
     setIsOpen(false);
     setQuery('');
-  };
+  }, [onValueChange]);
 
-  const handleOpen = () => {
+  const handleOpen = React.useCallback(() => {
     if (!disabled) {
       setQuery('');
       setIsOpen(true);
     }
-  };
+  }, [disabled]);
 
   const resolvedA11yLabel = accessibilityLabel ?? label ?? placeholder;
 
@@ -110,6 +120,7 @@ const Select = React.forwardRef<View, SelectProps>(function Select(
         <Pressable
           onPress={handleOpen}
           disabled={disabled}
+          testID={testID}
           accessibilityRole="combobox"
           accessibilityLabel={resolvedA11yLabel}
           accessibilityHint={accessibilityHint ?? 'Double tap to open selection'}
@@ -120,6 +131,7 @@ const Select = React.forwardRef<View, SelectProps>(function Select(
         <Pressable
           onPress={handleOpen}
           disabled={disabled}
+          testID={testID}
           style={[
             styles.select,
             {
@@ -146,9 +158,9 @@ const Select = React.forwardRef<View, SelectProps>(function Select(
             }>
             {selectedOption?.label || placeholder}
           </Text>
-          <Text variant="body" color="textSecondary">
-            {isOpen ? '▲' : '▼'}
-          </Text>
+          {isOpen
+            ? <ChevronUpIcon size={iconSizes.action} color={theme.colors.textSecondary} />
+            : <ChevronDownIcon size={iconSizes.action} color={theme.colors.textSecondary} />}
         </Pressable>
       )}
       {error && errorMessage && (
@@ -171,6 +183,7 @@ const Select = React.forwardRef<View, SelectProps>(function Select(
           onPress={() => { setIsOpen(false); setQuery(''); }}>
           <View
             ref={containerRef}
+            onStartShouldSetResponder={() => true}
             style={[
               styles.modalContent,
               { backgroundColor: theme.colors.surfacePrimary },

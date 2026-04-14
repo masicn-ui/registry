@@ -4,11 +4,24 @@
   "description": "Bottom snackbar notifications with optional action via useSnackbar hook.",
   "category": "feedback",
   "version": "0.0.1",
-  "files": [{ "path": "Snackbar.tsx", "target": "Snackbar.tsx", "type": "component" }],
+  "files": [
+    {
+      "path": "Snackbar.tsx",
+      "target": "Snackbar.tsx",
+      "type": "component"
+    }
+  ],
   "masicnVersion": "^0.0.1",
-  "peerDependencies": {},
+  "peerDependencies": {
+    "react-native-reanimated": ">=3.0.0",
+    "react-native-safe-area-context": ">=4.0.0"
+  },
   "registryDependencies": [],
-  "tags": ["feedback", "notification", "portal"],
+  "tags": [
+    "feedback",
+    "notification",
+    "portal"
+  ],
   "hasTests": false,
   "hasAccessibility": true,
   "props": [

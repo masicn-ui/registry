@@ -2,7 +2,7 @@
   "name": "avatar",
   "displayName": "Avatar",
   "description": "User avatar with image, initials fallback, color variants, size presets, and optional badge overlay.",
-  "category": "core",
+  "category": "display",
   "version": "0.0.1",
   "files": [
     {

@@ -4,11 +4,24 @@
   "description": "Global toast notifications via portal with useToast hook.",
   "category": "feedback",
   "version": "0.0.1",
-  "files": [{ "path": "Toast.tsx", "target": "Toast.tsx", "type": "component" }],
+  "files": [
+    {
+      "path": "Toast.tsx",
+      "target": "Toast.tsx",
+      "type": "component"
+    }
+  ],
   "masicnVersion": "^0.0.1",
-  "peerDependencies": {},
+  "peerDependencies": {
+    "react-native-reanimated": ">=3.0.0",
+    "react-native-safe-area-context": ">=4.0.0"
+  },
   "registryDependencies": [],
-  "tags": ["feedback", "notification", "portal"],
+  "tags": [
+    "feedback",
+    "notification",
+    "portal"
+  ],
   "hasTests": false,
   "hasAccessibility": true,
   "props": [

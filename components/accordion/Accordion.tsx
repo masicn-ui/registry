@@ -1,7 +1,7 @@
 import React, { useState, useCallback, createContext, useContext } from 'react';
 import { View, Pressable, StyleSheet, type ViewStyle, type LayoutChangeEvent } from 'react-native';
 import Animated, { useSharedValue, useAnimatedStyle, withTiming } from 'react-native-reanimated';
-import { Text, borders, motion, motionEasing, radius, spacing, useTheme } from '../../../masicn';
+import { Stack, Text, borders, iconSizes, motion, motionEasing, radius, spacing, useReducedMotion, useTheme, PlusIcon, MinusIcon } from '../../../masicn';
 
 // ─── Context ─────────────────────────────────────────────────────────────────
 
@@ -29,6 +29,8 @@ interface AccordionItemProps {
   disabled?: boolean;
   /** Custom container style */
   containerStyle?: ViewStyle;
+  /** Test identifier for automated testing */
+  testID?: string;
 }
 
 /**
@@ -63,8 +65,10 @@ export function AccordionItem({
   onToggle,
   disabled = false,
   containerStyle,
+  testID,
 }: AccordionItemProps) {
   const { theme } = useTheme();
+  const reducedMotion = useReducedMotion();
   const ctx = useContext(AccordionContext);
   const [internalExpanded, setInternalExpanded] = useState(defaultExpanded);
 
@@ -102,16 +106,16 @@ export function AccordionItem({
     if (!hasMeasured.current) { return; }
     heightSV.value = withTiming(
       isExpanded ? contentHeightRef.current : 0,
-      { duration: motion.duration.normal, easing: motionEasing.standard },
+      { duration: reducedMotion ? 0 : motion.duration.normal, easing: motionEasing.standard },
     );
-  }, [isExpanded, heightSV]);
+  }, [isExpanded, heightSV, reducedMotion]);
 
   const animatedContentStyle = useAnimatedStyle(() => ({
     height: heightSV.value,
   }));
   // ──────────────────────────────────────────────────────────────────────────
 
-  const handleToggle = () => {
+  const handleToggle = useCallback(() => {
     if (disabled) { return; }
     const newExpanded = !isExpanded;
     if (controlledExpanded === undefined) {
@@ -122,7 +126,7 @@ export function AccordionItem({
       }
     }
     onToggle?.(newExpanded);
-  };
+  }, [disabled, isExpanded, controlledExpanded, ctx, title, onToggle]);
 
   return (
     <View
@@ -137,6 +141,7 @@ export function AccordionItem({
       <Pressable
         onPress={handleToggle}
         disabled={disabled}
+        testID={testID}
         style={styles.header}
         accessibilityRole="button"
         accessibilityState={{ expanded: isExpanded, disabled }}>
@@ -146,9 +151,9 @@ export function AccordionItem({
           style={styles.title}>
           {title}
         </Text>
-        <Text variant="body" color={disabled ? 'textDisabled' : 'textSecondary'}>
-          {isExpanded ? '−' : '+'}
-        </Text>
+        {isExpanded
+          ? <MinusIcon size={iconSizes.action} color={disabled ? theme.colors.textDisabled : theme.colors.textSecondary} />
+          : <PlusIcon size={iconSizes.action} color={disabled ? theme.colors.textDisabled : theme.colors.textSecondary} />}
       </Pressable>
 
       <Animated.View style={[styles.contentWrapper, animatedContentStyle]}>
@@ -216,15 +221,12 @@ export function Accordion({
 
   return (
     <AccordionContext.Provider value={{ isOpen, toggle }}>
-      <View style={[styles.accordion, containerStyle]}>{children}</View>
+      <Stack gap="sm" style={containerStyle}>{children}</Stack>
     </AccordionContext.Provider>
   );
 }
 
 const styles = StyleSheet.create({
-  accordion: {
-    gap: spacing.sm,
-  },
   container: {
     borderRadius: radius.md,
     borderWidth: borders.thin,

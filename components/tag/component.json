@@ -2,7 +2,7 @@
   "name": "tag",
   "displayName": "Tag",
   "description": "Display tag for labels, categories, and status indicators with semantic color variants and optional remove button.",
-  "category": "core",
+  "category": "display",
   "version": "0.0.1",
   "files": [
     {

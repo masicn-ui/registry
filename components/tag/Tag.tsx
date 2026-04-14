@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Pressable, StyleSheet, type ViewProps } from 'react-native';
-import { Text, borders, radius, rgba, spacing, useTheme } from '../../../masicn';
+import { Text, borders, opacity as opacityTokens, radius, rgba, spacing, useTheme } from '../../../masicn';
 
 type TagVariant = 'default' | 'success' | 'warning' | 'error' | 'info';
 type TagSize = 'sm' | 'md' | 'lg';
@@ -48,22 +48,22 @@ export function Tag({
       border: theme.colors.borderPrimary,
     },
     success: {
-      bg: rgba(theme.colors.success, 0.12),
+      bg: rgba(theme.colors.success, opacityTokens.tintMedium),
       text: theme.colors.success,
       border: theme.colors.success,
     },
     warning: {
-      bg: rgba(theme.colors.warning, 0.12),
+      bg: rgba(theme.colors.warning, opacityTokens.tintMedium),
       text: theme.colors.warning,
       border: theme.colors.warning,
     },
     error: {
-      bg: rgba(theme.colors.error, 0.12),
+      bg: rgba(theme.colors.error, opacityTokens.tintMedium),
       text: theme.colors.error,
       border: theme.colors.error,
     },
     info: {
-      bg: rgba(theme.colors.info, 0.12),
+      bg: rgba(theme.colors.info, opacityTokens.tintMedium),
       text: theme.colors.info,
       border: theme.colors.info,
     },

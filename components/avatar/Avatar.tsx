@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Image, StyleSheet, type ImageSourcePropType } from 'react-native';
+import { View, Image, StyleSheet, type ImageSourcePropType, type ImageStyle, type ViewStyle } from 'react-native';
 import { Text, radius, sizes, type Typography, useTheme } from '../../../masicn';
 
 export type AvatarSize = 'sm' | 'md' | 'lg';
@@ -17,6 +17,12 @@ interface AvatarProps {
   fallback?: string | React.ReactNode;
   /** Optional overlay node (e.g. a `<Badge />`) positioned at the bottom-right of the avatar. */
   badge?: React.ReactNode;
+  /** Additional style applied to the outermost View element (initials view or badge wrapper). */
+  style?: ViewStyle;
+  /** Additional style applied to the Image element when rendering a photo. */
+  imageStyle?: ImageStyle;
+  /** Test identifier forwarded to the outermost element. */
+  testID?: string;
 }
 
 export const sizeMap: Record<AvatarSize, number> = {
@@ -54,20 +60,23 @@ const onColorMap = {
  * // Initials-only with badge
  * <Avatar initials="AB" color="secondary" badge={<Badge variant="success" />} />
  */
-export function Avatar({
+export const Avatar = React.memo(function Avatar({
   source,
   initials,
   size = 'md',
   color = 'primary',
   fallback,
   badge,
+  style,
+  imageStyle,
+  testID,
 }: AvatarProps) {
   const { theme } = useTheme();
   const [imageError, setImageError] = React.useState(false);
   const dim = sizeMap[size];
   const label = initials ?? (typeof fallback === 'string' ? fallback : 'Avatar');
 
-  const renderInitialsView = () => {
+  const renderInitialsView = (extraStyle?: ViewStyle) => {
     const content =
       typeof fallback === 'string'
         ? fallback
@@ -80,6 +89,7 @@ export function Avatar({
         accessible={true}
         accessibilityLabel={label}
         accessibilityRole="image"
+        testID={!badge ? testID : undefined}
         style={[
           styles.base,
           {
@@ -88,6 +98,7 @@ export function Avatar({
             borderRadius: radius.full,
             backgroundColor: theme.colors[color],
           },
+          extraStyle,
         ]}>
         {typeof fallback !== 'undefined' && typeof fallback !== 'string'
           ? fallback
@@ -109,22 +120,24 @@ export function Avatar({
       accessibilityLabel={label}
       accessibilityRole="image"
       onError={() => setImageError(true)}
+      testID={!badge ? testID : undefined}
       style={[
         styles.base,
         { width: dim, height: dim, borderRadius: radius.full },
+        imageStyle,
       ]}
     />
-  ) : renderInitialsView();
+  ) : renderInitialsView(!badge ? style : undefined);
 
   if (!badge) { return avatarNode; }
 
   return (
-    <View style={styles.wrapper}>
+    <View style={[styles.wrapper, style]} testID={testID}>
       {avatarNode}
       <View style={styles.badge}>{badge}</View>
     </View>
   );
-}
+});
 
 const styles = StyleSheet.create({
   base: {

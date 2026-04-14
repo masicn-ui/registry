@@ -48,6 +48,7 @@ export function Chip({
   disabled = false,
   icon,
   onRemove,
+  testID,
   ...rest
 }: ChipProps) {
   const { theme } = useTheme();
@@ -55,18 +56,22 @@ export function Chip({
   const bgColor =
     disabled
       ? theme.colors.disabled
-      : selected
+      : selected && variant === 'filled'
         ? theme.colors.primary
-        : variant === 'filled'
-          ? theme.colors.surfaceSecondary
-          : 'transparent';
+        : selected && variant === 'outline'
+          ? theme.colors.primaryContainer
+          : variant === 'filled'
+            ? theme.colors.surfaceSecondary
+            : 'transparent';
 
   const textColor =
     disabled
       ? theme.colors.textDisabled
-      : selected
+      : selected && variant === 'filled'
         ? theme.colors.onPrimary
-        : theme.colors.textSecondary;
+        : selected && variant === 'outline'
+          ? theme.colors.primary
+          : theme.colors.textSecondary;
 
   const borderColor =
     variant === 'outline'
@@ -80,6 +85,8 @@ export function Chip({
       disabled={disabled}
       accessibilityRole="button"
       accessibilityState={{ selected, disabled: !!disabled }}
+      testID={testID}
+      hitSlop={spacing.sm}
       {...rest}>
       <View
         style={[
@@ -97,6 +104,7 @@ export function Chip({
             hitSlop={spacing.xs}
             accessibilityRole="button"
             accessibilityLabel={`Remove ${label}`}
+            testID={testID ? `${testID}-remove` : undefined}
             style={styles.remove}>
             <Text variant="caption" style={{ color: textColor }}>
               ×

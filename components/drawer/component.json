@@ -1,0 +1,90 @@
+{
+  "name": "drawer",
+  "displayName": "Drawer",
+  "description": "Persistent side navigation panel with temporary (overlay) and permanent (inline) variants. Swipe-to-dismiss, safe-area aware, and responsive.",
+  "category": "navigation-ui",
+  "version": "0.0.1",
+  "files": [
+    {
+      "path": "Drawer.tsx",
+      "target": "Drawer.tsx",
+      "type": "component"
+    }
+  ],
+  "masicnVersion": "^0.0.1",
+  "peerDependencies": {
+    "react-native-gesture-handler": ">=2.0.0",
+    "react-native-reanimated": ">=3.0.0",
+    "react-native-safe-area-context": ">=4.0.0"
+  },
+  "registryDependencies": [],
+  "tags": ["navigation", "drawer", "side-nav", "menu"],
+  "hasTests": false,
+  "hasAccessibility": true,
+  "props": [
+    {
+      "name": "visible",
+      "type": "boolean",
+      "required": true,
+      "description": "Whether the drawer is open. Ignored in permanent variant."
+    },
+    {
+      "name": "onClose",
+      "type": "() => void",
+      "required": true,
+      "description": "Called when the user dismisses the drawer. Only fires in temporary variant."
+    },
+    {
+      "name": "children",
+      "type": "React.ReactNode",
+      "required": true,
+      "description": "Navigation content rendered inside the drawer."
+    },
+    {
+      "name": "variant",
+      "type": "'temporary' | 'permanent'",
+      "default": "temporary",
+      "required": false,
+      "description": "temporary = overlay with backdrop; permanent = always visible inline."
+    },
+    {
+      "name": "side",
+      "type": "'left' | 'right'",
+      "default": "left",
+      "required": false,
+      "description": "Which edge the drawer slides from."
+    },
+    {
+      "name": "width",
+      "type": "number",
+      "required": false,
+      "description": "Drawer width. Fraction of screen width for temporary (default 0.75), fixed px for permanent (default 280)."
+    },
+    {
+      "name": "showHandle",
+      "type": "boolean",
+      "default": false,
+      "required": false,
+      "description": "Show a drag handle indicator."
+    },
+    {
+      "name": "hideBackdrop",
+      "type": "boolean",
+      "default": false,
+      "required": false,
+      "description": "Hide the semi-transparent backdrop in temporary mode."
+    },
+    {
+      "name": "style",
+      "type": "ViewStyle",
+      "required": false,
+      "description": "Additional style applied to the drawer surface."
+    },
+    {
+      "name": "testID",
+      "type": "string",
+      "required": false,
+      "description": "Test identifier for automated testing."
+    }
+  ]
+}
