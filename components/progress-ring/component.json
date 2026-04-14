@@ -13,7 +13,8 @@
   ],
   "masicnVersion": "^0.0.1",
   "peerDependencies": {
-    "react-native-reanimated": ">=3.0.0"
+    "react-native-reanimated": ">=3.0.0",
+    "react-native-svg": ">=15.0.0"
   },
   "registryDependencies": [],
   "tags": [
