@@ -49,7 +49,7 @@
     "palette": {
       "type": "string",
       "description": "Active color palette",
-      "enum": ["masi", "ocean", "sunset", "forest", "mono", "rose", "midnight", "amber", "nord", "coffee"]
+      "enum": ["masi", "ocean", "sunset", "forest", "mono", "rose", "midnight", "amber", "nord", "coffee", "candy", "citrus", "grapeSoda", "jade", "neonTeal"]
     },
     "fontSetup": {
       "type": "string",
