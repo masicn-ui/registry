@@ -124,7 +124,7 @@ function DockItem({ item, active, onPress }: DockItemProps) {
       {/* Active background blob */}
       <Animated.View
         style={[
-          StyleSheet.absoluteFillObject,
+          StyleSheet.absoluteFill,
           styles.blob,
           blobStyle,
           { backgroundColor: theme.colors.surfaceSecondary },
