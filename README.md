@@ -159,6 +159,7 @@ The root `registry.json` is the index the CLI fetches first. It lists every comp
 4. Add an entry to `registry.json` under `components` or `blocks`
 
 **Guidelines:**
+- Components in this registry target **React Native CLI** projects only (not Expo) — do not use Expo-specific APIs
 - Import only from `@masicn/ui` — no external UI libraries
 - Use `useTheme()` for colors, `useTokens()` for spacing/radius/etc
 - Set `hasAccessibility: true` only if the component includes `accessibilityLabel`, `accessibilityRole`, etc.
