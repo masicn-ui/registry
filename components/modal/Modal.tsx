@@ -203,7 +203,11 @@ const styles = StyleSheet.create({
     padding: spacing.lg,
   },
   backdrop: {
-    ...StyleSheet.absoluteFillObject,
+    position: 'absolute',
+    top: spacing.none,
+    left: spacing.none,
+    right: spacing.none,
+    bottom: spacing.none,
   },
   sheet: {
     width: '100%',
