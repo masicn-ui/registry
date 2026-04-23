@@ -12,7 +12,9 @@
     }
   ],
   "masicnVersion": "^0.0.1",
-  "peerDependencies": {},
+  "peerDependencies": {
+    "react-native-reanimated": ">=3.0.0"
+  },
   "registryDependencies": [],
   "tags": [
     "step",
@@ -20,14 +22,14 @@
     "progress",
     "wizard"
   ],
-  "hasTests": false,
+  "hasTests": true,
   "hasAccessibility": true,
   "props": [
     {
       "name": "steps",
       "type": "Step[]",
       "required": true,
-      "description": "Array of steps to display. Each step has a label and an optional description (shown in vertical orientation only)."
+      "description": "Array of steps to display. Each step has a label, optional description (vertical orientation only), and optional id for stable reconciliation."
     },
     {
       "name": "currentStep",
@@ -36,17 +38,23 @@
       "description": "Zero-based index of the currently active step. Steps before this index are marked as completed."
     },
     {
+      "name": "orientation",
+      "type": "'horizontal' | 'vertical'",
+      "default": "horizontal",
+      "required": false,
+      "description": "Layout orientation. Horizontal arranges steps in a row; vertical stacks them with descriptions visible."
+    },
+    {
       "name": "containerStyle",
       "type": "ViewStyle",
       "required": false,
       "description": "Additional style applied to the outer container."
     },
     {
-      "name": "orientation",
-      "type": "'horizontal' | 'vertical'",
-      "default": "horizontal",
+      "name": "testID",
+      "type": "string",
       "required": false,
-      "description": "Layout orientation. Horizontal arranges steps in a row; vertical stacks them with descriptions visible."
+      "description": "Test identifier forwarded to the outermost container."
     }
   ]
 }

@@ -17,8 +17,8 @@
   "tags": [
     "overlay"
   ],
-  "hasTests": false,
-  "hasAccessibility": false,
+  "hasTests": true,
+  "hasAccessibility": true,
   "props": [
     {
       "name": "items",
@@ -36,7 +36,13 @@
       "name": "children",
       "type": "ReactElement",
       "required": true,
-      "description": "Trigger element that opens the menu on long-press."
+      "description": "Trigger element wrapped in a long-press Pressable."
+    },
+    {
+      "name": "accessibilityLabel",
+      "type": "string",
+      "required": true,
+      "description": "Screen-reader label for the long-press trigger Pressable."
     },
     {
       "name": "menuStyle",

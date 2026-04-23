@@ -18,7 +18,7 @@
     "overlay",
     "navigation"
   ],
-  "hasTests": false,
+  "hasTests": true,
   "hasAccessibility": false,
   "props": [
     {
@@ -37,7 +37,7 @@
       "name": "children",
       "type": "ReactElement",
       "required": true,
-      "description": "Trigger element that opens the menu when pressed."
+      "description": "Trigger element that opens the menu when pressed. Accessibility props must be applied to the trigger element by the caller."
     },
     {
       "name": "title",
@@ -46,10 +46,16 @@
       "description": "Optional title displayed at the top of the menu."
     },
     {
-      "name": "containerStyle",
+      "name": "style",
       "type": "ViewStyle",
       "required": false,
-      "description": "Additional style applied to the trigger wrapper container."
+      "description": "Additional style applied to the outermost trigger wrapper."
+    },
+    {
+      "name": "testID",
+      "type": "string",
+      "required": false,
+      "description": "Test identifier forwarded to the outermost wrapper View."
     }
   ]
 }

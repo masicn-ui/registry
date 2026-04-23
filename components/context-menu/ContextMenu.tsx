@@ -55,9 +55,11 @@ export function ContextMenu({
   const triggerRef = useRef<View>(null);
 
   const handleLongPress = useCallback(() => {
+    // Open immediately (at opacity 0 via getMenuPosition) so tests can query
+    // menu items without waiting for measureInWindow to call back.
+    setVisible(true);
     triggerRef.current?.measureInWindow((x, y, width, height) => {
       setTriggerLayout({ x, y, width, height });
-      setVisible(true);
     });
   }, []);
 

@@ -23,7 +23,7 @@
     "swipe",
     "action"
   ],
-  "hasTests": false,
+  "hasTests": true,
   "hasAccessibility": true,
   "props": [
     {

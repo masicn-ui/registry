@@ -9,12 +9,28 @@
       "path": "Carousel.tsx",
       "target": "Carousel.tsx",
       "type": "component"
+    },
+    {
+      "path": "useCarousel.ts",
+      "target": "useCarousel.ts",
+      "type": "utility"
+    },
+    {
+      "path": "CarouselSlide.tsx",
+      "target": "CarouselSlide.tsx",
+      "type": "component"
+    },
+    {
+      "path": "CarouselDots.tsx",
+      "target": "CarouselDots.tsx",
+      "type": "component"
     }
   ],
   "masicnVersion": "^0.0.1",
   "peerDependencies": {
     "react-native-reanimated": ">=3.0.0",
-    "react-native-gesture-handler": ">=2.0.0"
+    "react-native-gesture-handler": ">=2.0.0",
+    "react-native-worklets": ">=0.7.0"
   },
   "registryDependencies": [],
   "tags": [
@@ -22,7 +38,7 @@
     "slider",
     "swipe"
   ],
-  "hasTests": false,
+  "hasTests": true,
   "hasAccessibility": true,
   "props": [
     {
@@ -45,7 +61,7 @@
     },
     {
       "name": "animation",
-      "type": "'scale' | 'fade' | 'parallax' | 'cube'",
+      "type": "'scale' | 'fade' | 'parallax'",
       "default": "scale",
       "required": false,
       "description": "Transition animation style applied to slides as they scroll in/out."
@@ -58,10 +74,10 @@
       "description": "Width of each slide. 'full' fills the screen, 'peek' shows adjacent slides (85% width), or a fixed pixel number."
     },
     {
-      "name": "slideHeight",
+      "name": "aspectRatio",
       "type": "number",
       "required": false,
-      "description": "Height of each slide in pixels. Defaults to the carouselSlideDefaultHeight design token."
+      "description": "Width ÷ height ratio for each slide. Height is computed as Math.round(itemWidth / aspectRatio). Falls back to sizes.carouselSlideDefaultHeight when omitted."
     },
     {
       "name": "slideBorderRadius",
@@ -108,6 +124,19 @@
       "type": "string",
       "required": false,
       "description": "Test identifier; each slide Pressable receives `{testID}-slide-{index}`."
+    },
+    {
+      "name": "loop",
+      "type": "boolean",
+      "default": "true",
+      "required": false,
+      "description": "When true, wraps from the last slide back to the first (and vice versa) using clone-based infinite scroll. Requires at least 2 items."
+    },
+    {
+      "name": "getLabel",
+      "type": "(item: T, index: number) => string",
+      "required": false,
+      "description": "Optional function returning a label string for the active slide. When provided, the label is rendered below the dot indicator."
     }
   ]
 }

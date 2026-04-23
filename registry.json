@@ -365,12 +365,6 @@
       "path": "blocks/confirm/component.json"
     },
     {
-      "name": "date-input",
-      "version": "0.0.1",
-      "category": "forms",
-      "path": "blocks/date-input/component.json"
-    },
-    {
       "name": "dual-sheet",
       "version": "0.0.1",
       "category": "overlays",

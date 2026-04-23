@@ -7,7 +7,7 @@ import {
   type GestureResponderEvent,
   type ViewStyle,
 } from 'react-native';
-import { Divider, Text, elevation, radius, sizes, spacing, useTheme } from '../../../masicn'
+import { Divider, Text, elevation, radius, sizes, spacing, useTheme } from '../../../masicn';
 
 export interface MenuItem {
   /** Menu item label */
@@ -34,7 +34,9 @@ interface MenuProps {
   /** Optional heading rendered above the item list. */
   title?: string;
   /** Additional style applied to the outermost wrapper `View`. */
-  containerStyle?: ViewStyle;
+  style?: ViewStyle;
+  /** Test identifier forwarded to the outermost wrapper `View`. */
+  testID?: string;
 }
 
 /**
@@ -65,7 +67,8 @@ export function Menu({
   onSelect,
   children,
   title,
-  containerStyle,
+  style,
+  testID,
 }: MenuProps) {
   const { theme } = useTheme();
   const [visible, setVisible] = useState(false);
@@ -85,19 +88,27 @@ export function Menu({
   });
 
   return (
-    <View style={containerStyle}>
+    <View style={style} testID={testID}>
       {clonedChild}
 
       <Modal
         visible={visible}
         transparent
         animationType="fade"
+        // statusBarTranslucent makes the Modal extend behind the Android status
+        // bar so the backdrop covers the full screen including the notch area.
+        statusBarTranslucent
         onRequestClose={() => setVisible(false)}>
-        <View style={styles.overlay} pointerEvents="box-none">
+
+        {/* Full-screen root — flex:1 fills the entire Modal surface */}
+        <View style={styles.modalRoot}>
+          {/* Backdrop: absoluteFill covers the whole modalRoot including status bar */}
           <Pressable
             style={[StyleSheet.absoluteFill, { backgroundColor: theme.colors.overlay }]}
             onPress={() => setVisible(false)}
           />
+
+          {/* Menu card — stacks on top of backdrop via JSX render order */}
           <View
             style={[
               styles.menuContainer,
@@ -177,7 +188,7 @@ export function Menu({
 }
 
 const styles = StyleSheet.create({
-  overlay: {
+  modalRoot: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
