@@ -3,6 +3,8 @@ import { View, StyleSheet, type ViewStyle } from 'react-native';
 import { Text, borders, radius, sizes, spacing, useTheme } from '../../../masicn';
 
 export interface TimelineItem {
+  /** Stable key for list reconciliation. Falls back to index when omitted. */
+  id?: string;
   /** Item title */
   title: string;
   /** Item description */
@@ -69,7 +71,7 @@ export const Timeline = React.memo(function Timeline({ items, showLine = true, c
 
         return (
           <View
-            key={index}
+            key={item.id ?? String(index)}
             style={styles.itemContainer}
             accessibilityRole="none"
             accessibilityLabel={`${item.title}${item.timestamp ? ', ' + item.timestamp : ''}`}

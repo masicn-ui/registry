@@ -78,7 +78,7 @@ export function SwipeButton({
   const pan = Gesture.Pan()
     .runOnJS(true)
     .activeOffsetX([-10, 10])
-    .enabled(!disabled && !isCompleted)
+    .enabled(!disabled && !isCompleted && !reducedMotion)
     .onUpdate((e) => {
       const newX = Math.max(0, Math.min(e.translationX, maxDrag.value));
       if (isFinite(newX)) {
@@ -154,9 +154,12 @@ export function SwipeButton({
                 : theme.colors.primary,
             },
           ]}
+          accessible={true}
           accessibilityRole="button"
           accessibilityLabel={label}
-          accessibilityState={{ disabled: disabled || isCompleted }}>
+          accessibilityState={{ disabled: disabled || isCompleted }}
+          accessibilityHint={!isCompleted && !disabled ? 'Double-tap to confirm' : undefined}
+          onAccessibilityTap={!isCompleted && !disabled ? handleComplete : undefined}>
           <Icon
             icon={isCompleted ? CheckIcon : ChevronRightIcon}
             size="action"

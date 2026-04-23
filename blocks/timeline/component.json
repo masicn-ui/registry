@@ -19,14 +19,14 @@
     "history",
     "events"
   ],
-  "hasTests": false,
+  "hasTests": true,
   "hasAccessibility": true,
   "props": [
     {
       "name": "items",
       "type": "TimelineItem[]",
       "required": true,
-      "description": "Array of timeline events to display. Each item has a title and optional description, timestamp, icon, and status."
+      "description": "Array of timeline events to display. Each item has a title and optional id, description, timestamp, icon, and status. Provide id for stable list reconciliation."
     },
     {
       "name": "showLine",
@@ -34,6 +34,18 @@
       "default": "true",
       "required": false,
       "description": "Whether to render the vertical connecting line between timeline dots."
+    },
+    {
+      "name": "containerStyle",
+      "type": "ViewStyle",
+      "required": false,
+      "description": "Additional style applied to the outermost container."
+    },
+    {
+      "name": "testID",
+      "type": "string",
+      "required": false,
+      "description": "Test identifier forwarded to the outermost container."
     }
   ]
 }

@@ -81,10 +81,12 @@ export interface DockProps {
 interface DockItemProps {
   item: DockItem;
   active: boolean;
-  onPress: () => void;
+  itemKey: string;
+  onPress: (key: string) => void;
 }
 
-function DockItem({ item, active, onPress }: DockItemProps) {
+function DockItem({ item, active, itemKey, onPress }: DockItemProps) {
+  const handlePress = useCallback(() => onPress(itemKey), [onPress, itemKey]);
   const { theme } = useTheme();
   const reducedMotion = useReducedMotion();
   const progress = useSharedValue(active ? 1 : 0);
@@ -109,9 +111,10 @@ function DockItem({ item, active, onPress }: DockItemProps) {
 
   return (
     <Pressable
-      onPress={onPress}
+      onPress={handlePress}
       disabled={item.disabled}
       testID={item.testID}
+      hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
       style={({ pressed }) => [
         styles.item,
         pressed && !item.disabled && styles.itemPressed,
@@ -171,8 +174,9 @@ export function Dock({
         <DockItem
           key={item.key}
           item={item}
+          itemKey={item.key}
           active={item.key === activeKey}
-          onPress={() => handleItemPress(item.key)}
+          onPress={handleItemPress}
         />
       ))}
     </View>

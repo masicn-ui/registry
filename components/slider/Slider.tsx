@@ -1,11 +1,28 @@
-import React from 'react';
+import React, { useCallback, useEffect } from 'react';
 import {
   View,
   StyleSheet,
   type ViewStyle,
 } from 'react-native';
+import Animated, {
+  useAnimatedStyle,
+  useSharedValue,
+} from 'react-native-reanimated';
+import { scheduleOnRN } from 'react-native-worklets';
 import { GestureDetector, Gesture } from 'react-native-gesture-handler';
-import { Text, borders, layout, motion, opacity as opacityTokens, radius, sizes, spacing, useTheme } from '../../../masicn';
+import {
+  Text,
+  borders,
+  layout,
+  motion,
+  opacity as opacityTokens,
+  radius,
+  sizes,
+  spacing,
+  useTheme,
+} from '../../../masicn';
+
+// ─── Types ─────────────────────────────────────────────────────────────────
 
 interface SliderProps {
   /** Current value */
@@ -30,6 +47,17 @@ interface SliderProps {
   testID?: string;
 }
 
+/**
+ * Slider — a single-thumb slider for selecting a value from a continuous range.
+ *
+ * The GestureDetector wraps the full track container so `e.x` maps directly to
+ * track position with no positional jump. Thumb position and drag-scale are driven
+ * by Reanimated shared values for smooth native-thread updates.
+ *
+ * @example
+ * const [volume, setVolume] = useState(70);
+ * <Slider label="Volume" value={volume} onValueChange={setVolume} showValue />
+ */
 export function Slider({
   value,
   onValueChange,
@@ -43,70 +71,102 @@ export function Slider({
   testID,
 }: SliderProps) {
   const { theme } = useTheme();
-  const [sliderWidth, setSliderWidth] = React.useState(0);
-  const [dragging, setDragging] = React.useState(false);
 
-  const normalizedValue =
-    (value - minimumValue) / (maximumValue - minimumValue);
-  const thumbPosition = normalizedValue * sliderWidth;
+  // ── Shared values ──────────────────────────────────────────────────────
 
-  const updateValue = React.useCallback((relativeX: number) => {
-    if (sliderWidth === 0) return;
+  // Slider width in a shared value so the worklet can read it without JS.
+  const sliderWidthSV = useSharedValue(0);
+  const thumbPos = useSharedValue(0);
+  const isDragging = useSharedValue(false);
 
-    const percentage = Math.max(0, Math.min(1, relativeX / sliderWidth));
-    const rawValue = minimumValue + percentage * (maximumValue - minimumValue);
-    const steppedValue = Math.round(rawValue / step) * step;
-    const clampedValue = Math.max(
-      minimumValue,
-      Math.min(maximumValue, steppedValue),
-    );
+  const range = maximumValue - minimumValue;
 
-    if (clampedValue !== value) {
-      onValueChange(clampedValue);
+  // Sync controlled value → shared thumb position whenever props change.
+  useEffect(() => {
+    const w = sliderWidthSV.value;
+    if (w > 0 && range > 0) {
+      thumbPos.value = ((value - minimumValue) / range) * w;
     }
-  }, [sliderWidth, minimumValue, maximumValue, step, value, onValueChange]);
+  // sliderWidthSV and thumbPos are stable refs — safe to omit from deps.
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [value, minimumValue, range]);
+
+  // ── Animated styles ────────────────────────────────────────────────────
+
+  const thumbStyle = useAnimatedStyle(() => ({
+    left: thumbPos.value - sizes.sliderThumb / 2,
+    transform: [{ scale: isDragging.value ? motion.press.scaleLarge : 1 }],
+  }));
+
+  const activeTrackStyle = useAnimatedStyle(() => ({
+    width: thumbPos.value,
+  }));
+
+  // ── Value commit (JS thread) ───────────────────────────────────────────
+
+  // Stable JS function that converts a pixel position to a stepped value
+  // and fires onValueChange. Dispatched via scheduleOnRN from the UI-thread worklet.
+  const commitValue = useCallback((pos: number) => {
+    const w = sliderWidthSV.value;
+    if (w === 0) { return; }
+    const pct = Math.max(0, Math.min(1, pos / w));
+    const raw = minimumValue + pct * range;
+    const stepped = Math.round(raw / step) * step;
+    const clamped = Math.max(minimumValue, Math.min(maximumValue, stepped));
+    if (clamped !== value) { onValueChange(clamped); }
+  // sliderWidthSV is a stable shared value ref.
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [minimumValue, maximumValue, range, step, value, onValueChange]);
+
+  // ── Gesture ────────────────────────────────────────────────────────────
+
+  // Wrap commitValue in a ref so the gesture worklet always calls the latest
+  // version without needing to recreate the gesture on every render.
+  const commitValueRef = React.useRef(commitValue);
+  commitValueRef.current = commitValue;
+  const stableCommit = useCallback((pos: number) => {
+    commitValueRef.current(pos);
+  }, []);
 
   const pan = Gesture.Pan()
-    .runOnJS(true)
     .minDistance(0)
     .enabled(!disabled)
-    .onBegin((e) => {
-      setDragging(true);
-      updateValue(e.x);
+    .onBegin(e => {
+      isDragging.value = true;
+      const clamped = Math.max(0, Math.min(sliderWidthSV.value, e.x));
+      thumbPos.value = clamped;
+      scheduleOnRN(stableCommit, clamped);
     })
-    .onUpdate((e) => {
-      updateValue(e.x);
+    .onUpdate(e => {
+      const clamped = Math.max(0, Math.min(sliderWidthSV.value, e.x));
+      thumbPos.value = clamped;
+      scheduleOnRN(stableCommit, clamped);
     })
-    .onEnd(() => {
-      setDragging(false);
-    })
-    .onFinalize(() => {
-      setDragging(false);
-    });
+    .onEnd(() => { isDragging.value = false; })
+    .onFinalize(() => { isDragging.value = false; });
+
+  // ── Render ────────────────────────────────────────────────────────────
 
   return (
     <View style={[styles.container, disabled && styles.disabled, containerStyle]}>
       {(label || showValue) && (
         <View style={styles.header}>
           {label && (
-            <Text
-              variant="body"
-              color={disabled ? 'textDisabled' : 'textPrimary'}>
+            <Text variant="body" color={disabled ? 'textDisabled' : 'textPrimary'}>
               {label}
             </Text>
           )}
           {showValue && (
-            <Text
-              variant="bodySmall"
-              color={disabled ? 'textDisabled' : 'textSecondary'}>
+            <Text variant="bodySmall" color={disabled ? 'textDisabled' : 'textSecondary'}>
               {value}
             </Text>
           )}
         </View>
       )}
+
       <GestureDetector gesture={pan}>
         <View
-          accessible={true}
+          accessible
           accessibilityRole="adjustable"
           accessibilityLabel={label}
           accessibilityValue={{
@@ -115,7 +175,7 @@ export function Slider({
             now: value,
             text: String(value),
           }}
-          onAccessibilityAction={(event) => {
+          onAccessibilityAction={event => {
             if (event.nativeEvent.actionName === 'increment') {
               const next = Math.min(maximumValue, value + step);
               if (next !== value) { onValueChange(next); }
@@ -127,33 +187,30 @@ export function Slider({
           testID={testID}
           style={styles.sliderContainer}
           onLayout={e => {
-            setSliderWidth(e.nativeEvent.layout.width);
+            const w = e.nativeEvent.layout.width;
+            sliderWidthSV.value = w;
+            // Set initial thumb position when layout is first known.
+            if (range > 0) {
+              thumbPos.value = ((value - minimumValue) / range) * w;
+            }
           }}>
           {/* Track */}
-          <View
-            style={[
-              styles.track,
-              { backgroundColor: theme.colors.disabled },
-            ]}
-          />
+          <View style={[styles.track, { backgroundColor: theme.colors.disabled }]} />
           {/* Active track */}
-          <View
+          <Animated.View
             style={[
               styles.activeTrack,
-              {
-                backgroundColor: theme.colors.primary,
-                width: thumbPosition,
-              },
+              activeTrackStyle,
+              { backgroundColor: theme.colors.primary },
             ]}
           />
           {/* Thumb */}
-          <View
+          <Animated.View
             style={[
               styles.thumb,
+              thumbStyle,
               {
                 backgroundColor: theme.colors.primary,
-                left: thumbPosition - sizes.sliderThumb / 2,
-                transform: [{ scale: dragging ? motion.press.scaleLarge : 1 }],
                 borderColor: theme.colors.surfacePrimary,
               },
             ]}
@@ -163,6 +220,8 @@ export function Slider({
     </View>
   );
 }
+
+// ─── Styles ────────────────────────────────────────────────────────────────
 
 const styles = StyleSheet.create({
   container: {

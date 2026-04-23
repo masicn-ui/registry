@@ -100,6 +100,7 @@ export function SearchBar({
         placeholder={placeholder}
         placeholderTextColor={theme.colors.inputPlaceholder}
         underlineColorAndroid="transparent"
+        testID={testID}
         style={[
           styles.input,
           { color: theme.colors.textPrimary },

@@ -22,15 +22,10 @@ interface RefreshableListProps<T> extends Omit<FlatListProps<T>, 'refreshControl
   /** Called when the user pulls down to trigger a refresh. */
   onRefresh: () => void;
   /**
-   * When true, renders a themed separator line between items.
+   * When true, renders a themed separator line (`theme.colors.borderSecondary`) between items.
    * Ignored when `ItemSeparatorComponent` is provided. Defaults to false.
    */
   showSeparator?: boolean;
-  /**
-   * Color of the separator line. Defaults to the theme's `borderSecondary` color.
-   * Only used when `showSeparator` is true.
-   */
-  separatorColor?: string;
   /**
    * Convenience padding applied to the list's `contentContainerStyle`.
    * Useful for giving the list breathing room from screen edges.
@@ -71,7 +66,6 @@ export function RefreshableList<T>({
   refreshing,
   onRefresh,
   showSeparator = false,
-  separatorColor,
   contentPadding,
   contentContainerStyle,
   ItemSeparatorComponent,
@@ -86,7 +80,7 @@ export function RefreshableList<T>({
           <View
             style={[
               styles.separator,
-              { backgroundColor: separatorColor ?? theme.colors.borderSecondary },
+              { backgroundColor: theme.colors.borderSecondary },
             ]}
           />
         )

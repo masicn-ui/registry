@@ -1,11 +1,27 @@
-import React from 'react';
+import React, { useCallback, useEffect, useRef } from 'react';
 import {
   View,
   StyleSheet,
   type ViewStyle,
 } from 'react-native';
+import Animated, {
+  useAnimatedStyle,
+  useSharedValue,
+} from 'react-native-reanimated';
+import { scheduleOnRN } from 'react-native-worklets';
 import { GestureDetector, Gesture } from 'react-native-gesture-handler';
-import { Text, borders, layout, opacity as opacityTokens, radius, sizes, spacing, useTheme } from '../../../masicn';
+import {
+  Text,
+  borders,
+  layout,
+  opacity as opacityTokens,
+  radius,
+  sizes,
+  spacing,
+  useTheme,
+} from '../../../masicn';
+
+// ─── Types ─────────────────────────────────────────────────────────────────
 
 interface RangeSliderProps {
   /** Current low (start) value */
@@ -20,7 +36,7 @@ interface RangeSliderProps {
   max?: number;
   /** Step increment for both thumbs */
   step?: number;
-  /** Minimum gap between the two thumbs */
+  /** Minimum gap between the two thumbs (in value units) */
   minGap?: number;
   /** Disabled state */
   disabled?: boolean;
@@ -35,9 +51,10 @@ interface RangeSliderProps {
 /**
  * RangeSlider — a two-thumb slider for selecting a numeric range.
  *
- * Both thumbs are gesture-driven (GestureDetector + Pan), constrained so
- * they never overlap (respects `minGap`). Supports steps, disabled state
- * via opacity, and optional value labels.
+ * Both thumbs are gesture-driven (GestureDetector + Pan). Thumb positions are
+ * tracked with Reanimated shared values so visual updates happen on the UI thread
+ * (smooth 60 fps) while value commits go through the JS callback. Gesture uses
+ * `translationX` from the saved position at gesture start — no jump on touch.
  *
  * @example
  * const [range, setRange] = React.useState({ min: 200, max: 800 });
@@ -68,52 +85,126 @@ export function RangeSlider({
 }: RangeSliderProps) {
   const { theme } = useTheme();
   const [sliderWidth, setSliderWidth] = React.useState(0);
-  const [draggingLow, setDraggingLow] = React.useState(false);
-  const [draggingHigh, setDraggingHigh] = React.useState(false);
 
-  const toPercent = (v: number) => (max === min ? 0 : (v - min) / (max - min));
-  const snap = (raw: number) =>
-    Math.max(min, Math.min(max, Math.round(raw / step) * step));
+  // ── Position math ─────────────────────────────────────────────────────
 
-  const lowPos = sliderWidth > 0 ? toPercent(minValue) * sliderWidth : 0;
-  const highPos = sliderWidth > 0 ? toPercent(maxValue) * sliderWidth : 0;
+  const range = max - min;
+  const toPos = useCallback(
+    (v: number) => (range === 0 ? 0 : ((v - min) / range) * sliderWidth),
+    [min, range, sliderWidth],
+  );
+  const toValue = useCallback(
+    (pos: number) =>
+      min + Math.max(0, Math.min(1, pos / sliderWidth)) * range,
+    [min, range, sliderWidth],
+  );
+  const snap = useCallback(
+    (raw: number) => Math.max(min, Math.min(max, Math.round(raw / step) * step)),
+    [min, max, step],
+  );
+  const minGapPx = (minGap / range) * sliderWidth;
 
-  const xToValue = (x: number) =>
-    min + (Math.max(0, Math.min(1, x / sliderWidth))) * (max - min);
+  // ── Shared values — drive visual position on UI thread ────────────────
 
-  const updateLow = React.useCallback((x: number) => {
-    if (sliderWidth === 0) { return; }
-    const next = snap(xToValue(x));
-    const clamped = Math.min(next, maxValue - minGap);
-    if (clamped !== minValue) { onRangeChange(clamped, maxValue); }
+  const lowPosShared = useSharedValue(0);
+  const highPosShared = useSharedValue(0);
+  const lowDragging = useSharedValue(false);
+  const highDragging = useSharedValue(false);
+
+  // Sync from controlled prop when sliderWidth is ready or value changes.
+  useEffect(() => {
+    if (sliderWidth > 0) {
+      lowPosShared.value = toPos(minValue);
+    }
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [sliderWidth, min, max, step, minGap, minValue, maxValue, onRangeChange]);
+  }, [minValue, sliderWidth]);
 
-  const updateHigh = React.useCallback((x: number) => {
-    if (sliderWidth === 0) { return; }
-    const next = snap(xToValue(x));
-    const clamped = Math.max(next, minValue + minGap);
-    if (clamped !== maxValue) { onRangeChange(minValue, clamped); }
+  useEffect(() => {
+    if (sliderWidth > 0) {
+      highPosShared.value = toPos(maxValue);
+    }
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [sliderWidth, min, max, step, minGap, minValue, maxValue, onRangeChange]);
+  }, [maxValue, sliderWidth]);
+
+  // ── Animated styles ───────────────────────────────────────────────────
+
+  const lowThumbStyle = useAnimatedStyle(() => ({
+    left: lowPosShared.value - sizes.sliderThumb / 2,
+    transform: [{ scale: lowDragging.value ? 1.2 : 1 }],
+  }));
+
+  const highThumbStyle = useAnimatedStyle(() => ({
+    left: highPosShared.value - sizes.sliderThumb / 2,
+    transform: [{ scale: highDragging.value ? 1.2 : 1 }],
+  }));
+
+  const activeTrackStyle = useAnimatedStyle(() => ({
+    left: lowPosShared.value,
+    width: Math.max(0, highPosShared.value - lowPosShared.value),
+  }));
+
+  // ── Gestures ──────────────────────────────────────────────────────────
+
+  // Saved track positions at the moment each gesture begins — avoids the
+  // jump caused by e.x being relative to the thumb view, not the track.
+  const lowSavedPos = useRef(0);
+  const highSavedPos = useRef(0);
+
+  // Stable ref to current prop values so worklets can read without stale closure.
+  const maxValueRef = useRef(maxValue);
+  const minValueRef = useRef(minValue);
+  maxValueRef.current = maxValue;
+  minValueRef.current = minValue;
+
+  const commitLow = useCallback((pos: number) => {
+    const next = snap(toValue(pos));
+    const clamped = Math.min(next, maxValueRef.current - minGap);
+    if (clamped !== minValueRef.current) {
+      onRangeChange(clamped, maxValueRef.current);
+    }
+  }, [snap, toValue, minGap, onRangeChange]);
+
+  const commitHigh = useCallback((pos: number) => {
+    const next = snap(toValue(pos));
+    const clamped = Math.max(next, minValueRef.current + minGap);
+    if (clamped !== maxValueRef.current) {
+      onRangeChange(minValueRef.current, clamped);
+    }
+  }, [snap, toValue, minGap, onRangeChange]);
 
   const lowGesture = Gesture.Pan()
-    .runOnJS(true)
     .minDistance(0)
     .enabled(!disabled)
-    .onBegin(e => { setDraggingLow(true); updateLow(e.x); })
-    .onUpdate(e => { updateLow(e.x); })
-    .onEnd(() => setDraggingLow(false))
-    .onFinalize(() => setDraggingLow(false));
+    .onBegin(() => {
+      lowSavedPos.current = lowPosShared.value;
+      lowDragging.value = true;
+    })
+    .onUpdate(e => {
+      const raw = lowSavedPos.current + e.translationX;
+      const clamped = Math.max(0, Math.min(highPosShared.value - minGapPx, raw));
+      lowPosShared.value = clamped;
+      scheduleOnRN(commitLow, clamped);
+    })
+    .onEnd(() => { lowDragging.value = false; })
+    .onFinalize(() => { lowDragging.value = false; });
 
   const highGesture = Gesture.Pan()
-    .runOnJS(true)
     .minDistance(0)
     .enabled(!disabled)
-    .onBegin(e => { setDraggingHigh(true); updateHigh(e.x); })
-    .onUpdate(e => { updateHigh(e.x); })
-    .onEnd(() => setDraggingHigh(false))
-    .onFinalize(() => setDraggingHigh(false));
+    .onBegin(() => {
+      highSavedPos.current = highPosShared.value;
+      highDragging.value = true;
+    })
+    .onUpdate(e => {
+      const raw = highSavedPos.current + e.translationX;
+      const clamped = Math.max(lowPosShared.value + minGapPx, Math.min(sliderWidth, raw));
+      highPosShared.value = clamped;
+      scheduleOnRN(commitHigh, clamped);
+    })
+    .onEnd(() => { highDragging.value = false; })
+    .onFinalize(() => { highDragging.value = false; });
+
+  // ── Render ────────────────────────────────────────────────────────────
 
   return (
     <View style={[styles.container, disabled && styles.disabled, containerStyle]}>
@@ -139,20 +230,17 @@ export function RangeSlider({
         <View style={[styles.track, { backgroundColor: theme.colors.disabled }]} />
 
         {/* Active range between thumbs */}
-        <View
+        <Animated.View
           style={[
             styles.activeTrack,
-            {
-              backgroundColor: theme.colors.primary,
-              left: lowPos,
-              width: Math.max(0, highPos - lowPos),
-            },
+            activeTrackStyle,
+            { backgroundColor: theme.colors.primary },
           ]}
         />
 
         {/* Low thumb */}
         <GestureDetector gesture={lowGesture}>
-          <View
+          <Animated.View
             accessible
             accessibilityRole="adjustable"
             accessibilityLabel={label ? `${label} minimum` : 'Minimum value'}
@@ -168,11 +256,10 @@ export function RangeSlider({
             }}
             style={[
               styles.thumb,
+              lowThumbStyle,
               {
                 backgroundColor: theme.colors.primary,
-                left: lowPos - sizes.sliderThumb / 2,
                 borderColor: theme.colors.surfacePrimary,
-                transform: [{ scale: draggingLow ? 1.2 : 1 }],
               },
             ]}
           />
@@ -180,7 +267,7 @@ export function RangeSlider({
 
         {/* High thumb */}
         <GestureDetector gesture={highGesture}>
-          <View
+          <Animated.View
             accessible
             accessibilityRole="adjustable"
             accessibilityLabel={label ? `${label} maximum` : 'Maximum value'}
@@ -196,11 +283,10 @@ export function RangeSlider({
             }}
             style={[
               styles.thumb,
+              highThumbStyle,
               {
                 backgroundColor: theme.colors.primary,
-                left: highPos - sizes.sliderThumb / 2,
                 borderColor: theme.colors.surfacePrimary,
-                transform: [{ scale: draggingHigh ? 1.2 : 1 }],
               },
             ]}
           />
@@ -209,6 +295,8 @@ export function RangeSlider({
     </View>
   );
 }
+
+// ─── Styles ────────────────────────────────────────────────────────────────
 
 const styles = StyleSheet.create({
   container: {

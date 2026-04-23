@@ -14,7 +14,8 @@
   "masicnVersion": "^0.0.1",
   "peerDependencies": {
     "react-native-gesture-handler": ">=2.0.0",
-    "react-native-reanimated": ">=3.0.0"
+    "react-native-reanimated": ">=3.0.0",
+    "react-native-worklets": ">=0.7.0"
   },
   "registryDependencies": [],
   "tags": [

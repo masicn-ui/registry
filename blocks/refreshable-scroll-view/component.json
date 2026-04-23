@@ -18,7 +18,7 @@
     "layout",
     "scroll"
   ],
-  "hasTests": false,
+  "hasTests": true,
   "hasAccessibility": false,
   "props": [
     {
@@ -44,6 +44,18 @@
       "type": "ViewStyle",
       "required": false,
       "description": "Style applied to the scroll view's content container."
+    },
+    {
+      "name": "contentPadding",
+      "type": "keyof typeof spacing",
+      "required": false,
+      "description": "Uniform padding applied to all sides of the content container using a spacing token."
+    },
+    {
+      "name": "style",
+      "type": "StyleProp<ViewStyle>",
+      "required": false,
+      "description": "Additional style applied to the outermost ScrollView."
     }
   ]
 }

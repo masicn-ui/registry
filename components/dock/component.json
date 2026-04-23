@@ -49,6 +49,6 @@
       "description": "Test identifier for the dock container."
     }
   ],
-  "hasTests": false,
+  "hasTests": true,
   "hasAccessibility": true
 }

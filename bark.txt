@@ -1,5 +1,6 @@
 .
 ├── CLAUDE.md
+├── LICENSE
 ├── README.md
 ├── blocks/
 │   ├── action-sheet/
@@ -10,7 +11,10 @@
 │   │   └── component.json
 │   ├── carousel/
 │   │   ├── Carousel.tsx
-│   │   └── component.json
+│   │   ├── CarouselDots.tsx
+│   │   ├── CarouselSlide.tsx
+│   │   ├── component.json
+│   │   └── useCarousel.ts
 │   ├── chip-input/
 │   │   ├── ChipInput.tsx
 │   │   └── component.json
@@ -19,9 +23,6 @@
 │   │   └── component.json
 │   ├── confirm/
 │   │   ├── Confirm.tsx
-│   │   └── component.json
-│   ├── date-input/
-│   │   ├── DateInput.tsx
 │   │   └── component.json
 │   ├── dual-sheet/
 │   │   ├── DualSheet.tsx
@@ -228,8 +229,7 @@
 ├── package-lock.json
 ├── package.json
 ├── registry.json
-├── schema/
-│   └── masicn.json
-└── tree.txt
+└── schema/
+    └── masicn.json
 
-77 directories, 155 files
+76 directories, 156 files
