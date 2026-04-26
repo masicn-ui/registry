@@ -4,7 +4,7 @@ Component template registry for [masicn](https://github.com/masicn-ui) — the c
 
 This repo holds the source files and metadata for every component and block that the [masicn CLI](https://www.npmjs.com/package/masicn) can install. You don't use this repo directly — the CLI fetches from it over GitHub raw URLs.
 
-**Built from scratch by [Manish Kumar](https://manishh.in) ([@lordofthemind](https://github.com/lordofthemind)) at [skipp.co.in](https://skipp.co.in)**
+**Built from scratch by [Manish Kumar](https://manishh.in) ([@lordofthemind](https://github.com/lordofthemind))**
 
 > **मसि** (masi) means _ink_ in Sanskrit and several Indian languages. Just as ink is the medium for writing anything, masicn is the medium for building anything in React Native.
 
@@ -198,6 +198,6 @@ The root `registry.json` is the index the CLI fetches first:
 
 ## License
 
-[MIT](./LICENSE) — free to use, modify, and distribute. Copyright © 2026 [Skipp](https://skipp.co.in).
+[MIT](./LICENSE) — free to use, modify, and distribute. Copyright © 2026 [Manish Kumar](https://manishh.in).
 
 The component source files in this registry are MIT licensed. When the CLI copies them into a user's project, those files become part of that project and remain under MIT — the user owns them and can change, ship, or extend them freely.
