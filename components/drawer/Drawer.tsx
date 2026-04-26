@@ -20,6 +20,7 @@ import Animated, {
   withTiming,
 } from 'react-native-reanimated';
 import { GestureDetector, Gesture } from 'react-native-gesture-handler';
+import { scheduleOnRN } from 'react-native-worklets';
 import {
   useTheme,
   spacing,
@@ -116,6 +117,13 @@ const DISMISS_THRESHOLD = 0.3;
  * const drawerRef = useRef<DrawerRef>(null);
  * <Drawer ref={drawerRef} onClose={() => {}}>
  *   <NavMenu />
+ * </Drawer>
+ *
+ * @example
+ * // Right-side drawer without backdrop
+ * const [open, setOpen] = React.useState(false);
+ * <Drawer visible={open} onClose={() => setOpen(false)} side="right" hideBackdrop>
+ *   <FilterPanel />
  * </Drawer>
  */
 export const Drawer = React.forwardRef<DrawerRef, DrawerProps>(
@@ -266,9 +274,9 @@ const TemporaryDrawer = React.forwardRef<DrawerRef, TemporaryDrawerProps>(
         const exitDuration = rm ? motion.duration.instant : motion.duration.normal;
         const target = isLeft ? -resolvedWidth : resolvedWidth;
         translateX.value = withTiming(target, { duration: exitDuration, easing: motionEasing.accelerate });
-        backdropOpacity.value = withTiming(0, { duration: exitDuration, easing: motionEasing.accelerate });
-        const timeout = setTimeout(() => setShouldRender(false), exitDuration);
-        return () => clearTimeout(timeout);
+        backdropOpacity.value = withTiming(0, { duration: exitDuration, easing: motionEasing.accelerate },
+          (finished) => { if (finished) scheduleOnRN(setShouldRender, false); },
+        );
       }
     }, [isVisible, translateX, backdropOpacity, resolvedWidth, isLeft]);
 
@@ -282,7 +290,6 @@ const TemporaryDrawer = React.forwardRef<DrawerRef, TemporaryDrawerProps>(
     }, [isVisible, handleDismiss]);
 
     const pan = Gesture.Pan()
-      .runOnJS(true)
       .activeOffsetX([-10, 10])
       .onUpdate((e) => {
         if (isLeft && e.translationX < 0) {
@@ -296,7 +303,7 @@ const TemporaryDrawer = React.forwardRef<DrawerRef, TemporaryDrawerProps>(
           ? e.translationX < -(resolvedWidth * DISMISS_THRESHOLD) || e.velocityX < -500
           : e.translationX > resolvedWidth * DISMISS_THRESHOLD || e.velocityX > 500;
         if (over) {
-          handleDismiss();
+          scheduleOnRN(handleDismiss);
         } else {
           translateX.value = withSpring(0, motion.spring.sheet);
         }

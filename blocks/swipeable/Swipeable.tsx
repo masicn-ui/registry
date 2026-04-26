@@ -1,4 +1,5 @@
 import React, { useMemo } from 'react';
+import { scheduleOnRN } from 'react-native-worklets';
 import { View, Pressable, StyleSheet, type ViewStyle } from 'react-native';
 import Animated, {
   useSharedValue,
@@ -78,6 +79,36 @@ const sizeConfig = {
  * >
  *   <ListItem title={item.title} />
  * </Swipeable>
+ *
+ * @example
+ * // Right-only delete action
+ * <Swipeable
+ *   rightActions={[
+ *     { label: 'Remove', backgroundColor: 'error', onPress: () => removeItem(item.id) },
+ *   ]}
+ * >
+ *   <CartRow item={item} />
+ * </Swipeable>
+ *
+ * @example
+ * // Multi-action right side with icons
+ * <Swipeable
+ *   rightActions={[
+ *     { label: 'Pin', icon: <PinIcon />, backgroundColor: 'info', onPress: () => pin(item.id) },
+ *     { label: 'Delete', icon: <TrashIcon />, backgroundColor: 'error', onPress: () => del(item.id) },
+ *   ]}
+ * >
+ *   <MessageRow message={item} />
+ * </Swipeable>
+ *
+ * @example
+ * // Compact size for a tighter list
+ * <Swipeable
+ *   size="sm"
+ *   rightActions={[{ label: 'Done', backgroundColor: 'success', onPress: () => complete(item.id) }]}
+ * >
+ *   <TaskRow task={item} />
+ * </Swipeable>
  */
 export function Swipeable({
   children,
@@ -98,6 +129,13 @@ export function Swipeable({
   const thresholdSV = useSharedValue(threshold);
   React.useEffect(() => { thresholdSV.value = threshold; }, [threshold, thresholdSV]);
 
+  const hasLeftActions = useSharedValue(leftActions.length > 0);
+  const hasRightActions = useSharedValue(rightActions.length > 0);
+  React.useEffect(() => {
+    hasLeftActions.value = leftActions.length > 0;
+    hasRightActions.value = rightActions.length > 0;
+  }, [leftActions, rightActions, hasLeftActions, hasRightActions]);
+
   const triggerLeft = React.useCallback(() => {
     if (leftActions.length > 0) {
       leftActions[0].onPress();
@@ -113,21 +151,20 @@ export function Swipeable({
   }, [rightActions, translateX, reducedMotion]);
 
   const pan = useMemo(() => Gesture.Pan()
-    .runOnJS(true)
     .activeOffsetX([-10, 10])
     .onUpdate((e) => {
       translateX.value = e.translationX;
     })
     .onEnd((e) => {
-      if (e.translationX > thresholdSV.value && leftActions.length > 0) {
-        triggerLeft();
-      } else if (e.translationX < -thresholdSV.value && rightActions.length > 0) {
-        triggerRight();
+      if (e.translationX > thresholdSV.value && hasLeftActions.value) {
+        scheduleOnRN(triggerLeft);
+      } else if (e.translationX < -thresholdSV.value && hasRightActions.value) {
+        scheduleOnRN(triggerRight);
       } else {
         translateX.value = reducedMotion ? withTiming(0, { duration: 0 }) : withSpring(0, motion.spring.snappy);
       }
     }),
-  [triggerLeft, triggerRight, translateX, thresholdSV, leftActions, rightActions, reducedMotion]);
+  [triggerLeft, triggerRight, translateX, thresholdSV, hasLeftActions, hasRightActions, reducedMotion]);
 
   const animatedStyle = useAnimatedStyle(() => ({
     transform: [{ translateX: translateX.value }],

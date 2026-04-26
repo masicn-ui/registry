@@ -3,7 +3,7 @@
   "displayName": "Confirm Dialog",
   "description": "Confirmation dialog block with title, message, and action buttons.",
   "category": "overlays",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "files": [
     {
       "path": "Confirm.tsx",
@@ -23,7 +23,7 @@
     "alert",
     "modal"
   ],
-  "hasTests": false,
+  "hasTests": true,
   "hasAccessibility": true,
   "props": [
     {
@@ -89,6 +89,24 @@
       "default": "false",
       "required": false,
       "description": "Shows a loading indicator on the confirm button, useful while an async action is in-flight."
+    }
+  ],
+  "examples": [
+    {
+      "label": "Example 1",
+      "code": "// Standard\n<Confirm\n  visible={visible}\n  onClose={onClose}\n  title=\"Save changes?\"\n  message=\"Your edits will be saved.\"\n  onConfirm={handleSave}\n/>"
+    },
+    {
+      "label": "Example 2",
+      "code": "// Destructive\n<Confirm\n  visible={visible}\n  onClose={onClose}\n  title=\"Delete account\"\n  message=\"This action is permanent and cannot be undone.\"\n  confirmLabel=\"Delete\"\n  onConfirm={handleDelete}\n  destructive\n/>"
+    },
+    {
+      "label": "Example 3",
+      "code": "// With loading state while the async action is in-flight\n<Confirm\n  visible={visible}\n  onClose={onClose}\n  title=\"Send invitation?\"\n  message=\"An email will be sent to the selected users.\"\n  confirmLabel=\"Send\"\n  onConfirm={handleSend}\n  loading={isSending}\n/>"
+    },
+    {
+      "label": "Example 4",
+      "code": "// Custom cancel label\n<Confirm\n  visible={visible}\n  onClose={onClose}\n  title=\"Discard changes?\"\n  message=\"You have unsaved changes. Leaving now will discard them.\"\n  confirmLabel=\"Discard\"\n  cancelLabel=\"Keep editing\"\n  onConfirm={handleDiscard}\n  onCancel={onClose}\n/>"
     }
   ]
 }

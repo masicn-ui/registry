@@ -3,7 +3,7 @@
   "displayName": "ListItem",
   "description": "Pressable list row with title, subtitle, leading and trailing slots, and separator",
   "category": "lists",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "files": [
     {
       "path": "ListItem.tsx",
@@ -19,7 +19,7 @@
     "navigation",
     "row"
   ],
-  "hasTests": false,
+  "hasTests": true,
   "hasAccessibility": false,
   "props": [
     {
@@ -52,6 +52,24 @@
       "default": "false",
       "required": false,
       "description": "When true, renders a hairline separator below the row."
+    }
+  ],
+  "examples": [
+    {
+      "label": "Example 1",
+      "code": "<ListItem\n  title=\"Profile\"\n  subtitle=\"Edit your personal information\"\n  leading={<Avatar source={avatarUri} />}\n  onPress={() => navigation.navigate('Profile')}\n  separator\n/>\n// Custom trailing element\n<ListItem\n  title=\"Notifications\"\n  trailing={<Switch value={enabled} onValueChange={setEnabled} />}\n/>"
+    },
+    {
+      "label": "Example 2",
+      "code": "// No trailing arrow — informational row\n<ListItem\n  title=\"Version\"\n  subtitle=\"2.1.0\"\n  trailing={<Text variant=\"body\" color=\"textTertiary\">2.1.0</Text>}\n  separator\n/>"
+    },
+    {
+      "label": "Example 3",
+      "code": "// Disabled row for locked features\n<ListItem\n  title=\"Export data\"\n  subtitle=\"Available on Pro plan\"\n  leading={<ExportIcon />}\n  disabled\n/>"
+    },
+    {
+      "label": "Example 4",
+      "code": "// Row with badge trailing indicator\n<ListItem\n  title=\"Messages\"\n  leading={<MessageIcon />}\n  trailing={<Badge label=\"3\" variant=\"error\" circular />}\n  onPress={() => navigation.navigate('Messages')}\n  separator\n/>"
     }
   ]
 }

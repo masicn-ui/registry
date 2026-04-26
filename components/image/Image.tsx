@@ -171,6 +171,49 @@ const ImagePreview = forwardRef<ImagePreviewHandle, ImagePreviewProps>(
 
 // ─── Image ─────────────────────────────────────────────────────────────────
 
+/**
+ * Image — enhanced image component with loading states, error fallbacks,
+ * and optional full-screen long-press preview.
+ *
+ * Supports aspect-ratio presets, size presets, fit modes, and an overlay
+ * gradient. Preview mode expands the image to fill the screen on long-press
+ * and dismisses when the finger lifts.
+ *
+ * @example
+ * // Responsive 16:9 image with rounded corners
+ * <Image
+ *   source={{ uri: 'https://example.com/photo.jpg' }}
+ *   aspectRatio="16:9"
+ *   borderRadius="lg"
+ * />
+ *
+ * @example
+ * // With long-press full-screen preview
+ * <Image
+ *   source={{ uri: 'https://example.com/photo.jpg' }}
+ *   aspectRatio="4:3"
+ *   enablePreview
+ * />
+ *
+ * @example
+ * // Thumbnail size with overlay gradient
+ * <Image
+ *   source={require('./assets/cover.jpg')}
+ *   size="medium"
+ *   overlay
+ *   borderRadius="md"
+ * />
+ *
+ * @example
+ * // Square portrait crop with contain fit and custom error fallback
+ * <Image
+ *   source={{ uri: user.avatarUrl }}
+ *   aspectRatio="square"
+ *   fit="contain"
+ *   borderRadius="full"
+ *   fallback={<Avatar initials={user.initials} />}
+ * />
+ */
 export function Image({
   source,
   aspectRatio,

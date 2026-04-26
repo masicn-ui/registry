@@ -58,6 +58,40 @@ interface RefreshableListProps<T> extends Omit<FlatListProps<T>, 'refreshControl
  *   showSeparator
  *   contentPadding="md"
  * />
+ *
+ * @example
+ * // Without separator, using a custom ItemSeparatorComponent instead
+ * <RefreshableList
+ *   data={notifications}
+ *   keyExtractor={(n) => n.id}
+ *   renderItem={({ item }) => <NotificationRow notification={item} />}
+ *   refreshing={isRefreshing}
+ *   onRefresh={fetchNotifications}
+ *   ItemSeparatorComponent={() => <View style={{ height: spacing.sm }} />}
+ * />
+ *
+ * @example
+ * // With a ListEmptyComponent while data loads
+ * <RefreshableList
+ *   data={results}
+ *   keyExtractor={(r) => r.id}
+ *   renderItem={({ item }) => <ResultCard result={item} />}
+ *   refreshing={isRefreshing}
+ *   onRefresh={search}
+ *   ListEmptyComponent={<EmptyState title="No results" />}
+ * />
+ *
+ * @example
+ * // Horizontal scrolling refreshable list with no separators
+ * <RefreshableList
+ *   data={stories}
+ *   keyExtractor={(s) => s.id}
+ *   renderItem={({ item }) => <StoryThumbnail story={item} />}
+ *   refreshing={isRefreshing}
+ *   onRefresh={refreshStories}
+ *   horizontal
+ *   contentPadding="sm"
+ * />
  */
 export function RefreshableList<T>({
   data,

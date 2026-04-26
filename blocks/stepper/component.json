@@ -3,7 +3,7 @@
   "displayName": "Step Indicator",
   "description": "Step progress indicator block for multi-step flows.",
   "category": "progress",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "files": [
     {
       "path": "Stepper.tsx",
@@ -55,6 +55,24 @@
       "type": "string",
       "required": false,
       "description": "Test identifier forwarded to the outermost container."
+    }
+  ],
+  "examples": [
+    {
+      "label": "Example 1",
+      "code": "// Horizontal (default)\n<Stepper\n  steps={[{ label: 'Account' }, { label: 'Profile' }, { label: 'Review' }]}\n  currentStep={1}\n/>"
+    },
+    {
+      "label": "Example 2",
+      "code": "// Vertical with descriptions\n<Stepper\n  orientation=\"vertical\"\n  steps={[\n    { label: 'Account', description: 'Create your account' },\n    { label: 'Profile', description: 'Fill in your details' },\n  ]}\n  currentStep={0}\n/>"
+    },
+    {
+      "label": "Example 3",
+      "code": "// All steps completed (currentStep past last step)\n<Stepper\n  steps={[{ label: 'Order placed' }, { label: 'Shipped' }, { label: 'Delivered' }]}\n  currentStep={3}\n/>"
+    },
+    {
+      "label": "Example 4",
+      "code": "// Checkout flow with testID for automation\n<Stepper\n  steps={[\n    { label: 'Cart' },\n    { label: 'Shipping' },\n    { label: 'Payment' },\n    { label: 'Confirm' },\n  ]}\n  currentStep={checkoutStep}\n  testID=\"checkout-stepper\"\n/>"
     }
   ]
 }

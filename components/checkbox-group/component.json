@@ -3,7 +3,7 @@
   "displayName": "CheckboxGroup",
   "description": "Group of Checkbox items sharing a value array, with group label, error message, and helper text.",
   "category": "selection",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "files": [
     {
       "path": "CheckboxGroup.tsx",
@@ -19,7 +19,7 @@
   "tags": [
     "form"
   ],
-  "hasTests": false,
+  "hasTests": true,
   "hasAccessibility": true,
   "props": [
     {
@@ -70,6 +70,24 @@
       "type": "ViewStyle",
       "required": false,
       "description": "Additional style applied to the outer container"
+    }
+  ],
+  "examples": [
+    {
+      "label": "Example 1",
+      "code": "const [selected, setSelected] = useState<string[]>([]);\n<CheckboxGroup\n  label=\"Interests\"\n  options={[\n    { label: 'Design', value: 'design' },\n    { label: 'Engineering', value: 'eng' },\n    { label: 'Marketing', value: 'mkt', disabled: true },\n  ]}\n  value={selected}\n  onValueChange={setSelected}\n/>"
+    },
+    {
+      "label": "Example 2",
+      "code": "// Pre-selected options\nconst [perms, setPerms] = useState(['read', 'write']);\n<CheckboxGroup\n  label=\"Permissions\"\n  options={[\n    { label: 'Read', value: 'read' },\n    { label: 'Write', value: 'write' },\n    { label: 'Delete', value: 'delete' },\n  ]}\n  value={perms}\n  onValueChange={setPerms}\n/>"
+    },
+    {
+      "label": "Example 3",
+      "code": "// Group-wide disabled state\n<CheckboxGroup\n  label=\"Features (read-only)\"\n  options={features.map(f => ({ label: f.name, value: f.id }))}\n  value={enabledFeatures}\n  onValueChange={() => {}}\n  disabled\n/>"
+    },
+    {
+      "label": "Example 4",
+      "code": "// With error and helper text\n<CheckboxGroup\n  label=\"Notifications\"\n  options={notificationOptions}\n  value={selected}\n  onValueChange={setSelected}\n  error={selected.length === 0 ? 'Select at least one' : undefined}\n  helperText=\"Choose what you want to be notified about\"\n/>"
     }
   ]
 }

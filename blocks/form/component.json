@@ -3,7 +3,7 @@
   "displayName": "Form",
   "description": "A complete form block with validation, labels, and error handling.",
   "category": "forms",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "files": [
     {
       "path": "Form.tsx",
@@ -19,7 +19,7 @@
     "input",
     "validation"
   ],
-  "hasTests": false,
+  "hasTests": true,
   "hasAccessibility": true,
   "props": [
     {
@@ -51,6 +51,24 @@
       "type": "ReactNode | ((props: { handleSubmit: () => Promise<void> }) => ReactNode)",
       "required": true,
       "description": "Form content. Can be static ReactNode or a render function that receives handleSubmit to trigger form submission."
+    }
+  ],
+  "examples": [
+    {
+      "label": "Example 1",
+      "code": "function EmailField() {\n  const { value, error, setValue, setTouched } = useFormField('email');\n  return (\n    <TextInput\n      value={value as string}\n      onChangeText={setValue}\n      onBlur={() => setTouched(true)}\n    />\n  );\n}"
+    },
+    {
+      "label": "Example 2",
+      "code": "function SubmitButton() {\n  const { values } = useFormContext();\n  return <Button onPress={() => console.log(values)}>Submit</Button>;\n}"
+    },
+    {
+      "label": "Example 3",
+      "code": "<Form.Field name=\"email\">\n  {({ value, error, onChange, onBlur }) => (\n    <TextInput value={value as string} onChangeText={onChange} onBlur={onBlur} />\n  )}\n</Form.Field>"
+    },
+    {
+      "label": "Example 4",
+      "code": "type LoginValues = { email: string; password: string };\n<Form<LoginValues>\n  initialValues={{ email: '', password: '' }}\n  validations={[\n    { name: 'email',    validate: (v) => !v ? 'Required' : undefined },\n    { name: 'password', validate: (v) => (v as string).length < 8 ? 'Too short' : undefined },\n  ]}\n  onSubmit={(values) => login(values.email, values.password)}>\n  {({ handleSubmit }) => (\n    <>\n      <Form.Field name=\"email\">\n        {({ value, error, onChange, onBlur }) => (\n          <TextInput value={value as string} onChangeText={onChange} onBlur={onBlur} />\n        )}\n      </Form.Field>\n      <Button onPress={handleSubmit}>Log in</Button>\n    </>\n  )}\n</Form>"
     }
   ]
 }

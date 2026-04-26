@@ -60,6 +60,18 @@ const INDETERMINATE_FILL = 0.35;
  *
  * // Circular indicator
  * <Progress value={72} variant="circular" size={64} showValue />
+ *
+ * @example
+ * // File download progress bar with custom height
+ * <Progress value={downloadPercent} label="Downloading…" showValue height={8} />
+ *
+ * @example
+ * // Indeterminate bar during initial data fetch
+ * <Progress value={0} indeterminate />
+ *
+ * @example
+ * // Skill proficiency bar (read-only, no label, compact)
+ * <Progress value={proficiency} height={4} containerStyle={{ marginVertical: spacing.xs }} />
  */
 export function Progress({
   value,

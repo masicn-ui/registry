@@ -78,6 +78,39 @@ const paddingMap: Record<CardPadding, number> = {
  * <Card title="Article" onPress={open} animation="scale">
  *   <Text>Content</Text>
  * </Card>
+ *
+ * @example
+ * // Outlined card with image media slot
+ * <Card
+ *   variant="outlined"
+ *   media={<Image source={{ uri: post.cover }} aspectRatio="16:9" />}
+ *   title={post.title}
+ *   subtitle={post.author}
+ *   body={post.summary}
+ * />
+ *
+ * @example
+ * // Filled card with footer actions
+ * <Card
+ *   variant="filled"
+ *   surface="secondary"
+ *   padding="md"
+ *   title="Your plan"
+ *   subtitle="Pro"
+ *   footer={
+ *     <Row gap="sm">
+ *       <Button variant="outline" onPress={manage}>Manage</Button>
+ *       <Button onPress={upgrade}>Upgrade</Button>
+ *     </Row>
+ *   }
+ * />
+ *
+ * @example
+ * // Static non-interactive card with custom children
+ * <Card variant="elevated" padding="lg">
+ *   <StatRow label="Revenue" value="$42,000" />
+ *   <StatRow label="Orders" value="1,204" />
+ * </Card>
  */
 export function Card({
   variant = 'elevated',

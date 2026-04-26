@@ -3,7 +3,7 @@
   "displayName": "Snackbar",
   "description": "Bottom snackbar notifications with optional action via useSnackbar hook.",
   "category": "feedback",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "files": [
     {
       "path": "Snackbar.tsx",
@@ -22,7 +22,7 @@
     "notification",
     "portal"
   ],
-  "hasTests": false,
+  "hasTests": true,
   "hasAccessibility": true,
   "props": [
     {
@@ -37,6 +37,32 @@
       "default": "bottom",
       "required": false,
       "description": "Default screen edge where snackbars appear when no per-call position is specified"
+    }
+  ],
+  "examples": [
+    {
+      "label": "Example 1",
+      "code": "const snackbar = useSnackbar();\nsnackbar.success('Saved!');"
+    },
+    {
+      "label": "Example 2",
+      "code": "// Error with retry action\nconst snackbar = useSnackbar();\nsnackbar.error('Upload failed', 5000, { label: 'Retry', onPress: retryUpload });"
+    },
+    {
+      "label": "Example 3",
+      "code": "// Top-positioned info snackbar\nconst snackbar = useSnackbar();\nsnackbar.info('New messages available', 3000, undefined, 'top');"
+    },
+    {
+      "label": "Example 4",
+      "code": "// In your root layout:\n<SnackbarProvider>\n  <App />\n</SnackbarProvider>\n// Inside any screen:\nconst snackbar = useSnackbar();\nsnackbar.error('Upload failed', 5000, { label: 'Retry', onPress: retry });"
+    },
+    {
+      "label": "Example 5",
+      "code": "// Default position overridden to top globally\n<SnackbarProvider defaultPosition=\"top\">\n  <App />\n</SnackbarProvider>"
+    },
+    {
+      "label": "Example 6",
+      "code": "// Tappable snackbar that navigates to a detail screen\nconst snackbar = useSnackbar();\nsnackbar.info(\n  'New order received',\n  4000,\n  undefined,\n  'bottom',\n  () => navigation.navigate('OrderDetail', { id: orderId }),\n);"
     }
   ]
 }

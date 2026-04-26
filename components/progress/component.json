@@ -3,7 +3,7 @@
   "displayName": "Progress",
   "description": "Linear and circular progress bar with determinate and indeterminate modes, animated fill, and optional label.",
   "category": "progress",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "files": [
     {
       "path": "Progress.tsx",
@@ -19,7 +19,7 @@
   "tags": [
     "feedback"
   ],
-  "hasTests": false,
+  "hasTests": true,
   "hasAccessibility": true,
   "props": [
     {
@@ -73,6 +73,24 @@
       "type": "ViewStyle",
       "required": false,
       "description": "Additional style applied to the outer container"
+    }
+  ],
+  "examples": [
+    {
+      "label": "Example 1",
+      "code": "// Determinate linear bar with label and value\n<Progress value={uploadProgress} label=\"Uploading…\" showValue />\n// Indeterminate loading bar\n<Progress value={0} indeterminate />\n// Circular indicator\n<Progress value={72} variant=\"circular\" size={64} showValue />"
+    },
+    {
+      "label": "Example 2",
+      "code": "// File download progress bar with custom height\n<Progress value={downloadPercent} label=\"Downloading…\" showValue height={8} />"
+    },
+    {
+      "label": "Example 3",
+      "code": "// Indeterminate bar during initial data fetch\n<Progress value={0} indeterminate />"
+    },
+    {
+      "label": "Example 4",
+      "code": "// Skill proficiency bar (read-only, no label, compact)\n<Progress value={proficiency} height={4} containerStyle={{ marginVertical: spacing.xs }} />"
     }
   ]
 }

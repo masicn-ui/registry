@@ -3,7 +3,7 @@
   "displayName": "RefreshableList",
   "description": "FlatList wrapper with a themed RefreshControl for pull-to-refresh.",
   "category": "layouts",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "files": [
     {
       "path": "RefreshableList.tsx",
@@ -69,6 +69,24 @@
       "type": "StyleProp<ViewStyle>",
       "required": false,
       "description": "Additional style applied to the outermost FlatList."
+    }
+  ],
+  "examples": [
+    {
+      "label": "Example 1",
+      "code": "<RefreshableList\n  data={items}\n  keyExtractor={(item) => item.id}\n  renderItem={({ item }) => <ItemRow item={item} />}\n  refreshing={isRefreshing}\n  onRefresh={handleRefresh}\n  showSeparator\n  contentPadding=\"md\"\n/>"
+    },
+    {
+      "label": "Example 2",
+      "code": "// Without separator, using a custom ItemSeparatorComponent instead\n<RefreshableList\n  data={notifications}\n  keyExtractor={(n) => n.id}\n  renderItem={({ item }) => <NotificationRow notification={item} />}\n  refreshing={isRefreshing}\n  onRefresh={fetchNotifications}\n  ItemSeparatorComponent={() => <View style={{ height: spacing.sm }} />}\n/>"
+    },
+    {
+      "label": "Example 3",
+      "code": "// With a ListEmptyComponent while data loads\n<RefreshableList\n  data={results}\n  keyExtractor={(r) => r.id}\n  renderItem={({ item }) => <ResultCard result={item} />}\n  refreshing={isRefreshing}\n  onRefresh={search}\n  ListEmptyComponent={<EmptyState title=\"No results\" />}\n/>"
+    },
+    {
+      "label": "Example 4",
+      "code": "// Horizontal scrolling refreshable list with no separators\n<RefreshableList\n  data={stories}\n  keyExtractor={(s) => s.id}\n  renderItem={({ item }) => <StoryThumbnail story={item} />}\n  refreshing={isRefreshing}\n  onRefresh={refreshStories}\n  horizontal\n  contentPadding=\"sm\"\n/>"
     }
   ]
 }

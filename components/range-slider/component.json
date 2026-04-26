@@ -3,7 +3,7 @@
   "displayName": "Range Slider",
   "description": "Two-thumb slider for selecting a numeric range with step and gap constraints.",
   "category": "forms",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "files": [
     {
       "path": "RangeSlider.tsx",
@@ -24,7 +24,7 @@
     "input",
     "forms"
   ],
-  "hasTests": false,
+  "hasTests": true,
   "hasAccessibility": true,
   "props": [
     {
@@ -98,6 +98,24 @@
       "type": "ViewStyle",
       "required": false,
       "description": "Additional style applied to the outer container."
+    }
+  ],
+  "examples": [
+    {
+      "label": "Example 1",
+      "code": "const [range, setRange] = React.useState({ min: 200, max: 800 });\n<RangeSlider\n  label=\"Price range\"\n  minValue={range.min}\n  maxValue={range.max}\n  min={0}\n  max={1000}\n  step={50}\n  showValues\n  onRangeChange={(lo, hi) => setRange({ min: lo, max: hi })}\n/>"
+    },
+    {
+      "label": "Example 2",
+      "code": "// Age range filter with no step\nconst [ages, setAges] = useState({ min: 18, max: 65 });\n<RangeSlider\n  label=\"Age range\"\n  minValue={ages.min}\n  maxValue={ages.max}\n  min={18}\n  max={80}\n  showValues\n  onRangeChange={(lo, hi) => setAges({ min: lo, max: hi })}\n/>"
+    },
+    {
+      "label": "Example 3",
+      "code": "// Rating range (1–5) with minGap of 1\n<RangeSlider\n  minValue={minRating}\n  maxValue={maxRating}\n  min={1}\n  max={5}\n  step={1}\n  minGap={1}\n  onRangeChange={setRatingRange}\n/>"
+    },
+    {
+      "label": "Example 4",
+      "code": "// Disabled range display\n<RangeSlider\n  label=\"Locked range\"\n  minValue={0}\n  maxValue={100}\n  onRangeChange={() => {}}\n  disabled\n/>"
     }
   ]
 }

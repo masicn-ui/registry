@@ -3,7 +3,7 @@
   "displayName": "Swipeable",
   "description": "Swipeable row block with hidden actions revealed on swipe.",
   "category": "lists",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "files": [
     {
       "path": "Swipeable.tsx",
@@ -23,7 +23,7 @@
     "row",
     "actions"
   ],
-  "hasTests": false,
+  "hasTests": true,
   "hasAccessibility": true,
   "props": [
     {
@@ -69,6 +69,24 @@
       "type": "string",
       "required": false,
       "description": "Test identifier forwarded to the outermost container View."
+    }
+  ],
+  "examples": [
+    {
+      "label": "Example 1",
+      "code": "<Swipeable\n  rightActions={[\n    {\n      label: 'Delete',\n      backgroundColor: 'error',\n      onPress: () => handleDelete(item.id),\n    },\n  ]}\n  leftActions={[\n    {\n      label: 'Archive',\n      backgroundColor: 'success',\n      onPress: () => handleArchive(item.id),\n    },\n  ]}\n>\n  <ListItem title={item.title} />\n</Swipeable>"
+    },
+    {
+      "label": "Example 2",
+      "code": "// Right-only delete action\n<Swipeable\n  rightActions={[\n    { label: 'Remove', backgroundColor: 'error', onPress: () => removeItem(item.id) },\n  ]}\n>\n  <CartRow item={item} />\n</Swipeable>"
+    },
+    {
+      "label": "Example 3",
+      "code": "// Multi-action right side with icons\n<Swipeable\n  rightActions={[\n    { label: 'Pin', icon: <PinIcon />, backgroundColor: 'info', onPress: () => pin(item.id) },\n    { label: 'Delete', icon: <TrashIcon />, backgroundColor: 'error', onPress: () => del(item.id) },\n  ]}\n>\n  <MessageRow message={item} />\n</Swipeable>"
+    },
+    {
+      "label": "Example 4",
+      "code": "// Compact size for a tighter list\n<Swipeable\n  size=\"sm\"\n  rightActions={[{ label: 'Done', backgroundColor: 'success', onPress: () => complete(item.id) }]}\n>\n  <TaskRow task={item} />\n</Swipeable>"
     }
   ]
 }

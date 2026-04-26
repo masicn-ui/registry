@@ -74,8 +74,34 @@ type ToggleGroupProps = {
  *   value={formats}
  *   onValueChange={setFormats}
  * />
+ *
+ * @example
+ * // Full-width single-select with icon buttons
+ * <ToggleGroup
+ *   fullWidth
+ *   buttons={[
+ *     { label: 'Day', value: 'day', icon: <SunIcon /> },
+ *     { label: 'Week', value: 'week', icon: <CalendarIcon /> },
+ *     { label: 'Month', value: 'month', icon: <GridIcon /> },
+ *   ]}
+ *   value={view}
+ *   onValueChange={setView}
+ * />
+ *
+ * @example
+ * // Multi-select with one button disabled
+ * <ToggleGroup
+ *   multi
+ *   buttons={[
+ *     { label: 'In stock', value: 'instock' },
+ *     { label: 'On sale', value: 'sale' },
+ *     { label: 'Pre-order', value: 'preorder', disabled: true },
+ *   ]}
+ *   value={filters}
+ *   onValueChange={setFilters}
+ * />
  */
-export function ToggleGroup({
+export const ToggleGroup = React.memo(function ToggleGroup({
   buttons,
   fullWidth = false,
   testID,
@@ -159,7 +185,7 @@ export function ToggleGroup({
       })}
     </View>
   );
-}
+});
 
 const styles = StyleSheet.create({
   container: {

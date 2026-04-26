@@ -3,7 +3,7 @@
   "displayName": "TopSheet",
   "description": "Gesture-driven top sheet that slides down from the top edge with drag-to-dismiss support.",
   "category": "overlays",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "files": [
     {
       "path": "TopSheet.tsx",
@@ -22,7 +22,7 @@
     "overlay",
     "sheet"
   ],
-  "hasTests": false,
+  "hasTests": true,
   "hasAccessibility": true,
   "props": [
     {
@@ -62,6 +62,24 @@
       "type": "ViewStyle",
       "required": false,
       "description": "Additional style applied to the sheet container"
+    }
+  ],
+  "examples": [
+    {
+      "label": "Example 1",
+      "code": "const [open, setOpen] = useState(false);\n<TopSheet visible={open} onClose={() => setOpen(false)}>\n  <Text>Sheet content</Text>\n</TopSheet>"
+    },
+    {
+      "label": "Example 2",
+      "code": "// Imperative usage\nconst sheetRef = useRef<TopSheetRef>(null);\n<TopSheet ref={sheetRef} onClose={() => {}}>\n  <Text>Sheet content</Text>\n</TopSheet>"
+    },
+    {
+      "label": "Example 3",
+      "code": "// Smaller max height for a notification banner\n<TopSheet visible={open} onClose={() => setOpen(false)} maxHeight={0.35}>\n  <NotificationDetail />\n</TopSheet>"
+    },
+    {
+      "label": "Example 4",
+      "code": "// Without handle pill for a custom drag area inside the content\n<TopSheet visible={open} onClose={() => setOpen(false)} showHandle={false}>\n  <SearchHeader onClose={() => setOpen(false)} />\n</TopSheet>"
     }
   ]
 }

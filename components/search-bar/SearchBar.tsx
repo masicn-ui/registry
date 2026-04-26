@@ -9,6 +9,14 @@ import {
 } from 'react-native';
 import { borders, fonts, iconSizes, radius, sizes, spacing, typography, useTheme, type IconComponent, SearchIcon, XIcon } from '../../../masicn';
 
+type SearchBarSize = 'sm' | 'md' | 'lg';
+
+const sizeConfig = {
+  sm: { height: sizes.inputSm, paddingHorizontal: spacing.sm },
+  md: { height: sizes.inputMd, paddingHorizontal: spacing.md },
+  lg: { height: sizes.inputLg, paddingHorizontal: spacing.md },
+} as const;
+
 interface SearchBarProps extends Omit<TextInputProps, 'style'> {
   /** Current search value */
   value: string;
@@ -26,6 +34,8 @@ interface SearchBarProps extends Omit<TextInputProps, 'style'> {
   searchIcon?: IconComponent;
   /** Border radius override. Defaults to radius.full (pill). */
   borderRadius?: number;
+  /** Size preset — controls height and horizontal padding. @default 'md' */
+  size?: SearchBarSize;
   /** Test identifier; clear button receives `{testID}-clear`. */
   testID?: string;
 }
@@ -51,6 +61,36 @@ interface SearchBarProps extends Omit<TextInputProps, 'style'> {
  *   onSearch={(text) => fetchResults(text)}
  *   placeholder="Search products…"
  * />
+ *
+ * @example
+ * // Small compact search inside a header bar
+ * <SearchBar
+ *   value={query}
+ *   onChangeText={setQuery}
+ *   size="sm"
+ *   placeholder="Filter…"
+ * />
+ *
+ * @example
+ * // Large search bar with custom icon and clear callback
+ * <SearchBar
+ *   value={query}
+ *   onChangeText={setQuery}
+ *   onClear={() => { setQuery(''); clearResults(); }}
+ *   placeholder="Search people…"
+ *   size="lg"
+ *   searchIcon={PersonSearchIcon}
+ * />
+ *
+ * @example
+ * // Square-cornered search bar inside a modal header
+ * <SearchBar
+ *   value={query}
+ *   onChangeText={setQuery}
+ *   borderRadius={radius.md}
+ *   placeholder="Search…"
+ *   autoFocus
+ * />
  */
 export function SearchBar({
   value,
@@ -61,6 +101,7 @@ export function SearchBar({
   containerStyle,
   searchIcon: SearchIconProp = SearchIcon,
   borderRadius: borderRadiusProp,
+  size = 'md',
   testID,
   onFocus,
   onBlur,
@@ -90,6 +131,8 @@ export function SearchBar({
           backgroundColor: theme.colors.inputBackground,
           borderColor,
           borderRadius: borderRadiusProp ?? radius.full,
+          height: sizeConfig[size].height,
+          paddingHorizontal: sizeConfig[size].paddingHorizontal,
         },
         containerStyle,
       ]}>
@@ -135,10 +178,8 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingHorizontal: spacing.md,
     borderWidth: borders.thin,
     gap: spacing.sm,
-    height: sizes.inputLg,
   },
   input: {
     flex: 1,

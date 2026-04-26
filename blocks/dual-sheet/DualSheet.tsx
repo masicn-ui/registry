@@ -18,6 +18,7 @@ import Animated, {
   withTiming,
 } from 'react-native-reanimated';
 import { GestureDetector, Gesture } from 'react-native-gesture-handler';
+import { scheduleOnRN } from 'react-native-worklets';
 import { useTheme, spacing, radius, elevation, motion, motionEasing, useReducedMotion, useFocusTrap, Masicn } from '../../../masicn';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
@@ -71,6 +72,28 @@ const DISMISS_THRESHOLD = 0.3;
  * const sheetRef = useRef<DualSheetRef>(null);
  * <DualSheet ref={sheetRef} onClose={() => {}}
  *   leftContent={<NavMenu />} rightContent={<Detail />} />
+ *
+ * @example
+ * // With independent dismiss callbacks for each panel
+ * <DualSheet
+ *   visible={open}
+ *   onClose={() => setOpen(false)}
+ *   onCloseLeft={handleCloseNav}
+ *   onCloseRight={handleCloseDetail}
+ *   leftContent={<FilterSidebar />}
+ *   rightContent={<ArticleBody />}
+ * />
+ *
+ * @example
+ * // Custom panel widths via leftStyle / rightStyle
+ * <DualSheet
+ *   visible={open}
+ *   onClose={() => setOpen(false)}
+ *   leftContent={<QuickActions />}
+ *   rightContent={<MainContent />}
+ *   leftStyle={{ backgroundColor: theme.colors.surfaceSecondary }}
+ *   rightStyle={{ padding: spacing.lg }}
+ * />
  */
 export const DualSheet = React.forwardRef<DualSheetRef, DualSheetProps>(
   function DualSheet({
@@ -112,6 +135,14 @@ export const DualSheet = React.forwardRef<DualSheetRef, DualSheetProps>(
       onClose();
     }, [onClose]);
 
+    const handleDismissLeft = React.useCallback(() => {
+      (onCloseLeft ?? onClose)();
+    }, [onCloseLeft, onClose]);
+
+    const handleDismissRight = React.useCallback(() => {
+      (onCloseRight ?? onClose)();
+    }, [onCloseRight, onClose]);
+
     useImperativeHandle(ref, () => ({
       open: () => setInternalVisible(true),
       close: handleDismiss,
@@ -141,37 +172,34 @@ export const DualSheet = React.forwardRef<DualSheetRef, DualSheetProps>(
           : withSpring(0, motion.spring.sheet);
       } else {
         const exitDuration = rm ? motion.duration.instant : motion.duration.normal;
-        backdropOpacity.value = withTiming(0, { duration: exitDuration, easing: motionEasing.accelerate });
         leftTranslateX.value = withTiming(-leftWidth, { duration: exitDuration, easing: motionEasing.accelerate });
         rightTranslateX.value = withTiming(rightWidth, { duration: exitDuration, easing: motionEasing.accelerate });
-        const timeout = setTimeout(() => setShouldRender(false), exitDuration);
-        return () => clearTimeout(timeout);
+        backdropOpacity.value = withTiming(0, { duration: exitDuration, easing: motionEasing.accelerate },
+          (finished) => { if (finished) scheduleOnRN(setShouldRender, false); });
       }
     }, [isVisible, backdropOpacity, leftTranslateX, rightTranslateX, leftWidth, rightWidth]);
 
     const leftPan = Gesture.Pan()
-      .runOnJS(true)
       .activeOffsetX([-10, 10])
       .onUpdate((e) => {
         if (e.translationX < 0) { leftTranslateX.value = e.translationX; }
       })
       .onEnd((e) => {
         if (e.translationX < -(leftWidth * DISMISS_THRESHOLD) || e.velocityX < -500) {
-          (onCloseLeft ?? onClose)();
+          scheduleOnRN(handleDismissLeft);
         } else {
           leftTranslateX.value = withSpring(0, motion.spring.sheet);
         }
       });
 
     const rightPan = Gesture.Pan()
-      .runOnJS(true)
       .activeOffsetX([-10, 10])
       .onUpdate((e) => {
         if (e.translationX > 0) { rightTranslateX.value = e.translationX; }
       })
       .onEnd((e) => {
         if (e.translationX > rightWidth * DISMISS_THRESHOLD || e.velocityX > 500) {
-          (onCloseRight ?? onClose)();
+          scheduleOnRN(handleDismissRight);
         } else {
           rightTranslateX.value = withSpring(0, motion.spring.sheet);
         }

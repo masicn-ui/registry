@@ -3,7 +3,7 @@
   "displayName": "Image",
   "description": "Enhanced image component with aspect ratio presets, loading indicator, error fallback, overlay, and long-press full-screen preview.",
   "category": "display",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "files": [
     {
       "path": "Image.tsx",
@@ -13,13 +13,14 @@
   ],
   "masicnVersion": "^0.0.1",
   "peerDependencies": {
-    "react-native-reanimated": ">=3.0.0"
+    "react-native-reanimated": ">=3.0.0",
+    "react-native-worklets": ">=0.1.0"
   },
   "registryDependencies": [],
   "tags": [
     "media"
   ],
-  "hasTests": false,
+  "hasTests": true,
   "hasAccessibility": true,
   "props": [
     {
@@ -98,6 +99,24 @@
       "default": "false",
       "required": false,
       "description": "When true, a long-press opens a full-screen preview; releasing dismisses it."
+    }
+  ],
+  "examples": [
+    {
+      "label": "Example 1",
+      "code": "// Responsive 16:9 image with rounded corners\n<Image\n  source={{ uri: 'https://example.com/photo.jpg' }}\n  aspectRatio=\"16:9\"\n  borderRadius=\"lg\"\n/>"
+    },
+    {
+      "label": "Example 2",
+      "code": "// With long-press full-screen preview\n<Image\n  source={{ uri: 'https://example.com/photo.jpg' }}\n  aspectRatio=\"4:3\"\n  enablePreview\n/>"
+    },
+    {
+      "label": "Example 3",
+      "code": "// Thumbnail size with overlay gradient\n<Image\n  source={require('./assets/cover.jpg')}\n  size=\"medium\"\n  overlay\n  borderRadius=\"md\"\n/>"
+    },
+    {
+      "label": "Example 4",
+      "code": "// Square portrait crop with contain fit and custom error fallback\n<Image\n  source={{ uri: user.avatarUrl }}\n  aspectRatio=\"square\"\n  fit=\"contain\"\n  borderRadius=\"full\"\n  fallback={<Avatar initials={user.initials} />}\n/>"
     }
   ]
 }

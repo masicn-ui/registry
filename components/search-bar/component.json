@@ -3,7 +3,7 @@
   "displayName": "SearchBar",
   "description": "Search input with clear button, custom search icon, and submit handler",
   "category": "forms",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "files": [
     {
       "path": "SearchBar.tsx",
@@ -19,7 +19,7 @@
     "search",
     "input"
   ],
-  "hasTests": false,
+  "hasTests": true,
   "hasAccessibility": true,
   "props": [
     {
@@ -67,10 +67,35 @@
       "description": "Custom icon character displayed on the left of the input."
     },
     {
+      "name": "size",
+      "type": "'sm' | 'md' | 'lg'",
+      "default": "md",
+      "required": false,
+      "description": "Size preset controlling height and horizontal padding."
+    },
+    {
       "name": "testID",
       "type": "string",
       "required": false,
       "description": "Test identifier; clear button receives `{testID}-clear`."
+    }
+  ],
+  "examples": [
+    {
+      "label": "Example 1",
+      "code": "const [query, setQuery] = React.useState('');\n<SearchBar\n  value={query}\n  onChangeText={setQuery}\n  onSearch={(text) => fetchResults(text)}\n  placeholder=\"Search products…\"\n/>"
+    },
+    {
+      "label": "Example 2",
+      "code": "// Small compact search inside a header bar\n<SearchBar\n  value={query}\n  onChangeText={setQuery}\n  size=\"sm\"\n  placeholder=\"Filter…\"\n/>"
+    },
+    {
+      "label": "Example 3",
+      "code": "// Large search bar with custom icon and clear callback\n<SearchBar\n  value={query}\n  onChangeText={setQuery}\n  onClear={() => { setQuery(''); clearResults(); }}\n  placeholder=\"Search people…\"\n  size=\"lg\"\n  searchIcon={PersonSearchIcon}\n/>"
+    },
+    {
+      "label": "Example 4",
+      "code": "// Square-cornered search bar inside a modal header\n<SearchBar\n  value={query}\n  onChangeText={setQuery}\n  borderRadius={radius.md}\n  placeholder=\"Search…\"\n  autoFocus\n/>"
     }
   ]
 }

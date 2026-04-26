@@ -3,7 +3,7 @@
   "displayName": "Phone Input",
   "description": "Phone number input block with country code selector.",
   "category": "forms",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "files": [
     {
       "path": "Phone.tsx",
@@ -21,7 +21,7 @@
     "input",
     "country"
   ],
-  "hasTests": false,
+  "hasTests": true,
   "hasAccessibility": true,
   "props": [
     {
@@ -100,6 +100,13 @@
       "description": "Disables all interaction including the dial code picker and phone number field."
     },
     {
+      "name": "size",
+      "type": "'sm' | 'md' | 'lg'",
+      "default": "md",
+      "required": false,
+      "description": "Size preset controlling input row minimum height and vertical padding."
+    },
+    {
       "name": "containerStyle",
       "type": "ViewStyle",
       "required": false,
@@ -110,6 +117,24 @@
       "type": "string",
       "required": false,
       "description": "Stable test identifier passed to the underlying TextInput for automated testing."
+    }
+  ],
+  "examples": [
+    {
+      "label": "Example 1",
+      "code": "<Phone\n  label=\"Mobile number\"\n  value={phone}\n  onValueChange={setPhone}\n  countries={[\n    { dialCode: '+91', name: 'India' },\n    { dialCode: '+1',  name: 'United States' },\n    { dialCode: '+44', name: 'United Kingdom' },\n  ]}\n/>"
+    },
+    {
+      "label": "Example 2",
+      "code": "// Simple single-country field (no picker shown)\n<Phone\n  label=\"Phone number\"\n  value={phone}\n  onValueChange={setPhone}\n  countryCodes={['+1']}\n  placeholder=\"(555) 000-0000\"\n/>"
+    },
+    {
+      "label": "Example 3",
+      "code": "// With error and helper text\n<Phone\n  label=\"Mobile\"\n  value={phone}\n  onValueChange={setPhone}\n  countries={countryList}\n  error={phoneError}\n  helperText=\"Used for SMS verification\"\n/>"
+    },
+    {
+      "label": "Example 4",
+      "code": "// Disabled — read-only phone display\n<Phone\n  label=\"Contact number\"\n  value={user.phone}\n  onValueChange={() => {}}\n  countryCodes={[user.dialCode]}\n  disabled\n/>"
     }
   ]
 }

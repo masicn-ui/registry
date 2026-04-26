@@ -3,7 +3,7 @@
   "displayName": "Switch",
   "description": "Animated toggle switch with track color interpolation, thumb translation, label, and description.",
   "category": "selection",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "files": [
     {
       "path": "Switch.tsx",
@@ -19,7 +19,7 @@
   "tags": [
     "form"
   ],
-  "hasTests": false,
+  "hasTests": true,
   "hasAccessibility": true,
   "props": [
     {
@@ -71,6 +71,24 @@
       "type": "string",
       "required": false,
       "description": "Accessibility hint describing the action the switch performs."
+    }
+  ],
+  "examples": [
+    {
+      "label": "Example 1",
+      "code": "const [enabled, setEnabled] = useState(false);\n<Switch\n  value={enabled}\n  onValueChange={setEnabled}\n  label=\"Push notifications\"\n  description=\"Receive alerts when you're mentioned\"\n/>"
+    },
+    {
+      "label": "Example 2",
+      "code": "// Label on the left side for a settings row where the control sits on the right\n<Switch\n  value={darkMode}\n  onValueChange={setDarkMode}\n  label=\"Dark mode\"\n  labelPosition=\"left\"\n/>"
+    },
+    {
+      "label": "Example 3",
+      "code": "// Disabled switch for a locked setting\n<Switch\n  value={true}\n  onValueChange={() => {}}\n  label=\"Two-factor authentication\"\n  description=\"Managed by your organisation\"\n  disabled\n/>"
+    },
+    {
+      "label": "Example 4",
+      "code": "// Standalone switch without label, with explicit accessibility props\n<Switch\n  value={isMuted}\n  onValueChange={setIsMuted}\n  accessibilityLabel=\"Mute microphone\"\n  accessibilityHint=\"Toggles your microphone on or off during the call\"\n  testID=\"mute-toggle\"\n/>"
     }
   ]
 }

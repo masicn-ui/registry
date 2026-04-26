@@ -29,6 +29,24 @@ interface LoaderProps {
  *
  * // Without backdrop (spinner only, UI remains interactive)
  * <Loader visible={loading} backdrop={false} />
+ *
+ * @example
+ * // File upload progress overlay
+ * <Loader visible={isUploading} message="Uploading photo…" />
+ *
+ * @example
+ * // Authentication loader without message
+ * <Loader visible={isAuthenticating} />
+ *
+ * @example
+ * // Triggered by a form submission
+ * const [submitting, setSubmitting] = useState(false);
+ * const handleSubmit = async () => {
+ *   setSubmitting(true);
+ *   await submitForm(data);
+ *   setSubmitting(false);
+ * };
+ * <Loader visible={submitting} message="Creating your account…" />
  */
 export function Loader({
   visible,

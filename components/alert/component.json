@@ -3,7 +3,7 @@
   "displayName": "Alert",
   "description": "Inline alert banner with success, error, warning, and info variants. Supports title, description, custom icon, and dismissible state.",
   "category": "feedback",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "files": [
     {
       "path": "Alert.tsx",
@@ -18,7 +18,7 @@
     "feedback",
     "status"
   ],
-  "hasTests": false,
+  "hasTests": true,
   "hasAccessibility": true,
   "props": [
     {
@@ -63,6 +63,24 @@
       "type": "string",
       "required": false,
       "description": "Custom icon string overriding the default variant icon"
+    }
+  ],
+  "examples": [
+    {
+      "label": "Example 1",
+      "code": "// Success alert\n<Alert variant=\"success\" title=\"Saved!\" description=\"Your changes have been saved.\" />"
+    },
+    {
+      "label": "Example 2",
+      "code": "// Dismissible error\n<Alert\n  variant=\"error\"\n  title=\"Something went wrong\"\n  description={error.message}\n  dismissible\n  onDismiss={clearError}\n/>"
+    },
+    {
+      "label": "Example 3",
+      "code": "// Info alert with a custom icon\n<Alert\n  variant=\"info\"\n  title=\"New features available\"\n  description=\"Update to version 2.0 to unlock the latest improvements.\"\n  icon={<SparkleIcon />}\n/>"
+    },
+    {
+      "label": "Example 4",
+      "code": "// Warning without description — compact single-line layout\n<Alert variant=\"warning\" title=\"Low storage space\" />"
     }
   ]
 }

@@ -56,6 +56,10 @@ const circularSizes = {
  * @example
  * // Inline status pill
  * <Badge label="Active" variant="success" />
+ *
+ * @example
+ * // Warning badge on a list item, small size
+ * <Badge label="Overdue" variant="warning" size="sm" />
  */
 export const Badge = React.memo(function Badge({ label, variant = 'error', circular = false, size = 'md', accessibilityLabel, style, testID }: BadgeProps) {
   const { theme } = useTheme();

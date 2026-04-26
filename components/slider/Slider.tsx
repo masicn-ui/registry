@@ -57,6 +57,37 @@ interface SliderProps {
  * @example
  * const [volume, setVolume] = useState(70);
  * <Slider label="Volume" value={volume} onValueChange={setVolume} showValue />
+ *
+ * @example
+ * // Brightness control, 1–100 with step of 5
+ * <Slider
+ *   label="Brightness"
+ *   value={brightness}
+ *   onValueChange={setBrightness}
+ *   minimumValue={1}
+ *   maximumValue={100}
+ *   step={5}
+ *   showValue
+ * />
+ *
+ * @example
+ * // Disabled slider for read-only display
+ * <Slider
+ *   label="Battery level"
+ *   value={batteryLevel}
+ *   onValueChange={() => {}}
+ *   disabled
+ * />
+ *
+ * @example
+ * // Compact slider without label for inline use
+ * <Slider
+ *   value={opacity}
+ *   onValueChange={setOpacity}
+ *   minimumValue={0}
+ *   maximumValue={1}
+ *   step={0.01}
+ * />
  */
 export function Slider({
   value,

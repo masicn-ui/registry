@@ -3,7 +3,7 @@
   "displayName": "Tag",
   "description": "Display tag for labels, categories, and status indicators with semantic color variants and optional remove button.",
   "category": "display",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "files": [
     {
       "path": "Tag.tsx",
@@ -18,7 +18,7 @@
     "label",
     "status"
   ],
-  "hasTests": false,
+  "hasTests": true,
   "hasAccessibility": false,
   "props": [
     {
@@ -53,6 +53,24 @@
       "type": "() => void",
       "required": false,
       "description": "Callback invoked when the remove button is pressed"
+    }
+  ],
+  "examples": [
+    {
+      "label": "Example 1",
+      "code": "// Static informational tag\n<Tag label=\"In Progress\" variant=\"warning\" />\n// Removable filter tag\n<Tag label=\"React Native\" removable onRemove={() => removeFilter('React Native')} />"
+    },
+    {
+      "label": "Example 2",
+      "code": "// Success variant indicating a completed status\n<Tag label=\"Deployed\" variant=\"success\" />"
+    },
+    {
+      "label": "Example 3",
+      "code": "// Error variant for a failed state, small size\n<Tag label=\"Failed\" variant=\"error\" size=\"sm\" />"
+    },
+    {
+      "label": "Example 4",
+      "code": "// Info tag, large size for prominent category labelling\n<Tag label=\"Featured\" variant=\"info\" size=\"lg\" />"
     }
   ]
 }

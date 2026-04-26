@@ -3,7 +3,7 @@
   "displayName": "RightSheet",
   "description": "Gesture-driven side sheet that slides in from the right edge with drag-to-dismiss support.",
   "category": "overlays",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "files": [
     {
       "path": "RightSheet.tsx",
@@ -22,7 +22,7 @@
     "overlay",
     "sheet"
   ],
-  "hasTests": false,
+  "hasTests": true,
   "hasAccessibility": true,
   "props": [
     {
@@ -69,6 +69,24 @@
       "default": "false",
       "required": false,
       "description": "When true, the dimmed backdrop is hidden and touches pass through it"
+    }
+  ],
+  "examples": [
+    {
+      "label": "Example 1",
+      "code": "const [open, setOpen] = React.useState(false);\n<RightSheet visible={open} onClose={() => setOpen(false)} width={0.8}>\n  <FilterPanel />\n</RightSheet>"
+    },
+    {
+      "label": "Example 2",
+      "code": "// Imperative usage\nconst sheetRef = useRef<RightSheetRef>(null);\n<RightSheet ref={sheetRef} onClose={() => {}}>\n  <FilterPanel />\n</RightSheet>"
+    },
+    {
+      "label": "Example 3",
+      "code": "// Without backdrop — content behind sheet remains interactive\n<RightSheet visible={open} onClose={() => setOpen(false)} hideBackdrop>\n  <NotificationList />\n</RightSheet>"
+    },
+    {
+      "label": "Example 4",
+      "code": "// Narrow sheet (40% width) for a quick detail preview\n<RightSheet visible={open} onClose={() => setOpen(false)} width={0.4}>\n  <ProductPreview product={selected} />\n</RightSheet>"
     }
   ]
 }

@@ -3,7 +3,7 @@
   "displayName": "Chip",
   "description": "Interactive filter chip with filled and outline variants, selected state, leading icon, and optional remove button.",
   "category": "selection",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "files": [
     {
       "path": "Chip.tsx",
@@ -18,7 +18,7 @@
     "interactive",
     "filter"
   ],
-  "hasTests": false,
+  "hasTests": true,
   "hasAccessibility": true,
   "props": [
     {
@@ -59,6 +59,24 @@
       "type": "() => void",
       "required": false,
       "description": "If provided, shows a remove (×) button and calls this handler when pressed"
+    }
+  ],
+  "examples": [
+    {
+      "label": "Example 1",
+      "code": "// Filter chip with toggle\n<Chip\n  label=\"React Native\"\n  selected={isSelected}\n  onPress={() => toggleFilter('react-native')}\n/>"
+    },
+    {
+      "label": "Example 2",
+      "code": "// Removable tag\n<Chip label=\"TypeScript\" onRemove={() => removeTag('ts')} />"
+    },
+    {
+      "label": "Example 3",
+      "code": "// Chip with icon\n<Chip label=\"Starred\" icon={<StarIcon />} variant=\"outline\" />"
+    },
+    {
+      "label": "Example 4",
+      "code": "// Disabled chip that cannot be interacted with\n<Chip label=\"Unavailable\" disabled />"
     }
   ]
 }

@@ -3,7 +3,7 @@
   "displayName": "Pin",
   "description": "PIN/OTP dot progress display showing filled and empty dots with default, error, and success variants.",
   "category": "display",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "files": [
     {
       "path": "Pin.tsx",
@@ -18,7 +18,7 @@
     "display",
     "security"
   ],
-  "hasTests": false,
+  "hasTests": true,
   "hasAccessibility": true,
   "props": [
     {
@@ -53,6 +53,24 @@
       "default": "md",
       "required": false,
       "description": "Spacing between dots."
+    }
+  ],
+  "examples": [
+    {
+      "label": "Example 1",
+      "code": "// 4-digit PIN with 2 digits entered\n<Pin length={4} filled={pin.length} />\n// Error state after a failed attempt\n<Pin length={4} filled={4} variant=\"error\" size=\"lg\" />"
+    },
+    {
+      "label": "Example 2",
+      "code": "// Success state after correct PIN entry\n<Pin length={6} filled={6} variant=\"success\" />"
+    },
+    {
+      "label": "Example 3",
+      "code": "// Small dots in a compact layout\n<Pin length={4} filled={enteredDigits} size=\"sm\" gap=\"sm\" />"
+    },
+    {
+      "label": "Example 4",
+      "code": "// Paired with a hidden TextInput for a PIN entry screen\nconst [pin, setPin] = useState('');\n<Pin length={4} filled={pin.length} />\n<TextInput\n  secureTextEntry\n  keyboardType=\"number-pad\"\n  maxLength={4}\n  value={pin}\n  onChangeText={setPin}\n  style={styles.hiddenInput}\n/>"
     }
   ]
 }

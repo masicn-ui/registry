@@ -3,7 +3,7 @@
   "displayName": "Drawer",
   "description": "Persistent side navigation panel with temporary (overlay) and permanent (inline) variants. Swipe-to-dismiss, safe-area aware, and responsive.",
   "category": "navigation-ui",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "files": [
     {
       "path": "Drawer.tsx",
@@ -18,8 +18,13 @@
     "react-native-safe-area-context": ">=4.0.0"
   },
   "registryDependencies": [],
-  "tags": ["navigation", "drawer", "side-nav", "menu"],
-  "hasTests": false,
+  "tags": [
+    "navigation",
+    "drawer",
+    "side-nav",
+    "menu"
+  ],
+  "hasTests": true,
   "hasAccessibility": true,
   "props": [
     {
@@ -85,6 +90,24 @@
       "type": "string",
       "required": false,
       "description": "Test identifier for automated testing."
+    }
+  ],
+  "examples": [
+    {
+      "label": "Example 1",
+      "code": "// Temporary drawer on mobile\nconst [open, setOpen] = React.useState(false);\n<Drawer visible={open} onClose={() => setOpen(false)}>\n  <NavMenu />\n</Drawer>"
+    },
+    {
+      "label": "Example 2",
+      "code": "// Permanent drawer on tablet\n<Drawer variant=\"permanent\" visible onClose={() => {}}>\n  <NavMenu />\n</Drawer>"
+    },
+    {
+      "label": "Example 3",
+      "code": "// Imperative usage\nconst drawerRef = useRef<DrawerRef>(null);\n<Drawer ref={drawerRef} onClose={() => {}}>\n  <NavMenu />\n</Drawer>"
+    },
+    {
+      "label": "Example 4",
+      "code": "// Right-side drawer without backdrop\nconst [open, setOpen] = React.useState(false);\n<Drawer visible={open} onClose={() => setOpen(false)} side=\"right\" hideBackdrop>\n  <FilterPanel />\n</Drawer>"
     }
   ]
 }

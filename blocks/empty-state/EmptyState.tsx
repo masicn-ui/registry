@@ -46,6 +46,25 @@ export interface EmptyStateProps {
  *   title="No results found"
  *   description="Try adjusting your search terms."
  * />
+ *
+ * @example
+ * // Error state with retry action
+ * <EmptyState
+ *   icon="⚠️"
+ *   title="Failed to load"
+ *   description="Check your internet connection and try again."
+ *   actionLabel="Retry"
+ *   onAction={refetch}
+ * />
+ *
+ * @example
+ * // No notifications placeholder with custom container style
+ * <EmptyState
+ *   icon="🔔"
+ *   title="All caught up"
+ *   description="You have no new notifications."
+ *   containerStyle={{ flex: 1, justifyContent: 'center' }}
+ * />
  */
 export const EmptyState = React.memo(function EmptyState({
   title,

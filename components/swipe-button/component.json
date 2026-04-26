@@ -3,7 +3,7 @@
   "displayName": "SwipeButton",
   "description": "Drag-to-confirm control where the user slides a thumb across a track to trigger an irreversible action. Track animates from surface to success on completion.",
   "category": "inputs",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "files": [
     {
       "path": "SwipeButton.tsx",
@@ -57,6 +57,24 @@
       "type": "string",
       "required": false,
       "description": "Test identifier for the track container."
+    }
+  ],
+  "examples": [
+    {
+      "label": "Example 1",
+      "code": "// Basic usage\n<SwipeButton label=\"Slide to pay\" onComplete={() => processPayment()} />"
+    },
+    {
+      "label": "Example 2",
+      "code": "// Disabled during processing to prevent double-submission\n<SwipeButton\n  label=\"Slide to confirm order\"\n  onComplete={handleConfirm}\n  disabled={isProcessing}\n/>"
+    },
+    {
+      "label": "Example 3",
+      "code": "// Custom style to fill available width inside a bottom sheet footer\n<SwipeButton\n  label=\"Slide to delete\"\n  onComplete={handleDelete}\n  style={{ marginHorizontal: spacing.md }}\n/>"
+    },
+    {
+      "label": "Example 4",
+      "code": "// With testID for automated testing\n<SwipeButton\n  label=\"Slide to approve\"\n  onComplete={onApprove}\n  testID=\"approve-swipe-button\"\n/>"
     }
   ]
 }

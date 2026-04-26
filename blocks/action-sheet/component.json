@@ -3,7 +3,7 @@
   "displayName": "Action Sheet",
   "description": "iOS-style action sheet block with list of actions.",
   "category": "overlays",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "files": [
     {
       "path": "ActionSheet.tsx",
@@ -21,7 +21,7 @@
     "modal",
     "actions"
   ],
-  "hasTests": false,
+  "hasTests": true,
   "hasAccessibility": true,
   "props": [
     {
@@ -73,6 +73,24 @@
       "type": "string",
       "required": false,
       "description": "Test identifier; options receive `{testID}-option-{index}`, cancel receives `{testID}-cancel`."
+    }
+  ],
+  "examples": [
+    {
+      "label": "Example 1",
+      "code": "<ActionSheet\n  visible={sheetVisible}\n  onClose={() => setSheetVisible(false)}\n  title=\"Choose an action\"\n  options={[\n    { label: 'Edit',   icon: <EditIcon />, onPress: handleEdit },\n    { label: 'Share',  icon: <ShareIcon />, onPress: handleShare },\n    { label: 'Delete', destructive: true,  onPress: handleDelete },\n  ]}\n/>"
+    },
+    {
+      "label": "Example 2",
+      "code": "// No cancel button — when a header provides a cancel affordance instead\n<ActionSheet\n  visible={visible}\n  onClose={onClose}\n  showCancel={false}\n  options={[\n    { label: 'Save draft', onPress: saveDraft },\n    { label: 'Discard changes', destructive: true, onPress: discard },\n  ]}\n/>"
+    },
+    {
+      "label": "Example 3",
+      "code": "// With title and message for additional context\n<ActionSheet\n  visible={visible}\n  onClose={onClose}\n  title=\"Move to folder\"\n  message=\"Select the destination folder for this file.\"\n  options={folders.map(f => ({ label: f.name, onPress: () => moveFile(f.id) }))}\n/>"
+    },
+    {
+      "label": "Example 4",
+      "code": "// With a disabled option\n<ActionSheet\n  visible={visible}\n  onClose={onClose}\n  options={[\n    { label: 'Download', onPress: download },\n    { label: 'Print', onPress: print, disabled: !isPrintSupported },\n    { label: 'Remove', destructive: true, onPress: remove },\n  ]}\n/>"
     }
   ]
 }

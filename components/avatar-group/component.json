@@ -3,7 +3,7 @@
   "displayName": "AvatarGroup",
   "description": "Stacked row of Avatars with configurable max count and +N overflow indicator.",
   "category": "display",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "files": [
     {
       "path": "AvatarGroup.tsx",
@@ -20,7 +20,7 @@
     "user",
     "group"
   ],
-  "hasTests": false,
+  "hasTests": true,
   "hasAccessibility": true,
   "props": [
     {
@@ -49,6 +49,24 @@
       "default": "8",
       "required": false,
       "description": "Pixel amount each avatar overlaps the previous one"
+    }
+  ],
+  "examples": [
+    {
+      "label": "Example 1",
+      "code": "<AvatarGroup\n  avatars={members.map(m => ({ source: { uri: m.photo }, initials: m.initials }))}\n  max={5}\n  size=\"sm\"\n/>"
+    },
+    {
+      "label": "Example 2",
+      "code": "// Team display with colour-coded initials\n<AvatarGroup\n  avatars={[\n    { initials: 'AL', color: 'primary' },\n    { initials: 'BM', color: 'secondary' },\n    { initials: 'CK', color: 'tertiary' },\n  ]}\n  size=\"md\"\n/>"
+    },
+    {
+      "label": "Example 3",
+      "code": "// Large avatars, tight overlap\n<AvatarGroup\n  avatars={reviewers.map(r => ({ source: { uri: r.avatar }, initials: r.name[0] }))}\n  max={3}\n  size=\"lg\"\n  overlap={12}\n/>"
+    },
+    {
+      "label": "Example 4",
+      "code": "// Overflow summary — 8 members, only 4 shown + \"+4\"\n<AvatarGroup\n  avatars={projectMembers.map(m => ({ initials: m.initials }))}\n  max={4}\n  size=\"sm\"\n/>"
     }
   ]
 }

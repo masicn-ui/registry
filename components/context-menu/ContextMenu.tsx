@@ -38,8 +38,61 @@ interface ContextMenuProps {
 }
 
 /**
- * ContextMenu component for touch-and-hold interactions
- * Shows a contextual menu when user long-presses the trigger
+ * ContextMenu — contextual action menu triggered by a long press on any element.
+ *
+ * Positions the menu automatically to stay within screen bounds. Supports
+ * icons, destructive items, and disabled items.
+ *
+ * @example
+ * // Basic usage with action items
+ * <ContextMenu
+ *   accessibilityLabel="Message options"
+ *   items={[
+ *     { label: 'Copy', value: 'copy', icon: '📋' },
+ *     { label: 'Reply', value: 'reply', icon: '↩️' },
+ *     { label: 'Delete', value: 'delete', icon: '🗑', destructive: true },
+ *   ]}
+ *   onSelect={(value) => handleAction(value)}>
+ *   <Text>Long press me</Text>
+ * </ContextMenu>
+ *
+ * @example
+ * // With a disabled item
+ * <ContextMenu
+ *   accessibilityLabel="File options"
+ *   items={[
+ *     { label: 'Edit', value: 'edit' },
+ *     { label: 'Share', value: 'share', disabled: true },
+ *   ]}
+ *   onSelect={setAction}>
+ *   <Image source={thumbnail} />
+ * </ContextMenu>
+ *
+ * @example
+ * // Long-press on a list item row
+ * <ContextMenu
+ *   accessibilityLabel="Contact options"
+ *   items={[
+ *     { label: 'Call', value: 'call', icon: '📞' },
+ *     { label: 'Message', value: 'message', icon: '💬' },
+ *     { label: 'Block', value: 'block', destructive: true },
+ *   ]}
+ *   onSelect={handleContactAction}>
+ *   <ContactRow contact={contact} />
+ * </ContextMenu>
+ *
+ * @example
+ * // Context menu on an image with custom menu style
+ * <ContextMenu
+ *   accessibilityLabel="Photo options"
+ *   items={[
+ *     { label: 'Save to photos', value: 'save' },
+ *     { label: 'Copy', value: 'copy' },
+ *   ]}
+ *   onSelect={handlePhotoAction}
+ *   menuStyle={{ minWidth: 200 }}>
+ *   <Photo uri={item.uri} />
+ * </ContextMenu>
  */
 export function ContextMenu({
   items,

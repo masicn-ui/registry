@@ -48,6 +48,20 @@ interface CollapsibleProps {
  * >
  *   <FilterPanel />
  * </Collapsible>
+ *
+ * @example
+ * // Custom icon replacing the default chevron
+ * <Collapsible title="FAQ" icon={<PlusIcon />}>
+ *   <Text>Frequently asked question answer goes here.</Text>
+ * </Collapsible>
+ *
+ * @example
+ * // Multiple collapsibles stacked in a settings screen
+ * <Stack gap="sm">
+ *   <Collapsible title="Account settings"><AccountForm /></Collapsible>
+ *   <Collapsible title="Notifications"><NotificationToggles /></Collapsible>
+ *   <Collapsible title="Privacy"><PrivacyOptions /></Collapsible>
+ * </Stack>
  */
 export function Collapsible({
   title,

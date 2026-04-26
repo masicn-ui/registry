@@ -29,8 +29,20 @@ interface TagProps extends ViewProps {
  *
  * // Removable filter tag
  * <Tag label="React Native" removable onRemove={() => removeFilter('React Native')} />
+ *
+ * @example
+ * // Success variant indicating a completed status
+ * <Tag label="Deployed" variant="success" />
+ *
+ * @example
+ * // Error variant for a failed state, small size
+ * <Tag label="Failed" variant="error" size="sm" />
+ *
+ * @example
+ * // Info tag, large size for prominent category labelling
+ * <Tag label="Featured" variant="info" size="lg" />
  */
-export function Tag({
+export const Tag = React.memo(function Tag({
   label,
   variant = 'default',
   size = 'md',
@@ -118,7 +130,7 @@ export function Tag({
       )}
     </View>
   );
-}
+});
 
 const styles = StyleSheet.create({
   tag: {

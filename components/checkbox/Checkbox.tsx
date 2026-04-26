@@ -57,8 +57,24 @@ interface CheckboxProps {
  *   onValueChange={toggleAll}
  *   label="Select all"
  * />
+ *
+ * @example
+ * // Disabled — cannot be toggled
+ * <Checkbox
+ *   checked={true}
+ *   onValueChange={() => {}}
+ *   label="Email notifications"
+ *   description="Managed by your organisation policy"
+ *   disabled
+ * />
+ *
+ * @example
+ * // Custom children instead of label/description
+ * <Checkbox checked={agreed} onValueChange={setAgreed}>
+ *   <Text>I agree to the <Link href="/terms">Terms of Service</Link></Text>
+ * </Checkbox>
  */
-const Checkbox = React.forwardRef<View, CheckboxProps>(function Checkbox(
+const Checkbox = React.memo(React.forwardRef<View, CheckboxProps>(function Checkbox(
   {
     checked,
     onValueChange,
@@ -142,7 +158,7 @@ const Checkbox = React.forwardRef<View, CheckboxProps>(function Checkbox(
         )}
     </Pressable>
   );
-});
+}));
 
 Checkbox.displayName = 'Checkbox';
 

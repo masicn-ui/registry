@@ -194,6 +194,17 @@ interface AccordionProps {
  *     <Text>Content B</Text>
  *   </AccordionItem>
  * </Accordion>
+ *
+ * @example
+ * // Allow multiple sections expanded simultaneously
+ * <Accordion allowMultiple>
+ *   <AccordionItem title="FAQ 1">
+ *     <Text>Answer to the first question.</Text>
+ *   </AccordionItem>
+ *   <AccordionItem title="FAQ 2">
+ *     <Text>Answer to the second question.</Text>
+ *   </AccordionItem>
+ * </Accordion>
  */
 export function Accordion({
   children,

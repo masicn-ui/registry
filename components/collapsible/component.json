@@ -3,7 +3,7 @@
   "displayName": "Collapsible",
   "description": "Expandable section with controlled and uncontrolled modes, LayoutAnimation, and custom icon support.",
   "category": "layout",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "files": [
     {
       "path": "Collapsible.tsx",
@@ -19,7 +19,7 @@
   "tags": [
     "navigation"
   ],
-  "hasTests": false,
+  "hasTests": true,
   "hasAccessibility": true,
   "props": [
     {
@@ -64,6 +64,24 @@
       "type": "string",
       "required": false,
       "description": "Test identifier forwarded to the header Pressable."
+    }
+  ],
+  "examples": [
+    {
+      "label": "Example 1",
+      "code": "// Uncontrolled, starts expanded\n<Collapsible title=\"Advanced Settings\" defaultOpen>\n  <Toggle label=\"Enable debug mode\" />\n</Collapsible>"
+    },
+    {
+      "label": "Example 2",
+      "code": "// Controlled\n<Collapsible\n  title=\"Filters\"\n  open={filtersOpen}\n  onToggle={setFiltersOpen}\n>\n  <FilterPanel />\n</Collapsible>"
+    },
+    {
+      "label": "Example 3",
+      "code": "// Custom icon replacing the default chevron\n<Collapsible title=\"FAQ\" icon={<PlusIcon />}>\n  <Text>Frequently asked question answer goes here.</Text>\n</Collapsible>"
+    },
+    {
+      "label": "Example 4",
+      "code": "// Multiple collapsibles stacked in a settings screen\n<Stack gap=\"sm\">\n  <Collapsible title=\"Account settings\"><AccountForm /></Collapsible>\n  <Collapsible title=\"Notifications\"><NotificationToggles /></Collapsible>\n  <Collapsible title=\"Privacy\"><PrivacyOptions /></Collapsible>\n</Stack>"
     }
   ]
 }

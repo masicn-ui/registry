@@ -46,6 +46,16 @@ const SnackbarContext = createContext<SnackbarContextValue | undefined>(undefine
  * @example
  * const snackbar = useSnackbar();
  * snackbar.success('Saved!');
+ *
+ * @example
+ * // Error with retry action
+ * const snackbar = useSnackbar();
+ * snackbar.error('Upload failed', 5000, { label: 'Retry', onPress: retryUpload });
+ *
+ * @example
+ * // Top-positioned info snackbar
+ * const snackbar = useSnackbar();
+ * snackbar.info('New messages available', 3000, undefined, 'top');
  */
 export function useSnackbar() {
   const context = useContext(SnackbarContext);
@@ -80,6 +90,23 @@ interface SnackbarProviderProps {
  * // Inside any screen:
  * const snackbar = useSnackbar();
  * snackbar.error('Upload failed', 5000, { label: 'Retry', onPress: retry });
+ *
+ * @example
+ * // Default position overridden to top globally
+ * <SnackbarProvider defaultPosition="top">
+ *   <App />
+ * </SnackbarProvider>
+ *
+ * @example
+ * // Tappable snackbar that navigates to a detail screen
+ * const snackbar = useSnackbar();
+ * snackbar.info(
+ *   'New order received',
+ *   4000,
+ *   undefined,
+ *   'bottom',
+ *   () => navigation.navigate('OrderDetail', { id: orderId }),
+ * );
  */
 export function SnackbarProvider({ children, defaultPosition = 'bottom' }: SnackbarProviderProps) {
   const [snackbars, setSnackbars] = useState<SnackbarMessage[]>([]);

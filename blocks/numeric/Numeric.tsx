@@ -6,7 +6,15 @@ import {
   StyleSheet,
   type ViewStyle,
 } from 'react-native';
-import { Stack, Text, borders, layout, opacity as opacityTokens, radius, spacing, typography, useTheme } from '../../../masicn';
+import { Stack, Text, borders, opacity as opacityTokens, radius, sizes, spacing, typography, useTheme } from '../../../masicn';
+
+type NumericSize = 'sm' | 'md' | 'lg';
+
+const sizeConfig = {
+  sm: { buttonSize: sizes.inputSm, labelVariant: 'body' as const },
+  md: { buttonSize: sizes.inputMd, labelVariant: 'h3' as const },
+  lg: { buttonSize: sizes.inputLg, labelVariant: 'h2' as const },
+} as const;
 
 export interface NumericProps {
   /** Current numeric value */
@@ -27,6 +35,8 @@ export interface NumericProps {
   error?: string;
   /** Disable all interaction */
   disabled?: boolean;
+  /** Size preset controlling button and input height. @default 'md' */
+  size?: NumericSize;
   /** Outer container style */
   containerStyle?: ViewStyle;
   /** Stable selector for tests */
@@ -54,6 +64,38 @@ export interface NumericProps {
  *   max={99}
  *   step={1}
  * />
+ *
+ * @example
+ * // Temperature control with 0.5° step
+ * <Numeric
+ *   label="Temperature (°C)"
+ *   value={temp}
+ *   onValueChange={setTemp}
+ *   min={16}
+ *   max={30}
+ *   step={0.5}
+ * />
+ *
+ * @example
+ * // Disabled — read-only quantity display
+ * <Numeric
+ *   label="Items in cart"
+ *   value={cartCount}
+ *   onValueChange={() => {}}
+ *   disabled
+ * />
+ *
+ * @example
+ * // With helper text and error state
+ * <Numeric
+ *   label="Guests"
+ *   value={guestCount}
+ *   onValueChange={setGuestCount}
+ *   min={1}
+ *   max={10}
+ *   helperText="Maximum 10 guests per booking"
+ *   error={guestCount > 10 ? 'Exceeds maximum' : undefined}
+ * />
  */
 export const Numeric = forwardRef<RNTextInput, NumericProps>(function Numeric({
   value,
@@ -65,6 +107,7 @@ export const Numeric = forwardRef<RNTextInput, NumericProps>(function Numeric({
   helperText,
   error,
   disabled = false,
+  size = 'md',
   containerStyle,
   testID,
 }, ref) {
@@ -137,15 +180,18 @@ export const Numeric = forwardRef<RNTextInput, NumericProps>(function Numeric({
           accessibilityRole="button"
           accessibilityLabel="Decrease value"
           accessibilityState={{ disabled: !canDecrement }}
+          hitSlop={size === 'sm' ? 6 : 0}
           style={[
             styles.stepButton,
             canDecrement ? styles.stepButtonActive : styles.stepButtonDimmed,
             {
+              width: sizeConfig[size].buttonSize,
+              height: sizeConfig[size].buttonSize,
               borderColor: theme.colors.inputBorder,
               backgroundColor: canDecrement ? activeButtonBg : disabledButtonBg,
             },
           ]}>
-          <Text variant="h3" style={{ color: canDecrement ? theme.colors.textPrimary : theme.colors.textDisabled }}>
+          <Text variant={sizeConfig[size].labelVariant} style={{ color: canDecrement ? theme.colors.textPrimary : theme.colors.textDisabled }}>
             −
           </Text>
         </Pressable>
@@ -156,6 +202,7 @@ export const Numeric = forwardRef<RNTextInput, NumericProps>(function Numeric({
             styles.inputContainer,
             focused && styles.inputContainerFocused,
             {
+              height: sizeConfig[size].buttonSize,
               borderColor,
               backgroundColor: disabled ? theme.colors.disabled : theme.colors.inputBackground,
             },
@@ -188,15 +235,18 @@ export const Numeric = forwardRef<RNTextInput, NumericProps>(function Numeric({
           accessibilityRole="button"
           accessibilityLabel="Increase value"
           accessibilityState={{ disabled: !canIncrement }}
+          hitSlop={size === 'sm' ? 6 : 0}
           style={[
             styles.stepButton,
             canIncrement ? styles.stepButtonActive : styles.stepButtonDimmed,
             {
+              width: sizeConfig[size].buttonSize,
+              height: sizeConfig[size].buttonSize,
               borderColor: theme.colors.inputBorder,
               backgroundColor: canIncrement ? activeButtonBg : disabledButtonBg,
             },
           ]}>
-          <Text variant="h3" style={{ color: canIncrement ? theme.colors.textPrimary : theme.colors.textDisabled }}>
+          <Text variant={sizeConfig[size].labelVariant} style={{ color: canIncrement ? theme.colors.textPrimary : theme.colors.textDisabled }}>
             +
           </Text>
         </Pressable>
@@ -218,8 +268,6 @@ function clampValue(v: number, min: number, max: number): number {
   return Math.min(max, Math.max(min, v));
 }
 
-const STEP_BUTTON_SIZE = layout.comfortableTouchTarget; // 48px — meets WCAG touch target
-
 const styles = StyleSheet.create({
   row: {
     flexDirection: 'row',
@@ -227,8 +275,6 @@ const styles = StyleSheet.create({
     gap: spacing.sm,
   },
   stepButton: {
-    width: STEP_BUTTON_SIZE,
-    height: STEP_BUTTON_SIZE,
     borderRadius: radius.md,
     borderWidth: borders.thin,
     alignItems: 'center',
@@ -242,7 +288,6 @@ const styles = StyleSheet.create({
   },
   inputContainer: {
     flex: 1,
-    height: STEP_BUTTON_SIZE,
     borderRadius: radius.md,
     borderWidth: borders.thin,
     alignItems: 'center',

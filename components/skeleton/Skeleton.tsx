@@ -63,8 +63,20 @@ const styles = StyleSheet.create({
  *
  * // Full list-item placeholder
  * <Skeleton variant="listItem" />
+ *
+ * @example
+ * // Avatar placeholder
+ * <Skeleton variant="avatar" />
+ *
+ * @example
+ * // Button-sized placeholder in a form footer
+ * <Skeleton variant="button" width="100%" />
+ *
+ * @example
+ * // Card skeleton for an article feed
+ * <Skeleton variant="card" />
  */
-export function Skeleton({
+export const Skeleton = React.memo(function Skeleton({
   variant = 'text',
   width,
   height,
@@ -206,4 +218,4 @@ export function Skeleton({
       ]}
     />
   );
-}
+});

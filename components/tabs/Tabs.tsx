@@ -81,6 +81,31 @@ export interface TabsProps {
  *   variant="pill"
  *   scrollable
  * />
+ *
+ * @example
+ * // Filled tabs for a settings screen
+ * <Tabs
+ *   variant="filled"
+ *   tabs={[
+ *     { key: 'general', label: 'General' },
+ *     { key: 'security', label: 'Security' },
+ *     { key: 'billing', label: 'Billing' },
+ *   ]}
+ *   activeTab={activeTab}
+ *   onTabChange={setActiveTab}
+ * />
+ *
+ * @example
+ * // Tabs with inline text content panels
+ * <Tabs
+ *   tabs={[
+ *     { key: 'overview', label: 'Overview', body: product.description },
+ *     { key: 'specs', label: 'Specs', body: product.specs },
+ *   ]}
+ *   activeTab={activeTab}
+ *   onTabChange={setActiveTab}
+ *   textThreshold={200}
+ * />
  */
 const Tabs = React.forwardRef<View, TabsProps>(function Tabs(
   {

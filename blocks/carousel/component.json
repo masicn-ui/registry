@@ -3,7 +3,7 @@
   "displayName": "Carousel",
   "description": "Horizontally scrollable carousel block with pagination indicators.",
   "category": "display",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "files": [
     {
       "path": "Carousel.tsx",
@@ -137,6 +137,20 @@
       "type": "(item: T, index: number) => string",
       "required": false,
       "description": "Optional function returning a label string for the active slide. When provided, the label is rendered below the dot indicator."
+    }
+  ],
+  "examples": [
+    {
+      "label": "Example 1",
+      "code": "getLabel={(item, index) => `${index + 1} of ${data.length} — ${item.title}`}"
+    },
+    {
+      "label": "Example 2",
+      "code": "// Full-width scale carousel with auto-play and loop\n<Carousel\n  data={slides}\n  renderItem={(item) => <Image source={{ uri: item.image }} style={{ flex: 1 }} />}\n  animation=\"scale\"\n  autoPlayInterval={3000}\n/>"
+    },
+    {
+      "label": "Example 3",
+      "code": "// Peek mode with parallax and a slide label\n<Carousel\n  data={cards}\n  renderItem={(card) => <Card {...card} />}\n  slideWidth=\"peek\"\n  animation=\"parallax\"\n  aspectRatio={4 / 3}\n  dotVariant=\"dot\"\n  getLabel={(item) => item.title}\n/>"
     }
   ]
 }

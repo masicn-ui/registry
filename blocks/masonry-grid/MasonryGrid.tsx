@@ -59,6 +59,39 @@ export interface MasonryGridProps<T> {
  *     <Image source={{ uri: item.url }} style={{ height: item.height }} />
  *   )}
  * />
+ *
+ * @example
+ * // Three-column product grid with known heights to skip layout reflow
+ * <MasonryGrid
+ *   columns={3}
+ *   gap="xs"
+ *   data={products}
+ *   keyExtractor={(p) => p.id}
+ *   getItemHeight={(p) => p.imageHeight + 64}
+ *   renderItem={(p) => <ProductCard product={p} />}
+ * />
+ *
+ * @example
+ * // Single-column fallback on narrow screens
+ * const { width } = useWindowDimensions();
+ * <MasonryGrid
+ *   columns={width < 360 ? 1 : 2}
+ *   gap="md"
+ *   data={articles}
+ *   keyExtractor={(a) => a.slug}
+ *   renderItem={(a) => <ArticleCard article={a} />}
+ * />
+ *
+ * @example
+ * // With testID for automated testing of individual cells
+ * <MasonryGrid
+ *   data={items}
+ *   columns={2}
+ *   gap="sm"
+ *   keyExtractor={(item) => item.id}
+ *   renderItem={(item) => <ItemCard item={item} />}
+ *   testID="gallery-grid"
+ * />
  */
 export function MasonryGrid<T>({
   columns = 2,

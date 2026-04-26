@@ -51,8 +51,27 @@ interface FABProps {
  *   position="bottom-center"
  *   onPress={handleCreate}
  * />
+ *
+ * @example
+ * // Square shaped FAB at top-right corner
+ * <FAB
+ *   shape="square"
+ *   icon={FilterIcon}
+ *   position="top-right"
+ *   onPress={openFilters}
+ * />
+ *
+ * @example
+ * // Disabled FAB while upload is in progress
+ * <FAB
+ *   icon={UploadIcon}
+ *   onPress={handleUpload}
+ *   disabled={isUploading}
+ *   label="Upload"
+ *   variant="extended"
+ * />
  */
-export function FAB({
+export const FAB = React.memo(function FAB({
   label,
   icon: FabIcon = PlusIcon,
   onPress,
@@ -133,7 +152,7 @@ export function FAB({
       </View>
     </Pressable>
   );
-}
+});
 
 const styles = StyleSheet.create({
   fab: {

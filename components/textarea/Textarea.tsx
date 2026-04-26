@@ -67,6 +67,16 @@ interface TextareaProps extends Omit<RNTextInputProps, 'multiline' | 'numberOfLi
  *   onChangeText={setNotes}
  *   error="Notes cannot be empty"
  * />
+ *
+ * @example
+ * // Disabled textarea pre-filled with read-only content
+ * <Textarea
+ *   label="System Log"
+ *   value={logOutput}
+ *   onChangeText={() => {}}
+ *   disabled
+ *   minRows={6}
+ * />
  */
 const Textarea = React.forwardRef<RNTextInput, TextareaProps>(
   function Textarea(

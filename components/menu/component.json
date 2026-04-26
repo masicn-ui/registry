@@ -3,7 +3,7 @@
   "displayName": "Menu",
   "description": "Dropdown menu with viewport-clamped positioning, icon support, disabled states, and separator dividers.",
   "category": "overlays",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "files": [
     {
       "path": "Menu.tsx",
@@ -56,6 +56,24 @@
       "type": "string",
       "required": false,
       "description": "Test identifier forwarded to the outermost wrapper View."
+    }
+  ],
+  "examples": [
+    {
+      "label": "Example 1",
+      "code": "<Menu\n  title=\"Actions\"\n  items={[\n    { label: 'Edit', value: 'edit', icon: '✏️' },\n    { label: 'Share', value: 'share', icon: '↗️' },\n    { label: 'Delete', value: 'delete', icon: '🗑', destructive: true },\n  ]}\n  onSelect={(value) => handleAction(value)}\n>\n  <IconButton icon=\"more-horizontal\" />\n</Menu>"
+    },
+    {
+      "label": "Example 2",
+      "code": "// No title, minimal options\n<Menu\n  items={[\n    { label: 'Copy link', value: 'copy' },\n    { label: 'Report', value: 'report', destructive: true },\n  ]}\n  onSelect={handlePostAction}\n>\n  <Pressable><DotsIcon /></Pressable>\n</Menu>"
+    },
+    {
+      "label": "Example 3",
+      "code": "// With item descriptions\n<Menu\n  title=\"Export as\"\n  items={[\n    { label: 'PDF', value: 'pdf', icon: '📄', description: 'Best for printing' },\n    { label: 'CSV', value: 'csv', icon: '📊', description: 'Open in spreadsheet' },\n    { label: 'JSON', value: 'json', icon: '{}', description: 'Raw data format' },\n  ]}\n  onSelect={handleExport}\n>\n  <Button variant=\"outline\">Export</Button>\n</Menu>"
+    },
+    {
+      "label": "Example 4",
+      "code": "// With a disabled item (premium feature locked)\n<Menu\n  items={[\n    { label: 'Duplicate', value: 'dup' },\n    { label: 'Archive', value: 'archive', disabled: !canArchive },\n    { label: 'Delete', value: 'delete', destructive: true },\n  ]}\n  onSelect={handleRowAction}\n>\n  <Pressable><MoreIcon /></Pressable>\n</Menu>"
     }
   ]
 }

@@ -7,7 +7,32 @@
  * Respects `useReducedMotion()`.
  *
  * @example
+ * // Basic usage
  * <SwipeButton label="Slide to pay" onComplete={() => processPayment()} />
+ *
+ * @example
+ * // Disabled during processing to prevent double-submission
+ * <SwipeButton
+ *   label="Slide to confirm order"
+ *   onComplete={handleConfirm}
+ *   disabled={isProcessing}
+ * />
+ *
+ * @example
+ * // Custom style to fill available width inside a bottom sheet footer
+ * <SwipeButton
+ *   label="Slide to delete"
+ *   onComplete={handleDelete}
+ *   style={{ marginHorizontal: spacing.md }}
+ * />
+ *
+ * @example
+ * // With testID for automated testing
+ * <SwipeButton
+ *   label="Slide to approve"
+ *   onComplete={onApprove}
+ *   testID="approve-swipe-button"
+ * />
  */
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, type LayoutChangeEvent, type ViewStyle } from 'react-native';
@@ -20,6 +45,7 @@ import Animated, {
   Extrapolation,
 } from 'react-native-reanimated';
 import { GestureDetector, Gesture } from 'react-native-gesture-handler';
+import { scheduleOnRN } from 'react-native-worklets';
 import {
   Icon,
   Text,
@@ -76,7 +102,6 @@ export function SwipeButton({
   };
 
   const pan = Gesture.Pan()
-    .runOnJS(true)
     .activeOffsetX([-10, 10])
     .enabled(!disabled && !isCompleted && !reducedMotion)
     .onUpdate((e) => {
@@ -88,14 +113,14 @@ export function SwipeButton({
     .onEnd(() => {
       if (translateX.value >= maxDrag.value * 0.85) {
         translateX.value = withSpring(maxDrag.value, motion.spring.snap);
-        handleComplete();
+        scheduleOnRN(handleComplete);
       } else {
         translateX.value = withSpring(0, motion.spring.snappy);
       }
     })
     .onFinalize(() => {
       // Snap back if gesture is cancelled without reaching threshold
-      if (!isCompleted && translateX.value < maxDrag.value * 0.85) {
+      if (translateX.value < maxDrag.value * 0.85) {
         translateX.value = withSpring(0, motion.spring.snappy);
       }
     });
@@ -108,11 +133,11 @@ export function SwipeButton({
     opacity:
       maxDrag.value > 0
         ? interpolate(
-            translateX.value,
-            [0, maxDrag.value * 0.5],
-            [1, 0],
-            Extrapolation.CLAMP,
-          )
+          translateX.value,
+          [0, maxDrag.value * 0.5],
+          [1, 0],
+          Extrapolation.CLAMP,
+        )
         : 1,
   }));
 
@@ -120,9 +145,9 @@ export function SwipeButton({
     backgroundColor:
       maxDrag.value > 0
         ? interpolateColor(translateX.value, [0, maxDrag.value], [
-            theme.colors.surfaceSecondary,
-            theme.colors.success,
-          ])
+          theme.colors.surfaceSecondary,
+          theme.colors.success,
+        ])
         : theme.colors.surfaceSecondary,
   }));
 

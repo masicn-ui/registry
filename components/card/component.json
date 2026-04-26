@@ -3,7 +3,7 @@
   "displayName": "Card",
   "description": "Versatile surface container with elevated, filled, and outlined variants. Supports structured content slots: media, title, subtitle, body (with show-more truncation), children, and footer.",
   "category": "layout",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "files": [
     {
       "path": "Card.tsx",
@@ -20,7 +20,7 @@
     "layout",
     "surface"
   ],
-  "hasTests": false,
+  "hasTests": true,
   "hasAccessibility": true,
   "props": [
     {
@@ -106,6 +106,24 @@
       "type": "ReactNode",
       "required": false,
       "description": "Content rendered at the bottom of the card with a separator line"
+    }
+  ],
+  "examples": [
+    {
+      "label": "Example 1",
+      "code": "// Tappable animated card\n<Card title=\"Article\" onPress={open} animation=\"scale\">\n  <Text>Content</Text>\n</Card>"
+    },
+    {
+      "label": "Example 2",
+      "code": "// Outlined card with image media slot\n<Card\n  variant=\"outlined\"\n  media={<Image source={{ uri: post.cover }} aspectRatio=\"16:9\" />}\n  title={post.title}\n  subtitle={post.author}\n  body={post.summary}\n/>"
+    },
+    {
+      "label": "Example 3",
+      "code": "// Filled card with footer actions\n<Card\n  variant=\"filled\"\n  surface=\"secondary\"\n  padding=\"md\"\n  title=\"Your plan\"\n  subtitle=\"Pro\"\n  footer={\n    <Row gap=\"sm\">\n      <Button variant=\"outline\" onPress={manage}>Manage</Button>\n      <Button onPress={upgrade}>Upgrade</Button>\n    </Row>\n  }\n/>"
+    },
+    {
+      "label": "Example 4",
+      "code": "// Static non-interactive card with custom children\n<Card variant=\"elevated\" padding=\"lg\">\n  <StatRow label=\"Revenue\" value=\"$42,000\" />\n  <StatRow label=\"Orders\" value=\"1,204\" />\n</Card>"
     }
   ]
 }

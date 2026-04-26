@@ -160,6 +160,37 @@ export interface PopoverProps {
  * >
  *   <IconButton icon="filter" />
  * </Popover>
+ *
+ * @example
+ * // Right placement with long-press trigger
+ * <Popover
+ *   content={<HelpTooltipContent />}
+ *   placement="right"
+ *   trigger="longPress"
+ * >
+ *   <InfoIcon />
+ * </Popover>
+ *
+ * @example
+ * // No arrow, custom content style
+ * <Popover
+ *   content={<ColorPicker value={color} onValueChange={setColor} />}
+ *   placement="bottom"
+ *   showArrow={false}
+ *   contentStyle={{ padding: spacing.sm }}
+ * >
+ *   <ColorSwatch color={color} />
+ * </Popover>
+ *
+ * @example
+ * // Left placement for a settings panel
+ * <Popover
+ *   content={<ColumnVisibilityPanel />}
+ *   placement="left"
+ *   testID="column-visibility-popover"
+ * >
+ *   <Button variant="ghost">Columns</Button>
+ * </Popover>
  */
 export function Popover({
   content,

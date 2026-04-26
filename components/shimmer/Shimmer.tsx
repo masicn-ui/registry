@@ -37,8 +37,26 @@ interface ShimmerGroupProps {
  *     <View style={{ height: 20 }} />
  *   </Shimmer>
  * </ShimmerGroup>
+ *
+ * @example
+ * // Full card skeleton using ShimmerGroup with avatar + text lines
+ * <ShimmerGroup>
+ *   <Row gap="md" style={{ padding: spacing.md }}>
+ *     <Shimmer borderRadius={999} style={{ width: 40, height: 40 }} />
+ *     <Stack gap="xs" style={{ flex: 1 }}>
+ *       <Shimmer borderRadius={4} style={{ height: 16, width: '70%' }} />
+ *       <Shimmer borderRadius={4} style={{ height: 12, width: '50%' }} />
+ *     </Stack>
+ *   </Row>
+ * </ShimmerGroup>
+ *
+ * @example
+ * // Slow sweep for a larger skeleton block
+ * <ShimmerGroup duration={2000}>
+ *   <Shimmer borderRadius={8} style={{ height: 180 }} />
+ * </ShimmerGroup>
  */
-export function ShimmerGroup({ children, duration = 1200 }: ShimmerGroupProps) {
+export const ShimmerGroup = React.memo(function ShimmerGroup({ children, duration = 1200 }: ShimmerGroupProps) {
   const reducedMotion = useReducedMotion();
   const progress = useSharedValue(0);
 
@@ -56,7 +74,7 @@ export function ShimmerGroup({ children, duration = 1200 }: ShimmerGroupProps) {
 
   const value = useMemo(() => ({ progress }), [progress]);
   return <ShimmerContext.Provider value={value}>{children}</ShimmerContext.Provider>;
-}
+});
 
 interface ShimmerProps {
   /** Optional content rendered inside the shimmer container. When omitted the container itself acts as the placeholder (sized via `style`). */
@@ -79,8 +97,20 @@ interface ShimmerProps {
  * <Shimmer borderRadius={8} style={{ height: 20, width: '80%' }}>
  *   <View style={{ height: 20 }} />
  * </Shimmer>
+ *
+ * @example
+ * // Circular avatar placeholder
+ * <Shimmer borderRadius={999} style={{ width: 48, height: 48 }} />
+ *
+ * @example
+ * // Multiple text-line placeholders
+ * <Stack gap="sm">
+ *   <Shimmer borderRadius={4} style={{ height: 14, width: '90%' }} />
+ *   <Shimmer borderRadius={4} style={{ height: 14, width: '75%' }} />
+ *   <Shimmer borderRadius={4} style={{ height: 14, width: '60%' }} />
+ * </Stack>
  */
-export function Shimmer({ children, borderRadius, style, duration = 1200 }: ShimmerProps) {
+export const Shimmer = React.memo(function Shimmer({ children, borderRadius, style, duration = 1200 }: ShimmerProps) {
   const { theme } = useTheme();
   const reducedMotion = useReducedMotion();
   const ctx = useContext(ShimmerContext);
@@ -125,7 +155,7 @@ export function Shimmer({ children, borderRadius, style, duration = 1200 }: Shim
       <Animated.View style={[styles.sweep, { backgroundColor: sweepColor }, sweepStyle]} />
     </View>
   );
-}
+});
 
 const styles = StyleSheet.create({
   container: {

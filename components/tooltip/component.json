@@ -3,7 +3,7 @@
   "displayName": "Tooltip",
   "description": "Press-triggered tooltip bubble that positions itself above or below the trigger based on available space",
   "category": "overlays",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "files": [
     {
       "path": "Tooltip.tsx",
@@ -19,7 +19,7 @@
     "tooltip",
     "information"
   ],
-  "hasTests": false,
+  "hasTests": true,
   "hasAccessibility": true,
   "props": [
     {
@@ -39,6 +39,24 @@
       "type": "ViewStyle",
       "required": false,
       "description": "Additional style applied to the trigger wrapper container."
+    }
+  ],
+  "examples": [
+    {
+      "label": "Example 1",
+      "code": "<Tooltip content=\"Save your changes\">\n  <Button onPress={handleSave}>Save</Button>\n</Tooltip>"
+    },
+    {
+      "label": "Example 2",
+      "code": "// Tooltip on an icon-only button to explain its purpose\n<Tooltip content=\"Delete permanently\">\n  <Pressable onPress={handleDelete} accessibilityLabel=\"Delete\">\n    <TrashIcon size={iconSizes.action} />\n  </Pressable>\n</Tooltip>"
+    },
+    {
+      "label": "Example 3",
+      "code": "// Tooltip wrapping a disabled button to explain why it is disabled\n<Tooltip content=\"Complete all required fields first\">\n  <Button onPress={handleSubmit} disabled={!isValid}>\n    Submit\n  </Button>\n</Tooltip>"
+    },
+    {
+      "label": "Example 4",
+      "code": "// Tooltip with custom container style to constrain trigger width\n<Tooltip content=\"Opens your profile settings\" containerStyle={{ alignSelf: 'flex-start' }}>\n  <Button variant=\"ghost\" onPress={openProfile}>Profile</Button>\n</Tooltip>"
     }
   ]
 }

@@ -18,6 +18,7 @@ import Animated, {
   withTiming,
 } from 'react-native-reanimated';
 import { GestureDetector, Gesture } from 'react-native-gesture-handler';
+import { scheduleOnRN } from 'react-native-worklets';
 import { useTheme, spacing, radius, elevation, motion, motionEasing, useReducedMotion, useFocusTrap, Masicn } from '../../../masicn';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
@@ -73,6 +74,18 @@ const DISMISS_THRESHOLD = 0.3;
  * <LeftSheet ref={sheetRef} onClose={() => {}}>
  *   <NavMenu />
  * </LeftSheet>
+ *
+ * @example
+ * // Without backdrop for persistent sidebar-like experience
+ * <LeftSheet visible={open} onClose={() => setOpen(false)} hideBackdrop>
+ *   <Sidebar />
+ * </LeftSheet>
+ *
+ * @example
+ * // Narrow sheet for a quick-actions panel
+ * <LeftSheet visible={open} onClose={() => setOpen(false)} width={0.5}>
+ *   <QuickActions />
+ * </LeftSheet>
  */
 export const LeftSheet = React.forwardRef<LeftSheetRef, LeftSheetProps>(
   function LeftSheet({
@@ -125,9 +138,9 @@ export const LeftSheet = React.forwardRef<LeftSheetRef, LeftSheetProps>(
       } else {
         const exitDuration = rm ? motion.duration.instant : motion.duration.normal;
         translateX.value = withTiming(-sheetWidth, { duration: exitDuration, easing: motionEasing.accelerate });
-        opacity.value = withTiming(0, { duration: exitDuration, easing: motionEasing.accelerate });
-        const timeout = setTimeout(() => setShouldRender(false), exitDuration);
-        return () => clearTimeout(timeout);
+        opacity.value = withTiming(0, { duration: exitDuration, easing: motionEasing.accelerate },
+          (finished) => { if (finished) scheduleOnRN(setShouldRender, false); },
+        );
       }
     }, [isVisible, translateX, opacity, sheetWidth]);
 
@@ -141,7 +154,6 @@ export const LeftSheet = React.forwardRef<LeftSheetRef, LeftSheetProps>(
     }, [isVisible, handleDismiss]);
 
     const pan = Gesture.Pan()
-      .runOnJS(true)
       .activeOffsetX([-10, 10])
       .onUpdate((e) => {
         if (e.translationX < 0) {
@@ -150,7 +162,7 @@ export const LeftSheet = React.forwardRef<LeftSheetRef, LeftSheetProps>(
       })
       .onEnd((e) => {
         if (e.translationX < -(sheetWidth * DISMISS_THRESHOLD) || e.velocityX < -500) {
-          handleDismiss();
+          scheduleOnRN(handleDismiss);
         } else {
           translateX.value = withSpring(0, motion.spring.sheet);
         }

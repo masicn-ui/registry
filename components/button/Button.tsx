@@ -65,6 +65,12 @@ interface ButtonProps
  * <Button variant="destructive" size="sm" onPress={handleDelete}>
  *   Delete
  * </Button>
+ *
+ * @example
+ * // Ghost button used as a secondary action in a form footer
+ * <Button variant="ghost" onPress={handleCancel}>
+ *   Cancel
+ * </Button>
  */
 const Button = React.forwardRef<View, ButtonProps>(function Button(
   {

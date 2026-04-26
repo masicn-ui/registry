@@ -44,6 +44,35 @@ const ANIMATION_DURATION = motion.duration.normal;
  *   label="Push notifications"
  *   description="Receive alerts when you're mentioned"
  * />
+ *
+ * @example
+ * // Label on the left side for a settings row where the control sits on the right
+ * <Switch
+ *   value={darkMode}
+ *   onValueChange={setDarkMode}
+ *   label="Dark mode"
+ *   labelPosition="left"
+ * />
+ *
+ * @example
+ * // Disabled switch for a locked setting
+ * <Switch
+ *   value={true}
+ *   onValueChange={() => {}}
+ *   label="Two-factor authentication"
+ *   description="Managed by your organisation"
+ *   disabled
+ * />
+ *
+ * @example
+ * // Standalone switch without label, with explicit accessibility props
+ * <Switch
+ *   value={isMuted}
+ *   onValueChange={setIsMuted}
+ *   accessibilityLabel="Mute microphone"
+ *   accessibilityHint="Toggles your microphone on or off during the call"
+ *   testID="mute-toggle"
+ * />
  */
 const Switch = React.forwardRef<View, SwitchProps>(function Switch(
   {

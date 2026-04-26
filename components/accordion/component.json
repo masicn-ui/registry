@@ -3,7 +3,7 @@
   "displayName": "Accordion",
   "description": "Animated expand/collapse accordion with single or multiple open items, controlled and uncontrolled modes",
   "category": "display",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "files": [
     {
       "path": "Accordion.tsx",
@@ -21,7 +21,7 @@
     "collapsible",
     "disclosure"
   ],
-  "hasTests": false,
+  "hasTests": true,
   "hasAccessibility": true,
   "props": [
     {
@@ -42,6 +42,24 @@
       "default": "false",
       "required": false,
       "description": "When true, multiple accordion items can be expanded simultaneously."
+    }
+  ],
+  "examples": [
+    {
+      "label": "Example 1",
+      "code": "// Standalone uncontrolled item\n<AccordionItem title=\"FAQ Question\" defaultExpanded>\n  <Text>Answer text here</Text>\n</AccordionItem>"
+    },
+    {
+      "label": "Example 2",
+      "code": "// Controlled item\n<AccordionItem\n  title=\"Details\"\n  expanded={isOpen}\n  onToggle={setIsOpen}\n>\n  <Text>Details content</Text>\n</AccordionItem>"
+    },
+    {
+      "label": "Example 3",
+      "code": "<Accordion allowMultiple>\n  <AccordionItem title=\"Section 1\">\n    <Text>Content A</Text>\n  </AccordionItem>\n  <AccordionItem title=\"Section 2\">\n    <Text>Content B</Text>\n  </AccordionItem>\n</Accordion>"
+    },
+    {
+      "label": "Example 4",
+      "code": "// Allow multiple sections expanded simultaneously\n<Accordion allowMultiple>\n  <AccordionItem title=\"FAQ 1\">\n    <Text>Answer to the first question.</Text>\n  </AccordionItem>\n  <AccordionItem title=\"FAQ 2\">\n    <Text>Answer to the second question.</Text>\n  </AccordionItem>\n</Accordion>"
     }
   ]
 }

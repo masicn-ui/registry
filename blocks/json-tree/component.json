@@ -3,7 +3,7 @@
   "displayName": "JSON Viewer",
   "description": "Recursively collapsible JSON tree viewer with type-coloured primitives and circular reference detection.",
   "category": "display",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "files": [
     {
       "path": "JsonTree.tsx",
@@ -22,7 +22,7 @@
     "collapsible",
     "devtools"
   ],
-  "hasTests": false,
+  "hasTests": true,
   "hasAccessibility": true,
   "props": [
     {
@@ -43,6 +43,24 @@
       "type": "string",
       "required": false,
       "description": "Optional title shown in the header bar above the tree."
+    }
+  ],
+  "examples": [
+    {
+      "label": "Example 1",
+      "code": "<JsonTree data={{ user: { name: 'John', age: 30 }, tags: ['admin'] }} />"
+    },
+    {
+      "label": "Example 2",
+      "code": "<JsonTree data={apiResponse} defaultDepth={0} title=\"API Response\" />"
+    },
+    {
+      "label": "Example 3",
+      "code": "// Fully collapsed — only root node expanded on tap\n<JsonTree\n  data={complexNested}\n  defaultDepth={0}\n  title=\"Raw Payload\"\n/>"
+    },
+    {
+      "label": "Example 4",
+      "code": "// Deep expansion for a flat config object\n<JsonTree\n  data={{ theme: 'dark', locale: 'en-AU', version: '2.1.0' }}\n  defaultDepth={3}\n/>"
     }
   ]
 }

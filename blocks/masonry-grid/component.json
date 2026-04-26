@@ -3,7 +3,7 @@
   "displayName": "MasonryGrid",
   "description": "Pinterest-style masonry grid that balances items across columns by height.",
   "category": "layouts",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "files": [
     {
       "path": "MasonryGrid.tsx",
@@ -18,7 +18,7 @@
     "layout",
     "grid"
   ],
-  "hasTests": false,
+  "hasTests": true,
   "hasAccessibility": true,
   "props": [
     {
@@ -70,6 +70,24 @@
       "type": "string",
       "required": false,
       "description": "Test identifier forwarded as `{testID}-item-{index}` to each item wrapper."
+    }
+  ],
+  "examples": [
+    {
+      "label": "Example 1",
+      "code": "<MasonryGrid\n  data={photos}\n  columns={2}\n  gap=\"sm\"\n  keyExtractor={(item) => item.id}\n  renderItem={(item) => (\n    <Image source={{ uri: item.url }} style={{ height: item.height }} />\n  )}\n/>"
+    },
+    {
+      "label": "Example 2",
+      "code": "// Three-column product grid with known heights to skip layout reflow\n<MasonryGrid\n  columns={3}\n  gap=\"xs\"\n  data={products}\n  keyExtractor={(p) => p.id}\n  getItemHeight={(p) => p.imageHeight + 64}\n  renderItem={(p) => <ProductCard product={p} />}\n/>"
+    },
+    {
+      "label": "Example 3",
+      "code": "// Single-column fallback on narrow screens\nconst { width } = useWindowDimensions();\n<MasonryGrid\n  columns={width < 360 ? 1 : 2}\n  gap=\"md\"\n  data={articles}\n  keyExtractor={(a) => a.slug}\n  renderItem={(a) => <ArticleCard article={a} />}\n/>"
+    },
+    {
+      "label": "Example 4",
+      "code": "// With testID for automated testing of individual cells\n<MasonryGrid\n  data={items}\n  columns={2}\n  gap=\"sm\"\n  keyExtractor={(item) => item.id}\n  renderItem={(item) => <ItemCard item={item} />}\n  testID=\"gallery-grid\"\n/>"
     }
   ]
 }

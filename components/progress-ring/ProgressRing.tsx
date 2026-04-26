@@ -46,8 +46,25 @@ interface ProgressRingProps {
  *
  * // Custom color and size
  * <ProgressRing value={completionRate} size={120} color={theme.colors.success} label="Complete" />
+ *
+ * @example
+ * // Storage usage indicator without the center label
+ * <ProgressRing value={storageUsed} showValue={false} size={64} strokeWidth={6} />
+ *
+ * @example
+ * // Small ring used inline in a list cell
+ * <ProgressRing value={task.progress} size={40} strokeWidth={4} showValue={false} />
+ *
+ * @example
+ * // Goal tracker with custom label and success color
+ * <ProgressRing
+ *   value={stepsToday / goalSteps * 100}
+ *   size={140}
+ *   label="steps"
+ *   color={theme.colors.success}
+ * />
  */
-export function ProgressRing({
+export const ProgressRing = React.memo(function ProgressRing({
   value = 0,
   indeterminate = false,
   size = sizes.progressCircleDefault,
@@ -136,7 +153,7 @@ export function ProgressRing({
       )}
     </View>
   );
-}
+});
 
 const styles = StyleSheet.create({
   container: { position: 'relative', alignItems: 'center', justifyContent: 'center' },

@@ -46,6 +46,24 @@ interface ExpandableProps {
  * <Expandable expandLabel="See more" collapseLabel="See less" numberOfLines={2}>
  *   {description}
  * </Expandable>
+ *
+ * @example
+ * // Small caption text — product disclaimer
+ * <Expandable variant="caption" color="textTertiary" numberOfLines={2}>
+ *   {legalDisclaimer}
+ * </Expandable>
+ *
+ * @example
+ * // Review text on a product page
+ * <Expandable expandLabel="Read full review" collapseLabel="Collapse" numberOfLines={5}>
+ *   {review.body}
+ * </Expandable>
+ *
+ * @example
+ * // News article summary in a feed card
+ * <Expandable numberOfLines={3} variant="bodySmall">
+ *   {article.summary}
+ * </Expandable>
  */
 export function Expandable({
   children,

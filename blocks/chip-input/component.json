@@ -3,7 +3,7 @@
   "displayName": "Tag Input",
   "description": "Tag input block allowing creation and removal of tags.",
   "category": "forms",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "files": [
     {
       "path": "ChipInput.tsx",
@@ -21,7 +21,7 @@
     "input",
     "chips"
   ],
-  "hasTests": false,
+  "hasTests": true,
   "hasAccessibility": true,
   "props": [
     {
@@ -75,10 +75,35 @@
       "description": "Maximum number of tags allowed. The text input is hidden once this limit is reached."
     },
     {
+      "name": "size",
+      "type": "'sm' | 'md' | 'lg'",
+      "default": "md",
+      "required": false,
+      "description": "Size preset controlling minimum height and chip row padding."
+    },
+    {
       "name": "containerStyle",
       "type": "ViewStyle",
       "required": false,
       "description": "Style applied to the outer container."
+    }
+  ],
+  "examples": [
+    {
+      "label": "Example 1",
+      "code": "<ChipInput\n  label=\"Skills\"\n  value={skills}\n  onValueChange={setSkills}\n  placeholder=\"Add a skill…\"\n  maxTags={5}\n/>"
+    },
+    {
+      "label": "Example 2",
+      "code": "// With error state and helper text\n<ChipInput\n  label=\"Interests\"\n  value={interests}\n  onValueChange={setInterests}\n  error={interests.length === 0 ? 'Add at least one interest' : undefined}\n  helperText=\"Press Enter or comma to add\"\n/>"
+    },
+    {
+      "label": "Example 3",
+      "code": "// Disabled — tags shown but input is locked\n<ChipInput\n  label=\"Assigned labels\"\n  value={assignedLabels}\n  onValueChange={() => {}}\n  disabled\n/>"
+    },
+    {
+      "label": "Example 4",
+      "code": "// Large size with programmatic focus via ref\nconst chipInputRef = useRef<ChipInputRef>(null);\n<ChipInput\n  ref={chipInputRef}\n  size=\"lg\"\n  label=\"Tags\"\n  value={tags}\n  onValueChange={setTags}\n/>"
     }
   ]
 }

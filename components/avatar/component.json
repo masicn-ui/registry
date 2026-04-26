@@ -3,7 +3,7 @@
   "displayName": "Avatar",
   "description": "User avatar with image, initials fallback, color variants, size presets, and optional badge overlay.",
   "category": "display",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "files": [
     {
       "path": "Avatar.tsx",
@@ -18,7 +18,7 @@
     "user",
     "image"
   ],
-  "hasTests": false,
+  "hasTests": true,
   "hasAccessibility": true,
   "props": [
     {
@@ -58,6 +58,24 @@
       "type": "ReactNode",
       "required": false,
       "description": "Optional badge content positioned at the bottom-right of the avatar"
+    }
+  ],
+  "examples": [
+    {
+      "label": "Example 1",
+      "code": "// Image avatar\n<Avatar source={{ uri: user.avatarUrl }} initials=\"JD\" size=\"lg\" />"
+    },
+    {
+      "label": "Example 2",
+      "code": "// Initials-only with badge\n<Avatar initials=\"AB\" color=\"secondary\" badge={<Badge variant=\"success\" />} />"
+    },
+    {
+      "label": "Example 3",
+      "code": "// Small avatar used in a chat header\n<Avatar source={{ uri: contact.photo }} initials={contact.initials} size=\"sm\" />"
+    },
+    {
+      "label": "Example 4",
+      "code": "// Custom fallback node when no image or initials are available\n<Avatar fallback={<PersonIcon />} size=\"md\" color=\"tertiary\" />"
     }
   ]
 }

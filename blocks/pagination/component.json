@@ -3,7 +3,7 @@
   "displayName": "Pagination",
   "description": "Pagination block with page numbers and navigation controls.",
   "category": "navigation",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "files": [
     {
       "path": "Pagination.tsx",
@@ -19,7 +19,7 @@
     "page",
     "navigation"
   ],
-  "hasTests": false,
+  "hasTests": true,
   "hasAccessibility": true,
   "props": [
     {
@@ -46,6 +46,24 @@
       "default": "5",
       "required": false,
       "description": "Maximum number of page buttons visible before collapsing excess pages to an ellipsis."
+    }
+  ],
+  "examples": [
+    {
+      "label": "Example 1",
+      "code": "<Pagination\n  page={currentPage}\n  totalPages={totalPages}\n  onPageChange={setCurrentPage}\n/>"
+    },
+    {
+      "label": "Example 2",
+      "code": "// Show up to 7 page buttons before collapsing\n<Pagination\n  page={currentPage}\n  totalPages={50}\n  onPageChange={setCurrentPage}\n  maxVisible={7}\n/>"
+    },
+    {
+      "label": "Example 3",
+      "code": "// Embedded in a search results screen\n<View>\n  <SearchResultsList results={results} />\n  <Pagination\n    page={page}\n    totalPages={Math.ceil(total / pageSize)}\n    onPageChange={setPage}\n  />\n</View>"
+    },
+    {
+      "label": "Example 4",
+      "code": "// First page — prev arrow is disabled automatically\n<Pagination\n  page={1}\n  totalPages={10}\n  onPageChange={setCurrentPage}\n  testID=\"results-pagination\"\n/>"
     }
   ]
 }

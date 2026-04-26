@@ -3,7 +3,7 @@
   "displayName": "TextInput",
   "description": "Form text input with label, helper text, error state, start/end adornments, clear button, character count, and focus ring.",
   "category": "forms",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "files": [
     {
       "path": "TextInput.tsx",
@@ -18,7 +18,7 @@
     "form",
     "input"
   ],
-  "hasTests": false,
+  "hasTests": true,
   "hasAccessibility": true,
   "props": [
     {
@@ -77,6 +77,20 @@
       "type": "string",
       "required": false,
       "description": "Accessibility hint; overridden by the error message when in error state"
+    }
+  ],
+  "examples": [
+    {
+      "label": "Example 1",
+      "code": "// Basic labelled input\n<TextInput\n  label=\"Email\"\n  placeholder=\"you"
+    },
+    {
+      "label": "Example 2",
+      "code": "// Input with error and clear button\n<TextInput\n  label=\"Username\"\n  value={username}\n  onChangeText={setUsername}\n  error={usernameError}\n  clearButton\n/>"
+    },
+    {
+      "label": "Example 3",
+      "code": "// Input with icons and character limit\n<TextInput\n  label=\"Bio\"\n  startAdornment={<Icon name=\"user\" />}\n  maxLength={160}\n  multiline\n  value={bio}\n  onChangeText={setBio}\n/>"
     }
   ]
 }

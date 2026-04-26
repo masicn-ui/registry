@@ -3,7 +3,7 @@
   "displayName": "ContextMenu",
   "description": "Long-press context menu with viewport-clamped positioning, destructive item support, and separator dividers.",
   "category": "overlays",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "files": [
     {
       "path": "ContextMenu.tsx",
@@ -49,6 +49,24 @@
       "type": "ViewStyle",
       "required": false,
       "description": "Additional style applied to the floating menu container."
+    }
+  ],
+  "examples": [
+    {
+      "label": "Example 1",
+      "code": "// Basic usage with action items\n<ContextMenu\n  accessibilityLabel=\"Message options\"\n  items={[\n    { label: 'Copy', value: 'copy', icon: '📋' },\n    { label: 'Reply', value: 'reply', icon: '↩️' },\n    { label: 'Delete', value: 'delete', icon: '🗑', destructive: true },\n  ]}\n  onSelect={(value) => handleAction(value)}>\n  <Text>Long press me</Text>\n</ContextMenu>"
+    },
+    {
+      "label": "Example 2",
+      "code": "// With a disabled item\n<ContextMenu\n  accessibilityLabel=\"File options\"\n  items={[\n    { label: 'Edit', value: 'edit' },\n    { label: 'Share', value: 'share', disabled: true },\n  ]}\n  onSelect={setAction}>\n  <Image source={thumbnail} />\n</ContextMenu>"
+    },
+    {
+      "label": "Example 3",
+      "code": "// Long-press on a list item row\n<ContextMenu\n  accessibilityLabel=\"Contact options\"\n  items={[\n    { label: 'Call', value: 'call', icon: '📞' },\n    { label: 'Message', value: 'message', icon: '💬' },\n    { label: 'Block', value: 'block', destructive: true },\n  ]}\n  onSelect={handleContactAction}>\n  <ContactRow contact={contact} />\n</ContextMenu>"
+    },
+    {
+      "label": "Example 4",
+      "code": "// Context menu on an image with custom menu style\n<ContextMenu\n  accessibilityLabel=\"Photo options\"\n  items={[\n    { label: 'Save to photos', value: 'save' },\n    { label: 'Copy', value: 'copy' },\n  ]}\n  onSelect={handlePhotoAction}\n  menuStyle={{ minWidth: 200 }}>\n  <Photo uri={item.uri} />\n</ContextMenu>"
     }
   ]
 }

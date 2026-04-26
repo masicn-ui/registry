@@ -9,6 +9,14 @@ import {
 import { Stack, Text, borders, radius, sizes, spacing, typography, useTheme } from '../../../masicn';
 import { Chip } from '../../components';
 
+type ChipInputSize = 'sm' | 'md' | 'lg';
+
+const sizeConfig = {
+  sm: { minHeight: sizes.inputSm, padding: spacing.xs },
+  md: { minHeight: sizes.inputMd, padding: spacing.sm },
+  lg: { minHeight: sizes.inputLg, padding: spacing.md },
+} as const;
+
 interface ChipInputProps {
   /** Current tags */
   value: string[];
@@ -26,6 +34,8 @@ interface ChipInputProps {
   disabled?: boolean;
   /** Max number of tags (undefined = unlimited) */
   maxTags?: number;
+  /** Size preset controlling minimum height and chip row padding. @default 'md' */
+  size?: ChipInputSize;
   /** Container style */
   containerStyle?: ViewStyle;
 }
@@ -49,6 +59,36 @@ interface ChipInputProps {
  *   placeholder="Add a skill…"
  *   maxTags={5}
  * />
+ *
+ * @example
+ * // With error state and helper text
+ * <ChipInput
+ *   label="Interests"
+ *   value={interests}
+ *   onValueChange={setInterests}
+ *   error={interests.length === 0 ? 'Add at least one interest' : undefined}
+ *   helperText="Press Enter or comma to add"
+ * />
+ *
+ * @example
+ * // Disabled — tags shown but input is locked
+ * <ChipInput
+ *   label="Assigned labels"
+ *   value={assignedLabels}
+ *   onValueChange={() => {}}
+ *   disabled
+ * />
+ *
+ * @example
+ * // Large size with programmatic focus via ref
+ * const chipInputRef = useRef<ChipInputRef>(null);
+ * <ChipInput
+ *   ref={chipInputRef}
+ *   size="lg"
+ *   label="Tags"
+ *   value={tags}
+ *   onValueChange={setTags}
+ * />
  */
 // Minimum width for the inline text field — wide enough to show ~10 chars
 const TAG_INPUT_MIN_WIDTH = spacing.xxl + spacing.xl + spacing.xl; // 32+24+24 = 80
@@ -67,6 +107,7 @@ export const ChipInput = forwardRef<ChipInputRef, ChipInputProps>(function ChipI
   helperText,
   disabled = false,
   maxTags,
+  size = 'md',
   containerStyle,
 }, ref) {
   const { theme } = useTheme();
@@ -128,10 +169,11 @@ export const ChipInput = forwardRef<ChipInputRef, ChipInputProps>(function ChipI
               ? theme.colors.disabled
               : theme.colors.inputBackground,
             borderColor,
+            minHeight: sizeConfig[size].minHeight,
           },
         ]}>
         {/* Wrapping chip row — tags flow to a new line when full-width is reached */}
-        <View style={styles.chipRow}>
+        <View style={[styles.chipRow, { padding: sizeConfig[size].padding }]}>
           {value.map(tag => (
             <Chip
               key={tag}
@@ -178,7 +220,6 @@ const styles = StyleSheet.create({
   container: {
     borderWidth: borders.thin,
     borderRadius: radius.md,
-    minHeight: sizes.inputMd,
   },
   chipRow: {
     flexDirection: 'row',
@@ -186,7 +227,6 @@ const styles = StyleSheet.create({
     alignContent: 'flex-start',
     flexWrap: 'wrap',
     gap: spacing.xs,
-    padding: spacing.sm,
   },
   input: {
     minWidth: TAG_INPUT_MIN_WIDTH,

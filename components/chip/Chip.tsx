@@ -40,8 +40,12 @@ interface ChipProps extends Omit<PressableProps, 'children'> {
  * @example
  * // Chip with icon
  * <Chip label="Starred" icon={<StarIcon />} variant="outline" />
+ *
+ * @example
+ * // Disabled chip that cannot be interacted with
+ * <Chip label="Unavailable" disabled />
  */
-export function Chip({
+export const Chip = React.memo(function Chip({
   label,
   variant = 'filled',
   selected = false,
@@ -114,7 +118,7 @@ export function Chip({
       </View>
     </Pressable>
   );
-}
+});
 
 const styles = StyleSheet.create({
   chip: {

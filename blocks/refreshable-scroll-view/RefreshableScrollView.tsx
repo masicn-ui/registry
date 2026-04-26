@@ -41,6 +41,39 @@ interface RefreshableScrollViewProps {
  *   <ProfileCard />
  *   <ActivityFeed />
  * </RefreshableScrollView>
+ *
+ * @example
+ * // Dashboard screen with mixed content and custom contentContainerStyle
+ * <RefreshableScrollView
+ *   refreshing={isRefreshing}
+ *   onRefresh={refreshDashboard}
+ *   contentContainerStyle={{ gap: spacing.lg, paddingBottom: insets.bottom + spacing.xl }}
+ * >
+ *   <SummaryCard />
+ *   <RecentTransactions />
+ *   <QuickActions />
+ * </RefreshableScrollView>
+ *
+ * @example
+ * // Stretched to fill the screen with a flex:1 style
+ * <RefreshableScrollView
+ *   refreshing={isRefreshing}
+ *   onRefresh={reload}
+ *   style={{ flex: 1 }}
+ *   contentPadding="md"
+ * >
+ *   <SettingsList />
+ * </RefreshableScrollView>
+ *
+ * @example
+ * // No padding, edge-to-edge layout for a photo detail page
+ * <RefreshableScrollView
+ *   refreshing={isRefreshing}
+ *   onRefresh={reloadPhoto}
+ * >
+ *   <HeroImage uri={photo.url} />
+ *   <PhotoMeta photo={photo} />
+ * </RefreshableScrollView>
  */
 export function RefreshableScrollView({
   children,

@@ -3,13 +3,17 @@
   "displayName": "Dock",
   "description": "Pill-shaped floating navigation bar with icon + label items. Not edge-anchored — sits elevated above the screen surface. Supports 1–5 items and can be composed side-by-side.",
   "category": "navigation",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "masicnVersion": "^0.0.1",
   "peerDependencies": {
     "react-native-reanimated": ">=3.0.0"
   },
   "registryDependencies": [],
-  "tags": ["navigation", "floating", "bar"],
+  "tags": [
+    "navigation",
+    "floating",
+    "bar"
+  ],
   "files": [
     {
       "path": "Dock.tsx",
@@ -50,5 +54,19 @@
     }
   ],
   "hasTests": true,
-  "hasAccessibility": true
+  "hasAccessibility": true,
+  "examples": [
+    {
+      "label": "Example 1",
+      "code": "// Basic 3-item dock\n<Dock\n  items={[\n    { key: 'home', icon: HomeIcon, label: 'Home' },\n    { key: 'search', icon: SearchIcon, label: 'Search' },\n    { key: 'profile', icon: ProfileIcon, label: 'Profile' },\n  ]}\n  activeKey={activeTab}\n  onChange={setActiveTab}\n  style={{ position: 'absolute', bottom: spacing.xl, alignSelf: 'center' }}\n/>"
+    },
+    {
+      "label": "Example 2",
+      "code": "// Two docks side by side\n<Row gap=\"md\" style={{ position: 'absolute', bottom: spacing.xl, alignSelf: 'center' }}>\n  <Dock items={mainItems} activeKey={tab} onChange={setTab} />\n  <Dock items={[addItem]} onChange={handleAdd} />\n</Row>"
+    },
+    {
+      "label": "Example 3",
+      "code": "// Dock with a disabled item\n<Dock\n  items={[\n    { key: 'home', icon: HomeIcon, label: 'Home' },\n    { key: 'premium', icon: LockIcon, label: 'Pro', disabled: true },\n    { key: 'settings', icon: SettingsIcon, label: 'Settings' },\n  ]}\n  activeKey={activeTab}\n  onChange={setActiveTab}\n  style={{ position: 'absolute', bottom: spacing.xl, alignSelf: 'center' }}\n/>"
+    }
+  ]
 }

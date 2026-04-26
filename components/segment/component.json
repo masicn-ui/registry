@@ -3,7 +3,7 @@
   "displayName": "Segment",
   "description": "Animated segmented control with a sliding indicator, tablist accessibility role, and disabled state support.",
   "category": "navigation-ui",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "files": [
     {
       "path": "Segment.tsx",
@@ -20,7 +20,7 @@
     "form",
     "navigation"
   ],
-  "hasTests": false,
+  "hasTests": true,
   "hasAccessibility": true,
   "props": [
     {
@@ -47,6 +47,24 @@
       "default": "false",
       "required": false,
       "description": "When true, all segments are non-interactive and the control is visually dimmed."
+    }
+  ],
+  "examples": [
+    {
+      "label": "Example 1",
+      "code": "const [view, setView] = useState('list');\n<Segment\n  options={[\n    { label: 'List', value: 'list' },\n    { label: 'Grid', value: 'grid' },\n  ]}\n  value={view}\n  onChange={setView}\n/>"
+    },
+    {
+      "label": "Example 2",
+      "code": "// Three-option chart range selector\n<Segment\n  options={[\n    { label: '7D', value: '7d' },\n    { label: '1M', value: '1m' },\n    { label: '1Y', value: '1y' },\n  ]}\n  value={range}\n  onChange={setRange}\n/>"
+    },
+    {
+      "label": "Example 3",
+      "code": "// Entirely disabled segment\n<Segment\n  options={[{ label: 'Free', value: 'free' }, { label: 'Pro', value: 'pro' }]}\n  value=\"free\"\n  onChange={() => {}}\n  disabled\n/>"
+    },
+    {
+      "label": "Example 4",
+      "code": "// With a disabled individual option\n<Segment\n  options={[\n    { label: 'Metric', value: 'metric' },\n    { label: 'Imperial', value: 'imperial', disabled: true },\n  ]}\n  value={units}\n  onChange={setUnits}\n/>"
     }
   ]
 }

@@ -1,6 +1,7 @@
 import React, { useCallback } from 'react';
 import { type TextStyle } from 'react-native';
-import { useSharedValue, withTiming, cancelAnimation, useAnimatedReaction, runOnJS } from 'react-native-reanimated';
+import { useSharedValue, withTiming, cancelAnimation, useAnimatedReaction } from 'react-native-reanimated';
+import { scheduleOnRN } from 'react-native-worklets';
 import { Text, motion, useReducedMotion, type TypographyVariant } from '../../../masicn';
 
 export interface TickerProps {
@@ -32,6 +33,14 @@ export interface TickerProps {
  * @example
  * // Currency
  * <Ticker value={price} formatter={v => `$${v.toFixed(2)}`} variant="bodyLarge" />
+ *
+ * @example
+ * // Percentage stat on a dashboard
+ * <Ticker value={conversionRate} formatter={v => `${v.toFixed(1)}%`} variant="h3" color="success" />
+ *
+ * @example
+ * // Live viewer count with slow animation
+ * <Ticker value={viewerCount} duration={2000} formatter={v => `${Math.round(v).toLocaleString()} viewers`} />
  */
 export function Ticker({
   value,
@@ -52,7 +61,7 @@ export function Ticker({
 
   useAnimatedReaction(
     () => animated.value,
-    (v) => runOnJS(updateDisplay)(v),
+    (v) => scheduleOnRN(updateDisplay, v),
     [updateDisplay],
   );
 

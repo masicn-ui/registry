@@ -5,325 +5,325 @@
   "components": [
     {
       "name": "accordion",
-      "version": "0.0.1",
+      "version": "0.0.2",
       "category": "display",
       "path": "components/accordion/component.json"
     },
     {
       "name": "alert",
-      "version": "0.0.1",
+      "version": "0.0.2",
       "category": "feedback",
       "path": "components/alert/component.json"
     },
     {
       "name": "avatar",
-      "version": "0.0.1",
+      "version": "0.0.2",
       "category": "display",
       "path": "components/avatar/component.json"
     },
     {
       "name": "avatar-group",
-      "version": "0.0.1",
+      "version": "0.0.2",
       "category": "display",
       "path": "components/avatar-group/component.json"
     },
     {
       "name": "badge",
-      "version": "0.0.1",
+      "version": "0.0.2",
       "category": "display",
       "path": "components/badge/component.json"
     },
     {
       "name": "bottom-sheet",
-      "version": "0.0.1",
+      "version": "0.0.2",
       "category": "overlays",
       "path": "components/bottom-sheet/component.json"
     },
     {
       "name": "button",
-      "version": "0.0.1",
+      "version": "0.0.2",
       "category": "buttons",
       "path": "components/button/component.json"
     },
     {
       "name": "card",
-      "version": "0.0.1",
+      "version": "0.0.2",
       "category": "layout",
       "path": "components/card/component.json"
     },
     {
       "name": "checkbox",
-      "version": "0.0.1",
+      "version": "0.0.2",
       "category": "selection",
       "path": "components/checkbox/component.json"
     },
     {
       "name": "checkbox-group",
-      "version": "0.0.1",
+      "version": "0.0.2",
       "category": "selection",
       "path": "components/checkbox-group/component.json"
     },
     {
       "name": "chip",
-      "version": "0.0.1",
+      "version": "0.0.2",
       "category": "selection",
       "path": "components/chip/component.json"
     },
     {
       "name": "collapsible",
-      "version": "0.0.1",
+      "version": "0.0.2",
       "category": "layout",
       "path": "components/collapsible/component.json"
     },
     {
       "name": "context-menu",
-      "version": "0.0.1",
+      "version": "0.0.2",
       "category": "overlays",
       "path": "components/context-menu/component.json"
     },
     {
       "name": "detail-row",
-      "version": "0.0.1",
+      "version": "0.0.2",
       "category": "display",
       "path": "components/detail-row/component.json"
     },
     {
       "name": "dock",
-      "version": "0.0.1",
+      "version": "0.0.2",
       "category": "navigation",
       "path": "components/dock/component.json"
     },
     {
       "name": "dot",
-      "version": "0.0.1",
+      "version": "0.0.2",
       "category": "display",
       "path": "components/dot/component.json"
     },
     {
       "name": "drawer",
-      "version": "0.0.1",
+      "version": "0.0.2",
       "category": "navigation-ui",
       "path": "components/drawer/component.json"
     },
     {
       "name": "expandable",
-      "version": "0.0.1",
+      "version": "0.0.2",
       "category": "display",
       "path": "components/expandable/component.json"
     },
     {
       "name": "fab",
-      "version": "0.0.1",
+      "version": "0.0.2",
       "category": "buttons",
       "path": "components/fab/component.json"
     },
     {
       "name": "image",
-      "version": "0.0.1",
+      "version": "0.0.2",
       "category": "display",
       "path": "components/image/component.json"
     },
     {
       "name": "left-sheet",
-      "version": "0.0.1",
+      "version": "0.0.2",
       "category": "overlays",
       "path": "components/left-sheet/component.json"
     },
     {
       "name": "link",
-      "version": "0.0.1",
+      "version": "0.0.2",
       "category": "navigation-ui",
       "path": "components/link/component.json"
     },
     {
       "name": "list-item",
-      "version": "0.0.1",
+      "version": "0.0.2",
       "category": "lists",
       "path": "components/list-item/component.json"
     },
     {
       "name": "loader",
-      "version": "0.0.1",
+      "version": "0.0.2",
       "category": "overlays",
       "path": "components/loader/component.json"
     },
     {
       "name": "menu",
-      "version": "0.0.1",
+      "version": "0.0.3",
       "category": "overlays",
       "path": "components/menu/component.json"
     },
     {
       "name": "modal",
-      "version": "0.0.1",
+      "version": "0.0.2",
       "category": "overlays",
       "path": "components/modal/component.json"
     },
     {
       "name": "pin",
-      "version": "0.0.1",
+      "version": "0.0.2",
       "category": "display",
       "path": "components/pin/component.json"
     },
     {
       "name": "popover",
-      "version": "0.0.1",
+      "version": "0.0.2",
       "category": "overlays",
       "path": "components/popover/component.json"
     },
     {
       "name": "progress",
-      "version": "0.0.1",
+      "version": "0.0.2",
       "category": "progress",
       "path": "components/progress/component.json"
     },
     {
       "name": "progress-ring",
-      "version": "0.0.1",
+      "version": "0.0.2",
       "category": "progress",
       "path": "components/progress-ring/component.json"
     },
     {
       "name": "radio",
-      "version": "0.0.1",
+      "version": "0.0.2",
       "category": "selection",
       "path": "components/radio/component.json"
     },
     {
       "name": "range-slider",
-      "version": "0.0.1",
+      "version": "0.0.2",
       "category": "forms",
       "path": "components/range-slider/component.json"
     },
     {
       "name": "rating",
-      "version": "0.0.1",
+      "version": "0.0.2",
       "category": "selection",
       "path": "components/rating/component.json"
     },
     {
       "name": "right-sheet",
-      "version": "0.0.1",
+      "version": "0.0.2",
       "category": "overlays",
       "path": "components/right-sheet/component.json"
     },
     {
       "name": "search-bar",
-      "version": "0.0.1",
+      "version": "0.0.2",
       "category": "forms",
       "path": "components/search-bar/component.json"
     },
     {
       "name": "secure-input",
-      "version": "0.0.1",
+      "version": "0.0.2",
       "category": "forms",
       "path": "components/secure-input/component.json"
     },
     {
       "name": "segment",
-      "version": "0.0.1",
+      "version": "0.0.2",
       "category": "navigation-ui",
       "path": "components/segment/component.json"
     },
     {
       "name": "select",
-      "version": "0.0.1",
+      "version": "0.0.2",
       "category": "forms",
       "path": "components/select/component.json"
     },
     {
       "name": "shimmer",
-      "version": "0.0.1",
+      "version": "0.0.2",
       "category": "progress",
       "path": "components/shimmer/component.json"
     },
     {
       "name": "skeleton",
-      "version": "0.0.1",
+      "version": "0.0.2",
       "category": "progress",
       "path": "components/skeleton/component.json"
     },
     {
       "name": "slider",
-      "version": "0.0.1",
+      "version": "0.0.2",
       "category": "forms",
       "path": "components/slider/component.json"
     },
     {
       "name": "snackbar",
-      "version": "0.0.1",
+      "version": "0.0.2",
       "category": "feedback",
       "path": "components/snackbar/component.json"
     },
     {
       "name": "spinner",
-      "version": "0.0.1",
+      "version": "0.0.2",
       "category": "progress",
       "path": "components/spinner/component.json"
     },
     {
       "name": "swipe-button",
-      "version": "0.0.1",
+      "version": "0.0.3",
       "category": "inputs",
       "path": "components/swipe-button/component.json"
     },
     {
       "name": "switch",
-      "version": "0.0.1",
+      "version": "0.0.2",
       "category": "selection",
       "path": "components/switch/component.json"
     },
     {
       "name": "tabs",
-      "version": "0.0.1",
+      "version": "0.0.2",
       "category": "navigation-ui",
       "path": "components/tabs/component.json"
     },
     {
       "name": "tag",
-      "version": "0.0.1",
+      "version": "0.0.2",
       "category": "display",
       "path": "components/tag/component.json"
     },
     {
       "name": "text-input",
-      "version": "0.0.1",
+      "version": "0.0.2",
       "category": "forms",
       "path": "components/text-input/component.json"
     },
     {
       "name": "textarea",
-      "version": "0.0.1",
+      "version": "0.0.2",
       "category": "forms",
       "path": "components/textarea/component.json"
     },
     {
       "name": "ticker",
-      "version": "0.0.1",
+      "version": "0.0.2",
       "category": "display",
       "path": "components/ticker/component.json"
     },
     {
       "name": "toast",
-      "version": "0.0.1",
+      "version": "0.0.2",
       "category": "feedback",
       "path": "components/toast/component.json"
     },
     {
       "name": "toggle-group",
-      "version": "0.0.1",
+      "version": "0.0.2",
       "category": "selection",
       "path": "components/toggle-group/component.json"
     },
     {
       "name": "tooltip",
-      "version": "0.0.1",
+      "version": "0.0.2",
       "category": "overlays",
       "path": "components/tooltip/component.json"
     },
     {
       "name": "top-sheet",
-      "version": "0.0.1",
+      "version": "0.0.2",
       "category": "overlays",
       "path": "components/top-sheet/component.json"
     }
@@ -331,115 +331,115 @@
   "blocks": [
     {
       "name": "action-sheet",
-      "version": "0.0.1",
+      "version": "0.0.2",
       "category": "overlays",
       "path": "blocks/action-sheet/component.json"
     },
     {
       "name": "breadcrumb",
-      "version": "0.0.1",
+      "version": "0.0.2",
       "category": "navigation",
       "path": "blocks/breadcrumb/component.json"
     },
     {
       "name": "carousel",
-      "version": "0.0.1",
+      "version": "0.0.2",
       "category": "display",
       "path": "blocks/carousel/component.json"
     },
     {
       "name": "chip-input",
-      "version": "0.0.1",
+      "version": "0.0.2",
       "category": "forms",
       "path": "blocks/chip-input/component.json"
     },
     {
       "name": "code-input",
-      "version": "0.0.1",
+      "version": "0.0.2",
       "category": "forms",
       "path": "blocks/code-input/component.json"
     },
     {
       "name": "confirm",
-      "version": "0.0.1",
+      "version": "0.0.2",
       "category": "overlays",
       "path": "blocks/confirm/component.json"
     },
     {
       "name": "dual-sheet",
-      "version": "0.0.1",
+      "version": "0.0.2",
       "category": "overlays",
       "path": "blocks/dual-sheet/component.json"
     },
     {
       "name": "empty-state",
-      "version": "0.0.1",
+      "version": "0.0.2",
       "category": "display",
       "path": "blocks/empty-state/component.json"
     },
     {
       "name": "form",
-      "version": "0.0.1",
+      "version": "0.0.2",
       "category": "forms",
       "path": "blocks/form/component.json"
     },
     {
       "name": "json-tree",
-      "version": "0.0.1",
+      "version": "0.0.2",
       "category": "display",
       "path": "blocks/json-tree/component.json"
     },
     {
       "name": "masonry-grid",
-      "version": "0.0.1",
+      "version": "0.0.2",
       "category": "layouts",
       "path": "blocks/masonry-grid/component.json"
     },
     {
       "name": "numeric",
-      "version": "0.0.1",
+      "version": "0.0.2",
       "category": "forms",
       "path": "blocks/numeric/component.json"
     },
     {
       "name": "pagination",
-      "version": "0.0.1",
+      "version": "0.0.2",
       "category": "navigation",
       "path": "blocks/pagination/component.json"
     },
     {
       "name": "phone",
-      "version": "0.0.1",
+      "version": "0.0.2",
       "category": "forms",
       "path": "blocks/phone/component.json"
     },
     {
       "name": "refreshable-list",
-      "version": "0.0.1",
+      "version": "0.0.2",
       "category": "layouts",
       "path": "blocks/refreshable-list/component.json"
     },
     {
       "name": "refreshable-scroll-view",
-      "version": "0.0.1",
+      "version": "0.0.2",
       "category": "layouts",
       "path": "blocks/refreshable-scroll-view/component.json"
     },
     {
       "name": "stepper",
-      "version": "0.0.1",
+      "version": "0.0.2",
       "category": "progress",
       "path": "blocks/stepper/component.json"
     },
     {
       "name": "swipeable",
-      "version": "0.0.1",
+      "version": "0.0.2",
       "category": "lists",
       "path": "blocks/swipeable/component.json"
     },
     {
       "name": "timeline",
-      "version": "0.0.1",
+      "version": "0.0.2",
       "category": "display",
       "path": "blocks/timeline/component.json"
     }

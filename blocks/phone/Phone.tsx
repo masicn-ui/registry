@@ -18,6 +18,14 @@ export interface CountryOption {
   name?: string;
 }
 
+type PhoneSize = 'sm' | 'md' | 'lg';
+
+const sizeConfig = {
+  sm: { minHeight: sizes.inputSm, paddingVertical: spacing.xs },
+  md: { minHeight: sizes.inputMd, paddingVertical: spacing.sm },
+  lg: { minHeight: sizes.inputLg, paddingVertical: spacing.md },
+} as const;
+
 export interface PhoneProps {
   /** Phone number digits — no country code prefix */
   value: string;
@@ -49,6 +57,8 @@ export interface PhoneProps {
   helperText?: string;
   /** Disable all interaction */
   disabled?: boolean;
+  /** Size preset controlling input row height and vertical padding. @default 'md' */
+  size?: PhoneSize;
   /** Outer container style */
   containerStyle?: ViewStyle;
   /** Stable selector for tests */
@@ -85,6 +95,37 @@ export interface PhoneProps {
  *     { dialCode: '+44', name: 'United Kingdom' },
  *   ]}
  * />
+ *
+ * @example
+ * // Simple single-country field (no picker shown)
+ * <Phone
+ *   label="Phone number"
+ *   value={phone}
+ *   onValueChange={setPhone}
+ *   countryCodes={['+1']}
+ *   placeholder="(555) 000-0000"
+ * />
+ *
+ * @example
+ * // With error and helper text
+ * <Phone
+ *   label="Mobile"
+ *   value={phone}
+ *   onValueChange={setPhone}
+ *   countries={countryList}
+ *   error={phoneError}
+ *   helperText="Used for SMS verification"
+ * />
+ *
+ * @example
+ * // Disabled — read-only phone display
+ * <Phone
+ *   label="Contact number"
+ *   value={user.phone}
+ *   onValueChange={() => {}}
+ *   countryCodes={[user.dialCode]}
+ *   disabled
+ * />
  */
 export const Phone = React.forwardRef<RNTextInput, PhoneProps>(
   function Phone(
@@ -101,6 +142,7 @@ export const Phone = React.forwardRef<RNTextInput, PhoneProps>(
       error,
       helperText,
       disabled = false,
+      size = 'md',
       containerStyle,
       testID,
     },
@@ -192,6 +234,7 @@ export const Phone = React.forwardRef<RNTextInput, PhoneProps>(
               backgroundColor: disabled
                 ? theme.colors.disabled
                 : theme.colors.inputBackground,
+              minHeight: sizeConfig[size].minHeight,
             },
           ]}>
 
@@ -242,7 +285,10 @@ export const Phone = React.forwardRef<RNTextInput, PhoneProps>(
             style={[
               typography.body,
               styles.input,
-              { color: disabled ? theme.colors.textDisabled : theme.colors.textPrimary },
+              {
+                color: disabled ? theme.colors.textDisabled : theme.colors.textPrimary,
+                paddingVertical: sizeConfig[size].paddingVertical,
+              },
             ]}
           />
         </View>
@@ -342,7 +388,6 @@ const styles = StyleSheet.create({
     // Always borders.medium — stable layout, only color changes on focus.
     borderWidth: borders.medium,
     overflow: 'hidden',
-    minHeight: sizes.inputMd,
   },
   dialCodeArea: {
     flexDirection: 'row',
@@ -358,7 +403,6 @@ const styles = StyleSheet.create({
   input: {
     flex: 1,
     paddingHorizontal: spacing.md,
-    paddingVertical: spacing.sm,
     textAlignVertical: 'center', // Android: keep text centered in the row
   },
   pickerListWrapper: {

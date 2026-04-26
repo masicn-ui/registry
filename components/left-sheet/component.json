@@ -3,7 +3,7 @@
   "displayName": "LeftSheet",
   "description": "Gesture-driven side sheet that slides in from the left edge with drag-to-dismiss support.",
   "category": "overlays",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "files": [
     {
       "path": "LeftSheet.tsx",
@@ -22,7 +22,7 @@
     "overlay",
     "sheet"
   ],
-  "hasTests": false,
+  "hasTests": true,
   "hasAccessibility": true,
   "props": [
     {
@@ -69,6 +69,24 @@
       "default": "false",
       "required": false,
       "description": "When true, the dimmed backdrop is hidden and touches pass through it"
+    }
+  ],
+  "examples": [
+    {
+      "label": "Example 1",
+      "code": "const [open, setOpen] = React.useState(false);\n<LeftSheet visible={open} onClose={() => setOpen(false)} width={0.8}>\n  <Text>Navigation content</Text>\n</LeftSheet>"
+    },
+    {
+      "label": "Example 2",
+      "code": "// Imperative usage\nconst sheetRef = useRef<LeftSheetRef>(null);\n<LeftSheet ref={sheetRef} onClose={() => {}}>\n  <NavMenu />\n</LeftSheet>"
+    },
+    {
+      "label": "Example 3",
+      "code": "// Without backdrop for persistent sidebar-like experience\n<LeftSheet visible={open} onClose={() => setOpen(false)} hideBackdrop>\n  <Sidebar />\n</LeftSheet>"
+    },
+    {
+      "label": "Example 4",
+      "code": "// Narrow sheet for a quick-actions panel\n<LeftSheet visible={open} onClose={() => setOpen(false)} width={0.5}>\n  <QuickActions />\n</LeftSheet>"
     }
   ]
 }

@@ -3,7 +3,7 @@
   "displayName": "Tabs",
   "description": "Tab bar with underline, filled, and pill variants; scrollable mode; built-in panel with show-more body text",
   "category": "navigation-ui",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "files": [
     {
       "path": "Tabs.tsx",
@@ -18,7 +18,7 @@
     "navigation",
     "tabs"
   ],
-  "hasTests": false,
+  "hasTests": true,
   "hasAccessibility": true,
   "props": [
     {
@@ -77,6 +77,24 @@
       "type": "ViewStyle",
       "required": false,
       "description": "Style applied to the content panel area rendered below the tab bar."
+    }
+  ],
+  "examples": [
+    {
+      "label": "Example 1",
+      "code": "// Basic underline tabs\nconst [active, setActive] = useState('details');\n<Tabs\n  tabs={[\n    { key: 'details', label: 'Details', body: descriptionText },\n    { key: 'reviews', label: 'Reviews', content: <ReviewList /> },\n  ]}\n  activeTab={active}\n  onTabChange={setActive}\n/>"
+    },
+    {
+      "label": "Example 2",
+      "code": "// Scrollable pill tabs\n<Tabs\n  tabs={categories}\n  activeTab={activeCategory}\n  onTabChange={setActiveCategory}\n  variant=\"pill\"\n  scrollable\n/>"
+    },
+    {
+      "label": "Example 3",
+      "code": "// Filled tabs for a settings screen\n<Tabs\n  variant=\"filled\"\n  tabs={[\n    { key: 'general', label: 'General' },\n    { key: 'security', label: 'Security' },\n    { key: 'billing', label: 'Billing' },\n  ]}\n  activeTab={activeTab}\n  onTabChange={setActiveTab}\n/>"
+    },
+    {
+      "label": "Example 4",
+      "code": "// Tabs with inline text content panels\n<Tabs\n  tabs={[\n    { key: 'overview', label: 'Overview', body: product.description },\n    { key: 'specs', label: 'Specs', body: product.specs },\n  ]}\n  activeTab={activeTab}\n  onTabChange={setActiveTab}\n  textThreshold={200}\n/>"
     }
   ]
 }
