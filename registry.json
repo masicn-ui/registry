@@ -149,7 +149,7 @@
     },
     {
       "name": "menu",
-      "version": "0.0.3",
+      "version": "0.0.2",
       "category": "overlays",
       "path": "components/menu/component.json"
     },
@@ -263,7 +263,7 @@
     },
     {
       "name": "swipe-button",
-      "version": "0.0.3",
+      "version": "0.0.2",
       "category": "inputs",
       "path": "components/swipe-button/component.json"
     },

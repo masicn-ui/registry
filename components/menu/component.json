@@ -3,7 +3,7 @@
   "displayName": "Menu",
   "description": "Dropdown menu with viewport-clamped positioning, icon support, disabled states, and separator dividers.",
   "category": "overlays",
-  "version": "0.0.3",
+  "version": "0.0.2",
   "files": [
     {
       "path": "Menu.tsx",

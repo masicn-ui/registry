@@ -3,7 +3,7 @@
   "displayName": "SwipeButton",
   "description": "Drag-to-confirm control where the user slides a thumb across a track to trigger an irreversible action. Track animates from surface to success on completion.",
   "category": "inputs",
-  "version": "0.0.3",
+  "version": "0.0.2",
   "files": [
     {
       "path": "SwipeButton.tsx",
