@@ -12,63 +12,50 @@ This repo holds the source files and metadata for every component and block that
 
 ```
 registry/
-├── registry.json              ← index: all components + blocks listed here
+├── registry.json               ← index: all components + blocks
 ├── components/
 │   └── button/
-│       ├── component.json     ← metadata (props, deps, version, files)
-│       └── Button.tsx         ← the actual source file copied into user projects
+│       ├── component.json      ← metadata (props, deps, version, files, examples)
+│       └── Button.tsx          ← source file copied into user projects
 └── blocks/
-    └── otp-input/
+    └── action-sheet/
         ├── component.json
-        └── OtpInput.tsx
+        └── ActionSheet.tsx
 ```
 
 When a user runs `npx masicn add button`, the CLI:
 1. Reads `registry.json` to find the component's path
 2. Fetches `components/button/component.json` for metadata and file list
 3. Fetches `components/button/Button.tsx` and copies it into the user's project
-4. Resolves any `registryDependencies` and installs those too
+4. Rewrites import paths to match the user's project structure
+5. Resolves any `registryDependencies` and installs those too
 
-## Components (55+)
+## Components (54)
 
-### Core
-`avatar` `avatar-group` `badge` `button` `card` `chip` `image` `key-value-row` `link` `pin-display` `read-more` `status-dot` `tag`
+| Category | Components |
+|----------|-----------|
+| Display | `avatar` `avatar-group` `badge` `card` `dot` `expandable` `image` `link` `list-item` `tag` `ticker` |
+| Feedback | `alert` `loader` `progress` `progress-ring` `shimmer` `skeleton` `snackbar` `spinner` `toast` |
+| Actions | `button` `fab` `rating` `swipe-button` |
+| Forms | `checkbox` `checkbox-group` `chip` `radio` `range-slider` `search-bar` `secure-input` `segment` `select` `slider` `switch` `text-input` `textarea` `toggle-group` |
+| Navigation | `accordion` `collapsible` `detail-row` `dock` `pin` `tabs` |
+| Overlays | `bottom-sheet` `context-menu` `drawer` `left-sheet` `menu` `modal` `popover` `right-sheet` `tooltip` `top-sheet` |
 
-### Feedback
-`alert` `bottom-sheet` `left-sheet` `loading-overlay` `modal` `progress` `progress-circle` `right-sheet` `shimmer` `skeleton` `snackbar` `spinner` `toast` `top-sheet`
+## Blocks (19)
 
-### Form
-`checkbox` `checkbox-group` `password-input` `radio` `radio-group` `segmented-control` `select` `slider` `switch` `text-input` `toggle-button-group`
-
-### Interactive
-`animated-card` `animated-number` `rating`
-
-### Layout
-`masonry-grid` `refreshable-list` `refreshable-scroll-view` `screen-layout`
-
-### Navigation
-`accordion` `collapsible` `fab` `list-item` `search-bar` `tabs`
-
-### Overlay
-`context-menu` `menu` `popover` `tooltip`
-
-## Blocks (17)
-
-Pre-built screens and flows with multiple components composed together.
-
-`action-sheet` `breadcrumb` `carousel` `confirm-dialog` `date-input` `empty-state` `form` `multi-select` `number-input` `otp-input` `pagination` `phone-input` `split-sheet` `step-indicator` `swipeable` `tag-input` `timeline`
+Pre-composed screens and flows: `action-sheet` `breadcrumb` `carousel` `chip-input` `code-input` `confirm` `dual-sheet` `empty-state` `form` `json-tree` `masonry-grid` `numeric` `pagination` `phone` `refreshable-list` `refreshable-scroll-view` `stepper` `swipeable` `timeline`
 
 ## `component.json` Schema
 
-Every component and block has a `component.json` file that describes it:
+Every component and block has a `component.json` file:
 
 ```json
 {
   "name": "button",
   "displayName": "Button",
-  "description": "Pressable button with multiple variants...",
-  "category": "core",
-  "version": "0.0.1",
+  "description": "Pressable button with multiple variants, sizes, loading state, and icon slots.",
+  "category": "buttons",
+  "version": "0.0.2",
   "masicnVersion": "^0.0.1",
   "files": [
     { "path": "Button.tsx", "target": "Button.tsx", "type": "component" }
@@ -76,38 +63,50 @@ Every component and block has a `component.json` file that describes it:
   "peerDependencies": {},
   "registryDependencies": [],
   "tags": ["interactive", "pressable"],
-  "hasTests": false,
+  "hasTests": true,
   "hasAccessibility": true,
   "props": [
     {
       "name": "variant",
-      "type": "'primary' | 'secondary' | 'outline' | 'ghost' | 'destructive'",
+      "type": "'primary' | 'secondary' | 'tertiary' | 'outline' | 'ghost' | 'destructive'",
       "default": "primary",
       "required": false,
-      "description": "Visual style variant"
+      "description": "Visual style variant of the button"
     }
-  ]
+  ],
+  "examples": [
+    {
+      "label": "Example 1",
+      "code": "<Button variant=\"primary\" onPress={handleSave}>Save</Button>"
+    }
+  ],
+  "aiPrompt": "Use for primary actions, form submission, and navigation triggers.",
+  "aiUsagePattern": "<Button variant=\"primary\" onPress={handleAction}>Label</Button>"
 }
 ```
 
 ### Fields
 
-| Field | Type | Description |
-|-------|------|-------------|
-| `name` | `string` | Kebab-case identifier used in CLI commands |
-| `displayName` | `string` | Human-readable name |
-| `description` | `string` | Short description shown in `masicn info` and `masicn list` |
-| `category` | `string` | Groups components in `masicn list` |
-| `version` | `string` | Component version (semver) |
-| `masicnVersion` | `string` | Required `@masicn/ui` version constraint |
-| `files` | `RegistryFile[]` | Files to copy into the user's project |
-| `peerDependencies` | `Record<string, string>` | npm packages the component needs |
-| `registryDependencies` | `string[]` | Other masicn components this one depends on |
-| `tags` | `string[]` | Search/filter tags |
-| `hasTests` | `boolean` | Whether test files are included |
-| `hasAccessibility` | `boolean` | Whether accessibility props are included |
-| `props` | `PropDefinition[]` | Props table shown in `masicn info` |
-| `subComponentProps` | `Record<string, PropDefinition[]>` | Props for sub-components (e.g. `Item`, `Trigger`) |
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `name` | `string` | ✓ | Kebab-case identifier used in CLI commands |
+| `displayName` | `string` | ✓ | Human-readable name |
+| `description` | `string` | ✓ | Short description shown in `masicn info` and `masicn list` |
+| `category` | `string` | ✓ | Groups components in `masicn list` |
+| `version` | `string` | ✓ | Component version (semver) |
+| `masicnVersion` | `string` | ✓ | Required `@masicn/ui` version constraint |
+| `files` | `RegistryFile[]` | ✓ | Files to copy into the user's project |
+| `hasTests` | `boolean` | ✓ | Whether test files are included |
+| `hasAccessibility` | `boolean` | ✓ | Whether accessibility props are included |
+| `peerDependencies` | `Record<string, string>` | — | npm packages the component needs (CLI installs these) |
+| `registryDependencies` | `string[]` | — | Other masicn component names this one depends on |
+| `tags` | `string[]` | — | Search/filter tags used by `masicn search` |
+| `props` | `PropDefinition[]` | — | Props table shown in `masicn info` |
+| `subComponentProps` | `Record<string, PropDefinition[]>` | — | Props for sub-components (e.g. `Accordion.Item`) |
+| `examples` | `ComponentExample[]` | — | Usage examples (auto-extracted from JSDoc `@example` blocks) |
+| `aiPrompt` | `string` | — | One-line hint for AI tools about when to use this component |
+| `aiUsagePattern` | `string` | — | Canonical usage snippet for AI code generation |
+| `migration` | `ComponentMigration` | — | Breaking-change migration metadata (used by `masicn migrate`) |
 
 ### `RegistryFile`
 
@@ -131,19 +130,47 @@ Every component and block has a `component.json` file that describes it:
 }
 ```
 
-## `registry.json` Index
-
-The root `registry.json` is the index the CLI fetches first. It lists every component and block with enough info to display them without fetching individual `component.json` files.
+### `ComponentExample`
 
 ```json
 {
-  "version": "0.0.1",
+  "label": "Example 1",
+  "code": "<Button variant=\"primary\" onPress={handleSave}>Save</Button>"
+}
+```
+
+Examples are automatically extracted from JSDoc `@example` blocks in the source `.tsx` file on each sync.
+
+### `ComponentMigration`
+
+```json
+{
+  "from": "0.0.1",
+  "to": "0.0.2",
+  "breakingChanges": ["Renamed prop `danger` → `variant=\"destructive\"`"],
+  "autoFixable": true,
+  "transforms": [
+    { "type": "rename-prop", "from": "danger", "to": "variant", "value": "destructive" }
+  ]
+}
+```
+
+Used by `masicn migrate` to auto-apply prop renames and variant changes.
+
+## `registry.json` Index
+
+The root `registry.json` is the index the CLI fetches first:
+
+```json
+{
+  "schemaVersion": "1.0",
+  "version": "0.0.2",
   "baseUrl": "https://raw.githubusercontent.com/masicn-ui/registry/master",
   "components": [
     {
       "name": "button",
-      "version": "0.0.1",
-      "category": "core",
+      "version": "0.0.2",
+      "category": "buttons",
       "path": "components/button/component.json"
     }
   ],
@@ -151,30 +178,26 @@ The root `registry.json` is the index the CLI fetches first. It lists every comp
 }
 ```
 
-## Adding a New Component
+## Contributing a Component
 
 1. Create `components/<name>/` directory
-2. Write the component source file — use primitives and tokens from `@masicn/ui`
-3. Write `component.json` with full metadata including the `props` array
-4. Add an entry to `registry.json` under `components` or `blocks`
+2. Write the component source — use primitives and tokens from `@masicn/ui`
+3. Add JSDoc `@example` blocks to the exported component (auto-extracted by the CLI sync)
+4. Write `component.json` with full metadata including the `props` array
+5. Add an entry to `registry.json` under `components` or `blocks`
 
 **Guidelines:**
-- Components in this registry target **React Native CLI** projects only (not Expo) — do not use Expo-specific APIs
+- Components target **React Native CLI** projects only — do not use Expo-specific APIs
 - Import only from `@masicn/ui` — no external UI libraries
-- Use `useTheme()` for colors, `useTokens()` for spacing/radius/etc
-- Set `hasAccessibility: true` only if the component includes `accessibilityLabel`, `accessibilityRole`, etc.
+- Use `theme.colors.*` for colors, `spacing.*` / `radius.*` from `useTokens()` for layout
+- Never use raw numbers — always tokens
+- Set `hasAccessibility: true` only if the component includes `accessibilityRole`, `accessibilityLabel`, `accessibilityHint`
 - List all `registryDependencies` — the CLI uses this for automatic installs
 - `masicnVersion` should be `"^0.0.1"` unless a newer `@masicn/ui` API is required
-
-## Adding a New Block
-
-Same as above but in `blocks/<name>/`. Blocks are more opinionated, pre-composed screens or flows. They:
-- Live in the user's `blocksDir` (default: `src/shared/blocks`) instead of `outputDir`
-- Should have a `category` of `"blocks"` in `component.json`
-- Usually depend on multiple registry components via `registryDependencies`
+- Bump `version` whenever a prop, behavior, or visual output changes
 
 ## License
 
 [MIT](./LICENSE) — free to use, modify, and distribute. Copyright © 2026 [Skipp](https://skipp.co.in).
 
-The component source files in this registry are MIT licensed. When the CLI copies them into a user's project, those files become part of that project and remain under MIT — the user owns them and can change, ship, or extend them freely with no restrictions.
+The component source files in this registry are MIT licensed. When the CLI copies them into a user's project, those files become part of that project and remain under MIT — the user owns them and can change, ship, or extend them freely.
