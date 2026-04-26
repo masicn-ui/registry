@@ -36,6 +36,28 @@ interface TriggerLayout {
  * <Tooltip content="Save your changes">
  *   <Button onPress={handleSave}>Save</Button>
  * </Tooltip>
+ *
+ * @example
+ * // Tooltip on an icon-only button to explain its purpose
+ * <Tooltip content="Delete permanently">
+ *   <Pressable onPress={handleDelete} accessibilityLabel="Delete">
+ *     <TrashIcon size={iconSizes.action} />
+ *   </Pressable>
+ * </Tooltip>
+ *
+ * @example
+ * // Tooltip wrapping a disabled button to explain why it is disabled
+ * <Tooltip content="Complete all required fields first">
+ *   <Button onPress={handleSubmit} disabled={!isValid}>
+ *     Submit
+ *   </Button>
+ * </Tooltip>
+ *
+ * @example
+ * // Tooltip with custom container style to constrain trigger width
+ * <Tooltip content="Opens your profile settings" containerStyle={{ alignSelf: 'flex-start' }}>
+ *   <Button variant="ghost" onPress={openProfile}>Profile</Button>
+ * </Tooltip>
  */
 export function Tooltip({
   content,

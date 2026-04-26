@@ -3,7 +3,7 @@
   "displayName": "FAB",
   "description": "Floating action button with circular and extended variants, size presets, and position options",
   "category": "buttons",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "files": [
     {
       "path": "FAB.tsx",
@@ -21,7 +21,7 @@
     "action",
     "floating"
   ],
-  "hasTests": false,
+  "hasTests": true,
   "hasAccessibility": true,
   "props": [
     {
@@ -76,6 +76,24 @@
       "default": "false",
       "required": false,
       "description": "When true, the button is non-interactive and uses a disabled background color."
+    }
+  ],
+  "examples": [
+    {
+      "label": "Example 1",
+      "code": "// Circular (icon-only) at bottom-right\n<FAB onPress={handleCreate} />"
+    },
+    {
+      "label": "Example 2",
+      "code": "// Extended with label and custom icon\n<FAB\n  variant=\"extended\"\n  label=\"New post\"\n  icon={EditIcon}\n  position=\"bottom-center\"\n  onPress={handleCreate}\n/>"
+    },
+    {
+      "label": "Example 3",
+      "code": "// Square shaped FAB at top-right corner\n<FAB\n  shape=\"square\"\n  icon={FilterIcon}\n  position=\"top-right\"\n  onPress={openFilters}\n/>"
+    },
+    {
+      "label": "Example 4",
+      "code": "// Disabled FAB while upload is in progress\n<FAB\n  icon={UploadIcon}\n  onPress={handleUpload}\n  disabled={isUploading}\n  label=\"Upload\"\n  variant=\"extended\"\n/>"
     }
   ]
 }

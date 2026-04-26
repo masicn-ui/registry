@@ -128,6 +128,26 @@ const AnimatedStepCircle = React.memo(function AnimatedStepCircle({
  *   ]}
  *   currentStep={0}
  * />
+ *
+ * @example
+ * // All steps completed (currentStep past last step)
+ * <Stepper
+ *   steps={[{ label: 'Order placed' }, { label: 'Shipped' }, { label: 'Delivered' }]}
+ *   currentStep={3}
+ * />
+ *
+ * @example
+ * // Checkout flow with testID for automation
+ * <Stepper
+ *   steps={[
+ *     { label: 'Cart' },
+ *     { label: 'Shipping' },
+ *     { label: 'Payment' },
+ *     { label: 'Confirm' },
+ *   ]}
+ *   currentStep={checkoutStep}
+ *   testID="checkout-stepper"
+ * />
  */
 export const Stepper = React.memo(function Stepper({
   steps,

@@ -42,6 +42,26 @@ export interface PaginationProps {
  *   onPageChange={setCurrentPage}
  *   maxVisible={7}
  * />
+ *
+ * @example
+ * // Embedded in a search results screen
+ * <View>
+ *   <SearchResultsList results={results} />
+ *   <Pagination
+ *     page={page}
+ *     totalPages={Math.ceil(total / pageSize)}
+ *     onPageChange={setPage}
+ *   />
+ * </View>
+ *
+ * @example
+ * // First page — prev arrow is disabled automatically
+ * <Pagination
+ *   page={1}
+ *   totalPages={10}
+ *   onPageChange={setCurrentPage}
+ *   testID="results-pagination"
+ * />
  */
 export const Pagination = React.memo(function Pagination({
   page,

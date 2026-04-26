@@ -45,6 +45,36 @@ interface BreadcrumbProps {
  *     { label: 'Profile' },
  *   ]}
  * />
+ *
+ * @example
+ * // Custom separator
+ * <Breadcrumb
+ *   separator={<Text color="textTertiary"> / </Text>}
+ *   items={[
+ *     { label: 'Dashboard', onPress: () => navigation.navigate('Dashboard') },
+ *     { label: 'Reports', onPress: () => navigation.navigate('Reports') },
+ *     { label: 'Q1 2024' },
+ *   ]}
+ * />
+ *
+ * @example
+ * // Static breadcrumb with no pressable items (read-only context)
+ * <Breadcrumb
+ *   items={[
+ *     { label: 'Products' },
+ *     { label: 'Electronics' },
+ *     { label: 'Laptops' },
+ *   ]}
+ * />
+ *
+ * @example
+ * // Two-level breadcrumb for a detail screen
+ * <Breadcrumb
+ *   items={[
+ *     { label: 'Orders', onPress: () => navigation.goBack() },
+ *     { label: `Order #${order.number}` },
+ *   ]}
+ * />
  */
 export const Breadcrumb = React.memo(function Breadcrumb({
   items,

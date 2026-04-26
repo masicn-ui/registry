@@ -3,7 +3,7 @@
   "displayName": "Radio",
   "description": "Radio button with animated dot, label, description, and RadioGroup context for exclusive selection.",
   "category": "selection",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "files": [
     {
       "path": "Radio.tsx",
@@ -19,7 +19,7 @@
   "tags": [
     "form"
   ],
-  "hasTests": false,
+  "hasTests": true,
   "hasAccessibility": true,
   "props": [
     {
@@ -52,6 +52,24 @@
       "type": "ViewStyle",
       "required": false,
       "description": "Additional style applied to the radio item container"
+    }
+  ],
+  "examples": [
+    {
+      "label": "Example 1",
+      "code": "<RadioGroup value={plan} onValueChange={setPlan}>\n  <Radio value=\"free\" label=\"Free\" />\n  <Radio value=\"pro\" label=\"Pro\" description=\"Unlimited usage\" />\n  <Radio value=\"enterprise\" label=\"Enterprise\" disabled />\n</RadioGroup>"
+    },
+    {
+      "label": "Example 2",
+      "code": "// Entire group disabled — useful for read-only survey responses\n<RadioGroup value=\"agree\" onValueChange={() => {}} disabled>\n  <Radio value=\"agree\" label=\"Agree\" />\n  <Radio value=\"disagree\" label=\"Disagree\" />\n</RadioGroup>"
+    },
+    {
+      "label": "Example 3",
+      "code": "// Shipping method selection with descriptions\n<RadioGroup value={shipping} onValueChange={setShipping}>\n  <Radio value=\"standard\" label=\"Standard\" description=\"3–5 business days — free\" />\n  <Radio value=\"express\" label=\"Express\" description=\"1–2 business days — $9.99\" />\n  <Radio value=\"overnight\" label=\"Overnight\" description=\"Next business day — $24.99\" />\n</RadioGroup>"
+    },
+    {
+      "label": "Example 4",
+      "code": "<Radio value=\"dark\" label=\"Dark mode\" description=\"Easier on the eyes\" />"
     }
   ]
 }

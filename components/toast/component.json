@@ -3,7 +3,7 @@
   "displayName": "Toast",
   "description": "Global toast notifications via portal with useToast hook.",
   "category": "feedback",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "files": [
     {
       "path": "Toast.tsx",
@@ -22,7 +22,7 @@
     "notification",
     "portal"
   ],
-  "hasTests": false,
+  "hasTests": true,
   "hasAccessibility": true,
   "props": [
     {
@@ -37,6 +37,32 @@
       "default": "top",
       "required": false,
       "description": "Default screen edge where toasts appear when no per-call position is specified"
+    }
+  ],
+  "examples": [
+    {
+      "label": "Example 1",
+      "code": "const toast = useToast();\ntoast.success('File saved!');"
+    },
+    {
+      "label": "Example 2",
+      "code": "// Error toast with custom duration\nconst toast = useToast();\ntoast.error('Network error', 6000);"
+    },
+    {
+      "label": "Example 3",
+      "code": "// Warning toast shown at the bottom\nconst toast = useToast();\ntoast.warning('Session expiring soon', 4000, 'bottom');"
+    },
+    {
+      "label": "Example 4",
+      "code": "// In your root layout:\n<ToastProvider defaultPosition=\"bottom\">\n  <App />\n</ToastProvider>\n// Inside any screen:\nconst toast = useToast();\ntoast.error('Connection failed');"
+    },
+    {
+      "label": "Example 5",
+      "code": "// Top-positioned toasts globally\n<ToastProvider defaultPosition=\"top\">\n  <NavigationContainer>\n    <RootStack />\n  </NavigationContainer>\n</ToastProvider>"
+    },
+    {
+      "label": "Example 6",
+      "code": "// Warning toast with explicit position override per call\nconst toast = useToast();\ntoast.warning('Unsaved changes', 3000, 'bottom');"
     }
   ]
 }

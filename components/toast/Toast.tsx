@@ -35,6 +35,16 @@ const ToastContext = createContext<ToastContextValue | undefined>(undefined);
  * @example
  * const toast = useToast();
  * toast.success('File saved!');
+ *
+ * @example
+ * // Error toast with custom duration
+ * const toast = useToast();
+ * toast.error('Network error', 6000);
+ *
+ * @example
+ * // Warning toast shown at the bottom
+ * const toast = useToast();
+ * toast.warning('Session expiring soon', 4000, 'bottom');
  */
 export function useToast() {
   const context = useContext(ToastContext);
@@ -68,6 +78,19 @@ interface ToastProviderProps {
  * // Inside any screen:
  * const toast = useToast();
  * toast.error('Connection failed');
+ *
+ * @example
+ * // Top-positioned toasts globally
+ * <ToastProvider defaultPosition="top">
+ *   <NavigationContainer>
+ *     <RootStack />
+ *   </NavigationContainer>
+ * </ToastProvider>
+ *
+ * @example
+ * // Warning toast with explicit position override per call
+ * const toast = useToast();
+ * toast.warning('Unsaved changes', 3000, 'bottom');
  */
 export function ToastProvider({ children, defaultPosition = 'top' }: ToastProviderProps) {
   const [toasts, setToasts] = useState<ToastMessage[]>([]);

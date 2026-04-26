@@ -53,6 +53,56 @@ interface SelectProps {
   testID?: string;
 }
 
+/**
+ * Select — controlled dropdown picker with a modal option list.
+ *
+ * Supports optional search filtering, custom trigger rendering via a children
+ * render prop, custom option row rendering, error states, and focus trapping
+ * inside the picker modal for accessibility.
+ *
+ * @example
+ * // Basic controlled select
+ * const [country, setCountry] = useState('');
+ * <Select
+ *   label="Country"
+ *   value={country}
+ *   onValueChange={setCountry}
+ *   options={[
+ *     { label: 'Australia', value: 'au' },
+ *     { label: 'New Zealand', value: 'nz' },
+ *   ]}
+ * />
+ *
+ * @example
+ * // Searchable select
+ * <Select
+ *   label="City"
+ *   value={city}
+ *   onValueChange={setCity}
+ *   options={cities}
+ *   searchable
+ *   placeholder="Search cities…"
+ * />
+ *
+ * @example
+ * // Custom trigger via children render prop
+ * <Select value={role} onValueChange={setRole} options={roles}>
+ *   {(selected) => (
+ *     <Chip label={selected?.label ?? 'Pick a role'} />
+ *   )}
+ * </Select>
+ *
+ * @example
+ * // Error state with validation message
+ * <Select
+ *   label="Priority"
+ *   value={priority}
+ *   onValueChange={setPriority}
+ *   options={priorityOptions}
+ *   error={!priority}
+ *   errorMessage="Please select a priority"
+ * />
+ */
 const Select = React.forwardRef<View, SelectProps>(function Select(
   {
     value,

@@ -47,6 +47,19 @@ interface AlertProps {
  *   dismissible
  *   onDismiss={clearError}
  * />
+ *
+ * @example
+ * // Info alert with a custom icon
+ * <Alert
+ *   variant="info"
+ *   title="New features available"
+ *   description="Update to version 2.0 to unlock the latest improvements."
+ *   icon={<SparkleIcon />}
+ * />
+ *
+ * @example
+ * // Warning without description — compact single-line layout
+ * <Alert variant="warning" title="Low storage space" />
  */
 export const Alert = React.memo(function Alert({
   variant,

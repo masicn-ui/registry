@@ -3,7 +3,7 @@
   "displayName": "RefreshableScrollView",
   "description": "ScrollView wrapper with a themed RefreshControl for pull-to-refresh.",
   "category": "layouts",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "files": [
     {
       "path": "RefreshableScrollView.tsx",
@@ -56,6 +56,24 @@
       "type": "StyleProp<ViewStyle>",
       "required": false,
       "description": "Additional style applied to the outermost ScrollView."
+    }
+  ],
+  "examples": [
+    {
+      "label": "Example 1",
+      "code": "<RefreshableScrollView\n  refreshing={isRefreshing}\n  onRefresh={handleRefresh}\n  contentPadding=\"md\"\n>\n  <ProfileCard />\n  <ActivityFeed />\n</RefreshableScrollView>"
+    },
+    {
+      "label": "Example 2",
+      "code": "// Dashboard screen with mixed content and custom contentContainerStyle\n<RefreshableScrollView\n  refreshing={isRefreshing}\n  onRefresh={refreshDashboard}\n  contentContainerStyle={{ gap: spacing.lg, paddingBottom: insets.bottom + spacing.xl }}\n>\n  <SummaryCard />\n  <RecentTransactions />\n  <QuickActions />\n</RefreshableScrollView>"
+    },
+    {
+      "label": "Example 3",
+      "code": "// Stretched to fill the screen with a flex:1 style\n<RefreshableScrollView\n  refreshing={isRefreshing}\n  onRefresh={reload}\n  style={{ flex: 1 }}\n  contentPadding=\"md\"\n>\n  <SettingsList />\n</RefreshableScrollView>"
+    },
+    {
+      "label": "Example 4",
+      "code": "// No padding, edge-to-edge layout for a photo detail page\n<RefreshableScrollView\n  refreshing={isRefreshing}\n  onRefresh={reloadPhoto}\n>\n  <HeroImage uri={photo.url} />\n  <PhotoMeta photo={photo} />\n</RefreshableScrollView>"
     }
   ]
 }

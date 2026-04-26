@@ -20,7 +20,29 @@ interface DotProps {
 
 const DOT_SIZES = { sm: sizes.statusDotSm, md: sizes.statusDotMd, lg: sizes.statusDotLg } as const;
 
-export function Dot({ status, size = 'md', pulse = false }: DotProps) {
+/**
+ * Dot — compact presence and status indicator for avatar stacks and user lists.
+ *
+ * Renders a coloured dot for online, away, busy, and offline states. Supports
+ * an animated pulse ring for the online state (respects reduced motion).
+ *
+ * @example
+ * // Basic online indicator
+ * <Dot status="online" />
+ *
+ * @example
+ * // Pulsing online indicator, larger size
+ * <Dot status="online" size="lg" pulse />
+ *
+ * @example
+ * // Away status, small size
+ * <Dot status="away" size="sm" />
+ *
+ * @example
+ * // Busy status used on a chat list row
+ * <Dot status="busy" />
+ */
+export const Dot = React.memo(function Dot({ status, size = 'md', pulse = false }: DotProps) {
   const { theme } = useTheme();
   const reducedMotion = useReducedMotion();
 
@@ -89,7 +111,7 @@ export function Dot({ status, size = 'md', pulse = false }: DotProps) {
       />
     </View>
   );
-}
+});
 
 const styles = StyleSheet.create({
   wrapper: {

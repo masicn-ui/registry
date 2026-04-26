@@ -59,6 +59,14 @@ const onColorMap = {
  * @example
  * // Initials-only with badge
  * <Avatar initials="AB" color="secondary" badge={<Badge variant="success" />} />
+ *
+ * @example
+ * // Small avatar used in a chat header
+ * <Avatar source={{ uri: contact.photo }} initials={contact.initials} size="sm" />
+ *
+ * @example
+ * // Custom fallback node when no image or initials are available
+ * <Avatar fallback={<PersonIcon />} size="md" color="tertiary" />
  */
 export const Avatar = React.memo(function Avatar({
   source,

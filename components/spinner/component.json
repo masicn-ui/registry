@@ -3,7 +3,7 @@
   "displayName": "Spinner",
   "description": "Activity indicator with optional text label, size variants, and color override.",
   "category": "progress",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "files": [
     {
       "path": "Spinner.tsx",
@@ -17,7 +17,7 @@
   "tags": [
     "loading"
   ],
-  "hasTests": false,
+  "hasTests": true,
   "hasAccessibility": true,
   "props": [
     {
@@ -44,6 +44,24 @@
       "type": "ViewStyle",
       "required": false,
       "description": "Additional style applied to the container or the ActivityIndicator"
+    }
+  ],
+  "examples": [
+    {
+      "label": "Example 1",
+      "code": "// Inline spinner\n<Spinner size=\"small\" />\n// Full-screen loading state\n<Spinner label=\"Loading your data…\" />"
+    },
+    {
+      "label": "Example 2",
+      "code": "// Custom color matching a specific brand context\n<Spinner size=\"small\" color={theme.colors.secondary} />"
+    },
+    {
+      "label": "Example 3",
+      "code": "// Spinner inside a button when submitting\n{isSubmitting ? <Spinner size=\"small\" /> : <Button onPress={submit}>Send</Button>}"
+    },
+    {
+      "label": "Example 4",
+      "code": "// Centered in a screen as a fallback loading state\n<View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>\n  <Spinner label=\"Fetching results…\" />\n</View>"
     }
   ]
 }

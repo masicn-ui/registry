@@ -24,6 +24,19 @@
  *   <Dock items={mainItems} activeKey={tab} onChange={setTab} />
  *   <Dock items={[addItem]} onChange={handleAdd} />
  * </Row>
+ *
+ * @example
+ * // Dock with a disabled item
+ * <Dock
+ *   items={[
+ *     { key: 'home', icon: HomeIcon, label: 'Home' },
+ *     { key: 'premium', icon: LockIcon, label: 'Pro', disabled: true },
+ *     { key: 'settings', icon: SettingsIcon, label: 'Settings' },
+ *   ]}
+ *   activeKey={activeTab}
+ *   onChange={setActiveTab}
+ *   style={{ position: 'absolute', bottom: spacing.xl, alignSelf: 'center' }}
+ * />
  */
 import React, { useCallback, useEffect } from 'react';
 import { Pressable, StyleSheet, View, type ViewStyle } from 'react-native';

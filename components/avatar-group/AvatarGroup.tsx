@@ -36,6 +36,34 @@ interface AvatarGroupProps {
  *   max={5}
  *   size="sm"
  * />
+ *
+ * @example
+ * // Team display with colour-coded initials
+ * <AvatarGroup
+ *   avatars={[
+ *     { initials: 'AL', color: 'primary' },
+ *     { initials: 'BM', color: 'secondary' },
+ *     { initials: 'CK', color: 'tertiary' },
+ *   ]}
+ *   size="md"
+ * />
+ *
+ * @example
+ * // Large avatars, tight overlap
+ * <AvatarGroup
+ *   avatars={reviewers.map(r => ({ source: { uri: r.avatar }, initials: r.name[0] }))}
+ *   max={3}
+ *   size="lg"
+ *   overlap={12}
+ * />
+ *
+ * @example
+ * // Overflow summary — 8 members, only 4 shown + "+4"
+ * <AvatarGroup
+ *   avatars={projectMembers.map(m => ({ initials: m.initials }))}
+ *   max={4}
+ *   size="sm"
+ * />
  */
 export function AvatarGroup({
   avatars,

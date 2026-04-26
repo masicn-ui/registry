@@ -3,7 +3,7 @@
   "displayName": "Popover",
   "description": "Floating content card anchored to a trigger element with two-pass measurement, screen-edge clamping, and optional arrow.",
   "category": "overlays",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "files": [
     {
       "path": "Popover.tsx",
@@ -17,7 +17,7 @@
   "tags": [
     "overlay"
   ],
-  "hasTests": false,
+  "hasTests": true,
   "hasAccessibility": false,
   "props": [
     {
@@ -76,6 +76,24 @@
       "type": "string",
       "required": false,
       "description": "Stable selector used in automated tests."
+    }
+  ],
+  "examples": [
+    {
+      "label": "Example 1",
+      "code": "// Uncontrolled — press trigger to toggle\n<Popover\n  content={<Text>Hello from popover</Text>}\n  placement=\"bottom\"\n>\n  <Button>Open</Button>\n</Popover>\n// Controlled\n<Popover\n  content={<FilterPanel />}\n  visible={filterOpen}\n  onVisibilityChange={setFilterOpen}\n  placement=\"top\"\n  showArrow={false}\n>\n  <IconButton icon=\"filter\" />\n</Popover>"
+    },
+    {
+      "label": "Example 2",
+      "code": "// Right placement with long-press trigger\n<Popover\n  content={<HelpTooltipContent />}\n  placement=\"right\"\n  trigger=\"longPress\"\n>\n  <InfoIcon />\n</Popover>"
+    },
+    {
+      "label": "Example 3",
+      "code": "// No arrow, custom content style\n<Popover\n  content={<ColorPicker value={color} onValueChange={setColor} />}\n  placement=\"bottom\"\n  showArrow={false}\n  contentStyle={{ padding: spacing.sm }}\n>\n  <ColorSwatch color={color} />\n</Popover>"
+    },
+    {
+      "label": "Example 4",
+      "code": "// Left placement for a settings panel\n<Popover\n  content={<ColumnVisibilityPanel />}\n  placement=\"left\"\n  testID=\"column-visibility-popover\"\n>\n  <Button variant=\"ghost\">Columns</Button>\n</Popover>"
     }
   ]
 }

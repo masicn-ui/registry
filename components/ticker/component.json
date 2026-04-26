@@ -3,7 +3,7 @@
   "displayName": "Ticker",
   "description": "Smoothly animates between numeric values with a custom formatter.",
   "category": "display",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "files": [
     {
       "path": "Ticker.tsx",
@@ -22,7 +22,7 @@
     "animation",
     "number"
   ],
-  "hasTests": false,
+  "hasTests": true,
   "hasAccessibility": true,
   "props": [
     {
@@ -61,6 +61,24 @@
       "type": "TextColor",
       "required": false,
       "description": "Color token applied to the text."
+    }
+  ],
+  "examples": [
+    {
+      "label": "Example 1",
+      "code": "// Score counter\n<Ticker value={score} formatter={v => `${Math.round(v)} pts`} variant=\"h2\" />"
+    },
+    {
+      "label": "Example 2",
+      "code": "// Currency\n<Ticker value={price} formatter={v => `$${v.toFixed(2)}`} variant=\"bodyLarge\" />"
+    },
+    {
+      "label": "Example 3",
+      "code": "// Percentage stat on a dashboard\n<Ticker value={conversionRate} formatter={v => `${v.toFixed(1)}%`} variant=\"h3\" color=\"success\" />"
+    },
+    {
+      "label": "Example 4",
+      "code": "// Live viewer count with slow animation\n<Ticker value={viewerCount} duration={2000} formatter={v => `${Math.round(v).toLocaleString()} viewers`} />"
     }
   ]
 }

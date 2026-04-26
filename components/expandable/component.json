@@ -3,7 +3,7 @@
   "displayName": "Expandable",
   "description": "Text block that truncates at a configurable line count with an expand/collapse toggle.",
   "category": "display",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "files": [
     {
       "path": "Expandable.tsx",
@@ -18,7 +18,7 @@
     "display",
     "typography"
   ],
-  "hasTests": false,
+  "hasTests": true,
   "hasAccessibility": true,
   "props": [
     {
@@ -61,6 +61,24 @@
       "default": "Show less",
       "required": false,
       "description": "Label of the toggle button when the text is expanded."
+    }
+  ],
+  "examples": [
+    {
+      "label": "Example 1",
+      "code": "<Expandable numberOfLines={4}>\n  {longBiographyText}\n</Expandable>\n// Custom labels\n<Expandable expandLabel=\"See more\" collapseLabel=\"See less\" numberOfLines={2}>\n  {description}\n</Expandable>"
+    },
+    {
+      "label": "Example 2",
+      "code": "// Small caption text — product disclaimer\n<Expandable variant=\"caption\" color=\"textTertiary\" numberOfLines={2}>\n  {legalDisclaimer}\n</Expandable>"
+    },
+    {
+      "label": "Example 3",
+      "code": "// Review text on a product page\n<Expandable expandLabel=\"Read full review\" collapseLabel=\"Collapse\" numberOfLines={5}>\n  {review.body}\n</Expandable>"
+    },
+    {
+      "label": "Example 4",
+      "code": "// News article summary in a feed card\n<Expandable numberOfLines={3} variant=\"bodySmall\">\n  {article.summary}\n</Expandable>"
     }
   ]
 }

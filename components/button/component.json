@@ -3,7 +3,7 @@
   "displayName": "Button",
   "description": "Pressable button with multiple variants (primary, secondary, tertiary, outline, ghost, destructive), sizes, loading state, and icon slots.",
   "category": "buttons",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "files": [
     {
       "path": "Button.tsx",
@@ -18,7 +18,7 @@
     "interactive",
     "pressable"
   ],
-  "hasTests": false,
+  "hasTests": true,
   "hasAccessibility": true,
   "props": [
     {
@@ -84,6 +84,24 @@
       "type": "string",
       "required": false,
       "description": "Accessibility hint describing the result of pressing the button"
+    }
+  ],
+  "examples": [
+    {
+      "label": "Example 1",
+      "code": "// Primary button with icon\n<Button variant=\"primary\" leftIcon={<Icon />} onPress={handleSubmit}>\n  Save Changes\n</Button>"
+    },
+    {
+      "label": "Example 2",
+      "code": "// Loading state\n<Button loading onPress={handleSubmit}>Submit</Button>"
+    },
+    {
+      "label": "Example 3",
+      "code": "// Destructive outline button\n<Button variant=\"destructive\" size=\"sm\" onPress={handleDelete}>\n  Delete\n</Button>"
+    },
+    {
+      "label": "Example 4",
+      "code": "// Ghost button used as a secondary action in a form footer\n<Button variant=\"ghost\" onPress={handleCancel}>\n  Cancel\n</Button>"
     }
   ]
 }

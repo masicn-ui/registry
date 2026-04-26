@@ -1,0 +1,367 @@
+[
+  {
+    "name": "accordion",
+    "category": "display",
+    "text": "Accordion: Animated expand/collapse accordion with single or multiple open items, controlled and uncontrolled modes. Tags: navigation, collapsible, disclosure. Props: children (AccordionItem elements to render inside the accordion group.), containerStyle (Additional style applied to the outer accordion container.), allowMultiple (When true, multiple accordion items can be expanded simultaneously.). Examples: Example 1, Example 2, Example 3, Example 4"
+  },
+  {
+    "name": "alert",
+    "category": "feedback",
+    "text": "Alert: Inline alert banner with success, error, warning, and info variants. Supports title, description, custom icon, and dismissible state.. Tags: feedback, status. Props: variant (Semantic color variant of the alert banner), title (Primary heading text of the alert), description (Secondary body text displayed below the title), dismissible (When true, renders a dismiss (✕) button), onDismiss (Callback invoked when the dismiss button is pressed; requires dismissible to be true), containerStyle (Additional style applied to the alert container), icon (Custom icon string overriding the default variant icon). Examples: Example 1, Example 2, Example 3, Example 4"
+  },
+  {
+    "name": "avatar",
+    "category": "display",
+    "text": "Avatar: User avatar with image, initials fallback, color variants, size presets, and optional badge overlay.. Tags: user, image. Props: source (Image source for the avatar photo; falls back to initials or fallback if omitted or fails to load), initials (Text initials displayed when no image is available), size (Size preset controlling the avatar diameter), color (Background color token used for the initials/fallback circle), fallback (Custom fallback content; string shows as text, ReactNode renders directly), badge (Optional badge content positioned at the bottom-right of the avatar). Examples: Example 1, Example 2, Example 3, Example 4"
+  },
+  {
+    "name": "avatar-group",
+    "category": "display",
+    "text": "AvatarGroup: Stacked row of Avatars with configurable max count and +N overflow indicator.. Tags: user, group. Props: avatars (Array of avatar data objects, each with optional source, initials, and color), max (Maximum number of avatars to display before showing the +N overflow indicator), size (Size preset passed to each Avatar in the group), overlap (Pixel amount each avatar overlaps the previous one). Examples: Example 1, Example 2, Example 3, Example 4"
+  },
+  {
+    "name": "badge",
+    "category": "display",
+    "text": "Badge: Status badge with error, success, warning, and info variants. Supports dot, pill, and circular modes.. Tags: status. Props: label (Text content of the badge; when omitted renders as a small status dot), variant (Semantic color variant of the badge), circular (Renders the badge as a fixed-size circle instead of a pill), size (Size preset; only affects the circular badge shape), accessibilityLabel (Custom accessibility label; defaults to 'label variant' when omitted). Examples: Example 1, Example 2, Example 3, Example 4"
+  },
+  {
+    "name": "bottom-sheet",
+    "category": "overlays",
+    "text": "BottomSheet: Gesture-driven bottom sheet with drag-to-dismiss, keyboard avoidance, safe area insets, and focus trap.. Tags: overlay, sheet. Props: onClose (Callback invoked when the sheet is dismissed via drag, backdrop press, or Android back), children (Content rendered inside the bottom sheet), visible (Controlled visibility; when omitted the sheet manages its own state via the ref API), maxHeight (Maximum sheet height as a fraction of the screen height (0–1)), showHandle (Whether to show the drag handle indicator at the top of the sheet), style (Additional style applied to the sheet container), accessibilityLabel (Accessibility label for the sheet; defaults to 'Bottom sheet'). Examples: Example 1, Example 2, Example 3, Example 4"
+  },
+  {
+    "name": "button",
+    "category": "buttons",
+    "text": "Button: Pressable button with multiple variants (primary, secondary, tertiary, outline, ghost, destructive), sizes, loading state, and icon slots.. Tags: interactive, pressable. Props: children (Button content — supports text, icons, or any composition), variant (Visual style variant of the button), size (Size preset controlling padding and minimum height), loading (Shows a loading spinner and disables user interaction), disabled (Disables the button and applies disabled styling), leftIcon (Icon rendered before the button label), rightIcon (Icon rendered after the button label), containerStyle (Additional style applied to the outer Pressable container), accessibilityLabel (Accessibility label; defaults to string children when omitted), accessibilityHint (Accessibility hint describing the result of pressing the button). Examples: Example 1, Example 2, Example 3, Example 4"
+  },
+  {
+    "name": "card",
+    "category": "layout",
+    "text": "Card: Versatile surface container with elevated, filled, and outlined variants. Supports structured content slots: media, title, subtitle, body (with show-more truncation), children, and footer.. Tags: layout, surface. Props: variant (Visual style variant of the card surface), surface (Background surface color token to use), shadow (Elevation shadow level; only applies to the elevated variant), padding (Inner padding applied to the content area), onPress (If provided, the card becomes pressable with a Pressable wrapper), disabled (Disables press interaction and applies disabled opacity), media (Content rendered above the padding area, typically an image), title (Primary heading text rendered in the content area), subtitle (Secondary heading text rendered below the title), body (Body text with automatic show-more truncation when it exceeds textThreshold), textThreshold (Character count at which body text is truncated with a show-more toggle), children (Arbitrary content rendered inside the card content area), footer (Content rendered at the bottom of the card with a separator line). Examples: Example 1, Example 2, Example 3, Example 4"
+  },
+  {
+    "name": "checkbox",
+    "category": "selection",
+    "text": "Checkbox: Animated checkbox with checked, unchecked, and indeterminate states, label, description, and disabled support.. Tags: form. Props: checked (Whether the checkbox is in the checked state), onValueChange (Callback invoked with the new checked value when the user presses the checkbox), label (Primary text label rendered beside the checkbox), description (Secondary descriptive text rendered below the label), children (Custom label content; overrides label and description when provided), disabled (Disables interaction and applies disabled styling), indeterminate (Shows an indeterminate dash instead of the check mark), containerStyle (Additional style applied to the outer Pressable container), accessibilityLabel (Accessibility label; defaults to the label prop), accessibilityHint (Accessibility hint describing what happens when the checkbox is pressed). Examples: Example 1, Example 2, Example 3, Example 4"
+  },
+  {
+    "name": "checkbox-group",
+    "category": "selection",
+    "text": "CheckboxGroup: Group of Checkbox items sharing a value array, with group label, error message, and helper text.. Tags: form. Props: options (Array of option objects, each with label, value, and optional description and disabled), value (Array of currently selected option values), onValueChange (Callback invoked with the updated selection array when an option is toggled), label (Group label rendered above the checkboxes), error (Error message rendered below the group; also changes the label color), helperText (Helper text rendered below the group; hidden when an error is present), disabled (Disables all checkboxes in the group), containerStyle (Additional style applied to the outer container). Examples: Example 1, Example 2, Example 3, Example 4"
+  },
+  {
+    "name": "chip",
+    "category": "selection",
+    "text": "Chip: Interactive filter chip with filled and outline variants, selected state, leading icon, and optional remove button.. Tags: interactive, filter. Props: label (Text label displayed inside the chip), variant (Visual style variant of the chip), selected (Whether the chip is in a selected/active state), disabled (Disables press interaction and applies disabled styling), icon (Optional icon rendered before the label), onRemove (If provided, shows a remove (×) button and calls this handler when pressed). Examples: Example 1, Example 2, Example 3, Example 4"
+  },
+  {
+    "name": "collapsible",
+    "category": "layout",
+    "text": "Collapsible: Expandable section with controlled and uncontrolled modes, LayoutAnimation, and custom icon support.. Tags: navigation. Props: title (Header text displayed in the pressable toggle row.), children (Content revealed when the collapsible is expanded.), defaultOpen (Initial open state for uncontrolled usage.), open (Controlled open state; when provided the component is fully controlled.), onToggle (Callback fired when the header is pressed, receives the new open state.), icon (Custom element to replace the default chevron icon in the header.), testID (Test identifier forwarded to the header Pressable.). Examples: Example 1, Example 2, Example 3, Example 4"
+  },
+  {
+    "name": "context-menu",
+    "category": "overlays",
+    "text": "ContextMenu: Long-press context menu with viewport-clamped positioning, destructive item support, and separator dividers.. Tags: overlay. Props: items (Array of context menu item definitions to display.), onSelect (Callback fired when the user selects a menu item.), children (Trigger element wrapped in a long-press Pressable.), accessibilityLabel (Screen-reader label for the long-press trigger Pressable.), menuStyle (Additional style applied to the floating menu container.). Examples: Example 1, Example 2, Example 3, Example 4"
+  },
+  {
+    "name": "detail-row",
+    "category": "display",
+    "text": "DetailRow: Label-value display row with optional press-to-copy interaction and brief feedback label.. Tags: display. Props: label (The key/label text displayed on the left.), value (The value text displayed on the right.), onPress (Optional press handler; when provided the row becomes pressable (e.g. copy to clipboard).), feedbackLabel (Brief feedback text shown in place of the value after press.), valueAlign (Text alignment of the value.), separator (When true, renders a hairline separator below the row.). Examples: Example 1, Example 2, Example 3"
+  },
+  {
+    "name": "dock",
+    "category": "navigation",
+    "text": "Dock: Pill-shaped floating navigation bar with icon + label items. Not edge-anchored — sits elevated above the screen surface. Supports 1–5 items and can be composed side-by-side.. Tags: navigation, floating, bar. Props: items (Array of navigation items (1–5 recommended). Each item has key, icon, label, optional disabled and testID.), activeKey (Key of the currently active item.), onChange (Called when the user taps an item.), style (Custom style override for the dock container.), testID (Test identifier for the dock container.). Examples: Example 1, Example 2, Example 3"
+  },
+  {
+    "name": "dot",
+    "category": "display",
+    "text": "Dot: Status indicator dot with online, away, busy, offline states and optional animated pulse ring. Tags: status, indicator, presence. Props: status (The presence status to display.), size (Diameter preset of the dot.), pulse (When true, shows an animated ripple ring; only active for the online status.). Examples: Example 1, Example 2, Example 3, Example 4"
+  },
+  {
+    "name": "drawer",
+    "category": "navigation-ui",
+    "text": "Drawer: Persistent side navigation panel with temporary (overlay) and permanent (inline) variants. Swipe-to-dismiss, safe-area aware, and responsive.. Tags: navigation, drawer, side-nav, menu. Props: visible (Whether the drawer is open. Ignored in permanent variant.), onClose (Called when the user dismisses the drawer. Only fires in temporary variant.), children (Navigation content rendered inside the drawer.), variant (temporary = overlay with backdrop; permanent = always visible inline.), side (Which edge the drawer slides from.), width (Drawer width. Fraction of screen width for temporary (default 0.75), fixed px for permanent (default 280).), showHandle (Show a drag handle indicator.), hideBackdrop (Hide the semi-transparent backdrop in temporary mode.), style (Additional style applied to the drawer surface.), testID (Test identifier for automated testing.). Examples: Example 1, Example 2, Example 3, Example 4"
+  },
+  {
+    "name": "expandable",
+    "category": "display",
+    "text": "Expandable: Text block that truncates at a configurable line count with an expand/collapse toggle.. Tags: display, typography. Props: children (The text content to display with optional truncation.), numberOfLines (Number of visible lines before truncation occurs.), variant (Typography variant used to render the text.), color (Color token applied to the text.), expandLabel (Label of the toggle button when the text is collapsed.), collapseLabel (Label of the toggle button when the text is expanded.). Examples: Example 1, Example 2, Example 3, Example 4"
+  },
+  {
+    "name": "fab",
+    "category": "buttons",
+    "text": "FAB: Floating action button with circular and extended variants, size presets, and position options. Tags: navigation, action, floating. Props: onPress (Handler called when the FAB is pressed.), icon (Icon character (emoji or unicode) displayed inside the button.), label (Text label shown alongside the icon in extended variant, and used as accessibility label.), size (Size preset controlling the diameter of the circular button.), position (Absolute position on the screen, respecting safe-area insets.), variant (Shape variant — circular shows only the icon; extended adds a text label.), style (Additional style applied to the button.), disabled (When true, the button is non-interactive and uses a disabled background color.). Examples: Example 1, Example 2, Example 3, Example 4"
+  },
+  {
+    "name": "image",
+    "category": "display",
+    "text": "Image: Enhanced image component with aspect ratio presets, loading indicator, error fallback, overlay, and long-press full-screen preview.. Tags: media. Props: source (Image source — a URI object or local require().), aspectRatio (Aspect ratio preset applied to the image container.), fit (How the image fits within its container (maps to resizeMode).), borderRadius (Border radius preset from the theme radius tokens.), size (Size preset controlling the width and height of the image.), showLoader (When true, displays an activity indicator while the image is loading.), fallback (Custom component rendered when the image fails to load.), errorMessage (Error text shown when the image fails to load and no fallback is provided.), containerStyle (Additional style applied to the image container.), overlay (When true, renders a gradient overlay on top of the image.), overlayColors (Tuple of [from, to] colors for the overlay gradient.), enablePreview (When true, a long-press opens a full-screen preview; releasing dismisses it.). Examples: Example 1, Example 2, Example 3, Example 4"
+  },
+  {
+    "name": "left-sheet",
+    "category": "overlays",
+    "text": "LeftSheet: Gesture-driven side sheet that slides in from the left edge with drag-to-dismiss support.. Tags: overlay, sheet. Props: visible (Controls whether the sheet is shown), onClose (Callback invoked when the sheet is dismissed via leftward drag or backdrop press), children (Content rendered inside the left sheet), width (Sheet width as a fraction of the screen width (0–1)), showHandle (Whether to show a handle indicator on the sheet), style (Additional style applied to the sheet container), hideBackdrop (When true, the dimmed backdrop is hidden and touches pass through it). Examples: Example 1, Example 2, Example 3, Example 4"
+  },
+  {
+    "name": "link",
+    "category": "navigation-ui",
+    "text": "Link: Pressable text link with size presets and underline variants (none, hover, always).. Tags: navigation. Props: children (The text content of the link), size (Size preset that maps to text variants (caption, body, bodyLarge)), underline (Controls when the underline decoration is shown), color (Custom color override; defaults to primary theme color), disabled (Disables press interaction and applies disabled text color). Examples: Example 1, Example 2, Example 3, Example 4"
+  },
+  {
+    "name": "list-item",
+    "category": "lists",
+    "text": "ListItem: Pressable list row with title, subtitle, leading and trailing slots, and separator. Tags: list, navigation, row. Props: title (Primary label text of the list item.), subtitle (Optional secondary description text displayed below the title.), leading (Optional element rendered on the left side (e.g. icon, avatar).), trailing (Optional element rendered on the right side (e.g. chevron, switch, badge). Defaults to a chevron.), separator (When true, renders a hairline separator below the row.). Examples: Example 1, Example 2, Example 3, Example 4"
+  },
+  {
+    "name": "loader",
+    "category": "overlays",
+    "text": "Loader: Full-screen loading overlay modal with activity indicator, optional message, and backdrop.. Tags: loading, overlay. Props: visible (Controls whether the overlay modal is shown), message (Optional text message displayed below the activity indicator), backdrop (Whether to render a dimmed backdrop behind the loading container). Examples: Example 1, Example 2, Example 3, Example 4"
+  },
+  {
+    "name": "menu",
+    "category": "overlays",
+    "text": "Menu: Dropdown menu with viewport-clamped positioning, icon support, disabled states, and separator dividers.. Tags: overlay, navigation. Props: items (Array of menu item definitions to display.), onSelect (Callback fired when the user selects a menu item.), children (Trigger element that opens the menu when pressed. Accessibility props must be applied to the trigger element by the caller.), title (Optional title displayed at the top of the menu.), style (Additional style applied to the outermost trigger wrapper.), testID (Test identifier forwarded to the outermost wrapper View.). Examples: Example 1, Example 2, Example 3, Example 4"
+  },
+  {
+    "name": "modal",
+    "category": "overlays",
+    "text": "Modal: Animated dialog modal with backdrop, spring/timing enter/exit animations, optional close button, focus trap, and Android back button support.. Tags: overlay. Props: onClose (Callback invoked when the modal is requested to close (overlay press, close button, or Android back)), children (Content rendered inside the modal dialog), visible (Controlled visibility; when omitted the modal manages its own state via the ref API), accessibilityLabel (Accessibility label for the modal container; defaults to 'Dialog'), maxWidth (Maximum width constraint of the modal sheet), showCloseButton (Whether to render the close (×) button in the top-right corner), closeOnOverlayPress (Whether pressing the backdrop dismisses the modal). Examples: Example 1, Example 2, Example 3, Example 4"
+  },
+  {
+    "name": "pin",
+    "category": "display",
+    "text": "Pin: PIN/OTP dot progress display showing filled and empty dots with default, error, and success variants.. Tags: display, security. Props: length (Total number of dots representing the PIN length.), filled (Number of filled dots representing characters entered so far.), variant (Color variant applied to filled dots.), size (Diameter preset for each dot.), gap (Spacing between dots.). Examples: Example 1, Example 2, Example 3, Example 4"
+  },
+  {
+    "name": "popover",
+    "category": "overlays",
+    "text": "Popover: Floating content card anchored to a trigger element with two-pass measurement, screen-edge clamping, and optional arrow.. Tags: overlay. Props: content (Content rendered inside the popover card.), children (Trigger element that opens the popover when interacted with.), placement (Preferred placement of the popover relative to the trigger element.), trigger (Interaction that opens the popover.), showArrow (When true, renders a directional arrow pointing toward the trigger.), visible (Controlled visibility; when provided the popover is fully controlled.), onVisibilityChange (Callback fired when the popover opens or closes.), contentStyle (Additional style applied to the popover container.), testID (Stable selector used in automated tests.). Examples: Example 1, Example 2, Example 3, Example 4"
+  },
+  {
+    "name": "progress",
+    "category": "progress",
+    "text": "Progress: Linear and circular progress bar with determinate and indeterminate modes, animated fill, and optional label.. Tags: feedback. Props: value (Progress value from 0 to 100), variant (Shape variant of the progress indicator), showValue (Whether to display the numeric percentage value), label (Text label displayed above the linear progress bar), height (Height of the linear progress track in pixels; defaults to theme size token), size (Diameter of the circular progress indicator in pixels), indeterminate (When true, shows an animated indeterminate sweep instead of a fixed fill), containerStyle (Additional style applied to the outer container). Examples: Example 1, Example 2, Example 3, Example 4"
+  },
+  {
+    "name": "progress-ring",
+    "category": "progress",
+    "text": "ProgressRing: SVG circular progress indicator with configurable size, stroke width, color, and percentage label.. Tags: feedback. Props: value (Progress value from 0 to 100; clamped automatically), size (Diameter of the SVG circle in pixels; defaults to theme size token), strokeWidth (Width of the progress stroke in pixels), showValue (Whether to display the numeric percentage in the center), color (Color of the progress arc; defaults to the primary theme color), label (Optional caption text rendered below the percentage value). Examples: Example 1, Example 2, Example 3, Example 4"
+  },
+  {
+    "name": "radio",
+    "category": "selection",
+    "text": "Radio: Radio button with animated dot, label, description, and RadioGroup context for exclusive selection.. Tags: form. Props: value (The value this Radio option represents; compared against RadioGroup value to determine selection), label (Primary text label rendered beside the radio button), description (Secondary descriptive text rendered below the label), disabled (Disables this radio option independently of the group), containerStyle (Additional style applied to the radio item container). Examples: Example 1, Example 2, Example 3, Example 4"
+  },
+  {
+    "name": "range-slider",
+    "category": "forms",
+    "text": "Range Slider: Two-thumb slider for selecting a numeric range with step and gap constraints.. Tags: slider, range, input, forms. Props: minValue (Current low (start) value of the range.), maxValue (Current high (end) value of the range.), onRangeChange (Callback invoked when either thumb moves; receives the updated [min, max] values.), min (Absolute minimum the low thumb can reach.), max (Absolute maximum the high thumb can reach.), step (Step increment for both thumbs.), minGap (Minimum gap enforced between the two thumbs.), disabled (When true, the slider is non-interactive and visually dimmed.), showValues (When true, displays the current numeric values above the thumbs.), label (Optional text label rendered above the slider.), containerStyle (Additional style applied to the outer container.). Examples: Example 1, Example 2, Example 3, Example 4"
+  },
+  {
+    "name": "rating",
+    "category": "selection",
+    "text": "Rating: Interactive or read-only star rating with configurable icon, half-value granularity, and accessibility increment/decrement actions.. Tags: interactive. Props: value (Current rating value between 0 and max.), max (Total number of rating icons.), onValueChange (Callback fired when the user taps a rating icon.), readOnly (When true, tapping icons has no effect.), allowHalf (When true, tapping the left half of an icon sets a 0.5 increment value.), size (Size of each icon in pixels.), icon (Icon character or emoji used for each rating unit.), filledColor (Color of filled rating icons; defaults to the theme warning color.), emptyColor (Color of empty rating icons; defaults to the theme border color.), label (Optional label displayed above the rating row.). Examples: Example 1, Example 2, Example 3, Example 4"
+  },
+  {
+    "name": "right-sheet",
+    "category": "overlays",
+    "text": "RightSheet: Gesture-driven side sheet that slides in from the right edge with drag-to-dismiss support.. Tags: overlay, sheet. Props: visible (Controls whether the sheet is shown), onClose (Callback invoked when the sheet is dismissed via rightward drag or backdrop press), children (Content rendered inside the right sheet), width (Sheet width as a fraction of the screen width (0–1)), showHandle (Whether to show a handle indicator on the sheet), style (Additional style applied to the sheet container), hideBackdrop (When true, the dimmed backdrop is hidden and touches pass through it). Examples: Example 1, Example 2, Example 3, Example 4"
+  },
+  {
+    "name": "search-bar",
+    "category": "forms",
+    "text": "SearchBar: Search input with clear button, custom search icon, and submit handler. Tags: navigation, search, input. Props: value (Current text value of the search input.), onChangeText (Callback fired as the user types in the search field.), onClear (Optional callback fired when the clear button is pressed.), onSearch (Optional callback fired when the user submits the search (keyboard action).), placeholder (Placeholder text shown when the input is empty.), containerStyle (Additional style applied to the search bar container.), searchIcon (Custom icon character displayed on the left of the input.), size (Size preset controlling height and horizontal padding.), testID (Test identifier; clear button receives `{testID}-clear`.). Examples: Example 1, Example 2, Example 3, Example 4"
+  },
+  {
+    "name": "secure-input",
+    "category": "forms",
+    "text": "SecureInput: Password input built on TextInput with a Show/Hide toggle adornment.. Tags: form, input. Props: label (Floating label text rendered above the input field), helperText (Helper text displayed below the input; hidden when an error is present), error (Error message displayed below the input; puts the input in error state), disabled (Disables the input and applies disabled styling), size (Size preset controlling padding and minimum height), startAdornment (Content rendered at the left edge of the input container), clearButton (When true and the field has text, shows a clear (×) button). Examples: Example 1, Example 2, Example 3, Example 4"
+  },
+  {
+    "name": "segment",
+    "category": "navigation-ui",
+    "text": "Segment: Animated segmented control with a sliding indicator, tablist accessibility role, and disabled state support.. Tags: form, navigation. Props: options (Array of segment options to display.), value (The value of the currently selected segment.), onChange (Callback fired when the user selects a different segment.), disabled (When true, all segments are non-interactive and the control is visually dimmed.). Examples: Example 1, Example 2, Example 3, Example 4"
+  },
+  {
+    "name": "select",
+    "category": "forms",
+    "text": "Select: Dropdown select with searchable option list, custom trigger, custom item renderer, and accessibility. Tags: form, input, dropdown. Props: value (The currently selected option value.), onValueChange (Callback fired when the user selects a different option.), options (Array of options to display in the picker list.), placeholder (Placeholder text shown when no option is selected.), label (Optional label text displayed above the trigger.), disabled (When true, the select is non-interactive.), error (When true, applies an error border color to the trigger.), errorMessage (Error message displayed below the trigger when error is true.), containerStyle (Additional style applied to the outer container.), children (Custom trigger renderer; receives the currently selected option.), renderItem (Custom option row renderer; replaces the default label/description layout.), searchable (When true, shows a search input inside the picker to filter options.), accessibilityLabel (Accessibility label for the trigger; defaults to the label prop.), accessibilityHint (Accessibility hint for the trigger element.). Examples: Example 1, Example 2, Example 3, Example 4"
+  },
+  {
+    "name": "shimmer",
+    "category": "progress",
+    "text": "Shimmer: Animated shimmer overlay for loading placeholders. Exports two components from one file: Shimmer (standalone with its own animation loop) and ShimmerGroup (context provider that synchronizes multiple Shimmer instances into a single shared animation loop for better performance).. Tags: loading, animation. Props: children (Content over which the shimmer sweep animation plays), borderRadius (Border radius applied to the shimmer container to clip the sweep animation), style (Additional style applied to the shimmer container), duration (Duration of one shimmer sweep cycle in milliseconds; ignored when inside a ShimmerGroup). Examples: Example 1, Example 2, Example 3, Example 4, Example 5, Example 6"
+  },
+  {
+    "name": "skeleton",
+    "category": "progress",
+    "text": "Skeleton: Loading placeholder with text, circular, rectangular, avatar, button, card, listItem, and image shape variants.. Tags: loading, placeholder. Props: variant (Shape preset of the skeleton placeholder), width (Width of the skeleton; accepts numbers or percentage strings. Falls back to variant-specific defaults.), height (Height of the skeleton in pixels. Falls back to variant-specific defaults.), style (Additional style applied to the skeleton view). Examples: Example 1, Example 2, Example 3, Example 4"
+  },
+  {
+    "name": "slider",
+    "category": "forms",
+    "text": "Slider: Gesture-driven range slider with configurable min/max/step, active track, thumb, and accessibility increment/decrement actions.. Tags: form. Props: value (Current value of the slider.), onValueChange (Callback fired as the user drags the slider thumb.), minimumValue (Minimum allowed value.), maximumValue (Maximum allowed value.), step (Increment step size when dragging or using accessibility actions.), disabled (When true, the slider is non-interactive and visually dimmed.), showValue (When true, displays the current numeric value above the track.), label (Optional text label displayed above the slider track.), containerStyle (Additional style applied to the outer container.). Examples: Example 1, Example 2, Example 3, Example 4"
+  },
+  {
+    "name": "snackbar",
+    "category": "feedback",
+    "text": "Snackbar: Bottom snackbar notifications with optional action via useSnackbar hook.. Tags: feedback, notification, portal. Props: children (App content wrapped by the provider; snackbars render above it via a portal), defaultPosition (Default screen edge where snackbars appear when no per-call position is specified). Examples: Example 1, Example 2, Example 3, Example 4, Example 5, Example 6"
+  },
+  {
+    "name": "spinner",
+    "category": "progress",
+    "text": "Spinner: Activity indicator with optional text label, size variants, and color override.. Tags: loading. Props: size (Size of the activity indicator), label (Optional text label displayed below the spinner), color (Color of the spinner; defaults to the primary theme color), style (Additional style applied to the container or the ActivityIndicator). Examples: Example 1, Example 2, Example 3, Example 4"
+  },
+  {
+    "name": "swipe-button",
+    "category": "inputs",
+    "text": "SwipeButton: Drag-to-confirm control where the user slides a thumb across a track to trigger an irreversible action. Track animates from surface to success on completion.. Tags: gesture, confirm, swipe, action. Props: onComplete (Called once when the thumb is dragged past the 85% completion threshold.), label (Text label displayed inside the track. Fades out as the thumb moves right.), disabled (Disables the gesture interaction.), style (Additional style applied to the track container.), testID (Test identifier for the track container.). Examples: Example 1, Example 2, Example 3, Example 4"
+  },
+  {
+    "name": "switch",
+    "category": "selection",
+    "text": "Switch: Animated toggle switch with track color interpolation, thumb translation, label, and description.. Tags: form. Props: value (The current on/off state of the switch.), onValueChange (Callback fired when the switch is toggled, receives the new boolean value.), label (Optional text label rendered beside the switch.), description (Optional secondary description text rendered below the label.), labelPosition (Which side of the switch the label appears on.), disabled (When true, the switch is non-interactive and visually dimmed.), accessibilityLabel (Custom accessibility label; falls back to the label prop.), accessibilityHint (Accessibility hint describing the action the switch performs.). Examples: Example 1, Example 2, Example 3, Example 4"
+  },
+  {
+    "name": "tabs",
+    "category": "navigation-ui",
+    "text": "Tabs: Tab bar with underline, filled, and pill variants; scrollable mode; built-in panel with show-more body text. Tags: navigation, tabs. Props: tabs (Array of tab definitions to render.), activeTab (The key of the currently active tab.), onTabChange (Callback fired when the user taps a different tab.), variant (Visual style variant of the tab bar.), scrollable (When true, the tab bar scrolls horizontally to accommodate many tabs.), style (Additional style applied to the tab bar container.), accessibilityLabel (Accessibility label for the tab list region.), textThreshold (Maximum character count before tab body text is truncated with a show-more toggle.), panelStyle (Style applied to the content panel area rendered below the tab bar.). Examples: Example 1, Example 2, Example 3, Example 4"
+  },
+  {
+    "name": "tag",
+    "category": "display",
+    "text": "Tag: Display tag for labels, categories, and status indicators with semantic color variants and optional remove button.. Tags: label, status. Props: label (Text content of the tag), variant (Semantic color variant controlling background, text, and border colors), size (Size preset controlling padding and text variant), removable (Whether to display a remove (✕) button inside the tag), onRemove (Callback invoked when the remove button is pressed). Examples: Example 1, Example 2, Example 3, Example 4"
+  },
+  {
+    "name": "text-input",
+    "category": "forms",
+    "text": "TextInput: Form text input with label, helper text, error state, start/end adornments, clear button, character count, and focus ring.. Tags: form, input. Props: label (Floating label text rendered above the input field), helperText (Helper text displayed below the input; hidden when an error is present), error (Error message displayed below the input; puts the input in error state), disabled (Disables the input and applies disabled styling), size (Size preset controlling padding and minimum height), startAdornment (Content rendered at the left edge of the input container), endAdornment (Content rendered at the right edge of the input container), clearButton (When true and the field has text, shows a clear (×) button at the right), accessibilityHint (Accessibility hint; overridden by the error message when in error state). Examples: Example 1, Example 2, Example 3"
+  },
+  {
+    "name": "textarea",
+    "category": "forms",
+    "text": "Textarea: Auto-growing multi-line text input with label, helper text, and error state.. Tags: textarea, input, forms, multiline. Props: label (Label text rendered above the textarea.), helperText (Descriptive text shown below the textarea when there is no error.), error (Validation error message; when set the border and label turn red and it replaces helperText.), disabled (When true, the textarea is non-editable and rendered with a disabled background.), size (Size preset controlling padding.), minRows (Minimum number of visible text rows. The textarea starts at this height and grows upward.), maxHeight (Maximum height in pixels. Once reached the textarea becomes internally scrollable.), accessibilityHint (Additional accessibility hint. Falls back to the error string when in an error state.). Examples: Example 1, Example 2, Example 3, Example 4"
+  },
+  {
+    "name": "ticker",
+    "category": "display",
+    "text": "Ticker: Smoothly animates between numeric values with a custom formatter.. Tags: ticker, counter, animation, number. Props: value (Target numeric value — the component smoothly animates to this.), duration (Animation duration in milliseconds. Defaults to motion.duration.slow.), formatter (Formats the interpolated value to a display string. Defaults to Math.round.), variant (Typography variant used to render the animated number.), style (Additional text style applied to the rendered value.), color (Color token applied to the text.). Examples: Example 1, Example 2, Example 3, Example 4"
+  },
+  {
+    "name": "toast",
+    "category": "feedback",
+    "text": "Toast: Global toast notifications via portal with useToast hook.. Tags: feedback, notification, portal. Props: children (App content wrapped by the provider; toasts render above it via a portal), defaultPosition (Default screen edge where toasts appear when no per-call position is specified). Examples: Example 1, Example 2, Example 3, Example 4, Example 5, Example 6"
+  },
+  {
+    "name": "toggle-group",
+    "category": "selection",
+    "text": "ToggleGroup: Exclusive toggle button group where only one button can be active at a time, with icon support.. Tags: form, interactive. Props: buttons (Array of button definitions to render in the group.), value (The value of the currently selected button.), onValueChange (Callback fired when the user selects a different button.), fullWidth (When true, each button expands to fill an equal share of the container width.). Examples: Example 1, Example 2, Example 3, Example 4"
+  },
+  {
+    "name": "tooltip",
+    "category": "overlays",
+    "text": "Tooltip: Press-triggered tooltip bubble that positions itself above or below the trigger based on available space. Tags: overlay, tooltip, information. Props: content (Text content displayed inside the tooltip bubble.), children (The trigger element; press-and-hold shows the tooltip, releasing hides it.), containerStyle (Additional style applied to the trigger wrapper container.). Examples: Example 1, Example 2, Example 3, Example 4"
+  },
+  {
+    "name": "top-sheet",
+    "category": "overlays",
+    "text": "TopSheet: Gesture-driven top sheet that slides down from the top edge with drag-to-dismiss support.. Tags: overlay, sheet. Props: visible (Controls whether the sheet is shown), onClose (Callback invoked when the sheet is dismissed via upward drag or backdrop press), children (Content rendered inside the top sheet), maxHeight (Maximum sheet height as a fraction of the screen height (0–1)), showHandle (Whether to show the drag handle indicator at the bottom of the sheet), style (Additional style applied to the sheet container). Examples: Example 1, Example 2, Example 3, Example 4"
+  },
+  {
+    "name": "action-sheet",
+    "category": "overlays",
+    "text": "Action Sheet: iOS-style action sheet block with list of actions.. Tags: action-sheet, modal, actions. Props: visible (Controls whether the action sheet is visible.), onClose (Called when the action sheet is dismissed.), options (List of action items to display. Each option has a label, optional icon, and onPress callback.), title (Optional heading displayed at the top of the action sheet.), message (Optional descriptive text displayed below the title.), showCancel (Whether to show a cancel button at the bottom of the action sheet.), cancelLabel (Label for the cancel button.), testID (Test identifier; options receive `{testID}-option-{index}`, cancel receives `{testID}-cancel`.). Examples: Example 1, Example 2, Example 3, Example 4"
+  },
+  {
+    "name": "breadcrumb",
+    "category": "navigation",
+    "text": "Breadcrumb: Breadcrumb navigation block with separator and truncation.. Tags: breadcrumb, navigation, path. Props: items (Ordered list of breadcrumb items. The last item is treated as the current page (non-pressable, primary colour). Each item accepts an optional `testID` forwarded to its Pressable.), separator (Custom separator element rendered between items. Defaults to a '/' text character.), containerStyle (Style applied to the outer container row.). Examples: Example 1, Example 2, Example 3, Example 4"
+  },
+  {
+    "name": "carousel",
+    "category": "display",
+    "text": "Carousel: Horizontally scrollable carousel block with pagination indicators.. Tags: carousel, slider, swipe. Props: data (Array of data items to render as carousel slides.), renderItem (Render function called for each slide item.), keyExtractor (Function to generate a unique key for each slide. Defaults to index-based key.), animation (Transition animation style applied to slides as they scroll in/out.), slideWidth (Width of each slide. 'full' fills the screen, 'peek' shows adjacent slides (85% width), or a fixed pixel number.), aspectRatio (Width ÷ height ratio for each slide. Height is computed as Math.round(itemWidth / aspectRatio). Falls back to sizes.carouselSlideDefaultHeight when omitted.), slideBorderRadius (Border radius applied to each slide, using a radius design token key.), gap (Gap in pixels between slides. Only effective in peek/numeric width mode.), showDots (Whether to show pagination dot indicators below the carousel.), dotVariant (Visual style of the pagination dot indicators.), autoPlayInterval (Milliseconds between auto-advancing slides. Set to 0 to disable auto-play.), onItemPress (Callback fired when a slide is tapped. Makes slides pressable when provided.), testID (Test identifier; each slide Pressable receives `{testID}-slide-{index}`.), loop (When true, wraps from the last slide back to the first (and vice versa) using clone-based infinite scroll. Requires at least 2 items.), getLabel (Optional function returning a label string for the active slide. When provided, the label is rendered below the dot indicator.). Examples: Example 1, Example 2, Example 3"
+  },
+  {
+    "name": "chip-input",
+    "category": "forms",
+    "text": "Tag Input: Tag input block allowing creation and removal of tags.. Tags: tag, input, chips. Props: value (Current array of tag strings.), onValueChange (Called with the updated tag array when tags are added or removed.), placeholder (Placeholder text shown in the text field when no tags have been added.), label (Label text displayed above the input.), error (Error message displayed below the input; also activates the error border colour.), helperText (Helper text displayed below the input when there is no error.), disabled (Disables adding new tags and hides the remove button on existing tags.), maxTags (Maximum number of tags allowed. The text input is hidden once this limit is reached.), size (Size preset controlling minimum height and chip row padding.), containerStyle (Style applied to the outer container.). Examples: Example 1, Example 2, Example 3, Example 4"
+  },
+  {
+    "name": "code-input",
+    "category": "forms",
+    "text": "CodeInput: One-time password input block with auto-focus and paste support.. Tags: otp, pin, auth, input. Props: value (Current OTP string value (digits only).), onChangeText (Called whenever the OTP value changes as the user types.), length (Number of OTP digit boxes to display.), onComplete (Called once when the user has filled all digit boxes with a complete OTP.), error (Error message displayed below the input; also activates the error border colour on all boxes.), disabled (Disables all OTP boxes, preventing user input.). Examples: Example 1, Example 2, Example 3, Example 4"
+  },
+  {
+    "name": "confirm",
+    "category": "overlays",
+    "text": "Confirm Dialog: Confirmation dialog block with title, message, and action buttons.. Tags: dialog, confirm, alert, modal. Props: visible (Controls whether the dialog is visible.), onClose (Called when the dialog is dismissed (backdrop tap or cancel).), title (Heading text displayed prominently at the top of the dialog.), message (Explanatory body text shown below the title.), onConfirm (Called when the confirm button is pressed.), confirmLabel (Label for the confirm action button.), cancelLabel (Label for the cancel action button.), onCancel (Called when the cancel button is pressed. Falls back to onClose if not provided.), destructive (Activates destructive visual mode: red warning banner, error-coloured title, and a destructive confirm button style.), loading (Shows a loading indicator on the confirm button, useful while an async action is in-flight.). Examples: Example 1, Example 2, Example 3, Example 4"
+  },
+  {
+    "name": "dual-sheet",
+    "category": "overlays",
+    "text": "DualSheet: Side-by-side sheet layout combining LeftSheet (1/3) + RightSheet (2/3) panels.. Tags: layout, overlay, sheet. Props: visible (Controls whether the split sheet layout is visible on screen.), onClose (Called when either panel is dismissed or the backdrop is tapped.), leftContent (Content rendered inside the left panel (occupies 1/3 of screen width).), rightContent (Content rendered inside the right panel (occupies 2/3 of screen width).), onCloseLeft (Called when the left panel is dismissed independently. Falls back to onClose when omitted.), onCloseRight (Called when the right panel is dismissed independently. Falls back to onClose when omitted.), accessibilityLabel (Accessibility label for the left panel. Defaults to 'Left sheet'.), leftStyle (Additional style applied to the left panel container.), rightStyle (Additional style applied to the right panel container.). Examples: Example 1, Example 2, Example 3, Example 4"
+  },
+  {
+    "name": "empty-state",
+    "category": "display",
+    "text": "Empty State: Empty state block with illustration, title, description, and CTA.. Tags: empty-state, no-data, placeholder. Props: title (Main heading text displayed in the empty state.), description (Secondary descriptive text shown below the title.), icon (Emoji or text character used as the illustration above the title.), actionLabel (Label for the CTA button. Button is only rendered when both actionLabel and onAction are provided.), onAction (Callback fired when the CTA button is pressed.), containerStyle (Additional style applied to the outer container view.). Examples: Example 1, Example 2, Example 3, Example 4"
+  },
+  {
+    "name": "form",
+    "category": "forms",
+    "text": "Form: A complete form block with validation, labels, and error handling.. Tags: form, input, validation. Props: initialValues (Initial values for all form fields. Keys should match the field names used in Form.Field.), validations (Array of field validation rules. Each entry has a field name and a validate function returning an error string or undefined.), onSubmit (Called with the typed form values object when the form passes validation and is submitted.), onError (Called with the validation error map when form submission fails validation.), children (Form content. Can be static ReactNode or a render function that receives handleSubmit to trigger form submission.). Examples: Example 1, Example 2, Example 3, Example 4"
+  },
+  {
+    "name": "json-tree",
+    "category": "display",
+    "text": "JSON Viewer: Recursively collapsible JSON tree viewer with type-coloured primitives and circular reference detection.. Tags: json, viewer, debug, tree, collapsible, devtools. Props: data (The data to render. Accepts any JavaScript value — object, array, string, number, boolean, null, or undefined.), defaultDepth (Number of depth levels expanded on first render. Nodes deeper than this start collapsed. Pass Infinity to expand all levels.), title (Optional title shown in the header bar above the tree.). Examples: Example 1, Example 2, Example 3, Example 4"
+  },
+  {
+    "name": "masonry-grid",
+    "category": "layouts",
+    "text": "MasonryGrid: Pinterest-style masonry grid that balances items across columns by height.. Tags: layout, grid. Props: data (Array of data items to lay out in the masonry grid.), renderItem (Function that renders each grid item.), columns (Number of columns in the grid.), gap (Spacing token controlling the gap between items.), style (Additional style applied to the outer container.), keyExtractor (Function that returns a unique key for each item; defaults to index-based key.), getItemHeight (Optional height provider. When supplied, items are distributed on first render without a layout-measurement reflow.), testID (Test identifier forwarded as `{testID}-item-{index}` to each item wrapper.). Examples: Example 1, Example 2, Example 3, Example 4"
+  },
+  {
+    "name": "numeric",
+    "category": "forms",
+    "text": "Number Input: Number input block with increment/decrement controls.. Tags: number, input, stepper. Props: value (Current numeric value of the input.), onValueChange (Called with the new numeric value whenever it changes via stepping or direct keyboard entry.), min (Minimum allowed value. Defaults to negative infinity.), max (Maximum allowed value. Defaults to positive infinity.), step (Amount to increment or decrement the value when the +/- buttons are pressed.), label (Label text displayed above the input.), helperText (Helper text displayed below the input when there is no error.), error (Error message displayed below the input; also activates the error border colour.), disabled (Disables all interaction with the input and step buttons.), size (Size preset controlling button and input height. sm adds hitSlop to maintain WCAG touch target.), containerStyle (Style applied to the outer container wrapping the label, input row, and helper text.), testID (Stable test identifier passed to the underlying TextInput for automated testing.). Examples: Example 1, Example 2, Example 3, Example 4"
+  },
+  {
+    "name": "pagination",
+    "category": "navigation",
+    "text": "Pagination: Pagination block with page numbers and navigation controls.. Tags: pagination, page, navigation. Props: page (Current active page, 1-based index.), totalPages (Total number of pages available.), onPageChange (Called with the new page number when a page button or prev/next arrow is pressed.), maxVisible (Maximum number of page buttons visible before collapsing excess pages to an ellipsis.). Examples: Example 1, Example 2, Example 3, Example 4"
+  },
+  {
+    "name": "phone",
+    "category": "forms",
+    "text": "Phone Input: Phone number input block with country code selector.. Tags: phone, input, country. Props: value (Phone number digits only — no country code prefix.), onValueChange (Called with updated phone digit string whenever the input changes.), countries (Rich country list with dialCode and optional name. Preferred over countryCodes. Shows a picker when more than one entry is provided.), countryCodes (Simple list of dial code strings (e.g. ['+1', '+44']). Used when countries is not provided.), dialCode (Currently selected dial code (controlled). Defaults to the first entry in the country list.), onDialCodeChange (Called when the user selects a different dial code from the picker.), maxDigits (Maximum number of phone number digits the user can enter.), label (Label text displayed above the input.), placeholder (Placeholder text shown inside the phone number field.), error (Error message displayed below the field; also activates the error border colour.), helperText (Helper text displayed below the field when there is no error.), disabled (Disables all interaction including the dial code picker and phone number field.), size (Size preset controlling input row minimum height and vertical padding.), containerStyle (Style applied to the outer container.), testID (Stable test identifier passed to the underlying TextInput for automated testing.). Examples: Example 1, Example 2, Example 3, Example 4"
+  },
+  {
+    "name": "refreshable-list",
+    "category": "layouts",
+    "text": "RefreshableList: FlatList wrapper with a themed RefreshControl for pull-to-refresh.. Tags: layout, list. Props: data (Array of data items to render in the list.), renderItem (Function that renders each list item.), keyExtractor (Function that returns a unique key for each item.), refreshing (Whether the refresh indicator is currently showing.), onRefresh (Callback fired when the user pulls down to refresh.), showSeparator (Renders a hairline divider between items using theme.colors.borderSecondary.), contentPadding (Uniform padding applied to all sides of the content container using a spacing token.), style (Additional style applied to the outermost FlatList.). Examples: Example 1, Example 2, Example 3, Example 4"
+  },
+  {
+    "name": "refreshable-scroll-view",
+    "category": "layouts",
+    "text": "RefreshableScrollView: ScrollView wrapper with a themed RefreshControl for pull-to-refresh.. Tags: layout, scroll. Props: children (Content rendered inside the scroll view.), refreshing (Whether the refresh indicator is currently showing.), onRefresh (Callback fired when the user pulls down to refresh.), contentContainerStyle (Style applied to the scroll view's content container.), contentPadding (Uniform padding applied to all sides of the content container using a spacing token.), style (Additional style applied to the outermost ScrollView.). Examples: Example 1, Example 2, Example 3, Example 4"
+  },
+  {
+    "name": "stepper",
+    "category": "progress",
+    "text": "Step Indicator: Step progress indicator block for multi-step flows.. Tags: step, stepper, progress, wizard. Props: steps (Array of steps to display. Each step has a label, optional description (vertical orientation only), and optional id for stable reconciliation.), currentStep (Zero-based index of the currently active step. Steps before this index are marked as completed.), orientation (Layout orientation. Horizontal arranges steps in a row; vertical stacks them with descriptions visible.), containerStyle (Additional style applied to the outer container.), testID (Test identifier forwarded to the outermost container.). Examples: Example 1, Example 2, Example 3, Example 4"
+  },
+  {
+    "name": "swipeable",
+    "category": "lists",
+    "text": "Swipeable: Swipeable row block with hidden actions revealed on swipe.. Tags: swipe, gesture, row, actions. Props: children (The primary content rendered on top of the swipeable row.), leftActions (Actions revealed when the user swipes right. The first action is triggered when the swipe threshold is exceeded.), rightActions (Actions revealed when the user swipes left. The first action is triggered when the swipe threshold is exceeded.), containerStyle (Additional style applied to the outer container view.), threshold (Swipe distance in pixels required to trigger an action.), size (Controls the minimum row height and action button padding. 'sm' = 44px, 'md' = 64px, 'lg' = 80px.), testID (Test identifier forwarded to the outermost container View.). Examples: Example 1, Example 2, Example 3, Example 4"
+  },
+  {
+    "name": "timeline",
+    "category": "display",
+    "text": "Timeline: Timeline block for displaying chronological events.. Tags: timeline, history, events. Props: items (Array of timeline events to display. Each item has a title and optional id, description, timestamp, icon, and status. Provide id for stable list reconciliation.), showLine (Whether to render the vertical connecting line between timeline dots.), containerStyle (Additional style applied to the outermost container.), testID (Test identifier forwarded to the outermost container.). Examples: Example 1, Example 2, Example 3, Example 4"
+  }
+]

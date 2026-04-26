@@ -66,6 +66,31 @@ export interface ConfirmProps {
  *   onConfirm={handleDelete}
  *   destructive
  * />
+ *
+ * @example
+ * // With loading state while the async action is in-flight
+ * <Confirm
+ *   visible={visible}
+ *   onClose={onClose}
+ *   title="Send invitation?"
+ *   message="An email will be sent to the selected users."
+ *   confirmLabel="Send"
+ *   onConfirm={handleSend}
+ *   loading={isSending}
+ * />
+ *
+ * @example
+ * // Custom cancel label
+ * <Confirm
+ *   visible={visible}
+ *   onClose={onClose}
+ *   title="Discard changes?"
+ *   message="You have unsaved changes. Leaving now will discard them."
+ *   confirmLabel="Discard"
+ *   cancelLabel="Keep editing"
+ *   onConfirm={handleDiscard}
+ *   onCancel={onClose}
+ * />
  */
 export function Confirm({
   visible,

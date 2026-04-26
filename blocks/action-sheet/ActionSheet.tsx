@@ -62,6 +62,40 @@ interface ActionSheetProps {
  *     { label: 'Delete', destructive: true,  onPress: handleDelete },
  *   ]}
  * />
+ *
+ * @example
+ * // No cancel button — when a header provides a cancel affordance instead
+ * <ActionSheet
+ *   visible={visible}
+ *   onClose={onClose}
+ *   showCancel={false}
+ *   options={[
+ *     { label: 'Save draft', onPress: saveDraft },
+ *     { label: 'Discard changes', destructive: true, onPress: discard },
+ *   ]}
+ * />
+ *
+ * @example
+ * // With title and message for additional context
+ * <ActionSheet
+ *   visible={visible}
+ *   onClose={onClose}
+ *   title="Move to folder"
+ *   message="Select the destination folder for this file."
+ *   options={folders.map(f => ({ label: f.name, onPress: () => moveFile(f.id) }))}
+ * />
+ *
+ * @example
+ * // With a disabled option
+ * <ActionSheet
+ *   visible={visible}
+ *   onClose={onClose}
+ *   options={[
+ *     { label: 'Download', onPress: download },
+ *     { label: 'Print', onPress: print, disabled: !isPrintSupported },
+ *     { label: 'Remove', destructive: true, onPress: remove },
+ *   ]}
+ * />
  */
 export const ActionSheet = React.memo(function ActionSheet({
   visible,

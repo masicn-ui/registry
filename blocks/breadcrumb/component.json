@@ -3,7 +3,7 @@
   "displayName": "Breadcrumb",
   "description": "Breadcrumb navigation block with separator and truncation.",
   "category": "navigation",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "files": [
     {
       "path": "Breadcrumb.tsx",
@@ -19,7 +19,7 @@
     "navigation",
     "path"
   ],
-  "hasTests": false,
+  "hasTests": true,
   "hasAccessibility": true,
   "props": [
     {
@@ -39,6 +39,24 @@
       "type": "ViewStyle",
       "required": false,
       "description": "Style applied to the outer container row."
+    }
+  ],
+  "examples": [
+    {
+      "label": "Example 1",
+      "code": "<Breadcrumb\n  items={[\n    { label: 'Home',     onPress: () => router.push('/') },\n    { label: 'Settings', onPress: () => router.push('/settings') },\n    { label: 'Profile' },\n  ]}\n/>"
+    },
+    {
+      "label": "Example 2",
+      "code": "// Custom separator\n<Breadcrumb\n  separator={<Text color=\"textTertiary\"> / </Text>}\n  items={[\n    { label: 'Dashboard', onPress: () => navigation.navigate('Dashboard') },\n    { label: 'Reports', onPress: () => navigation.navigate('Reports') },\n    { label: 'Q1 2024' },\n  ]}\n/>"
+    },
+    {
+      "label": "Example 3",
+      "code": "// Static breadcrumb with no pressable items (read-only context)\n<Breadcrumb\n  items={[\n    { label: 'Products' },\n    { label: 'Electronics' },\n    { label: 'Laptops' },\n  ]}\n/>"
+    },
+    {
+      "label": "Example 4",
+      "code": "// Two-level breadcrumb for a detail screen\n<Breadcrumb\n  items={[\n    { label: 'Orders', onPress: () => navigation.goBack() },\n    { label: `Order #${order.number}` },\n  ]}\n/>"
     }
   ]
 }

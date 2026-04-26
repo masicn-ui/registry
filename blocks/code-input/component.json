@@ -3,7 +3,7 @@
   "displayName": "CodeInput",
   "description": "One-time password input block with auto-focus and paste support.",
   "category": "forms",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "files": [
     {
       "path": "CodeInput.tsx",
@@ -22,7 +22,7 @@
     "auth",
     "input"
   ],
-  "hasTests": false,
+  "hasTests": true,
   "hasAccessibility": true,
   "props": [
     {
@@ -62,6 +62,24 @@
       "default": "false",
       "required": false,
       "description": "Disables all OTP boxes, preventing user input."
+    }
+  ],
+  "examples": [
+    {
+      "label": "Example 1",
+      "code": "<CodeInput\n  length={6}\n  value={otp}\n  onChangeText={setOtp}\n  onComplete={(code) => verifyCode(code)}\n  error={otpError}\n/>"
+    },
+    {
+      "label": "Example 2",
+      "code": "// 4-digit PIN in underline style\n<CodeInput\n  length={4}\n  value={pin}\n  onChangeText={setPin}\n  variant=\"underline\"\n  onComplete={handlePinSubmit}\n/>"
+    },
+    {
+      "label": "Example 3",
+      "code": "// Success state after correct code entry\n<CodeInput\n  length={6}\n  value={otp}\n  onChangeText={setOtp}\n  success={isVerified}\n  disabled={isVerified}\n/>"
+    },
+    {
+      "label": "Example 4",
+      "code": "// Larger boxes for improved visibility\n<CodeInput\n  length={6}\n  value={otp}\n  onChangeText={setOtp}\n  size=\"lg\"\n  accessibilityLabel=\"Verification code\"\n/>"
     }
   ]
 }

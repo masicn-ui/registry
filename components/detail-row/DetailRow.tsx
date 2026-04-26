@@ -44,6 +44,27 @@ interface DetailRowProps {
  *   feedbackLabel="Copied!"
  *   valueAlign="right"
  * />
+ *
+ * @example
+ * // Left-aligned value — useful for long text
+ * <DetailRow
+ *   label="Address"
+ *   value="123 Main St, Melbourne VIC 3000"
+ *   valueAlign="left"
+ *   separator
+ * />
+ *
+ * @example
+ * // Multiple rows inside a profile info section
+ * <View>
+ *   <DetailRow label="Name" value={user.name} separator />
+ *   <DetailRow label="Phone" value={user.phone} separator />
+ *   <DetailRow
+ *     label="Username"
+ *     value={user.username}
+ *     onPress={() => Clipboard.setString(user.username)}
+ *   />
+ * </View>
  */
 export const DetailRow = React.memo(function DetailRow({
   label,

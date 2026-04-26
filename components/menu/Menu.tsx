@@ -61,6 +61,45 @@ interface MenuProps {
  * >
  *   <IconButton icon="more-horizontal" />
  * </Menu>
+ *
+ * @example
+ * // No title, minimal options
+ * <Menu
+ *   items={[
+ *     { label: 'Copy link', value: 'copy' },
+ *     { label: 'Report', value: 'report', destructive: true },
+ *   ]}
+ *   onSelect={handlePostAction}
+ * >
+ *   <Pressable><DotsIcon /></Pressable>
+ * </Menu>
+ *
+ * @example
+ * // With item descriptions
+ * <Menu
+ *   title="Export as"
+ *   items={[
+ *     { label: 'PDF', value: 'pdf', icon: '📄', description: 'Best for printing' },
+ *     { label: 'CSV', value: 'csv', icon: '📊', description: 'Open in spreadsheet' },
+ *     { label: 'JSON', value: 'json', icon: '{}', description: 'Raw data format' },
+ *   ]}
+ *   onSelect={handleExport}
+ * >
+ *   <Button variant="outline">Export</Button>
+ * </Menu>
+ *
+ * @example
+ * // With a disabled item (premium feature locked)
+ * <Menu
+ *   items={[
+ *     { label: 'Duplicate', value: 'dup' },
+ *     { label: 'Archive', value: 'archive', disabled: !canArchive },
+ *     { label: 'Delete', value: 'delete', destructive: true },
+ *   ]}
+ *   onSelect={handleRowAction}
+ * >
+ *   <Pressable><MoreIcon /></Pressable>
+ * </Menu>
  */
 export function Menu({
   items,

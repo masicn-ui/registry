@@ -3,7 +3,7 @@
   "displayName": "Select",
   "description": "Dropdown select with searchable option list, custom trigger, custom item renderer, and accessibility",
   "category": "forms",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "files": [
     {
       "path": "Select.tsx",
@@ -19,7 +19,7 @@
     "input",
     "dropdown"
   ],
-  "hasTests": false,
+  "hasTests": true,
   "hasAccessibility": true,
   "props": [
     {
@@ -109,6 +109,24 @@
       "type": "string",
       "required": false,
       "description": "Accessibility hint for the trigger element."
+    }
+  ],
+  "examples": [
+    {
+      "label": "Example 1",
+      "code": "// Basic controlled select\nconst [country, setCountry] = useState('');\n<Select\n  label=\"Country\"\n  value={country}\n  onValueChange={setCountry}\n  options={[\n    { label: 'Australia', value: 'au' },\n    { label: 'New Zealand', value: 'nz' },\n  ]}\n/>"
+    },
+    {
+      "label": "Example 2",
+      "code": "// Searchable select\n<Select\n  label=\"City\"\n  value={city}\n  onValueChange={setCity}\n  options={cities}\n  searchable\n  placeholder=\"Search cities…\"\n/>"
+    },
+    {
+      "label": "Example 3",
+      "code": "// Custom trigger via children render prop\n<Select value={role} onValueChange={setRole} options={roles}>\n  {(selected) => (\n    <Chip label={selected?.label ?? 'Pick a role'} />\n  )}\n</Select>"
+    },
+    {
+      "label": "Example 4",
+      "code": "// Error state with validation message\n<Select\n  label=\"Priority\"\n  value={priority}\n  onValueChange={setPriority}\n  options={priorityOptions}\n  error={!priority}\n  errorMessage=\"Please select a priority\"\n/>"
     }
   ]
 }

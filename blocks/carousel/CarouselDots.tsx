@@ -65,10 +65,28 @@ export interface CarouselDotsProps {
 }
 
 /**
- * CarouselDots — progress indicator row rendered below the carousel.
+ * CarouselDots — progress indicator row rendered below a carousel.
+ *
  * Renders `count` indicators and highlights the one at `activeIndex`.
  * The `pill` variant animates the active dot width with a spring.
  * The `line` variant animates bar heights. The `dot` variant changes colour only.
+ *
+ * @example
+ * // Pill variant — active dot expands horizontally
+ * <CarouselDots count={5} activeIndex={currentIndex} variant="pill" />
+ *
+ * @example
+ * // Dot variant — simple colour-only indicator
+ * <CarouselDots count={3} activeIndex={0} variant="dot" />
+ *
+ * @example
+ * // Line variant — active bar grows taller
+ * <CarouselDots count={4} activeIndex={2} variant="line" />
+ *
+ * @example
+ * // Driven by state for use alongside a manual pager
+ * const [page, setPage] = useState(0);
+ * <CarouselDots count={slides.length} activeIndex={page} variant="pill" />
  */
 export function CarouselDots({ count, activeIndex, variant }: CarouselDotsProps) {
   return (

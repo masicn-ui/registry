@@ -43,6 +43,38 @@ interface SegmentProps {
  *   value={view}
  *   onChange={setView}
  * />
+ *
+ * @example
+ * // Three-option chart range selector
+ * <Segment
+ *   options={[
+ *     { label: '7D', value: '7d' },
+ *     { label: '1M', value: '1m' },
+ *     { label: '1Y', value: '1y' },
+ *   ]}
+ *   value={range}
+ *   onChange={setRange}
+ * />
+ *
+ * @example
+ * // Entirely disabled segment
+ * <Segment
+ *   options={[{ label: 'Free', value: 'free' }, { label: 'Pro', value: 'pro' }]}
+ *   value="free"
+ *   onChange={() => {}}
+ *   disabled
+ * />
+ *
+ * @example
+ * // With a disabled individual option
+ * <Segment
+ *   options={[
+ *     { label: 'Metric', value: 'metric' },
+ *     { label: 'Imperial', value: 'imperial', disabled: true },
+ *   ]}
+ *   value={units}
+ *   onChange={setUnits}
+ * />
  */
 export function Segment({
   options,

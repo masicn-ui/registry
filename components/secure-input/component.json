@@ -3,7 +3,7 @@
   "displayName": "SecureInput",
   "description": "Password input built on TextInput with a Show/Hide toggle adornment.",
   "category": "forms",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "files": [
     {
       "path": "SecureInput.tsx",
@@ -20,7 +20,7 @@
     "form",
     "input"
   ],
-  "hasTests": false,
+  "hasTests": true,
   "hasAccessibility": true,
   "props": [
     {
@@ -67,6 +67,24 @@
       "default": "false",
       "required": false,
       "description": "When true and the field has text, shows a clear (×) button"
+    }
+  ],
+  "examples": [
+    {
+      "label": "Example 1",
+      "code": "<SecureInput\n  label=\"Password\"\n  value={password}\n  onChangeText={setPassword}\n  placeholder=\"Enter your password\"\n  error={!!errors.password}\n  errorMessage={errors.password}\n/>"
+    },
+    {
+      "label": "Example 2",
+      "code": "// Confirm password field without the toggle (parity with first field)\n<SecureInput\n  label=\"Confirm password\"\n  value={confirmPassword}\n  onChangeText={setConfirmPassword}\n  showToggle={false}\n/>"
+    },
+    {
+      "label": "Example 3",
+      "code": "// Disabled field for read-only credential display\n<SecureInput\n  label=\"API Secret\"\n  value={apiSecret}\n  onChangeText={() => {}}\n  disabled\n/>"
+    },
+    {
+      "label": "Example 4",
+      "code": "// With helper text and ref for programmatic focus\nconst passwordRef = useRef<RNTextInput>(null);\n<SecureInput\n  ref={passwordRef}\n  label=\"New password\"\n  value={newPassword}\n  onChangeText={setNewPassword}\n  helperText=\"At least 8 characters including a number\"\n/>"
     }
   ]
 }

@@ -3,7 +3,7 @@
   "displayName": "Link",
   "description": "Pressable text link with size presets and underline variants (none, hover, always).",
   "category": "navigation-ui",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "files": [
     {
       "path": "Link.tsx",
@@ -17,7 +17,7 @@
   "tags": [
     "navigation"
   ],
-  "hasTests": false,
+  "hasTests": true,
   "hasAccessibility": true,
   "props": [
     {
@@ -52,6 +52,24 @@
       "default": "false",
       "required": false,
       "description": "Disables press interaction and applies disabled text color"
+    }
+  ],
+  "examples": [
+    {
+      "label": "Example 1",
+      "code": "<Link onPress={() => navigation.navigate('Details')} icon=\"→\">\n  View details\n</Link>\n// External link via href\n<Link href=\"https://example.com\" external>Visit our website</Link>\n// No underline variant\n<Link underline=\"none\" bold onPress={handleTermsPress}>\n  Terms & Conditions\n</Link>"
+    },
+    {
+      "label": "Example 2",
+      "code": "// Small caption-size link in a form footer\n<Link size=\"sm\" onPress={openForgotPassword}>Forgot password?</Link>"
+    },
+    {
+      "label": "Example 3",
+      "code": "// Hover-only underline for a dense list of links\n<Link underline=\"hover\" onPress={() => openUser(user.id)}>\n  {user.name}\n</Link>"
+    },
+    {
+      "label": "Example 4",
+      "code": "// Custom colour for a link inside a dark card\n<Link color={theme.colors.onPrimary} href=\"https://docs.example.com\" external>\n  Read the docs\n</Link>"
     }
   ]
 }

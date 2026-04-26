@@ -69,6 +69,36 @@ const sizeTextVariants: Record<OTPSize, 'h4' | 'h3' | 'h2'> = {
  *   onComplete={(code) => verifyCode(code)}
  *   error={otpError}
  * />
+ *
+ * @example
+ * // 4-digit PIN in underline style
+ * <CodeInput
+ *   length={4}
+ *   value={pin}
+ *   onChangeText={setPin}
+ *   variant="underline"
+ *   onComplete={handlePinSubmit}
+ * />
+ *
+ * @example
+ * // Success state after correct code entry
+ * <CodeInput
+ *   length={6}
+ *   value={otp}
+ *   onChangeText={setOtp}
+ *   success={isVerified}
+ *   disabled={isVerified}
+ * />
+ *
+ * @example
+ * // Larger boxes for improved visibility
+ * <CodeInput
+ *   length={6}
+ *   value={otp}
+ *   onChangeText={setOtp}
+ *   size="lg"
+ *   accessibilityLabel="Verification code"
+ * />
  */
 export function CodeInput({
   length = 6,

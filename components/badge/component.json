@@ -3,7 +3,7 @@
   "displayName": "Badge",
   "description": "Status badge with error, success, warning, and info variants. Supports dot, pill, and circular modes.",
   "category": "display",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "files": [
     {
       "path": "Badge.tsx",
@@ -17,7 +17,7 @@
   "tags": [
     "status"
   ],
-  "hasTests": false,
+  "hasTests": true,
   "hasAccessibility": true,
   "props": [
     {
@@ -52,6 +52,24 @@
       "type": "string",
       "required": false,
       "description": "Custom accessibility label; defaults to 'label variant' when omitted"
+    }
+  ],
+  "examples": [
+    {
+      "label": "Example 1",
+      "code": "// Notification dot on avatar\n<Avatar initials=\"JD\" badge={<Badge variant=\"error\" />} />"
+    },
+    {
+      "label": "Example 2",
+      "code": "// Count badge\n<Badge label=\"12\" variant=\"error\" circular />"
+    },
+    {
+      "label": "Example 3",
+      "code": "// Inline status pill\n<Badge label=\"Active\" variant=\"success\" />"
+    },
+    {
+      "label": "Example 4",
+      "code": "// Warning badge on a list item, small size\n<Badge label=\"Overdue\" variant=\"warning\" size=\"sm\" />"
     }
   ]
 }

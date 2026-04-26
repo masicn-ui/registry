@@ -3,7 +3,7 @@
   "displayName": "Loader",
   "description": "Full-screen loading overlay modal with activity indicator, optional message, and backdrop.",
   "category": "overlays",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "files": [
     {
       "path": "Loader.tsx",
@@ -18,7 +18,7 @@
     "loading",
     "overlay"
   ],
-  "hasTests": false,
+  "hasTests": true,
   "hasAccessibility": true,
   "props": [
     {
@@ -39,6 +39,24 @@
       "default": "true",
       "required": false,
       "description": "Whether to render a dimmed backdrop behind the loading container"
+    }
+  ],
+  "examples": [
+    {
+      "label": "Example 1",
+      "code": "<Loader visible={isSubmitting} message=\"Saving your changes…\" />\n// Without backdrop (spinner only, UI remains interactive)\n<Loader visible={loading} backdrop={false} />"
+    },
+    {
+      "label": "Example 2",
+      "code": "// File upload progress overlay\n<Loader visible={isUploading} message=\"Uploading photo…\" />"
+    },
+    {
+      "label": "Example 3",
+      "code": "// Authentication loader without message\n<Loader visible={isAuthenticating} />"
+    },
+    {
+      "label": "Example 4",
+      "code": "// Triggered by a form submission\nconst [submitting, setSubmitting] = useState(false);\nconst handleSubmit = async () => {\n  setSubmitting(true);\n  await submitForm(data);\n  setSubmitting(false);\n};\n<Loader visible={submitting} message=\"Creating your account…\" />"
     }
   ]
 }

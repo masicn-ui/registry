@@ -3,7 +3,7 @@
   "displayName": "Modal",
   "description": "Animated dialog modal with backdrop, spring/timing enter/exit animations, optional close button, focus trap, and Android back button support.",
   "category": "overlays",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "files": [
     {
       "path": "Modal.tsx",
@@ -20,7 +20,7 @@
   "tags": [
     "overlay"
   ],
-  "hasTests": false,
+  "hasTests": true,
   "hasAccessibility": true,
   "props": [
     {
@@ -67,6 +67,24 @@
       "default": "true",
       "required": false,
       "description": "Whether pressing the backdrop dismisses the modal"
+    }
+  ],
+  "examples": [
+    {
+      "label": "Example 1",
+      "code": "// Controlled usage\nconst [open, setOpen] = useState(false);\n<Modal visible={open} onClose={() => setOpen(false)}>\n  <Text>Hello from modal</Text>\n</Modal>"
+    },
+    {
+      "label": "Example 2",
+      "code": "// Imperative usage via ref\nconst modalRef = useRef<ModalRef>(null);\n<Button onPress={() => modalRef.current?.open()}>Open</Button>\n<Modal ref={modalRef} onClose={() => {}}>\n  <Text>Modal content</Text>\n</Modal>"
+    },
+    {
+      "label": "Example 3",
+      "code": "// Narrow modal with close button hidden (user must interact with content to dismiss)\n<Modal visible={open} onClose={() => setOpen(false)} maxWidth=\"narrow\" showCloseButton={false}>\n  <PinEntry onSuccess={() => setOpen(false)} />\n</Modal>"
+    },
+    {
+      "label": "Example 4",
+      "code": "// Modal that cannot be dismissed by tapping the overlay\n<Modal\n  visible={open}\n  onClose={() => setOpen(false)}\n  closeOnOverlayPress={false}\n  accessibilityLabel=\"Terms of Service\"\n>\n  <TermsContent onAccept={() => setOpen(false)} />\n</Modal>"
     }
   ]
 }

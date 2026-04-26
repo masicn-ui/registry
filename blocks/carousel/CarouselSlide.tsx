@@ -49,6 +49,58 @@ export interface CarouselSlideProps {
  * exactly one full step away. The `parallax` variant wraps content in a second
  * `Animated.View` whose `translateX` moves at 20% of the container width,
  * creating the layered depth effect.
+ *
+ * @example
+ * // Parallax animation — used inside a Carousel renderItem
+ * <CarouselSlide
+ *   offset={scrollOffset}
+ *   index={index}
+ *   itemWidth={320}
+ *   scrollStep={328}
+ *   animation="parallax"
+ *   borderRadiusValue={12}
+ *   height={200}>
+ *   <Image source={{ uri: slide.uri }} style={{ width: '100%', height: '100%' }} />
+ * </CarouselSlide>
+ *
+ * @example
+ * // Scale animation — inactive slides shrink to 85%
+ * <CarouselSlide
+ *   offset={scrollOffset}
+ *   index={index}
+ *   itemWidth={300}
+ *   scrollStep={308}
+ *   animation="scale"
+ *   borderRadiusValue={8}
+ *   height={180}>
+ *   <SlideContent data={item} />
+ * </CarouselSlide>
+ *
+ * @example
+ * // Fade animation — inactive slides fade to 30% opacity
+ * <CarouselSlide
+ *   offset={scrollOffset}
+ *   index={index}
+ *   itemWidth={280}
+ *   scrollStep={288}
+ *   animation="fade"
+ *   borderRadiusValue={16}
+ *   height={160}>
+ *   <CardContent title={item.title} />
+ * </CarouselSlide>
+ *
+ * @example
+ * // No animation — plain clip container
+ * <CarouselSlide
+ *   offset={scrollOffset}
+ *   index={index}
+ *   itemWidth={360}
+ *   scrollStep={368}
+ *   animation="parallax"
+ *   borderRadiusValue={0}
+ *   height={240}>
+ *   {children}
+ * </CarouselSlide>
  */
 export function CarouselSlide({
   offset,

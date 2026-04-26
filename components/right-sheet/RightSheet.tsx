@@ -18,6 +18,7 @@ import Animated, {
   withTiming,
 } from 'react-native-reanimated';
 import { GestureDetector, Gesture } from 'react-native-gesture-handler';
+import { scheduleOnRN } from 'react-native-worklets';
 import { useTheme, spacing, radius, elevation, motion, motionEasing, useReducedMotion, useFocusTrap, Masicn } from '../../../masicn';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
@@ -73,6 +74,18 @@ const DISMISS_THRESHOLD = 0.3;
  * <RightSheet ref={sheetRef} onClose={() => {}}>
  *   <FilterPanel />
  * </RightSheet>
+ *
+ * @example
+ * // Without backdrop — content behind sheet remains interactive
+ * <RightSheet visible={open} onClose={() => setOpen(false)} hideBackdrop>
+ *   <NotificationList />
+ * </RightSheet>
+ *
+ * @example
+ * // Narrow sheet (40% width) for a quick detail preview
+ * <RightSheet visible={open} onClose={() => setOpen(false)} width={0.4}>
+ *   <ProductPreview product={selected} />
+ * </RightSheet>
  */
 export const RightSheet = React.forwardRef<RightSheetRef, RightSheetProps>(
   function RightSheet({
@@ -125,9 +138,9 @@ export const RightSheet = React.forwardRef<RightSheetRef, RightSheetProps>(
       } else {
         const exitDuration = rm ? motion.duration.instant : motion.duration.normal;
         translateX.value = withTiming(sheetWidth, { duration: exitDuration, easing: motionEasing.accelerate });
-        opacity.value = withTiming(0, { duration: exitDuration, easing: motionEasing.accelerate });
-        const timeout = setTimeout(() => setShouldRender(false), exitDuration);
-        return () => clearTimeout(timeout);
+        opacity.value = withTiming(0, { duration: exitDuration, easing: motionEasing.accelerate },
+          (finished) => { if (finished) scheduleOnRN(setShouldRender, false); },
+        );
       }
     }, [isVisible, translateX, opacity, sheetWidth]);
 
@@ -141,7 +154,6 @@ export const RightSheet = React.forwardRef<RightSheetRef, RightSheetProps>(
     }, [isVisible, handleDismiss]);
 
     const pan = Gesture.Pan()
-      .runOnJS(true)
       .activeOffsetX([-10, 10])
       .onUpdate((e) => {
         if (e.translationX > 0) {
@@ -150,7 +162,7 @@ export const RightSheet = React.forwardRef<RightSheetRef, RightSheetProps>(
       })
       .onEnd((e) => {
         if (e.translationX > sheetWidth * DISMISS_THRESHOLD || e.velocityX > 500) {
-          handleDismiss();
+          scheduleOnRN(handleDismiss);
         } else {
           translateX.value = withSpring(0, motion.spring.sheet);
         }

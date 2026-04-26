@@ -3,7 +3,7 @@
   "displayName": "Timeline",
   "description": "Timeline block for displaying chronological events.",
   "category": "display",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "files": [
     {
       "path": "Timeline.tsx",
@@ -46,6 +46,24 @@
       "type": "string",
       "required": false,
       "description": "Test identifier forwarded to the outermost container."
+    }
+  ],
+  "examples": [
+    {
+      "label": "Example 1",
+      "code": "<Timeline\n  items={[\n    { title: 'Order placed', timestamp: '9:00 AM', status: 'success' },\n    { title: 'Payment confirmed', timestamp: '9:05 AM', status: 'success' },\n    { title: 'Preparing', timestamp: '9:10 AM', status: 'info' },\n    { title: 'Out for delivery', status: 'default' },\n  ]}\n/>"
+    },
+    {
+      "label": "Example 2",
+      "code": "// Audit log with timestamps\n<Timeline\n  items={[\n    { title: 'User signed in', timestamp: '2024-01-15 09:31', status: 'info' },\n    { title: 'Profile updated', timestamp: '2024-01-15 09:45', status: 'success' },\n    { title: 'Password changed', timestamp: '2024-01-15 10:02', status: 'warning' },\n  ]}\n/>"
+    },
+    {
+      "label": "Example 3",
+      "code": "// Without connecting line (for standalone milestone cards)\n<Timeline\n  showLine={false}\n  items={milestones.map(m => ({ title: m.name, description: m.note, status: m.status }))}\n/>"
+    },
+    {
+      "label": "Example 4",
+      "code": "// With icon and description per item\n<Timeline\n  items={[\n    { title: 'Booked', description: 'Reservation confirmed', icon: '✓', status: 'success' },\n    { title: 'Reminder sent', description: '24 hours before check-in', icon: '🔔', status: 'info' },\n    { title: 'Checked in', description: 'Room 412', icon: '🏨', status: 'success' },\n  ]}\n/>"
     }
   ]
 }

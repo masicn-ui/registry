@@ -3,7 +3,7 @@
   "displayName": "Number Input",
   "description": "Number input block with increment/decrement controls.",
   "category": "forms",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "files": [
     {
       "path": "Numeric.tsx",
@@ -19,7 +19,7 @@
     "input",
     "stepper"
   ],
-  "hasTests": false,
+  "hasTests": true,
   "hasAccessibility": true,
   "props": [
     {
@@ -79,6 +79,13 @@
       "description": "Disables all interaction with the input and step buttons."
     },
     {
+      "name": "size",
+      "type": "'sm' | 'md' | 'lg'",
+      "default": "md",
+      "required": false,
+      "description": "Size preset controlling button and input height. sm adds hitSlop to maintain WCAG touch target."
+    },
+    {
       "name": "containerStyle",
       "type": "ViewStyle",
       "required": false,
@@ -89,6 +96,24 @@
       "type": "string",
       "required": false,
       "description": "Stable test identifier passed to the underlying TextInput for automated testing."
+    }
+  ],
+  "examples": [
+    {
+      "label": "Example 1",
+      "code": "<Numeric\n  label=\"Quantity\"\n  value={qty}\n  onValueChange={setQty}\n  min={1}\n  max={99}\n  step={1}\n/>"
+    },
+    {
+      "label": "Example 2",
+      "code": "// Temperature control with 0.5° step\n<Numeric\n  label=\"Temperature (°C)\"\n  value={temp}\n  onValueChange={setTemp}\n  min={16}\n  max={30}\n  step={0.5}\n/>"
+    },
+    {
+      "label": "Example 3",
+      "code": "// Disabled — read-only quantity display\n<Numeric\n  label=\"Items in cart\"\n  value={cartCount}\n  onValueChange={() => {}}\n  disabled\n/>"
+    },
+    {
+      "label": "Example 4",
+      "code": "// With helper text and error state\n<Numeric\n  label=\"Guests\"\n  value={guestCount}\n  onValueChange={setGuestCount}\n  min={1}\n  max={10}\n  helperText=\"Maximum 10 guests per booking\"\n  error={guestCount > 10 ? 'Exceeds maximum' : undefined}\n/>"
     }
   ]
 }

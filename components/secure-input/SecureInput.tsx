@@ -31,6 +31,35 @@ interface SecureInputProps extends Omit<TextInputProps, 'secureTextEntry' | 'end
  *   error={!!errors.password}
  *   errorMessage={errors.password}
  * />
+ *
+ * @example
+ * // Confirm password field without the toggle (parity with first field)
+ * <SecureInput
+ *   label="Confirm password"
+ *   value={confirmPassword}
+ *   onChangeText={setConfirmPassword}
+ *   showToggle={false}
+ * />
+ *
+ * @example
+ * // Disabled field for read-only credential display
+ * <SecureInput
+ *   label="API Secret"
+ *   value={apiSecret}
+ *   onChangeText={() => {}}
+ *   disabled
+ * />
+ *
+ * @example
+ * // With helper text and ref for programmatic focus
+ * const passwordRef = useRef<RNTextInput>(null);
+ * <SecureInput
+ *   ref={passwordRef}
+ *   label="New password"
+ *   value={newPassword}
+ *   onChangeText={setNewPassword}
+ *   helperText="At least 8 characters including a number"
+ * />
  */
 export const SecureInput = React.forwardRef<RNTextInput, SecureInputProps>(
   function SecureInput({ showToggle = true, disabled, ...props }, ref) {

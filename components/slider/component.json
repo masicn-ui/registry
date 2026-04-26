@@ -3,7 +3,7 @@
   "displayName": "Slider",
   "description": "Gesture-driven range slider with configurable min/max/step, active track, thumb, and accessibility increment/decrement actions.",
   "category": "forms",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "files": [
     {
       "path": "Slider.tsx",
@@ -21,7 +21,7 @@
   "tags": [
     "form"
   ],
-  "hasTests": false,
+  "hasTests": true,
   "hasAccessibility": true,
   "props": [
     {
@@ -82,6 +82,24 @@
       "type": "ViewStyle",
       "required": false,
       "description": "Additional style applied to the outer container."
+    }
+  ],
+  "examples": [
+    {
+      "label": "Example 1",
+      "code": "const [volume, setVolume] = useState(70);\n<Slider label=\"Volume\" value={volume} onValueChange={setVolume} showValue />"
+    },
+    {
+      "label": "Example 2",
+      "code": "// Brightness control, 1–100 with step of 5\n<Slider\n  label=\"Brightness\"\n  value={brightness}\n  onValueChange={setBrightness}\n  minimumValue={1}\n  maximumValue={100}\n  step={5}\n  showValue\n/>"
+    },
+    {
+      "label": "Example 3",
+      "code": "// Disabled slider for read-only display\n<Slider\n  label=\"Battery level\"\n  value={batteryLevel}\n  onValueChange={() => {}}\n  disabled\n/>"
+    },
+    {
+      "label": "Example 4",
+      "code": "// Compact slider without label for inline use\n<Slider\n  value={opacity}\n  onValueChange={setOpacity}\n  minimumValue={0}\n  maximumValue={1}\n  step={0.01}\n/>"
     }
   ]
 }

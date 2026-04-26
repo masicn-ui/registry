@@ -3,7 +3,7 @@
   "displayName": "Checkbox",
   "description": "Animated checkbox with checked, unchecked, and indeterminate states, label, description, and disabled support.",
   "category": "selection",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "files": [
     {
       "path": "Checkbox.tsx",
@@ -19,7 +19,7 @@
   "tags": [
     "form"
   ],
-  "hasTests": false,
+  "hasTests": true,
   "hasAccessibility": true,
   "props": [
     {
@@ -83,6 +83,24 @@
       "type": "string",
       "required": false,
       "description": "Accessibility hint describing what happens when the checkbox is pressed"
+    }
+  ],
+  "examples": [
+    {
+      "label": "Example 1",
+      "code": "// Simple labelled checkbox\n<Checkbox\n  checked={agreed}\n  onValueChange={setAgreed}\n  label=\"I agree to the terms\"\n/>"
+    },
+    {
+      "label": "Example 2",
+      "code": "// Indeterminate state\n<Checkbox\n  checked={someSelected}\n  indeterminate={!allSelected && someSelected}\n  onValueChange={toggleAll}\n  label=\"Select all\"\n/>"
+    },
+    {
+      "label": "Example 3",
+      "code": "// Disabled — cannot be toggled\n<Checkbox\n  checked={true}\n  onValueChange={() => {}}\n  label=\"Email notifications\"\n  description=\"Managed by your organisation policy\"\n  disabled\n/>"
+    },
+    {
+      "label": "Example 4",
+      "code": "// Custom children instead of label/description\n<Checkbox checked={agreed} onValueChange={setAgreed}>\n  <Text>I agree to the <Link href=\"/terms\">Terms of Service</Link></Text>\n</Checkbox>"
     }
   ]
 }

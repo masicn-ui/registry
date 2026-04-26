@@ -50,8 +50,27 @@ export interface RatingProps {
  *
  * // Custom icon and colors
  * <Rating value={hearts} max={5} icon="♥" filledColor="red" onValueChange={setHearts} />
+ *
+ * @example
+ * // 10-point scale (e.g. NPS score)
+ * <Rating value={nps} max={10} onValueChange={setNps} label="Likelihood to recommend" />
+ *
+ * @example
+ * // Small read-only rating for a product card
+ * <Rating value={product.averageRating} readOnly allowHalf size={16} />
+ *
+ * @example
+ * // Compact emoji difficulty rating
+ * <Rating
+ *   value={difficulty}
+ *   max={3}
+ *   icon="🔥"
+ *   onValueChange={setDifficulty}
+ *   label="Difficulty"
+ *   size={24}
+ * />
  */
-export function Rating({
+export const Rating = React.memo(function Rating({
   value,
   max = 5,
   onValueChange,
@@ -142,7 +161,7 @@ export function Rating({
       </View>
     </View>
   );
-}
+});
 
 const styles = StyleSheet.create({
   label: {

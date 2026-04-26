@@ -3,7 +3,7 @@
   "displayName": "ToggleGroup",
   "description": "Exclusive toggle button group where only one button can be active at a time, with icon support.",
   "category": "selection",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "files": [
     {
       "path": "ToggleGroup.tsx",
@@ -18,7 +18,7 @@
     "form",
     "interactive"
   ],
-  "hasTests": false,
+  "hasTests": true,
   "hasAccessibility": true,
   "props": [
     {
@@ -45,6 +45,24 @@
       "default": "false",
       "required": false,
       "description": "When true, each button expands to fill an equal share of the container width."
+    }
+  ],
+  "examples": [
+    {
+      "label": "Example 1",
+      "code": "// Single-select: text alignment\n<ToggleGroup\n  buttons={[\n    { label: 'Left', value: 'left' },\n    { label: 'Center', value: 'center' },\n    { label: 'Right', value: 'right' },\n  ]}\n  value={align}\n  onValueChange={setAlign}\n/>"
+    },
+    {
+      "label": "Example 2",
+      "code": "// Multi-select: text formatting\n<ToggleGroup\n  multi\n  buttons={[\n    { label: 'Bold', value: 'bold' },\n    { label: 'Italic', value: 'italic' },\n    { label: 'Underline', value: 'underline' },\n  ]}\n  value={formats}\n  onValueChange={setFormats}\n/>"
+    },
+    {
+      "label": "Example 3",
+      "code": "// Full-width single-select with icon buttons\n<ToggleGroup\n  fullWidth\n  buttons={[\n    { label: 'Day', value: 'day', icon: <SunIcon /> },\n    { label: 'Week', value: 'week', icon: <CalendarIcon /> },\n    { label: 'Month', value: 'month', icon: <GridIcon /> },\n  ]}\n  value={view}\n  onValueChange={setView}\n/>"
+    },
+    {
+      "label": "Example 4",
+      "code": "// Multi-select with one button disabled\n<ToggleGroup\n  multi\n  buttons={[\n    { label: 'In stock', value: 'instock' },\n    { label: 'On sale', value: 'sale' },\n    { label: 'Pre-order', value: 'preorder', disabled: true },\n  ]}\n  value={filters}\n  onValueChange={setFilters}\n/>"
     }
   ]
 }

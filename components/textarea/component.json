@@ -3,7 +3,7 @@
   "displayName": "Textarea",
   "description": "Auto-growing multi-line text input with label, helper text, and error state.",
   "category": "forms",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "files": [
     {
       "path": "Textarea.tsx",
@@ -20,7 +20,7 @@
     "forms",
     "multiline"
   ],
-  "hasTests": false,
+  "hasTests": true,
   "hasAccessibility": true,
   "props": [
     {
@@ -73,6 +73,24 @@
       "type": "string",
       "required": false,
       "description": "Additional accessibility hint. Falls back to the error string when in an error state."
+    }
+  ],
+  "examples": [
+    {
+      "label": "Example 1",
+      "code": "// Basic labelled textarea\n<Textarea\n  label=\"Description\"\n  placeholder=\"Enter a description…\"\n  value={description}\n  onChangeText={setDescription}\n/>"
+    },
+    {
+      "label": "Example 2",
+      "code": "// Capped height with character counter\n<Textarea\n  label=\"Bio\"\n  maxLength={300}\n  maxHeight={200}\n  value={bio}\n  onChangeText={setBio}\n/>"
+    },
+    {
+      "label": "Example 3",
+      "code": "// Error state\n<Textarea\n  label=\"Notes\"\n  value={notes}\n  onChangeText={setNotes}\n  error=\"Notes cannot be empty\"\n/>"
+    },
+    {
+      "label": "Example 4",
+      "code": "// Disabled textarea pre-filled with read-only content\n<Textarea\n  label=\"System Log\"\n  value={logOutput}\n  onChangeText={() => {}}\n  disabled\n  minRows={6}\n/>"
     }
   ]
 }

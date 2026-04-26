@@ -3,7 +3,7 @@
   "displayName": "Skeleton",
   "description": "Loading placeholder with text, circular, rectangular, avatar, button, card, listItem, and image shape variants.",
   "category": "progress",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "files": [
     {
       "path": "Skeleton.tsx",
@@ -18,7 +18,7 @@
     "loading",
     "placeholder"
   ],
-  "hasTests": false,
+  "hasTests": true,
   "hasAccessibility": true,
   "props": [
     {
@@ -45,6 +45,24 @@
       "type": "ViewStyle",
       "required": false,
       "description": "Additional style applied to the skeleton view"
+    }
+  ],
+  "examples": [
+    {
+      "label": "Example 1",
+      "code": "// Simple text line placeholder\n<Skeleton variant=\"text\" width=\"60%\" />\n// Full list-item placeholder\n<Skeleton variant=\"listItem\" />"
+    },
+    {
+      "label": "Example 2",
+      "code": "// Avatar placeholder\n<Skeleton variant=\"avatar\" />"
+    },
+    {
+      "label": "Example 3",
+      "code": "// Button-sized placeholder in a form footer\n<Skeleton variant=\"button\" width=\"100%\" />"
+    },
+    {
+      "label": "Example 4",
+      "code": "// Card skeleton for an article feed\n<Skeleton variant=\"card\" />"
     }
   ]
 }

@@ -3,7 +3,7 @@
   "displayName": "DetailRow",
   "description": "Label-value display row with optional press-to-copy interaction and brief feedback label.",
   "category": "display",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "files": [
     {
       "path": "DetailRow.tsx",
@@ -17,7 +17,7 @@
   "tags": [
     "display"
   ],
-  "hasTests": false,
+  "hasTests": true,
   "hasAccessibility": true,
   "props": [
     {
@@ -58,6 +58,20 @@
       "default": "false",
       "required": false,
       "description": "When true, renders a hairline separator below the row."
+    }
+  ],
+  "examples": [
+    {
+      "label": "Example 1",
+      "code": "// Static display\n<DetailRow label=\"Email\" value=\"user"
+    },
+    {
+      "label": "Example 2",
+      "code": "// Left-aligned value — useful for long text\n<DetailRow\n  label=\"Address\"\n  value=\"123 Main St, Melbourne VIC 3000\"\n  valueAlign=\"left\"\n  separator\n/>"
+    },
+    {
+      "label": "Example 3",
+      "code": "// Multiple rows inside a profile info section\n<View>\n  <DetailRow label=\"Name\" value={user.name} separator />\n  <DetailRow label=\"Phone\" value={user.phone} separator />\n  <DetailRow\n    label=\"Username\"\n    value={user.username}\n    onPress={() => Clipboard.setString(user.username)}\n  />\n</View>"
     }
   ]
 }

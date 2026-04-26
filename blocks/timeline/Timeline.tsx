@@ -44,6 +44,33 @@ export interface TimelineProps {
  *     { title: 'Out for delivery', status: 'default' },
  *   ]}
  * />
+ *
+ * @example
+ * // Audit log with timestamps
+ * <Timeline
+ *   items={[
+ *     { title: 'User signed in', timestamp: '2024-01-15 09:31', status: 'info' },
+ *     { title: 'Profile updated', timestamp: '2024-01-15 09:45', status: 'success' },
+ *     { title: 'Password changed', timestamp: '2024-01-15 10:02', status: 'warning' },
+ *   ]}
+ * />
+ *
+ * @example
+ * // Without connecting line (for standalone milestone cards)
+ * <Timeline
+ *   showLine={false}
+ *   items={milestones.map(m => ({ title: m.name, description: m.note, status: m.status }))}
+ * />
+ *
+ * @example
+ * // With icon and description per item
+ * <Timeline
+ *   items={[
+ *     { title: 'Booked', description: 'Reservation confirmed', icon: '✓', status: 'success' },
+ *     { title: 'Reminder sent', description: '24 hours before check-in', icon: '🔔', status: 'info' },
+ *     { title: 'Checked in', description: 'Room 412', icon: '🏨', status: 'success' },
+ *   ]}
+ * />
  */
 export const Timeline = React.memo(function Timeline({ items, showLine = true, containerStyle, testID }: TimelineProps) {
   const { theme } = useTheme();

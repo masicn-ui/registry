@@ -3,7 +3,7 @@
   "displayName": "DualSheet",
   "description": "Side-by-side sheet layout combining LeftSheet (1/3) + RightSheet (2/3) panels.",
   "category": "overlays",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "files": [
     {
       "path": "DualSheet.tsx",
@@ -23,7 +23,7 @@
     "overlay",
     "sheet"
   ],
-  "hasTests": false,
+  "hasTests": true,
   "hasAccessibility": true,
   "props": [
     {
@@ -79,6 +79,24 @@
       "type": "ViewStyle",
       "required": false,
       "description": "Additional style applied to the right panel container."
+    }
+  ],
+  "examples": [
+    {
+      "label": "Example 1",
+      "code": "const [open, setOpen] = React.useState(false);\n<DualSheet visible={open} onClose={() => setOpen(false)}\n  leftContent={<NavMenu />} rightContent={<Detail />} />"
+    },
+    {
+      "label": "Example 2",
+      "code": "// Imperative usage\nconst sheetRef = useRef<DualSheetRef>(null);\n<DualSheet ref={sheetRef} onClose={() => {}}\n  leftContent={<NavMenu />} rightContent={<Detail />} />"
+    },
+    {
+      "label": "Example 3",
+      "code": "// With independent dismiss callbacks for each panel\n<DualSheet\n  visible={open}\n  onClose={() => setOpen(false)}\n  onCloseLeft={handleCloseNav}\n  onCloseRight={handleCloseDetail}\n  leftContent={<FilterSidebar />}\n  rightContent={<ArticleBody />}\n/>"
+    },
+    {
+      "label": "Example 4",
+      "code": "// Custom panel widths via leftStyle / rightStyle\n<DualSheet\n  visible={open}\n  onClose={() => setOpen(false)}\n  leftContent={<QuickActions />}\n  rightContent={<MainContent />}\n  leftStyle={{ backgroundColor: theme.colors.surfaceSecondary }}\n  rightStyle={{ padding: spacing.lg }}\n/>"
     }
   ]
 }

@@ -218,6 +218,21 @@ function JsonNode({ name, value, depth, defaultDepth, isLast, seen }: NodeProps)
  *
  * @example
  * <JsonTree data={apiResponse} defaultDepth={0} title="API Response" />
+ *
+ * @example
+ * // Fully collapsed — only root node expanded on tap
+ * <JsonTree
+ *   data={complexNested}
+ *   defaultDepth={0}
+ *   title="Raw Payload"
+ * />
+ *
+ * @example
+ * // Deep expansion for a flat config object
+ * <JsonTree
+ *   data={{ theme: 'dark', locale: 'en-AU', version: '2.1.0' }}
+ *   defaultDepth={3}
+ * />
  */
 export function JsonTree({ data, defaultDepth = 2, title }: JsonTreeProps) {
   const { theme } = useTheme();

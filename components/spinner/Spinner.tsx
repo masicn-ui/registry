@@ -24,8 +24,22 @@ interface SpinnerProps {
  *
  * // Full-screen loading state
  * <Spinner label="Loading your data…" />
+ *
+ * @example
+ * // Custom color matching a specific brand context
+ * <Spinner size="small" color={theme.colors.secondary} />
+ *
+ * @example
+ * // Spinner inside a button when submitting
+ * {isSubmitting ? <Spinner size="small" /> : <Button onPress={submit}>Send</Button>}
+ *
+ * @example
+ * // Centered in a screen as a fallback loading state
+ * <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+ *   <Spinner label="Fetching results…" />
+ * </View>
  */
-export function Spinner({
+export const Spinner = React.memo(function Spinner({
   size = 'large',
   label,
   color,
@@ -46,7 +60,7 @@ export function Spinner({
   }
 
   return <ActivityIndicator size={size} color={spinnerColor} style={style} />;
-}
+});
 
 const styles = StyleSheet.create({
   container: {

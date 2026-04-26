@@ -3,7 +3,7 @@
   "displayName": "ProgressRing",
   "description": "SVG circular progress indicator with configurable size, stroke width, color, and percentage label.",
   "category": "progress",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "files": [
     {
       "path": "ProgressRing.tsx",
@@ -20,7 +20,7 @@
   "tags": [
     "feedback"
   ],
-  "hasTests": false,
+  "hasTests": true,
   "hasAccessibility": true,
   "props": [
     {
@@ -60,6 +60,24 @@
       "type": "string",
       "required": false,
       "description": "Optional caption text rendered below the percentage value"
+    }
+  ],
+  "examples": [
+    {
+      "label": "Example 1",
+      "code": "// Determinate\n<ProgressRing value={75} />\n// Indeterminate (loading)\n<ProgressRing indeterminate />\n// Custom color and size\n<ProgressRing value={completionRate} size={120} color={theme.colors.success} label=\"Complete\" />"
+    },
+    {
+      "label": "Example 2",
+      "code": "// Storage usage indicator without the center label\n<ProgressRing value={storageUsed} showValue={false} size={64} strokeWidth={6} />"
+    },
+    {
+      "label": "Example 3",
+      "code": "// Small ring used inline in a list cell\n<ProgressRing value={task.progress} size={40} strokeWidth={4} showValue={false} />"
+    },
+    {
+      "label": "Example 4",
+      "code": "// Goal tracker with custom label and success color\n<ProgressRing\n  value={stepsToday / goalSteps * 100}\n  size={140}\n  label=\"steps\"\n  color={theme.colors.success}\n/>"
     }
   ]
 }

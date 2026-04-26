@@ -44,8 +44,23 @@ interface RadioGroupProps {
  *   <Radio value="pro" label="Pro" description="Unlimited usage" />
  *   <Radio value="enterprise" label="Enterprise" disabled />
  * </RadioGroup>
+ *
+ * @example
+ * // Entire group disabled — useful for read-only survey responses
+ * <RadioGroup value="agree" onValueChange={() => {}} disabled>
+ *   <Radio value="agree" label="Agree" />
+ *   <Radio value="disagree" label="Disagree" />
+ * </RadioGroup>
+ *
+ * @example
+ * // Shipping method selection with descriptions
+ * <RadioGroup value={shipping} onValueChange={setShipping}>
+ *   <Radio value="standard" label="Standard" description="3–5 business days — free" />
+ *   <Radio value="express" label="Express" description="1–2 business days — $9.99" />
+ *   <Radio value="overnight" label="Overnight" description="Next business day — $24.99" />
+ * </RadioGroup>
  */
-export function RadioGroup({
+export const RadioGroup = React.memo(function RadioGroup({
   value,
   onValueChange,
   children,
@@ -57,7 +72,7 @@ export function RadioGroup({
       <View style={[styles.radioGroup, containerStyle]}>{children}</View>
     </RadioGroupContext.Provider>
   );
-}
+});
 
 interface RadioProps {
   /** The value this option represents — compared against the group's current value to determine selection. */
@@ -85,7 +100,7 @@ interface RadioProps {
  * @example
  * <Radio value="dark" label="Dark mode" description="Easier on the eyes" />
  */
-export function Radio({
+export const Radio = React.memo(function Radio({
   value,
   label,
   description,
@@ -152,7 +167,7 @@ export function Radio({
       </View>
     </Pressable>
   );
-}
+});
 
 const styles = StyleSheet.create({
   radioGroup: { gap: spacing.sm },

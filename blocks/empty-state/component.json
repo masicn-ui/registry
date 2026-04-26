@@ -3,7 +3,7 @@
   "displayName": "Empty State",
   "description": "Empty state block with illustration, title, description, and CTA.",
   "category": "display",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "files": [
     {
       "path": "EmptyState.tsx",
@@ -21,7 +21,7 @@
     "no-data",
     "placeholder"
   ],
-  "hasTests": false,
+  "hasTests": true,
   "hasAccessibility": false,
   "props": [
     {
@@ -60,6 +60,24 @@
       "type": "ViewStyle",
       "required": false,
       "description": "Additional style applied to the outer container view."
+    }
+  ],
+  "examples": [
+    {
+      "label": "Example 1",
+      "code": "// Basic empty list\n<EmptyState\n  title=\"No tasks yet\"\n  description=\"Tap the button below to create your first task.\"\n  actionLabel=\"Create task\"\n  onAction={handleCreate}\n/>"
+    },
+    {
+      "label": "Example 2",
+      "code": "// Custom icon, no action\n<EmptyState\n  icon=\"🔍\"\n  title=\"No results found\"\n  description=\"Try adjusting your search terms.\"\n/>"
+    },
+    {
+      "label": "Example 3",
+      "code": "// Error state with retry action\n<EmptyState\n  icon=\"⚠️\"\n  title=\"Failed to load\"\n  description=\"Check your internet connection and try again.\"\n  actionLabel=\"Retry\"\n  onAction={refetch}\n/>"
+    },
+    {
+      "label": "Example 4",
+      "code": "// No notifications placeholder with custom container style\n<EmptyState\n  icon=\"🔔\"\n  title=\"All caught up\"\n  description=\"You have no new notifications.\"\n  containerStyle={{ flex: 1, justifyContent: 'center' }}\n/>"
     }
   ]
 }

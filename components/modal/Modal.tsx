@@ -56,6 +56,23 @@ interface ModalProps {
  * <Modal ref={modalRef} onClose={() => {}}>
  *   <Text>Modal content</Text>
  * </Modal>
+ *
+ * @example
+ * // Narrow modal with close button hidden (user must interact with content to dismiss)
+ * <Modal visible={open} onClose={() => setOpen(false)} maxWidth="narrow" showCloseButton={false}>
+ *   <PinEntry onSuccess={() => setOpen(false)} />
+ * </Modal>
+ *
+ * @example
+ * // Modal that cannot be dismissed by tapping the overlay
+ * <Modal
+ *   visible={open}
+ *   onClose={() => setOpen(false)}
+ *   closeOnOverlayPress={false}
+ *   accessibilityLabel="Terms of Service"
+ * >
+ *   <TermsContent onAccept={() => setOpen(false)} />
+ * </Modal>
  */
 const Modal = React.forwardRef<ModalRef, ModalProps>(function Modal(
   {

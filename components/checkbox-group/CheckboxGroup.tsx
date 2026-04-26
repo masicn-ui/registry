@@ -55,6 +55,41 @@ interface CheckboxGroupProps {
  *   value={selected}
  *   onValueChange={setSelected}
  * />
+ *
+ * @example
+ * // Pre-selected options
+ * const [perms, setPerms] = useState(['read', 'write']);
+ * <CheckboxGroup
+ *   label="Permissions"
+ *   options={[
+ *     { label: 'Read', value: 'read' },
+ *     { label: 'Write', value: 'write' },
+ *     { label: 'Delete', value: 'delete' },
+ *   ]}
+ *   value={perms}
+ *   onValueChange={setPerms}
+ * />
+ *
+ * @example
+ * // Group-wide disabled state
+ * <CheckboxGroup
+ *   label="Features (read-only)"
+ *   options={features.map(f => ({ label: f.name, value: f.id }))}
+ *   value={enabledFeatures}
+ *   onValueChange={() => {}}
+ *   disabled
+ * />
+ *
+ * @example
+ * // With error and helper text
+ * <CheckboxGroup
+ *   label="Notifications"
+ *   options={notificationOptions}
+ *   value={selected}
+ *   onValueChange={setSelected}
+ *   error={selected.length === 0 ? 'Select at least one' : undefined}
+ *   helperText="Choose what you want to be notified about"
+ * />
  */
 export function CheckboxGroup({
   options,

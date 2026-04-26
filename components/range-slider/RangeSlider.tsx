@@ -69,6 +69,41 @@ interface RangeSliderProps {
  *   showValues
  *   onRangeChange={(lo, hi) => setRange({ min: lo, max: hi })}
  * />
+ *
+ * @example
+ * // Age range filter with no step
+ * const [ages, setAges] = useState({ min: 18, max: 65 });
+ * <RangeSlider
+ *   label="Age range"
+ *   minValue={ages.min}
+ *   maxValue={ages.max}
+ *   min={18}
+ *   max={80}
+ *   showValues
+ *   onRangeChange={(lo, hi) => setAges({ min: lo, max: hi })}
+ * />
+ *
+ * @example
+ * // Rating range (1–5) with minGap of 1
+ * <RangeSlider
+ *   minValue={minRating}
+ *   maxValue={maxRating}
+ *   min={1}
+ *   max={5}
+ *   step={1}
+ *   minGap={1}
+ *   onRangeChange={setRatingRange}
+ * />
+ *
+ * @example
+ * // Disabled range display
+ * <RangeSlider
+ *   label="Locked range"
+ *   minValue={0}
+ *   maxValue={100}
+ *   onRangeChange={() => {}}
+ *   disabled
+ * />
  */
 export function RangeSlider({
   minValue,

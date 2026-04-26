@@ -3,7 +3,7 @@
   "displayName": "BottomSheet",
   "description": "Gesture-driven bottom sheet with drag-to-dismiss, keyboard avoidance, safe area insets, and focus trap.",
   "category": "overlays",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "files": [
     {
       "path": "BottomSheet.tsx",
@@ -22,7 +22,7 @@
     "overlay",
     "sheet"
   ],
-  "hasTests": false,
+  "hasTests": true,
   "hasAccessibility": true,
   "props": [
     {
@@ -68,6 +68,24 @@
       "type": "string",
       "required": false,
       "description": "Accessibility label for the sheet; defaults to 'Bottom sheet'"
+    }
+  ],
+  "examples": [
+    {
+      "label": "Example 1",
+      "code": "// Imperative usage\nconst sheetRef = useRef<BottomSheetRef>(null);\n<Button onPress={() => sheetRef.current?.open()}>Open Sheet</Button>\n<BottomSheet ref={sheetRef} onClose={() => {}}>\n  <Text>Sheet content</Text>\n</BottomSheet>"
+    },
+    {
+      "label": "Example 2",
+      "code": "// Controlled with custom max height\n<BottomSheet visible={open} onClose={() => setOpen(false)} maxHeight={0.5}>\n  <FilterOptions />\n</BottomSheet>"
+    },
+    {
+      "label": "Example 3",
+      "code": "// Sheet without the handle pill, used as a fullscreen modal replacement\n<BottomSheet visible={open} onClose={() => setOpen(false)} showHandle={false} maxHeight={0.95}>\n  <FullScreenForm />\n</BottomSheet>"
+    },
+    {
+      "label": "Example 4",
+      "code": "// Combined controlled + imperative — open via ref, close via state\nconst sheetRef = useRef<BottomSheetRef>(null);\nconst [open, setOpen] = useState(false);\n<BottomSheet ref={sheetRef} visible={open} onClose={() => setOpen(false)}>\n  <ShareOptions />\n</BottomSheet>"
     }
   ]
 }

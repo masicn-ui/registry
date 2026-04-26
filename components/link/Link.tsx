@@ -65,8 +65,24 @@ interface LinkProps extends Omit<PressableProps, 'children'> {
  * <Link underline="none" bold onPress={handleTermsPress}>
  *   Terms & Conditions
  * </Link>
+ *
+ * @example
+ * // Small caption-size link in a form footer
+ * <Link size="sm" onPress={openForgotPassword}>Forgot password?</Link>
+ *
+ * @example
+ * // Hover-only underline for a dense list of links
+ * <Link underline="hover" onPress={() => openUser(user.id)}>
+ *   {user.name}
+ * </Link>
+ *
+ * @example
+ * // Custom colour for a link inside a dark card
+ * <Link color={theme.colors.onPrimary} href="https://docs.example.com" external>
+ *   Read the docs
+ * </Link>
  */
-export function Link({
+export const Link = React.memo(function Link({
   children,
   size = 'md',
   underline = 'always',
@@ -136,7 +152,7 @@ export function Link({
       )}
     </Pressable>
   );
-}
+});
 
 const styles = StyleSheet.create({
   row: {

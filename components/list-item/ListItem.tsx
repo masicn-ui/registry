@@ -45,6 +45,34 @@ interface ListItemProps extends Omit<PressableProps, 'children'> {
  *   title="Notifications"
  *   trailing={<Switch value={enabled} onValueChange={setEnabled} />}
  * />
+ *
+ * @example
+ * // No trailing arrow — informational row
+ * <ListItem
+ *   title="Version"
+ *   subtitle="2.1.0"
+ *   trailing={<Text variant="body" color="textTertiary">2.1.0</Text>}
+ *   separator
+ * />
+ *
+ * @example
+ * // Disabled row for locked features
+ * <ListItem
+ *   title="Export data"
+ *   subtitle="Available on Pro plan"
+ *   leading={<ExportIcon />}
+ *   disabled
+ * />
+ *
+ * @example
+ * // Row with badge trailing indicator
+ * <ListItem
+ *   title="Messages"
+ *   leading={<MessageIcon />}
+ *   trailing={<Badge label="3" variant="error" circular />}
+ *   onPress={() => navigation.navigate('Messages')}
+ *   separator
+ * />
  */
 export function ListItem({
   title,

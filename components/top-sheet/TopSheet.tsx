@@ -18,6 +18,7 @@ import Animated, {
   withTiming,
 } from 'react-native-reanimated';
 import { GestureDetector, Gesture } from 'react-native-gesture-handler';
+import { scheduleOnRN } from 'react-native-worklets';
 import { useTheme, spacing, radius, elevation, sizes, motion, motionEasing, useReducedMotion, useFocusTrap, Masicn } from '../../../masicn';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
@@ -67,6 +68,18 @@ const DISMISS_THRESHOLD = 0.3;
  * const sheetRef = useRef<TopSheetRef>(null);
  * <TopSheet ref={sheetRef} onClose={() => {}}>
  *   <Text>Sheet content</Text>
+ * </TopSheet>
+ *
+ * @example
+ * // Smaller max height for a notification banner
+ * <TopSheet visible={open} onClose={() => setOpen(false)} maxHeight={0.35}>
+ *   <NotificationDetail />
+ * </TopSheet>
+ *
+ * @example
+ * // Without handle pill for a custom drag area inside the content
+ * <TopSheet visible={open} onClose={() => setOpen(false)} showHandle={false}>
+ *   <SearchHeader onClose={() => setOpen(false)} />
  * </TopSheet>
  */
 export const TopSheet = React.forwardRef<TopSheetRef, TopSheetProps>(
@@ -127,9 +140,9 @@ export const TopSheet = React.forwardRef<TopSheetRef, TopSheetProps>(
       } else {
         const exitDuration = rm ? motion.duration.instant : motion.duration.normal;
         translateY.value = withTiming(-SCREEN_HEIGHT, { duration: exitDuration, easing: motionEasing.accelerate });
-        opacity.value = withTiming(0, { duration: exitDuration, easing: motionEasing.accelerate });
-        const timeout = setTimeout(() => setShouldRender(false), exitDuration);
-        return () => clearTimeout(timeout);
+        opacity.value = withTiming(0, { duration: exitDuration, easing: motionEasing.accelerate },
+          (finished) => { if (finished) scheduleOnRN(setShouldRender, false); },
+        );
       }
     }, [isVisible, translateY, opacity, SCREEN_HEIGHT]);
 
@@ -143,7 +156,6 @@ export const TopSheet = React.forwardRef<TopSheetRef, TopSheetProps>(
     }, [isVisible, handleDismiss]);
 
     const pan = Gesture.Pan()
-      .runOnJS(true)
       .activeOffsetY([-5, 5])
       .onUpdate((e) => {
         if (e.translationY < 0) {
@@ -152,7 +164,7 @@ export const TopSheet = React.forwardRef<TopSheetRef, TopSheetProps>(
       })
       .onEnd((e) => {
         if (e.translationY < -(sheetHeight * DISMISS_THRESHOLD) || e.velocityY < -500) {
-          handleDismiss();
+          scheduleOnRN(handleDismiss);
         } else {
           translateY.value = withSpring(0, motion.spring.sheet);
         }

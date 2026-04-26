@@ -52,8 +52,29 @@ const GAP_SIZES = { sm: spacing.sm, md: spacing.md, lg: spacing.lg } as const;
  *
  * // Error state after a failed attempt
  * <Pin length={4} filled={4} variant="error" size="lg" />
+ *
+ * @example
+ * // Success state after correct PIN entry
+ * <Pin length={6} filled={6} variant="success" />
+ *
+ * @example
+ * // Small dots in a compact layout
+ * <Pin length={4} filled={enteredDigits} size="sm" gap="sm" />
+ *
+ * @example
+ * // Paired with a hidden TextInput for a PIN entry screen
+ * const [pin, setPin] = useState('');
+ * <Pin length={4} filled={pin.length} />
+ * <TextInput
+ *   secureTextEntry
+ *   keyboardType="number-pad"
+ *   maxLength={4}
+ *   value={pin}
+ *   onChangeText={setPin}
+ *   style={styles.hiddenInput}
+ * />
  */
-export function Pin({
+export const Pin = React.memo(function Pin({
   length,
   filled,
   variant = 'default',
@@ -98,7 +119,7 @@ export function Pin({
       })}
     </View>
   );
-}
+});
 
 const styles = StyleSheet.create({
   row: {
