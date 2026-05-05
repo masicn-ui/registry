@@ -1,11 +1,31 @@
 import React, { createContext, useContext, useState, useCallback } from 'react';
-import {
-  View,
-  StyleSheet,
-} from 'react-native';
-import Reanimated, { useSharedValue, useAnimatedStyle, withTiming, withSpring } from 'react-native-reanimated';
+import { View, StyleSheet } from 'react-native';
+import Reanimated, {
+  useSharedValue,
+  useAnimatedStyle,
+  withTiming,
+  withSpring,
+} from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { Masicn, Text, elevation, iconSizes, layout, motion, motionEasing, radius, sizes, spacing, useReducedMotion, useTheme, type IconComponent, CheckIcon, XIcon, WarningIcon, InfoIcon } from '../../../masicn';
+import {
+  Masicn,
+  Text,
+  elevation,
+  iconSizes,
+  layout,
+  motion,
+  motionEasing,
+  radius,
+  sizes,
+  spacing,
+  useReducedMotion,
+  useTheme,
+  type IconComponent,
+  CheckIcon,
+  XIcon,
+  WarningIcon,
+  InfoIcon,
+} from '../../../masicn';
 
 type ToastType = 'success' | 'error' | 'warning' | 'info';
 type ToastPosition = 'top' | 'bottom';
@@ -19,10 +39,23 @@ interface ToastMessage {
 }
 
 interface ToastContextValue {
-  show: (message: string, type?: ToastType, duration?: number, position?: ToastPosition) => void;
-  success: (message: string, duration?: number, position?: ToastPosition) => void;
+  show: (
+    message: string,
+    type?: ToastType,
+    duration?: number,
+    position?: ToastPosition,
+  ) => void;
+  success: (
+    message: string,
+    duration?: number,
+    position?: ToastPosition,
+  ) => void;
   error: (message: string, duration?: number, position?: ToastPosition) => void;
-  warning: (message: string, duration?: number, position?: ToastPosition) => void;
+  warning: (
+    message: string,
+    duration?: number,
+    position?: ToastPosition,
+  ) => void;
   info: (message: string, duration?: number, position?: ToastPosition) => void;
 }
 
@@ -92,14 +125,25 @@ interface ToastProviderProps {
  * const toast = useToast();
  * toast.warning('Unsaved changes', 3000, 'bottom');
  */
-export function ToastProvider({ children, defaultPosition = 'top' }: ToastProviderProps) {
+export function ToastProvider({
+  children,
+  defaultPosition = 'top',
+}: ToastProviderProps) {
   const [toasts, setToasts] = useState<ToastMessage[]>([]);
 
   const show = useCallback(
-    (message: string, type: ToastType = 'info', duration = 3000, position?: ToastPosition) => {
+    (
+      message: string,
+      type: ToastType = 'info',
+      duration = 3000,
+      position?: ToastPosition,
+    ) => {
       const id = Date.now().toString();
       const finalPosition = position ?? defaultPosition;
-      setToasts(prev => [...prev, { id, message, type, duration, position: finalPosition }]);
+      setToasts(prev => [
+        ...prev,
+        { id, message, type, duration, position: finalPosition },
+      ]);
 
       setTimeout(() => {
         setToasts(prev => prev.filter(toast => toast.id !== id));
@@ -109,22 +153,26 @@ export function ToastProvider({ children, defaultPosition = 'top' }: ToastProvid
   );
 
   const success = useCallback(
-    (message: string, duration?: number, position?: ToastPosition) => show(message, 'success', duration, position),
+    (message: string, duration?: number, position?: ToastPosition) =>
+      show(message, 'success', duration, position),
     [show],
   );
 
   const error = useCallback(
-    (message: string, duration?: number, position?: ToastPosition) => show(message, 'error', duration, position),
+    (message: string, duration?: number, position?: ToastPosition) =>
+      show(message, 'error', duration, position),
     [show],
   );
 
   const warning = useCallback(
-    (message: string, duration?: number, position?: ToastPosition) => show(message, 'warning', duration, position),
+    (message: string, duration?: number, position?: ToastPosition) =>
+      show(message, 'warning', duration, position),
     [show],
   );
 
   const info = useCallback(
-    (message: string, duration?: number, position?: ToastPosition) => show(message, 'info', duration, position),
+    (message: string, duration?: number, position?: ToastPosition) =>
+      show(message, 'info', duration, position),
     [show],
   );
 
@@ -156,7 +204,8 @@ function ToastContainer({ toasts }: ToastContainerProps) {
             styles.containerTop,
             { paddingTop: insets.top + spacing.sm },
           ]}
-          pointerEvents="box-none">
+          pointerEvents="box-none"
+        >
           {topToasts.map(toast => (
             <ToastItem key={toast.id} toast={toast} />
           ))}
@@ -169,7 +218,8 @@ function ToastContainer({ toasts }: ToastContainerProps) {
             styles.containerBottom,
             { paddingBottom: insets.bottom + spacing.sm },
           ]}
-          pointerEvents="box-none">
+          pointerEvents="box-none"
+        >
           {bottomToasts.map(toast => (
             <ToastItem key={toast.id} toast={toast} />
           ))}
@@ -187,18 +237,22 @@ function ToastItem({ toast }: ToastItemProps) {
   const { theme } = useTheme();
   const reducedMotion = useReducedMotion();
 
-  const initialSlideValue = toast.position === 'top' ? -spacing.xxxl : spacing.xxxl;
+  const initialSlideValue =
+    toast.position === 'top' ? -spacing.xxxl : spacing.xxxl;
   const fadeAnim = useSharedValue(0);
   const slideAnim = useSharedValue(initialSlideValue);
 
   React.useEffect(() => {
-    const dur = reducedMotion ? motion.duration.instant : motion.duration.normal;
+    const dur = reducedMotion
+      ? motion.duration.instant
+      : motion.duration.normal;
     fadeAnim.value = withTiming(1, { duration: dur });
     slideAnim.value = reducedMotion
       ? withTiming(0, { duration: dur })
       : withSpring(0, motion.spring.gentle);
 
-    const exitSlideValue = toast.position === 'top' ? -spacing.xxxl : spacing.xxxl;
+    const exitSlideValue =
+      toast.position === 'top' ? -spacing.xxxl : spacing.xxxl;
     const exitDuration = (toast.duration || 3000) - motion.duration.normal;
     const timeout = setTimeout(() => {
       fadeAnim.value = withTiming(0, { duration: motion.duration.normal });
@@ -254,7 +308,8 @@ function ToastItem({ toast }: ToastItemProps) {
           shadowColor: theme.colors.shadow,
         },
         animatedStyle,
-      ]}>
+      ]}
+    >
       <ToastIcon size={iconSizes.action} color={textColor} />
       <Text variant="body" style={[styles.message, { color: textColor }]}>
         {toast.message}

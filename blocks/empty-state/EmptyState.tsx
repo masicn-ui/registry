@@ -86,7 +86,8 @@ export const EmptyState = React.memo(function EmptyState({
           variant="body"
           color="textSecondary"
           align="center"
-          style={styles.description}>
+          style={styles.description}
+        >
           {description}
         </Text>
       )}
@@ -95,7 +96,8 @@ export const EmptyState = React.memo(function EmptyState({
           variant="primary"
           onPress={onAction}
           containerStyle={styles.action}
-          testID={testID ? `${testID}-action` : undefined}>
+          testID={testID ? `${testID}-action` : undefined}
+        >
           {actionLabel}
         </Button>
       )}

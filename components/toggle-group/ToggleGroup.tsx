@@ -1,6 +1,13 @@
 import React from 'react';
 import { View, Pressable, StyleSheet } from 'react-native';
-import { Text, borders, opacity as opacityTokens, radius, spacing, useTheme } from '../../../masicn';
+import {
+  Text,
+  borders,
+  opacity as opacityTokens,
+  radius,
+  spacing,
+  useTheme,
+} from '../../../masicn';
 
 export interface ToggleButton {
   /** Button label */
@@ -138,7 +145,8 @@ export const ToggleGroup = React.memo(function ToggleGroup({
           borderColor: theme.colors.borderPrimary,
           borderRadius: radius.md,
         },
-      ]}>
+      ]}
+    >
       {buttons.map((button, index) => {
         const selected = isSelected(button.value);
         const isLast = index === buttons.length - 1;
@@ -158,24 +166,24 @@ export const ToggleGroup = React.memo(function ToggleGroup({
                 borderRightWidth: borders.thin,
                 borderRightColor: theme.colors.borderPrimary,
               },
-              { backgroundColor: selected ? theme.colors.primaryContainer : 'transparent' },
+              {
+                backgroundColor: selected
+                  ? theme.colors.primaryContainer
+                  : 'transparent',
+              },
               pressed && !selected && { opacity: opacityTokens.subtle },
               button.disabled && { opacity: opacityTokens.disabled },
             ]}
           >
-            {button.icon && (
-              <View style={styles.icon}>
-                {button.icon}
-              </View>
-            )}
+            {button.icon && <View style={styles.icon}>{button.icon}</View>}
             <Text
               variant="label"
               style={{
                 color: selected
                   ? theme.colors.primary
                   : button.disabled
-                    ? theme.colors.textDisabled
-                    : theme.colors.textSecondary,
+                  ? theme.colors.textDisabled
+                  : theme.colors.textSecondary,
               }}
             >
               {button.label}

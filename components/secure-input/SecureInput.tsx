@@ -1,9 +1,16 @@
 import React, { useState } from 'react';
 import { Pressable, TextInput as RNTextInput } from 'react-native';
-import { EyeIcon, EyeOffIcon, iconSizes, spacing, useTheme } from '../../../masicn';
+import {
+  EyeIcon,
+  EyeOffIcon,
+  iconSizes,
+  spacing,
+  useTheme,
+} from '../../../masicn';
 import { TextInput, type TextInputProps } from '../text-input/TextInput';
 
-interface SecureInputProps extends Omit<TextInputProps, 'secureTextEntry' | 'endAdornment'> {
+interface SecureInputProps
+  extends Omit<TextInputProps, 'secureTextEntry' | 'endAdornment'> {
   /** Whether to render the show/hide toggle. Defaults to true. Hidden automatically when disabled. */
   showToggle?: boolean;
 }
@@ -73,10 +80,19 @@ export const SecureInput = React.forwardRef<RNTextInput, SecureInputProps>(
           accessibilityRole="button"
           accessibilityLabel={visible ? 'Hide password' : 'Show password'}
           hitSlop={spacing.sm}
-          testID="password-toggle">
-          {visible
-            ? <EyeOffIcon size={iconSizes.action} color={theme.colors.textSecondary} />
-            : <EyeIcon size={iconSizes.action} color={theme.colors.textSecondary} />}
+          testID="password-toggle"
+        >
+          {visible ? (
+            <EyeOffIcon
+              size={iconSizes.action}
+              color={theme.colors.textSecondary}
+            />
+          ) : (
+            <EyeIcon
+              size={iconSizes.action}
+              color={theme.colors.textSecondary}
+            />
+          )}
         </Pressable>
       ) : undefined;
 

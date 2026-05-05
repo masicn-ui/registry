@@ -110,7 +110,9 @@ export const Pin = React.memo(function Pin({
               {
                 width: dotSize,
                 height: dotSize,
-                borderColor: isFilled ? activeColor : theme.colors.borderPrimary,
+                borderColor: isFilled
+                  ? activeColor
+                  : theme.colors.borderPrimary,
                 backgroundColor: isFilled ? activeColor : undefined,
               },
             ]}

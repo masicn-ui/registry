@@ -6,7 +6,15 @@ import Animated, {
   withSpring,
   withTiming,
 } from 'react-native-reanimated';
-import { borders, motion, radius, sizes, spacing, useReducedMotion, useTheme } from '../../../masicn';
+import {
+  borders,
+  motion,
+  radius,
+  sizes,
+  spacing,
+  useReducedMotion,
+  useTheme,
+} from '../../../masicn';
 import type { CarouselDotVariant } from './Carousel';
 
 // ─── AnimatedDot ───────────────────────────────────────────────────────────
@@ -19,7 +27,9 @@ interface AnimatedDotProps {
 function AnimatedDot({ active, variant }: AnimatedDotProps) {
   const { theme } = useTheme();
   const reducedMotion = useReducedMotion();
-  const width = useSharedValue<number>(active ? sizes.carouselDotActive : sizes.carouselDot);
+  const width = useSharedValue<number>(
+    active ? sizes.carouselDotActive : sizes.carouselDot,
+  );
   const height = useSharedValue<number>(active ? spacing.xs : spacing.xxs);
 
   React.useEffect(() => {
@@ -28,29 +38,43 @@ function AnimatedDot({ active, variant }: AnimatedDotProps) {
       : (v: number) => withSpring(v, motion.spring.snappy);
 
     if (variant === 'pill') {
-      width.value = spring(active ? sizes.carouselDotActive : sizes.carouselDot);
+      width.value = spring(
+        active ? sizes.carouselDotActive : sizes.carouselDot,
+      );
     } else if (variant === 'line') {
       height.value = spring(active ? spacing.xs : spacing.xxs);
     }
   }, [active, variant, reducedMotion, width, height]);
 
   const animStyle = useAnimatedStyle(() => {
-    if (variant === 'pill') { return { width: width.value }; }
-    if (variant === 'line') { return { height: height.value }; }
+    if (variant === 'pill') {
+      return { width: width.value };
+    }
+    if (variant === 'line') {
+      return { height: height.value };
+    }
     return {};
   });
 
   const bgColor = active ? theme.colors.primary : theme.colors.borderPrimary;
 
   if (variant === 'line') {
-    return <Animated.View style={[styles.line, animStyle, { backgroundColor: bgColor }]} />;
+    return (
+      <Animated.View
+        style={[styles.line, animStyle, { backgroundColor: bgColor }]}
+      />
+    );
   }
 
   if (variant === 'dot') {
     return <View style={[styles.circle, { backgroundColor: bgColor }]} />;
   }
 
-  return <Animated.View style={[styles.pill, animStyle, { backgroundColor: bgColor }]} />;
+  return (
+    <Animated.View
+      style={[styles.pill, animStyle, { backgroundColor: bgColor }]}
+    />
+  );
 }
 
 // ─── CarouselDots ──────────────────────────────────────────────────────────
@@ -88,7 +112,11 @@ export interface CarouselDotsProps {
  * const [page, setPage] = useState(0);
  * <CarouselDots count={slides.length} activeIndex={page} variant="pill" />
  */
-export function CarouselDots({ count, activeIndex, variant }: CarouselDotsProps) {
+export function CarouselDots({
+  count,
+  activeIndex,
+  variant,
+}: CarouselDotsProps) {
   return (
     <View style={styles.row} accessibilityElementsHidden>
       {Array.from({ length: count }).map((_, i) => (

@@ -19,7 +19,17 @@ import Animated, {
 } from 'react-native-reanimated';
 import { GestureDetector, Gesture } from 'react-native-gesture-handler';
 import { scheduleOnRN } from 'react-native-worklets';
-import { useTheme, spacing, radius, elevation, motion, motionEasing, useReducedMotion, useFocusTrap, Masicn } from '../../../masicn';
+import {
+  useTheme,
+  spacing,
+  radius,
+  elevation,
+  motion,
+  motionEasing,
+  useReducedMotion,
+  useFocusTrap,
+  Masicn,
+} from '../../../masicn';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 /** Imperative handle exposed via `ref` for programmatic open/close control. */
@@ -88,20 +98,25 @@ const DISMISS_THRESHOLD = 0.3;
  * </LeftSheet>
  */
 export const LeftSheet = React.forwardRef<LeftSheetRef, LeftSheetProps>(
-  function LeftSheet({
-    visible: controlledVisible,
-    onClose,
-    children,
-    width = 0.75,
-    style,
-    hideBackdrop = false,
-    accessibilityLabel,
-  }: LeftSheetProps, ref) {
+  function LeftSheet(
+    {
+      visible: controlledVisible,
+      onClose,
+      children,
+      width = 0.75,
+      style,
+      hideBackdrop = false,
+      accessibilityLabel,
+    }: LeftSheetProps,
+    ref,
+  ) {
     const { theme } = useTheme();
     const reducedMotion = useReducedMotion();
     // Snapshot into a ref so the async resolution never re-triggers the animation effect mid-spring.
     const reducedMotionRef = React.useRef(reducedMotion);
-    React.useEffect(() => { reducedMotionRef.current = reducedMotion; }, [reducedMotion]);
+    React.useEffect(() => {
+      reducedMotionRef.current = reducedMotion;
+    }, [reducedMotion]);
 
     const insets = useSafeAreaInsets();
     const { width: SCREEN_WIDTH } = useWindowDimensions();
@@ -120,10 +135,14 @@ export const LeftSheet = React.forwardRef<LeftSheetRef, LeftSheetProps>(
       onClose();
     }, [onClose]);
 
-    useImperativeHandle(ref, () => ({
-      open: () => setInternalVisible(true),
-      close: handleDismiss,
-    }), [handleDismiss]);
+    useImperativeHandle(
+      ref,
+      () => ({
+        open: () => setInternalVisible(true),
+        close: handleDismiss,
+      }),
+      [handleDismiss],
+    );
 
     // reducedMotion intentionally omitted from deps — read via ref to prevent
     // the async AccessibilityInfo resolution from killing an in-progress spring.
@@ -134,12 +153,23 @@ export const LeftSheet = React.forwardRef<LeftSheetRef, LeftSheetProps>(
         translateX.value = rm
           ? withTiming(0, { duration: motion.duration.instant })
           : withSpring(0, motion.spring.sheet);
-        opacity.value = withTiming(1, { duration: rm ? motion.duration.instant : motion.duration.slow });
+        opacity.value = withTiming(1, {
+          duration: rm ? motion.duration.instant : motion.duration.slow,
+        });
       } else {
-        const exitDuration = rm ? motion.duration.instant : motion.duration.normal;
-        translateX.value = withTiming(-sheetWidth, { duration: exitDuration, easing: motionEasing.accelerate });
-        opacity.value = withTiming(0, { duration: exitDuration, easing: motionEasing.accelerate },
-          (finished) => { if (finished) scheduleOnRN(setShouldRender, false); },
+        const exitDuration = rm
+          ? motion.duration.instant
+          : motion.duration.normal;
+        translateX.value = withTiming(-sheetWidth, {
+          duration: exitDuration,
+          easing: motionEasing.accelerate,
+        });
+        opacity.value = withTiming(
+          0,
+          { duration: exitDuration, easing: motionEasing.accelerate },
+          finished => {
+            if (finished) scheduleOnRN(setShouldRender, false);
+          },
         );
       }
     }, [isVisible, translateX, opacity, sheetWidth]);
@@ -155,13 +185,16 @@ export const LeftSheet = React.forwardRef<LeftSheetRef, LeftSheetProps>(
 
     const pan = Gesture.Pan()
       .activeOffsetX([-10, 10])
-      .onUpdate((e) => {
+      .onUpdate(e => {
         if (e.translationX < 0) {
           translateX.value = e.translationX;
         }
       })
-      .onEnd((e) => {
-        if (e.translationX < -(sheetWidth * DISMISS_THRESHOLD) || e.velocityX < -500) {
+      .onEnd(e => {
+        if (
+          e.translationX < -(sheetWidth * DISMISS_THRESHOLD) ||
+          e.velocityX < -500
+        ) {
           scheduleOnRN(handleDismiss);
         } else {
           translateX.value = withSpring(0, motion.spring.sheet);
@@ -182,11 +215,19 @@ export const LeftSheet = React.forwardRef<LeftSheetRef, LeftSheetProps>(
 
     return (
       <Masicn>
-        <View style={styles.overlay} pointerEvents={hideBackdrop ? 'box-none' : undefined}>
+        <View
+          style={styles.overlay}
+          pointerEvents={hideBackdrop ? 'box-none' : undefined}
+        >
           {!hideBackdrop && (
-            <Animated.View style={[StyleSheet.absoluteFill, animatedBackdropStyle]}>
+            <Animated.View
+              style={[StyleSheet.absoluteFill, animatedBackdropStyle]}
+            >
               <Pressable
-                style={[styles.backdrop, { backgroundColor: theme.colors.overlay }]}
+                style={[
+                  styles.backdrop,
+                  { backgroundColor: theme.colors.overlay },
+                ]}
                 onPress={handleDismiss}
               />
             </Animated.View>
@@ -209,15 +250,18 @@ export const LeftSheet = React.forwardRef<LeftSheetRef, LeftSheetProps>(
                 },
                 style,
                 animatedSheetStyle,
-              ]}>
+              ]}
+            >
               <KeyboardAvoidingView
                 style={styles.content}
-                behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
+                behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+              >
                 <ScrollView
                   style={styles.flex1}
                   contentContainerStyle={styles.scrollContent}
                   keyboardShouldPersistTaps="handled"
-                  bounces={false}>
+                  bounces={false}
+                >
                   {children}
                 </ScrollView>
               </KeyboardAvoidingView>

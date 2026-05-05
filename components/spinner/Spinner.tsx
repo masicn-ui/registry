@@ -1,5 +1,10 @@
 import React from 'react';
-import { ActivityIndicator, View, StyleSheet, type ViewStyle } from 'react-native';
+import {
+  ActivityIndicator,
+  View,
+  StyleSheet,
+  type ViewStyle,
+} from 'react-native';
 import { Text, spacing, useTheme } from '../../../masicn';
 
 interface SpinnerProps {

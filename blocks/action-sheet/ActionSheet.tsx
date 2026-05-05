@@ -110,12 +110,15 @@ export const ActionSheet = React.memo(function ActionSheet({
 }: ActionSheetProps) {
   const { theme } = useTheme();
 
-  const handleOptionPress = useCallback((option: ActionSheetOption) => {
-    if (!option.disabled) {
-      option.onPress();
-      onClose();
-    }
-  }, [onClose]);
+  const handleOptionPress = useCallback(
+    (option: ActionSheetOption) => {
+      if (!option.disabled) {
+        option.onPress();
+        onClose();
+      }
+    },
+    [onClose],
+  );
 
   return (
     <BottomSheet visible={visible} onClose={onClose} style={style}>
@@ -148,13 +151,12 @@ export const ActionSheet = React.memo(function ActionSheet({
             hitSlop={spacing.sm}
             style={({ pressed }) => [
               styles.option,
-              pressed && !option.disabled && { backgroundColor: theme.colors.highlight },
+              pressed &&
+                !option.disabled && { backgroundColor: theme.colors.highlight },
             ]}
           >
             {option.icon && (
-              <View style={styles.optionIcon}>
-                {option.icon}
-              </View>
+              <View style={styles.optionIcon}>{option.icon}</View>
             )}
             <Text
               variant="bodyLarge"
@@ -162,8 +164,8 @@ export const ActionSheet = React.memo(function ActionSheet({
                 option.disabled
                   ? 'textDisabled'
                   : option.destructive
-                    ? 'error'
-                    : 'textPrimary'
+                  ? 'error'
+                  : 'textPrimary'
               }
               style={styles.optionLabel}
             >
@@ -180,7 +182,10 @@ export const ActionSheet = React.memo(function ActionSheet({
           accessibilityRole="button"
           accessibilityLabel={cancelLabel}
           hitSlop={spacing.sm}
-          style={[styles.cancelButton, { borderTopColor: theme.colors.borderSecondary }]}
+          style={[
+            styles.cancelButton,
+            { borderTopColor: theme.colors.borderSecondary },
+          ]}
         >
           <Text variant="bodyLarge" color="primary" bold>
             {cancelLabel}

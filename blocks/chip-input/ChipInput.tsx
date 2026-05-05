@@ -1,4 +1,10 @@
-import React, { useState, useRef, forwardRef, useImperativeHandle, useCallback } from 'react';
+import React, {
+  useState,
+  useRef,
+  forwardRef,
+  useImperativeHandle,
+  useCallback,
+} from 'react';
 import {
   View,
   TextInput as RNTextInput,
@@ -6,7 +12,16 @@ import {
   StyleSheet,
   type ViewStyle,
 } from 'react-native';
-import { Stack, Text, borders, radius, sizes, spacing, typography, useTheme } from '../../../masicn';
+import {
+  Stack,
+  Text,
+  borders,
+  radius,
+  sizes,
+  spacing,
+  typography,
+  useTheme,
+} from '../../../masicn';
 import { Chip } from '../../components';
 
 type ChipInputSize = 'sm' | 'md' | 'lg';
@@ -98,121 +113,141 @@ export interface ChipInputRef {
   focus: () => void;
 }
 
-export const ChipInput = forwardRef<ChipInputRef, ChipInputProps>(function ChipInput({
-  value,
-  onValueChange,
-  placeholder = 'Add a tag…',
-  label,
-  error,
-  helperText,
-  disabled = false,
-  maxTags,
-  size = 'md',
-  containerStyle,
-}, ref) {
-  const { theme } = useTheme();
-  const [inputValue, setInputValue] = useState('');
-  const inputRef = useRef<RNTextInput>(null);
+export const ChipInput = forwardRef<ChipInputRef, ChipInputProps>(
+  function ChipInput(
+    {
+      value,
+      onValueChange,
+      placeholder = 'Add a tag…',
+      label,
+      error,
+      helperText,
+      disabled = false,
+      maxTags,
+      size = 'md',
+      containerStyle,
+    },
+    ref,
+  ) {
+    const { theme } = useTheme();
+    const [inputValue, setInputValue] = useState('');
+    const inputRef = useRef<RNTextInput>(null);
 
-  useImperativeHandle(ref, () => ({
-    focus: () => inputRef.current?.focus(),
-  }));
-  const hasError = !!error;
-  const atMax = maxTags !== undefined && value.length >= maxTags;
+    useImperativeHandle(ref, () => ({
+      focus: () => inputRef.current?.focus(),
+    }));
+    const hasError = !!error;
+    const atMax = maxTags !== undefined && value.length >= maxTags;
 
-  const addTag = useCallback((raw: string) => {
-    const tag = raw.trim().replace(/,+$/, '');
-    if (!tag || value.includes(tag) || atMax) { return; }
-    onValueChange([...value, tag]);
-    setInputValue('');
-  }, [value, onValueChange, atMax]);
+    const addTag = useCallback(
+      (raw: string) => {
+        const tag = raw.trim().replace(/,+$/, '');
+        if (!tag || value.includes(tag) || atMax) {
+          return;
+        }
+        onValueChange([...value, tag]);
+        setInputValue('');
+      },
+      [value, onValueChange, atMax],
+    );
 
-  const removeTag = useCallback((tag: string) => {
-    onValueChange(value.filter(t => t !== tag));
-  }, [value, onValueChange]);
+    const removeTag = useCallback(
+      (tag: string) => {
+        onValueChange(value.filter(t => t !== tag));
+      },
+      [value, onValueChange],
+    );
 
-  const handleChangeText = useCallback((text: string) => {
-    if (text.endsWith(',')) {
-      addTag(text.slice(0, -1));
-    } else {
-      setInputValue(text);
-    }
-  }, [addTag]);
+    const handleChangeText = useCallback(
+      (text: string) => {
+        if (text.endsWith(',')) {
+          addTag(text.slice(0, -1));
+        } else {
+          setInputValue(text);
+        }
+      },
+      [addTag],
+    );
 
-  const handleSubmit = useCallback(() => {
-    addTag(inputValue);
-  }, [addTag, inputValue]);
+    const handleSubmit = useCallback(() => {
+      addTag(inputValue);
+    }, [addTag, inputValue]);
 
-  const borderColor = hasError
-    ? theme.colors.error
-    : theme.colors.inputBorder;
+    const borderColor = hasError
+      ? theme.colors.error
+      : theme.colors.inputBorder;
 
-  const labelColor = hasError
-    ? theme.colors.error
-    : theme.colors.textPrimary;
+    const labelColor = hasError ? theme.colors.error : theme.colors.textPrimary;
 
-  return (
-    <Stack gap="xs" style={containerStyle}>
-      {label && (
-        <Text variant="label" style={{ color: labelColor }}>
-          {label}
-        </Text>
-      )}
-      <Pressable
-        onPress={() => inputRef.current?.focus()}
-        accessibilityRole="none"
-        accessibilityLabel={label ?? 'Tag input'}
-        style={[
-          styles.container,
-          {
-            backgroundColor: disabled
-              ? theme.colors.disabled
-              : theme.colors.inputBackground,
-            borderColor,
-            minHeight: sizeConfig[size].minHeight,
-          },
-        ]}>
-        {/* Wrapping chip row — tags flow to a new line when full-width is reached */}
-        <View style={[styles.chipRow, { padding: sizeConfig[size].padding }]}>
-          {value.map(tag => (
-            <Chip
-              key={tag}
-              label={tag}
-              onRemove={!disabled ? () => removeTag(tag) : undefined}
-            />
-          ))}
-          {!atMax && (
-            <RNTextInput
-              ref={inputRef}
-              value={inputValue}
-              onChangeText={handleChangeText}
-              onSubmitEditing={handleSubmit}
-              placeholder={value.length === 0 ? placeholder : undefined}
-              placeholderTextColor={theme.colors.inputPlaceholder}
-              editable={!disabled}
-              returnKeyType="done"
-              blurOnSubmit={false}
-              accessibilityLabel={label ?? 'Tag input'}
-              style={[
-                typography.body,
-                styles.input,
-                { color: disabled ? theme.colors.textDisabled : theme.colors.textPrimary },
-              ]}
-            />
-          )}
-        </View>
-      </Pressable>
-      {(hasError || helperText) && (
-        <Text
-          variant="caption"
-          color={hasError ? 'error' : 'textTertiary'}
-          accessibilityLiveRegion={hasError ? 'polite' : undefined}>
-          {error || helperText}
-        </Text>
-      )}
-    </Stack>
-  );
-});
+    return (
+      <Stack gap="xs" style={containerStyle}>
+        {label && (
+          <Text variant="label" style={{ color: labelColor }}>
+            {label}
+          </Text>
+        )}
+        <Pressable
+          onPress={() => inputRef.current?.focus()}
+          accessibilityRole="none"
+          accessibilityLabel={label ?? 'Tag input'}
+          style={[
+            styles.container,
+            {
+              backgroundColor: disabled
+                ? theme.colors.disabled
+                : theme.colors.inputBackground,
+              borderColor,
+              minHeight: sizeConfig[size].minHeight,
+            },
+          ]}
+        >
+          {/* Wrapping chip row — tags flow to a new line when full-width is reached */}
+          <View style={[styles.chipRow, { padding: sizeConfig[size].padding }]}>
+            {value.map(tag => (
+              <Chip
+                key={tag}
+                label={tag}
+                onRemove={!disabled ? () => removeTag(tag) : undefined}
+              />
+            ))}
+            {!atMax && (
+              <RNTextInput
+                ref={inputRef}
+                value={inputValue}
+                onChangeText={handleChangeText}
+                onSubmitEditing={handleSubmit}
+                placeholder={value.length === 0 ? placeholder : undefined}
+                placeholderTextColor={theme.colors.inputPlaceholder}
+                editable={!disabled}
+                returnKeyType="done"
+                blurOnSubmit={false}
+                accessibilityLabel={label ?? 'Tag input'}
+                style={[
+                  typography.body,
+                  styles.input,
+                  {
+                    color: disabled
+                      ? theme.colors.textDisabled
+                      : theme.colors.textPrimary,
+                  },
+                ]}
+              />
+            )}
+          </View>
+        </Pressable>
+        {(hasError || helperText) && (
+          <Text
+            variant="caption"
+            color={hasError ? 'error' : 'textTertiary'}
+            accessibilityLiveRegion={hasError ? 'polite' : undefined}
+          >
+            {error || helperText}
+          </Text>
+        )}
+      </Stack>
+    );
+  },
+);
 
 export type { ChipInputProps };
 

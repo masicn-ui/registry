@@ -5,7 +5,7 @@ import {
   type ViewStyle,
   type LayoutChangeEvent,
 } from 'react-native';
-import { spacing } from '../../../masicn'
+import { spacing } from '../../../masicn';
 
 export interface MasonryGridProps<T> {
   /** Number of columns */
@@ -103,22 +103,26 @@ export function MasonryGrid<T>({
   keyExtractor = (_, index) => `masonry-item-${index}`,
   testID,
 }: MasonryGridProps<T>) {
-  const [measuredHeights, setMeasuredHeights] = useState<Map<string, number>>(new Map());
+  const [measuredHeights, setMeasuredHeights] = useState<Map<string, number>>(
+    new Map(),
+  );
 
   const gapValue = spacing[gap];
 
   // Distribute items across columns based on known or measured heights
   const distributeItems = useCallback(() => {
-    const columnItems: Array<Array<{ item: T; index: number; key: string }>> = Array(columns)
-      .fill(null)
-      .map(() => []);
+    const columnItems: Array<Array<{ item: T; index: number; key: string }>> =
+      Array(columns)
+        .fill(null)
+        .map(() => []);
     const heights = Array(columns).fill(0);
 
     data.forEach((item, index) => {
       const key = keyExtractor(item, index);
       // Prefer caller-supplied height, then fall back to measured height
       const knownHeight = getItemHeight ? getItemHeight(item, index) : 0;
-      const itemHeight = knownHeight > 0 ? knownHeight : (measuredHeights.get(key) || 0);
+      const itemHeight =
+        knownHeight > 0 ? knownHeight : measuredHeights.get(key) || 0;
 
       // Find column with minimum height
       const minHeightIndex = heights.indexOf(Math.min(...heights));
@@ -132,30 +136,34 @@ export function MasonryGrid<T>({
   const handleItemLayout = useCallback(
     (key: string) => (event: LayoutChangeEvent) => {
       const { height } = event.nativeEvent.layout;
-      setMeasuredHeights((prev) => {
-        if (prev.get(key) === height) { return prev; }
+      setMeasuredHeights(prev => {
+        if (prev.get(key) === height) {
+          return prev;
+        }
         const newMap = new Map(prev);
         newMap.set(key, height);
         return newMap;
       });
     },
-    []
+    [],
   );
 
   const columnItems = distributeItems();
 
   return (
-    <View style={[styles.container, { gap: gapValue }, style]} accessibilityRole="list">
+    <View
+      style={[styles.container, { gap: gapValue }, style]}
+      accessibilityRole="list"
+    >
       {columnItems.map((items, columnIndex) => (
-        <View
-          key={`column-${columnIndex}`}
-          style={styles.column}>
+        <View key={`column-${columnIndex}`} style={styles.column}>
           {items.map(({ item, index, key }, itemIndex) => (
             <View
               key={key}
               onLayout={handleItemLayout(key)}
               testID={testID ? `${testID}-item-${index}` : undefined}
-              style={itemIndex > 0 ? { marginTop: gapValue } : undefined}>
+              style={itemIndex > 0 ? { marginTop: gapValue } : undefined}
+            >
               {renderItem(item, index)}
             </View>
           ))}

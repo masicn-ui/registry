@@ -6,7 +6,17 @@ import {
   StyleSheet,
   type TextInputProps as RNTextInputProps,
 } from 'react-native';
-import { Stack, Text, borders, iconSizes, radius, sizes, spacing, typography, useTheme } from '../../../masicn';
+import {
+  Stack,
+  Text,
+  borders,
+  iconSizes,
+  radius,
+  sizes,
+  spacing,
+  typography,
+  useTheme,
+} from '../../../masicn';
 
 type TextInputSize = 'sm' | 'md' | 'lg';
 
@@ -95,28 +105,33 @@ const TextInput = React.forwardRef<RNTextInput, TextInputProps>(
     const borderColor = hasError
       ? theme.colors.error
       : focused
-        ? theme.colors.borderFocused
-        : theme.colors.inputBorder;
+      ? theme.colors.borderFocused
+      : theme.colors.inputBorder;
 
     const labelColor = hasError
       ? theme.colors.error
       : focused
-        ? theme.colors.borderFocused
-        : theme.colors.textPrimary;
+      ? theme.colors.borderFocused
+      : theme.colors.textPrimary;
 
     const currentValue = typeof rest.value === 'string' ? rest.value : '';
     const showClear = clearButton && currentValue.length > 0 && !disabled;
 
-    const charCount = rest.maxLength !== undefined
-      ? `${currentValue.length} / ${rest.maxLength}`
-      : null;
+    const charCount =
+      rest.maxLength !== undefined
+        ? `${currentValue.length} / ${rest.maxLength}`
+        : null;
 
     const bottomRow = hasError || helperText || charCount;
 
     return (
       <Stack gap="xs">
         {label && (
-          <Text variant="label" nativeID={`${inputId}-label`} style={{ color: labelColor }}>
+          <Text
+            variant="label"
+            nativeID={`${inputId}-label`}
+            style={{ color: labelColor }}
+          >
             {label}
           </Text>
         )}
@@ -125,11 +140,16 @@ const TextInput = React.forwardRef<RNTextInput, TextInputProps>(
             styles.container,
             sizeStyles[size],
             {
-              backgroundColor: disabled ? theme.colors.disabled : theme.colors.inputBackground,
+              backgroundColor: disabled
+                ? theme.colors.disabled
+                : theme.colors.inputBackground,
               borderColor,
             },
-          ]}>
-          {startAdornment && <View style={styles.adornment}>{startAdornment}</View>}
+          ]}
+        >
+          {startAdornment && (
+            <View style={styles.adornment}>{startAdornment}</View>
+          )}
           <RNTextInput
             ref={ref}
             editable={!disabled}
@@ -138,12 +158,22 @@ const TextInput = React.forwardRef<RNTextInput, TextInputProps>(
             accessibilityHint={error ? error : accessibilityHint}
             accessibilityState={{ disabled }}
             accessibilityLabelledBy={label ? `${inputId}-label` : undefined}
-            onFocus={e => { setFocused(true); rest.onFocus?.(e); }}
-            onBlur={e => { setFocused(false); rest.onBlur?.(e); }}
+            onFocus={e => {
+              setFocused(true);
+              rest.onFocus?.(e);
+            }}
+            onBlur={e => {
+              setFocused(false);
+              rest.onBlur?.(e);
+            }}
             style={[
               typography.body,
               styles.input,
-              { color: disabled ? theme.colors.textDisabled : theme.colors.textPrimary },
+              {
+                color: disabled
+                  ? theme.colors.textDisabled
+                  : theme.colors.textPrimary,
+              },
               style,
             ]}
             {...rest}
@@ -155,8 +185,15 @@ const TextInput = React.forwardRef<RNTextInput, TextInputProps>(
               accessibilityRole="button"
               accessibilityLabel="Clear text"
               testID={rest.testID ? `${rest.testID}-clear` : undefined}
-              style={styles.adornment}>
-              <Text variant="caption" style={{ color: theme.colors.textSecondary, fontSize: iconSizes.action }}>
+              style={styles.adornment}
+            >
+              <Text
+                variant="caption"
+                style={{
+                  color: theme.colors.textSecondary,
+                  fontSize: iconSizes.action,
+                }}
+              >
                 ×
               </Text>
             </Pressable>
@@ -169,10 +206,15 @@ const TextInput = React.forwardRef<RNTextInput, TextInputProps>(
               variant="caption"
               color={hasError ? 'error' : 'textTertiary'}
               style={styles.helperText}
-              accessibilityLiveRegion={hasError ? 'polite' : undefined}>
+              accessibilityLiveRegion={hasError ? 'polite' : undefined}
+            >
               {error || helperText || ''}
             </Text>
-            {charCount && <Text variant="caption" color="textTertiary">{charCount}</Text>}
+            {charCount && (
+              <Text variant="caption" color="textTertiary">
+                {charCount}
+              </Text>
+            )}
           </View>
         )}
       </Stack>
@@ -186,9 +228,21 @@ export { TextInput };
 export type { TextInputProps, TextInputSize };
 
 const sizeStyles = StyleSheet.create({
-  sm: { minHeight: sizes.inputSm, paddingVertical: spacing.xs, paddingHorizontal: spacing.sm },
-  md: { minHeight: sizes.inputMd, paddingVertical: spacing.sm, paddingHorizontal: spacing.md },
-  lg: { minHeight: sizes.inputLg, paddingVertical: spacing.md, paddingHorizontal: spacing.md },
+  sm: {
+    minHeight: sizes.inputSm,
+    paddingVertical: spacing.xs,
+    paddingHorizontal: spacing.sm,
+  },
+  md: {
+    minHeight: sizes.inputMd,
+    paddingVertical: spacing.sm,
+    paddingHorizontal: spacing.md,
+  },
+  lg: {
+    minHeight: sizes.inputLg,
+    paddingVertical: spacing.md,
+    paddingHorizontal: spacing.md,
+  },
 });
 
 const styles = StyleSheet.create({
@@ -200,6 +254,10 @@ const styles = StyleSheet.create({
   },
   input: { flex: 1 },
   adornment: { justifyContent: 'center', marginHorizontal: spacing.xs },
-  bottomRow: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' },
+  bottomRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
   helperText: { flex: 1 },
 });

@@ -6,7 +6,17 @@ import {
   StyleSheet,
   type ViewStyle,
 } from 'react-native';
-import { Stack, Text, borders, opacity as opacityTokens, radius, sizes, spacing, typography, useTheme } from '../../../masicn';
+import {
+  Stack,
+  Text,
+  borders,
+  opacity as opacityTokens,
+  radius,
+  sizes,
+  spacing,
+  typography,
+  useTheme,
+} from '../../../masicn';
 
 type NumericSize = 'sm' | 'md' | 'lg';
 
@@ -97,20 +107,23 @@ export interface NumericProps {
  *   error={guestCount > 10 ? 'Exceeds maximum' : undefined}
  * />
  */
-export const Numeric = forwardRef<RNTextInput, NumericProps>(function Numeric({
-  value,
-  onValueChange,
-  min = -Infinity,
-  max = Infinity,
-  step = 1,
-  label,
-  helperText,
-  error,
-  disabled = false,
-  size = 'md',
-  containerStyle,
-  testID,
-}, ref) {
+export const Numeric = forwardRef<RNTextInput, NumericProps>(function Numeric(
+  {
+    value,
+    onValueChange,
+    min = -Infinity,
+    max = Infinity,
+    step = 1,
+    label,
+    helperText,
+    error,
+    disabled = false,
+    size = 'md',
+    containerStyle,
+    testID,
+  },
+  ref,
+) {
   const { theme } = useTheme();
   const [focused, setFocused] = useState(false);
   // Keep a local text string while the user is typing to avoid jumpy behaviour
@@ -131,13 +144,16 @@ export const Numeric = forwardRef<RNTextInput, NumericProps>(function Numeric({
     onValueChange(next);
   }, [value, step, min, max, onValueChange]);
 
-  const handleChangeText = useCallback((text: string) => {
-    setLocalText(text);
-    const parsed = parseFloat(text);
-    if (!isNaN(parsed)) {
-      onValueChange(clampValue(parsed, min, max));
-    }
-  }, [min, max, onValueChange]);
+  const handleChangeText = useCallback(
+    (text: string) => {
+      setLocalText(text);
+      const parsed = parseFloat(text);
+      if (!isNaN(parsed)) {
+        onValueChange(clampValue(parsed, min, max));
+      }
+    },
+    [min, max, onValueChange],
+  );
 
   // Commit on blur — re-sync to the actual clamped value
   const handleBlur = useCallback(() => {
@@ -150,8 +166,8 @@ export const Numeric = forwardRef<RNTextInput, NumericProps>(function Numeric({
   const borderColor = hasError
     ? theme.colors.error
     : focused
-      ? theme.colors.borderFocused
-      : theme.colors.inputBorder;
+    ? theme.colors.borderFocused
+    : theme.colors.inputBorder;
 
   const activeButtonBg = theme.colors.surfaceSecondary;
   const disabledButtonBg = theme.colors.disabled;
@@ -165,14 +181,19 @@ export const Numeric = forwardRef<RNTextInput, NumericProps>(function Numeric({
             color: hasError
               ? theme.colors.error
               : focused
-                ? theme.colors.borderFocused
-                : theme.colors.textPrimary,
-          }}>
+              ? theme.colors.borderFocused
+              : theme.colors.textPrimary,
+          }}
+        >
           {label}
         </Text>
       )}
 
-      <View style={styles.row} accessibilityRole="spinbutton" accessibilityValue={{ min, max, now: value, text: String(value) }}>
+      <View
+        style={styles.row}
+        accessibilityRole="spinbutton"
+        accessibilityValue={{ min, max, now: value, text: String(value) }}
+      >
         {/* Decrement button */}
         <Pressable
           onPress={decrement}
@@ -190,8 +211,16 @@ export const Numeric = forwardRef<RNTextInput, NumericProps>(function Numeric({
               borderColor: theme.colors.inputBorder,
               backgroundColor: canDecrement ? activeButtonBg : disabledButtonBg,
             },
-          ]}>
-          <Text variant={sizeConfig[size].labelVariant} style={{ color: canDecrement ? theme.colors.textPrimary : theme.colors.textDisabled }}>
+          ]}
+        >
+          <Text
+            variant={sizeConfig[size].labelVariant}
+            style={{
+              color: canDecrement
+                ? theme.colors.textPrimary
+                : theme.colors.textDisabled,
+            }}
+          >
             −
           </Text>
         </Pressable>
@@ -204,9 +233,12 @@ export const Numeric = forwardRef<RNTextInput, NumericProps>(function Numeric({
             {
               height: sizeConfig[size].buttonSize,
               borderColor,
-              backgroundColor: disabled ? theme.colors.disabled : theme.colors.inputBackground,
+              backgroundColor: disabled
+                ? theme.colors.disabled
+                : theme.colors.inputBackground,
             },
-          ]}>
+          ]}
+        >
           <RNTextInput
             ref={ref}
             testID={testID}
@@ -223,7 +255,11 @@ export const Numeric = forwardRef<RNTextInput, NumericProps>(function Numeric({
             style={[
               typography.body,
               styles.input,
-              { color: disabled ? theme.colors.textDisabled : theme.colors.textPrimary },
+              {
+                color: disabled
+                  ? theme.colors.textDisabled
+                  : theme.colors.textPrimary,
+              },
             ]}
           />
         </View>
@@ -245,8 +281,16 @@ export const Numeric = forwardRef<RNTextInput, NumericProps>(function Numeric({
               borderColor: theme.colors.inputBorder,
               backgroundColor: canIncrement ? activeButtonBg : disabledButtonBg,
             },
-          ]}>
-          <Text variant={sizeConfig[size].labelVariant} style={{ color: canIncrement ? theme.colors.textPrimary : theme.colors.textDisabled }}>
+          ]}
+        >
+          <Text
+            variant={sizeConfig[size].labelVariant}
+            style={{
+              color: canIncrement
+                ? theme.colors.textPrimary
+                : theme.colors.textDisabled,
+            }}
+          >
             +
           </Text>
         </Pressable>
@@ -256,7 +300,8 @@ export const Numeric = forwardRef<RNTextInput, NumericProps>(function Numeric({
         <Text
           variant="caption"
           color={hasError ? 'error' : 'textTertiary'}
-          accessibilityLiveRegion={hasError ? 'polite' : undefined}>
+          accessibilityLiveRegion={hasError ? 'polite' : undefined}
+        >
           {error || helperText}
         </Text>
       )}

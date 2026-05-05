@@ -1,9 +1,5 @@
 import React, { useCallback, useEffect, useRef } from 'react';
-import {
-  View,
-  StyleSheet,
-  type ViewStyle,
-} from 'react-native';
+import { View, StyleSheet, type ViewStyle } from 'react-native';
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
@@ -129,12 +125,12 @@ export function RangeSlider({
     [min, range, sliderWidth],
   );
   const toValue = useCallback(
-    (pos: number) =>
-      min + Math.max(0, Math.min(1, pos / sliderWidth)) * range,
+    (pos: number) => min + Math.max(0, Math.min(1, pos / sliderWidth)) * range,
     [min, range, sliderWidth],
   );
   const snap = useCallback(
-    (raw: number) => Math.max(min, Math.min(max, Math.round(raw / step) * step)),
+    (raw: number) =>
+      Math.max(min, Math.min(max, Math.round(raw / step) * step)),
     [min, max, step],
   );
   const minGapPx = (minGap / range) * sliderWidth;
@@ -151,14 +147,14 @@ export function RangeSlider({
     if (sliderWidth > 0) {
       lowPosShared.value = toPos(minValue);
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [minValue, sliderWidth]);
 
   useEffect(() => {
     if (sliderWidth > 0) {
       highPosShared.value = toPos(maxValue);
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [maxValue, sliderWidth]);
 
   // ── Animated styles ───────────────────────────────────────────────────
@@ -191,21 +187,27 @@ export function RangeSlider({
   maxValueRef.current = maxValue;
   minValueRef.current = minValue;
 
-  const commitLow = useCallback((pos: number) => {
-    const next = snap(toValue(pos));
-    const clamped = Math.min(next, maxValueRef.current - minGap);
-    if (clamped !== minValueRef.current) {
-      onRangeChange(clamped, maxValueRef.current);
-    }
-  }, [snap, toValue, minGap, onRangeChange]);
+  const commitLow = useCallback(
+    (pos: number) => {
+      const next = snap(toValue(pos));
+      const clamped = Math.min(next, maxValueRef.current - minGap);
+      if (clamped !== minValueRef.current) {
+        onRangeChange(clamped, maxValueRef.current);
+      }
+    },
+    [snap, toValue, minGap, onRangeChange],
+  );
 
-  const commitHigh = useCallback((pos: number) => {
-    const next = snap(toValue(pos));
-    const clamped = Math.max(next, minValueRef.current + minGap);
-    if (clamped !== maxValueRef.current) {
-      onRangeChange(minValueRef.current, clamped);
-    }
-  }, [snap, toValue, minGap, onRangeChange]);
+  const commitHigh = useCallback(
+    (pos: number) => {
+      const next = snap(toValue(pos));
+      const clamped = Math.max(next, minValueRef.current + minGap);
+      if (clamped !== maxValueRef.current) {
+        onRangeChange(minValueRef.current, clamped);
+      }
+    },
+    [snap, toValue, minGap, onRangeChange],
+  );
 
   const lowGesture = Gesture.Pan()
     .minDistance(0)
@@ -216,12 +218,19 @@ export function RangeSlider({
     })
     .onUpdate(e => {
       const raw = lowSavedPos.current + e.translationX;
-      const clamped = Math.max(0, Math.min(highPosShared.value - minGapPx, raw));
+      const clamped = Math.max(
+        0,
+        Math.min(highPosShared.value - minGapPx, raw),
+      );
       lowPosShared.value = clamped;
       scheduleOnRN(commitLow, clamped);
     })
-    .onEnd(() => { lowDragging.value = false; })
-    .onFinalize(() => { lowDragging.value = false; });
+    .onEnd(() => {
+      lowDragging.value = false;
+    })
+    .onFinalize(() => {
+      lowDragging.value = false;
+    });
 
   const highGesture = Gesture.Pan()
     .minDistance(0)
@@ -232,26 +241,41 @@ export function RangeSlider({
     })
     .onUpdate(e => {
       const raw = highSavedPos.current + e.translationX;
-      const clamped = Math.max(lowPosShared.value + minGapPx, Math.min(sliderWidth, raw));
+      const clamped = Math.max(
+        lowPosShared.value + minGapPx,
+        Math.min(sliderWidth, raw),
+      );
       highPosShared.value = clamped;
       scheduleOnRN(commitHigh, clamped);
     })
-    .onEnd(() => { highDragging.value = false; })
-    .onFinalize(() => { highDragging.value = false; });
+    .onEnd(() => {
+      highDragging.value = false;
+    })
+    .onFinalize(() => {
+      highDragging.value = false;
+    });
 
   // ── Render ────────────────────────────────────────────────────────────
 
   return (
-    <View style={[styles.container, disabled && styles.disabled, containerStyle]}>
+    <View
+      style={[styles.container, disabled && styles.disabled, containerStyle]}
+    >
       {(label || showValues) && (
         <View style={styles.header}>
           {label && (
-            <Text variant="body" color={disabled ? 'textDisabled' : 'textPrimary'}>
+            <Text
+              variant="body"
+              color={disabled ? 'textDisabled' : 'textPrimary'}
+            >
               {label}
             </Text>
           )}
           {showValues && (
-            <Text variant="bodySmall" color={disabled ? 'textDisabled' : 'textSecondary'}>
+            <Text
+              variant="bodySmall"
+              color={disabled ? 'textDisabled' : 'textSecondary'}
+            >
               {minValue} – {maxValue}
             </Text>
           )}
@@ -260,9 +284,12 @@ export function RangeSlider({
 
       <View
         style={styles.sliderContainer}
-        onLayout={e => setSliderWidth(e.nativeEvent.layout.width)}>
+        onLayout={e => setSliderWidth(e.nativeEvent.layout.width)}
+      >
         {/* Full track */}
-        <View style={[styles.track, { backgroundColor: theme.colors.disabled }]} />
+        <View
+          style={[styles.track, { backgroundColor: theme.colors.disabled }]}
+        />
 
         {/* Active range between thumbs */}
         <Animated.View
@@ -279,14 +306,23 @@ export function RangeSlider({
             accessible
             accessibilityRole="adjustable"
             accessibilityLabel={label ? `${label} minimum` : 'Minimum value'}
-            accessibilityValue={{ min, max, now: minValue, text: String(minValue) }}
+            accessibilityValue={{
+              min,
+              max,
+              now: minValue,
+              text: String(minValue),
+            }}
             onAccessibilityAction={e => {
               if (e.nativeEvent.actionName === 'increment') {
                 const next = Math.min(maxValue - minGap, minValue + step);
-                if (next !== minValue) { onRangeChange(next, maxValue); }
+                if (next !== minValue) {
+                  onRangeChange(next, maxValue);
+                }
               } else if (e.nativeEvent.actionName === 'decrement') {
                 const next = Math.max(min, minValue - step);
-                if (next !== minValue) { onRangeChange(next, maxValue); }
+                if (next !== minValue) {
+                  onRangeChange(next, maxValue);
+                }
               }
             }}
             style={[
@@ -306,14 +342,23 @@ export function RangeSlider({
             accessible
             accessibilityRole="adjustable"
             accessibilityLabel={label ? `${label} maximum` : 'Maximum value'}
-            accessibilityValue={{ min, max, now: maxValue, text: String(maxValue) }}
+            accessibilityValue={{
+              min,
+              max,
+              now: maxValue,
+              text: String(maxValue),
+            }}
             onAccessibilityAction={e => {
               if (e.nativeEvent.actionName === 'increment') {
                 const next = Math.min(max, maxValue + step);
-                if (next !== maxValue) { onRangeChange(minValue, next); }
+                if (next !== maxValue) {
+                  onRangeChange(minValue, next);
+                }
               } else if (e.nativeEvent.actionName === 'decrement') {
                 const next = Math.max(minValue + minGap, maxValue - step);
-                if (next !== maxValue) { onRangeChange(minValue, next); }
+                if (next !== maxValue) {
+                  onRangeChange(minValue, next);
+                }
               }
             }}
             style={[

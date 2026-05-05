@@ -7,7 +7,15 @@ import {
   type ViewStyle,
   type PressableProps,
 } from 'react-native';
-import { Text, borders, opacity as opacityTokens, radius, spacing, useReducedMotion, useTheme } from '../../../masicn';
+import {
+  Text,
+  borders,
+  opacity as opacityTokens,
+  radius,
+  spacing,
+  useReducedMotion,
+  useTheme,
+} from '../../../masicn';
 
 type ButtonVariant =
   | 'primary'
@@ -19,8 +27,7 @@ type ButtonVariant =
 
 type ButtonSize = 'sm' | 'md' | 'lg';
 
-interface ButtonProps
-  extends Omit<PressableProps, 'children'> {
+interface ButtonProps extends Omit<PressableProps, 'children'> {
   /** Button content — supports text, icons, or any composition */
   children?: React.ReactNode;
   /** Visual style — 'primary' fills with brand color, 'secondary' uses secondary brand color, 'tertiary' uses tertiary color, 'outline' shows a bordered transparent button, 'ghost' has no border or fill, 'destructive' uses error color. Defaults to 'primary'. */
@@ -113,24 +120,31 @@ const Button = React.forwardRef<View, ButtonProps>(function Button(
   } as const;
 
   const sizeStyle = sizeStyles[size];
-  const textColor = isDisabled ? theme.colors.textDisabled : textColorMap[variant];
+  const textColor = isDisabled
+    ? theme.colors.textDisabled
+    : textColorMap[variant];
 
   const resolvedLabel =
-    accessibilityLabel ??
-    (typeof children === 'string' ? children : undefined);
+    accessibilityLabel ?? (typeof children === 'string' ? children : undefined);
 
   const renderContent = () => {
     if (loading) {
       return <ActivityIndicator color={textColor} size="small" />;
     }
 
-    const label = children
-      ? typeof children === 'string'
-        ? <Text variant="label" style={{ color: textColor }}>{children}</Text>
-        : <>{children}</>
-      : null;
+    const label = children ? (
+      typeof children === 'string' ? (
+        <Text variant="label" style={{ color: textColor }}>
+          {children}
+        </Text>
+      ) : (
+        <>{children}</>
+      )
+    ) : null;
 
-    if (!leftIcon && !rightIcon) { return label; }
+    if (!leftIcon && !rightIcon) {
+      return label;
+    }
 
     return (
       <>
@@ -153,18 +167,25 @@ const Button = React.forwardRef<View, ButtonProps>(function Button(
       style={({ pressed }) => [
         styles.base,
         sizeStyle,
-        { backgroundColor: isDisabled ? theme.colors.disabled : fillMap[variant] },
+        {
+          backgroundColor: isDisabled
+            ? theme.colors.disabled
+            : fillMap[variant],
+        },
         variant === 'outline' && {
           borderWidth: borders.medium,
           borderColor: isDisabled
             ? theme.colors.borderSecondary
             : theme.colors.primary,
         },
-        pressed && !isDisabled && !reducedMotion && { opacity: opacityTokens.pressed },
+        pressed &&
+          !isDisabled &&
+          !reducedMotion && { opacity: opacityTokens.pressed },
         containerStyle,
         typeof style === 'function' ? style({ pressed }) : style,
       ]}
-      {...rest}>
+      {...rest}
+    >
       {renderContent()}
     </Pressable>
   );

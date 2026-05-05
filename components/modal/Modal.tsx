@@ -1,12 +1,29 @@
 import React, { useImperativeHandle, useState, useCallback } from 'react';
-import { Pressable, StyleSheet, BackHandler, Platform, View } from 'react-native';
+import {
+  Pressable,
+  StyleSheet,
+  BackHandler,
+  Platform,
+  View,
+} from 'react-native';
 import Animated, {
   useSharedValue,
   useAnimatedStyle,
   withTiming,
   withSpring,
 } from 'react-native-reanimated';
-import { Text, elevation, layout, motion, radius, spacing, useFocusTrap, useReducedMotion, useTheme, Masicn } from '../../../masicn'
+import {
+  Text,
+  elevation,
+  layout,
+  motion,
+  radius,
+  spacing,
+  useFocusTrap,
+  useReducedMotion,
+  useTheme,
+  Masicn,
+} from '../../../masicn';
 
 /** Imperative handle exposed via `ref` for programmatic open/close control. */
 export interface ModalRef {
@@ -114,7 +131,9 @@ const Modal = React.forwardRef<ModalRef, ModalProps>(function Modal(
   );
 
   React.useEffect(() => {
-    const dur = reducedMotion ? motion.duration.instant : motion.duration.normal;
+    const dur = reducedMotion
+      ? motion.duration.instant
+      : motion.duration.normal;
 
     if (isVisible) {
       setShouldRender(true);
@@ -125,7 +144,9 @@ const Modal = React.forwardRef<ModalRef, ModalProps>(function Modal(
         : withSpring(1, motion.spring.dialog);
     } else {
       backdropOpacity.value = withTiming(0, { duration: dur });
-      contentScale.value = withTiming(motion.enter.scaleFrom, { duration: dur });
+      contentScale.value = withTiming(motion.enter.scaleFrom, {
+        duration: dur,
+      });
       contentOpacity.value = withTiming(0, { duration: dur });
       const timeout = setTimeout(() => setShouldRender(false), dur);
       return () => clearTimeout(timeout);
@@ -133,12 +154,17 @@ const Modal = React.forwardRef<ModalRef, ModalProps>(function Modal(
   }, [isVisible, reducedMotion, backdropOpacity, contentOpacity, contentScale]);
 
   React.useEffect(() => {
-    if (!isVisible || Platform.OS !== 'android') { return; }
+    if (!isVisible || Platform.OS !== 'android') {
+      return;
+    }
 
-    const subscription = BackHandler.addEventListener('hardwareBackPress', () => {
-      handleClose();
-      return true;
-    });
+    const subscription = BackHandler.addEventListener(
+      'hardwareBackPress',
+      () => {
+        handleClose();
+        return true;
+      },
+    );
 
     return () => subscription.remove();
   }, [isVisible, handleClose]);
@@ -159,8 +185,13 @@ const Modal = React.forwardRef<ModalRef, ModalProps>(function Modal(
   return (
     <Masicn>
       <Animated.View
-        style={[styles.overlay, animatedBackdropStyle, { backgroundColor: theme.colors.overlay }]}
-        pointerEvents="box-none">
+        style={[
+          styles.overlay,
+          animatedBackdropStyle,
+          { backgroundColor: theme.colors.overlay },
+        ]}
+        pointerEvents="box-none"
+      >
         <Pressable
           style={styles.backdrop}
           onPress={closeOnOverlayPress ? handleClose : undefined}
@@ -181,7 +212,8 @@ const Modal = React.forwardRef<ModalRef, ModalProps>(function Modal(
           accessible={true}
           accessibilityLabel={accessibilityLabel ?? 'Dialog'}
           accessibilityViewIsModal={true}
-          onStartShouldSetResponder={() => true}>
+          onStartShouldSetResponder={() => true}
+        >
           {showCloseButton && (
             <View style={styles.closeRow}>
               <Pressable
@@ -189,7 +221,11 @@ const Modal = React.forwardRef<ModalRef, ModalProps>(function Modal(
                 hitSlop={spacing.sm}
                 accessibilityRole="button"
                 accessibilityLabel="Close dialog"
-                style={[styles.closeButton, { backgroundColor: theme.colors.surfaceSecondary }]}>
+                style={[
+                  styles.closeButton,
+                  { backgroundColor: theme.colors.surfaceSecondary },
+                ]}
+              >
                 <Text variant="body" color="textSecondary">
                   ×
                 </Text>

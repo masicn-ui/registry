@@ -1,6 +1,19 @@
 import React from 'react';
-import { View, Image, StyleSheet, type ImageSourcePropType, type ImageStyle, type ViewStyle } from 'react-native';
-import { Text, radius, sizes, type Typography, useTheme } from '../../../masicn';
+import {
+  View,
+  Image,
+  StyleSheet,
+  type ImageSourcePropType,
+  type ImageStyle,
+  type ViewStyle,
+} from 'react-native';
+import {
+  Text,
+  radius,
+  sizes,
+  type Typography,
+  useTheme,
+} from '../../../masicn';
 
 export type AvatarSize = 'sm' | 'md' | 'lg';
 
@@ -82,15 +95,16 @@ export const Avatar = React.memo(function Avatar({
   const { theme } = useTheme();
   const [imageError, setImageError] = React.useState(false);
   const dim = sizeMap[size];
-  const label = initials ?? (typeof fallback === 'string' ? fallback : 'Avatar');
+  const label =
+    initials ?? (typeof fallback === 'string' ? fallback : 'Avatar');
 
   const renderInitialsView = (extraStyle?: ViewStyle) => {
     const content =
       typeof fallback === 'string'
         ? fallback
         : typeof fallback !== 'undefined'
-          ? null
-          : (initials ?? '?');
+        ? null
+        : initials ?? '?';
 
     return (
       <View
@@ -107,37 +121,44 @@ export const Avatar = React.memo(function Avatar({
             backgroundColor: theme.colors[color],
           },
           extraStyle,
-        ]}>
-        {typeof fallback !== 'undefined' && typeof fallback !== 'string'
-          ? fallback
-          : (
-            <Text
-              variant={textVariantMap[size]}
-              style={{ color: theme.colors[onColorMap[color]] }}>
-              {content}
-            </Text>
-          )}
+        ]}
+      >
+        {typeof fallback !== 'undefined' && typeof fallback !== 'string' ? (
+          fallback
+        ) : (
+          <Text
+            variant={textVariantMap[size]}
+            style={{ color: theme.colors[onColorMap[color]] }}
+          >
+            {content}
+          </Text>
+        )}
       </View>
     );
   };
 
-  const avatarNode = source && !imageError ? (
-    <Image
-      source={source}
-      accessible={true}
-      accessibilityLabel={label}
-      accessibilityRole="image"
-      onError={() => setImageError(true)}
-      testID={!badge ? testID : undefined}
-      style={[
-        styles.base,
-        { width: dim, height: dim, borderRadius: radius.full },
-        imageStyle,
-      ]}
-    />
-  ) : renderInitialsView(!badge ? style : undefined);
+  const avatarNode =
+    source && !imageError ? (
+      <Image
+        source={source}
+        accessible={true}
+        accessibilityLabel={label}
+        accessibilityRole="image"
+        onError={() => setImageError(true)}
+        testID={!badge ? testID : undefined}
+        style={[
+          styles.base,
+          { width: dim, height: dim, borderRadius: radius.full },
+          imageStyle,
+        ]}
+      />
+    ) : (
+      renderInitialsView(!badge ? style : undefined)
+    );
 
-  if (!badge) { return avatarNode; }
+  if (!badge) {
+    return avatarNode;
+  }
 
   return (
     <View style={[styles.wrapper, style]} testID={testID}>

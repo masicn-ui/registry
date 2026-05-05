@@ -10,7 +10,8 @@ import {
 } from 'react-native';
 import { spacing, useTheme } from '../../../masicn';
 
-interface RefreshableListProps<T> extends Omit<FlatListProps<T>, 'refreshControl'> {
+interface RefreshableListProps<T>
+  extends Omit<FlatListProps<T>, 'refreshControl'> {
   /** Array of items to render in the list. */
   data: T[];
   /** Function that renders each item. Follows the same signature as `FlatList` `renderItem`. */
@@ -108,8 +109,9 @@ export function RefreshableList<T>({
 }: RefreshableListProps<T>) {
   const { theme } = useTheme();
 
-  const separator = ItemSeparatorComponent
-    ?? (showSeparator
+  const separator =
+    ItemSeparatorComponent ??
+    (showSeparator
       ? () => (
           <View
             style={[

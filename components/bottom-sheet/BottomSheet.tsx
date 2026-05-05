@@ -19,7 +19,18 @@ import Animated, {
 } from 'react-native-reanimated';
 import { GestureDetector, Gesture } from 'react-native-gesture-handler';
 import { scheduleOnRN } from 'react-native-worklets';
-import { useTheme, spacing, radius, elevation, sizes, motion, motionEasing, useReducedMotion, useFocusTrap, Masicn } from '../../../masicn';
+import {
+  useTheme,
+  spacing,
+  radius,
+  elevation,
+  sizes,
+  motion,
+  motionEasing,
+  useReducedMotion,
+  useFocusTrap,
+  Masicn,
+} from '../../../masicn';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 /** Imperative handle exposed via `ref` for programmatic open/close control. */
@@ -107,7 +118,9 @@ const BottomSheet = React.forwardRef<BottomSheetRef, BottomSheetProps>(
     const reducedMotion = useReducedMotion();
     // Snapshot into a ref so the async resolution never re-triggers the animation effect mid-spring.
     const reducedMotionRef = React.useRef(reducedMotion);
-    React.useEffect(() => { reducedMotionRef.current = reducedMotion; }, [reducedMotion]);
+    React.useEffect(() => {
+      reducedMotionRef.current = reducedMotion;
+    }, [reducedMotion]);
 
     const { height: SCREEN_HEIGHT } = useWindowDimensions();
     const maxSheetHeight = SCREEN_HEIGHT * maxHeight;
@@ -153,7 +166,8 @@ const BottomSheet = React.forwardRef<BottomSheetRef, BottomSheetProps>(
     }, [isVisible, handleClose]);
 
     const sheetHeight = Math.min(
-      contentHeight + (showHandle ? spacing.md * 2 + sizes.bottomSheetHandle : 0),
+      contentHeight +
+        (showHandle ? spacing.md * 2 + sizes.bottomSheetHandle : 0),
       maxSheetHeight,
     );
 
@@ -166,25 +180,39 @@ const BottomSheet = React.forwardRef<BottomSheetRef, BottomSheetProps>(
         translateY.value = rm
           ? withTiming(0, { duration: motion.duration.instant })
           : withSpring(0, motion.spring.sheet);
-        opacity.value = withTiming(1, { duration: rm ? motion.duration.instant : motion.duration.slow });
+        opacity.value = withTiming(1, {
+          duration: rm ? motion.duration.instant : motion.duration.slow,
+        });
       } else {
-        const exitDuration = rm ? motion.duration.instant : motion.duration.normal;
-        translateY.value = withTiming(SCREEN_HEIGHT, { duration: exitDuration, easing: motionEasing.accelerate });
-        opacity.value = withTiming(0, { duration: exitDuration, easing: motionEasing.accelerate },
-          (finished) => { if (finished) scheduleOnRN(setShouldRender, false); },
+        const exitDuration = rm
+          ? motion.duration.instant
+          : motion.duration.normal;
+        translateY.value = withTiming(SCREEN_HEIGHT, {
+          duration: exitDuration,
+          easing: motionEasing.accelerate,
+        });
+        opacity.value = withTiming(
+          0,
+          { duration: exitDuration, easing: motionEasing.accelerate },
+          finished => {
+            if (finished) scheduleOnRN(setShouldRender, false);
+          },
         );
       }
     }, [isVisible, translateY, opacity, SCREEN_HEIGHT]);
 
     const pan = Gesture.Pan()
       .activeOffsetY([-5, 5])
-      .onUpdate((e) => {
+      .onUpdate(e => {
         if (e.translationY > 0) {
           translateY.value = e.translationY;
         }
       })
-      .onEnd((e) => {
-        if (e.translationY > sheetHeight * DISMISS_THRESHOLD || e.velocityY > 500) {
+      .onEnd(e => {
+        if (
+          e.translationY > sheetHeight * DISMISS_THRESHOLD ||
+          e.velocityY > 500
+        ) {
           scheduleOnRN(handleClose);
         } else {
           translateY.value = withSpring(0, motion.spring.sheet);
@@ -206,9 +234,14 @@ const BottomSheet = React.forwardRef<BottomSheetRef, BottomSheetProps>(
     return (
       <Masicn>
         <View style={styles.overlay}>
-          <Animated.View style={[StyleSheet.absoluteFill, animatedBackdropStyle]}>
+          <Animated.View
+            style={[StyleSheet.absoluteFill, animatedBackdropStyle]}
+          >
             <Pressable
-              style={[styles.backdrop, { backgroundColor: theme.colors.overlay }]}
+              style={[
+                styles.backdrop,
+                { backgroundColor: theme.colors.overlay },
+              ]}
               onPress={handleClose}
               accessible={false}
             />
@@ -232,7 +265,8 @@ const BottomSheet = React.forwardRef<BottomSheetRef, BottomSheetProps>(
               ]}
               accessible={true}
               accessibilityLabel={accessibilityLabel ?? 'Bottom sheet'}
-              accessibilityViewIsModal={true}>
+              accessibilityViewIsModal={true}
+            >
               {showHandle && (
                 <View style={styles.handleContainer}>
                   <View
@@ -245,7 +279,8 @@ const BottomSheet = React.forwardRef<BottomSheetRef, BottomSheetProps>(
               )}
               <KeyboardAvoidingView
                 style={styles.flex1}
-                behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
+                behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+              >
                 <ScrollView
                   style={styles.flex1}
                   contentContainerStyle={[
@@ -256,7 +291,8 @@ const BottomSheet = React.forwardRef<BottomSheetRef, BottomSheetProps>(
                   bounces={false}
                   onContentSizeChange={(_w, h) => {
                     setContentHeight(h);
-                  }}>
+                  }}
+                >
                   {children}
                 </ScrollView>
               </KeyboardAvoidingView>

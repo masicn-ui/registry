@@ -245,7 +245,7 @@
     },
     {
       "name": "slider",
-      "version": "0.0.2",
+      "version": "0.0.3",
       "category": "forms",
       "path": "components/slider/component.json"
     },

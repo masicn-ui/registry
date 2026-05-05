@@ -1,11 +1,23 @@
 import React from 'react';
+import { Pressable, View, StyleSheet } from 'react-native';
+import Reanimated, {
+  useSharedValue,
+  useAnimatedStyle,
+  withTiming,
+  interpolate,
+  interpolateColor,
+} from 'react-native-reanimated';
 import {
-  Pressable,
-  View,
-  StyleSheet,
-} from 'react-native';
-import Reanimated, { useSharedValue, useAnimatedStyle, withTiming, interpolate, interpolateColor } from 'react-native-reanimated';
-import { Text, elevation, motion, motionEasing, opacity as opacityTokens, sizes, spacing, useReducedMotion, useTheme } from '../../../masicn';
+  Text,
+  elevation,
+  motion,
+  motionEasing,
+  opacity as opacityTokens,
+  sizes,
+  spacing,
+  useReducedMotion,
+  useTheme,
+} from '../../../masicn';
 
 interface SwitchProps {
   /** Current on/off state of the switch. */
@@ -102,18 +114,30 @@ const Switch = React.forwardRef<View, SwitchProps>(function Switch(
   }, [value, reducedMotion, progress]);
 
   const handlePress = () => {
-    if (!disabled) { onValueChange(!value); }
+    if (!disabled) {
+      onValueChange(!value);
+    }
   };
 
   const THUMB_MAX = sizes.switchTrackWidth - sizes.switchThumb - THUMB_OFFSET;
 
   const animatedTrackStyle = useAnimatedStyle(() => ({
-    backgroundColor: interpolateColor(progress.value, [0, 1], [theme.colors.borderPrimary, theme.colors.primary]),
+    backgroundColor: interpolateColor(
+      progress.value,
+      [0, 1],
+      [theme.colors.borderPrimary, theme.colors.primary],
+    ),
   }));
 
   const animatedThumbStyle = useAnimatedStyle(() => ({
     transform: [
-      { translateX: interpolate(progress.value, [0, 1], [THUMB_OFFSET, THUMB_MAX]) },
+      {
+        translateX: interpolate(
+          progress.value,
+          [0, 1],
+          [THUMB_OFFSET, THUMB_MAX],
+        ),
+      },
       { scale: thumbScale.value },
     ],
   }));
@@ -125,7 +149,11 @@ const Switch = React.forwardRef<View, SwitchProps>(function Switch(
       testID={testID}
       onPress={handlePress}
       onPressIn={() => {
-        if (!disabled) { thumbScale.value = withTiming(1.08, { duration: motion.duration.fast }); }
+        if (!disabled) {
+          thumbScale.value = withTiming(1.08, {
+            duration: motion.duration.fast,
+          });
+        }
       }}
       onPressOut={() => {
         thumbScale.value = withTiming(1, { duration: motion.duration.fast });
@@ -135,7 +163,8 @@ const Switch = React.forwardRef<View, SwitchProps>(function Switch(
       accessibilityRole="switch"
       accessibilityLabel={accessibilityLabel ?? label}
       accessibilityHint={accessibilityHint}
-      accessibilityState={{ checked: value, disabled }}>
+      accessibilityState={{ checked: value, disabled }}
+    >
       <Reanimated.View style={[styles.track, animatedTrackStyle]}>
         <Reanimated.View
           style={[
@@ -149,16 +178,33 @@ const Switch = React.forwardRef<View, SwitchProps>(function Switch(
     </Pressable>
   );
 
-  if (!label && !description) { return switchElement; }
+  if (!label && !description) {
+    return switchElement;
+  }
 
   return (
-    <View ref={ref} style={[styles.container, labelPosition === 'left' && styles.containerReverse]}>
+    <View
+      ref={ref}
+      style={[
+        styles.container,
+        labelPosition === 'left' && styles.containerReverse,
+      ]}
+    >
       <View style={styles.labelContainer}>
         {label && (
-          <Text variant="body" color={disabled ? 'textDisabled' : 'textPrimary'}>{label}</Text>
+          <Text
+            variant="body"
+            color={disabled ? 'textDisabled' : 'textPrimary'}
+          >
+            {label}
+          </Text>
         )}
         {description && (
-          <Text variant="caption" color={disabled ? 'textDisabled' : 'textSecondary'} style={styles.description}>
+          <Text
+            variant="caption"
+            color={disabled ? 'textDisabled' : 'textSecondary'}
+            style={styles.description}
+          >
             {description}
           </Text>
         )}
@@ -174,12 +220,26 @@ export { Switch };
 export type { SwitchProps };
 
 const styles = StyleSheet.create({
-  container: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', gap: spacing.md },
+  container: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    gap: spacing.md,
+  },
   containerReverse: { flexDirection: 'row-reverse' },
   labelContainer: { flex: 1 },
   description: { marginTop: spacing.xxs },
   switchContainer: { padding: spacing.xxs },
   switchDisabled: { opacity: opacityTokens.disabled },
-  track: { width: sizes.switchTrackWidth, height: sizes.switchTrackHeight, borderRadius: sizes.switchTrackHeight / 2, justifyContent: 'center' },
-  thumb: { width: sizes.switchThumb, height: sizes.switchThumb, borderRadius: sizes.switchThumb / 2 },
+  track: {
+    width: sizes.switchTrackWidth,
+    height: sizes.switchTrackHeight,
+    borderRadius: sizes.switchTrackHeight / 2,
+    justifyContent: 'center',
+  },
+  thumb: {
+    width: sizes.switchThumb,
+    height: sizes.switchThumb,
+    borderRadius: sizes.switchThumb / 2,
+  },
 });

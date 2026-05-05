@@ -1,5 +1,11 @@
 import React, { useState } from 'react';
-import { Pressable, View, StyleSheet, ScrollView, type ViewStyle } from 'react-native';
+import {
+  Pressable,
+  View,
+  StyleSheet,
+  ScrollView,
+  type ViewStyle,
+} from 'react-native';
 import { Text, borders, radius, spacing, useTheme } from '../../../masicn';
 
 const DEFAULT_TEXT_THRESHOLD = 150;
@@ -132,17 +138,26 @@ const Tabs = React.forwardRef<View, TabsProps>(function Tabs(
 
   // ── Active tab panel ────────────────────────────────────────────────────────
   const activeItem = tabs.find(t => t.key === activeTab);
-  const hasPanel = !!activeItem && (activeItem.content !== undefined || activeItem.body !== undefined);
+  const hasPanel =
+    !!activeItem &&
+    (activeItem.content !== undefined || activeItem.body !== undefined);
 
   const renderPanel = () => {
-    if (!activeItem) { return null; }
+    if (!activeItem) {
+      return null;
+    }
 
     // Custom React content takes priority
     if (activeItem.content !== undefined) {
       return (
         <View
-          style={[styles.panel, { borderTopColor: theme.colors.separator }, panelStyle]}
-          accessibilityRole="none">
+          style={[
+            styles.panel,
+            { borderTopColor: theme.colors.separator },
+            panelStyle,
+          ]}
+          accessibilityRole="none"
+        >
           {activeItem.content}
         </View>
       );
@@ -158,8 +173,13 @@ const Tabs = React.forwardRef<View, TabsProps>(function Tabs(
 
       return (
         <View
-          style={[styles.panel, { borderTopColor: theme.colors.separator }, panelStyle]}
-          accessibilityRole="none">
+          style={[
+            styles.panel,
+            { borderTopColor: theme.colors.separator },
+            panelStyle,
+          ]}
+          accessibilityRole="none"
+        >
           <Text variant="body" color="textSecondary">
             {displayedBody}
           </Text>
@@ -169,7 +189,8 @@ const Tabs = React.forwardRef<View, TabsProps>(function Tabs(
               accessibilityRole="button"
               accessibilityLabel={isExpanded ? 'Show less' : 'Show more'}
               hitSlop={spacing.xs}
-              style={[styles.toggleBtn, { borderColor: theme.colors.primary }]}>
+              style={[styles.toggleBtn, { borderColor: theme.colors.primary }]}
+            >
               <Text variant="label" style={{ color: theme.colors.primary }}>
                 {isExpanded ? 'Show less' : 'Show more'}
               </Text>
@@ -198,7 +219,11 @@ const Tabs = React.forwardRef<View, TabsProps>(function Tabs(
             variant === 'underline' && styles.tabUnderline,
             variant === 'filled' && [
               styles.tabFilled,
-              { backgroundColor: isActive ? theme.colors.primary : 'transparent' },
+              {
+                backgroundColor: isActive
+                  ? theme.colors.primary
+                  : 'transparent',
+              },
             ],
             variant === 'pill' && [
               styles.tabPill,
@@ -208,26 +233,31 @@ const Tabs = React.forwardRef<View, TabsProps>(function Tabs(
                   : 'transparent',
               },
             ],
-            variant === 'underline' && isActive && {
-              borderBottomColor: theme.colors.primary,
-            },
+            variant === 'underline' &&
+              isActive && {
+                borderBottomColor: theme.colors.primary,
+              },
           ]}
           accessibilityRole="tab"
           accessibilityState={{ selected: isActive, disabled: isDisabled }}
           accessibilityHint={
-            isDisabled ? 'This tab is disabled' : `Tab ${index + 1} of ${tabs.length}`
-          }>
+            isDisabled
+              ? 'This tab is disabled'
+              : `Tab ${index + 1} of ${tabs.length}`
+          }
+        >
           <Text
             variant="label"
             style={{
               color: isDisabled
                 ? theme.colors.textDisabled
                 : isActive
-                  ? variant === 'underline'
-                    ? theme.colors.primary
-                    : theme.colors.onPrimary
-                  : theme.colors.textSecondary,
-            }}>
+                ? variant === 'underline'
+                  ? theme.colors.primary
+                  : theme.colors.onPrimary
+                : theme.colors.textSecondary,
+            }}
+          >
             {tab.label}
           </Text>
         </Pressable>
@@ -259,7 +289,8 @@ const Tabs = React.forwardRef<View, TabsProps>(function Tabs(
       contentContainerStyle={containerStyle}
       testID={testID}
       accessibilityRole="tablist"
-      accessibilityLabel={accessibilityLabel}>
+      accessibilityLabel={accessibilityLabel}
+    >
       {renderTabs()}
     </ScrollView>
   ) : (
@@ -268,7 +299,8 @@ const Tabs = React.forwardRef<View, TabsProps>(function Tabs(
       testID={testID}
       style={containerStyle}
       accessibilityRole="tablist"
-      accessibilityLabel={accessibilityLabel}>
+      accessibilityLabel={accessibilityLabel}
+    >
       {renderTabs()}
     </View>
   );

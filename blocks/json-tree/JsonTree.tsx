@@ -1,7 +1,15 @@
 // File: src/shared/blocks/json-tree/JsonTree.tsx
 import React, { useState } from 'react';
 import { Platform, StyleSheet, View } from 'react-native';
-import { Text, Box, Pressable, borders, radius, spacing, useTheme } from '../../../masicn';
+import {
+  Text,
+  Box,
+  Pressable,
+  borders,
+  radius,
+  spacing,
+  useTheme,
+} from '../../../masicn';
 
 // ── Types ─────────────────────────────────────────────────────────────────────
 
@@ -20,16 +28,30 @@ export interface JsonTreeProps {
 // ── Constants ─────────────────────────────────────────────────────────────────
 
 const INDENT_SIZE = spacing.lg;
-const MONO_FONT = Platform.select({ ios: 'Courier New', android: 'monospace', default: 'monospace' });
+const MONO_FONT = Platform.select({
+  ios: 'Courier New',
+  android: 'monospace',
+  default: 'monospace',
+});
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 
 function formatPrimitive(v: unknown): string {
-  if (typeof v === 'string') { return `"${v}"`; }
-  if (v === null) { return 'null'; }
-  if (v === undefined) { return 'undefined'; }
-  if (typeof v === 'function') { return '[Function]'; }
-  if (typeof v === 'symbol') { return v.toString(); }
+  if (typeof v === 'string') {
+    return `"${v}"`;
+  }
+  if (v === null) {
+    return 'null';
+  }
+  if (v === undefined) {
+    return 'undefined';
+  }
+  if (typeof v === 'function') {
+    return '[Function]';
+  }
+  if (typeof v === 'symbol') {
+    return v.toString();
+  }
   return String(v);
 }
 
@@ -48,7 +70,14 @@ interface NodeProps {
   seen: ReadonlySet<object>;
 }
 
-function JsonNode({ name, value, depth, defaultDepth, isLast, seen }: NodeProps) {
+function JsonNode({
+  name,
+  value,
+  depth,
+  defaultDepth,
+  isLast,
+  seen,
+}: NodeProps) {
   const { theme } = useTheme();
   const [isOpen, setIsOpen] = useState(() => depth < defaultDepth);
 
@@ -57,20 +86,32 @@ function JsonNode({ name, value, depth, defaultDepth, isLast, seen }: NodeProps)
   const indent = depth * INDENT_SIZE;
 
   const comma = !isLast ? (
-    <Text variant="bodySmall" style={[styles.mono, { color: theme.colors.textTertiary }]}>,</Text>
+    <Text
+      variant="bodySmall"
+      style={[styles.mono, { color: theme.colors.textTertiary }]}
+    >
+      ,
+    </Text>
   ) : null;
 
   // Key prefix rendered for all named nodes
-  const keyText = name !== undefined ? (
-    <>
-      <Text variant="bodySmall" style={[styles.mono, { color: theme.colors.textSecondary }]}>
-        {typeof name === 'string' ? `"${name}"` : name}
-      </Text>
-      <Text variant="bodySmall" style={[styles.mono, { color: theme.colors.textTertiary }]}>
-        {': '}
-      </Text>
-    </>
-  ) : null;
+  const keyText =
+    name !== undefined ? (
+      <>
+        <Text
+          variant="bodySmall"
+          style={[styles.mono, { color: theme.colors.textSecondary }]}
+        >
+          {typeof name === 'string' ? `"${name}"` : name}
+        </Text>
+        <Text
+          variant="bodySmall"
+          style={[styles.mono, { color: theme.colors.textTertiary }]}
+        >
+          {': '}
+        </Text>
+      </>
+    ) : null;
 
   const rowProps = {
     flexDirection: 'row' as const,
@@ -84,7 +125,14 @@ function JsonNode({ name, value, depth, defaultDepth, isLast, seen }: NodeProps)
     return (
       <Box {...rowProps}>
         {keyText}
-        <Text variant="bodySmall" style={[styles.mono, styles.italic, { color: theme.colors.textTertiary }]}>
+        <Text
+          variant="bodySmall"
+          style={[
+            styles.mono,
+            styles.italic,
+            { color: theme.colors.textTertiary },
+          ]}
+        >
           [Circular]
         </Text>
         {comma}
@@ -95,9 +143,13 @@ function JsonNode({ name, value, depth, defaultDepth, isLast, seen }: NodeProps)
   // ── Primitive ─────────────────────────────────────────────────────────────
   if (!isComplex) {
     let valueColor = theme.colors.textTertiary;
-    if (typeof value === 'string') { valueColor = theme.colors.success; }
-    else if (typeof value === 'number') { valueColor = theme.colors.info; }
-    else if (typeof value === 'boolean') { valueColor = theme.colors.warning; }
+    if (typeof value === 'string') {
+      valueColor = theme.colors.success;
+    } else if (typeof value === 'number') {
+      valueColor = theme.colors.info;
+    } else if (typeof value === 'boolean') {
+      valueColor = theme.colors.warning;
+    }
 
     return (
       <Box {...rowProps}>
@@ -108,7 +160,8 @@ function JsonNode({ name, value, depth, defaultDepth, isLast, seen }: NodeProps)
             styles.mono,
             { color: valueColor },
             (value === null || value === undefined) && styles.italic,
-          ]}>
+          ]}
+        >
           {formatPrimitive(value)}
         </Text>
         {comma}
@@ -130,7 +183,10 @@ function JsonNode({ name, value, depth, defaultDepth, isLast, seen }: NodeProps)
     return (
       <Box {...rowProps}>
         {keyText}
-        <Text variant="bodySmall" style={[styles.mono, { color: theme.colors.textPrimary }]}>
+        <Text
+          variant="bodySmall"
+          style={[styles.mono, { color: theme.colors.textPrimary }]}
+        >
           {isArr ? '[ ]' : '{ }'}
         </Text>
         {comma}
@@ -152,19 +208,45 @@ function JsonNode({ name, value, depth, defaultDepth, isLast, seen }: NodeProps)
         onPress={() => setIsOpen(prev => !prev)}
         accessibilityRole="button"
         accessibilityState={{ expanded: isOpen }}
-        accessibilityLabel={`${name ?? (isArr ? 'array' : 'object')}, ${isOpen ? 'collapse' : 'expand'}`}>
+        accessibilityLabel={`${name ?? (isArr ? 'array' : 'object')}, ${
+          isOpen ? 'collapse' : 'expand'
+        }`}
+      >
         <Box {...rowProps}>
           {keyText}
-          <Text variant="bodySmall" style={[styles.mono, { color: theme.colors.textPrimary }]}>{openBracket}</Text>
+          <Text
+            variant="bodySmall"
+            style={[styles.mono, { color: theme.colors.textPrimary }]}
+          >
+            {openBracket}
+          </Text>
           {!isOpen && (
-            <Text variant="bodySmall" style={[styles.mono, { color: theme.colors.textTertiary }]}>
+            <Text
+              variant="bodySmall"
+              style={[styles.mono, { color: theme.colors.textTertiary }]}
+            >
               {` ${countLabel} `}
             </Text>
           )}
-          {!isOpen && <Text variant="bodySmall" style={[styles.mono, { color: theme.colors.textPrimary }]}>{closeBracket}</Text>}
+          {!isOpen && (
+            <Text
+              variant="bodySmall"
+              style={[styles.mono, { color: theme.colors.textPrimary }]}
+            >
+              {closeBracket}
+            </Text>
+          )}
           {!isOpen && comma}
-          <View style={[styles.chevronWrap, { backgroundColor: theme.colors.surfaceSecondary }]}>
-            <Text variant="caption" style={{ color: theme.colors.textSecondary }}>
+          <View
+            style={[
+              styles.chevronWrap,
+              { backgroundColor: theme.colors.surfaceSecondary },
+            ]}
+          >
+            <Text
+              variant="caption"
+              style={{ color: theme.colors.textSecondary }}
+            >
               {isOpen ? '▾' : '▸'}
             </Text>
           </View>
@@ -172,22 +254,28 @@ function JsonNode({ name, value, depth, defaultDepth, isLast, seen }: NodeProps)
       </Pressable>
 
       {/* Children */}
-      {isOpen && entries.map(([k, v], i) => (
-        <JsonNode
-          key={String(k)}
-          name={k}
-          value={v}
-          depth={depth + 1}
-          defaultDepth={defaultDepth}
-          isLast={i === count - 1}
-          seen={nextSeen}
-        />
-      ))}
+      {isOpen &&
+        entries.map(([k, v], i) => (
+          <JsonNode
+            key={String(k)}
+            name={k}
+            value={v}
+            depth={depth + 1}
+            defaultDepth={defaultDepth}
+            isLast={i === count - 1}
+            seen={nextSeen}
+          />
+        ))}
 
       {/* Closing bracket row */}
       {isOpen && (
         <Box {...rowProps}>
-          <Text variant="bodySmall" style={[styles.mono, { color: theme.colors.textPrimary }]}>{closeBracket}</Text>
+          <Text
+            variant="bodySmall"
+            style={[styles.mono, { color: theme.colors.textPrimary }]}
+          >
+            {closeBracket}
+          </Text>
           {comma}
         </Box>
       )}
@@ -242,7 +330,8 @@ export function JsonTree({ data, defaultDepth = 2, title }: JsonTreeProps) {
       borderRadius="lg"
       borderWidth="thin"
       borderColor={theme.colors.borderSecondary}
-      overflow="hidden">
+      overflow="hidden"
+    >
       {title && (
         <View
           style={[
@@ -252,13 +341,14 @@ export function JsonTree({ data, defaultDepth = 2, title }: JsonTreeProps) {
               borderBottomWidth: borders.thin,
               borderBottomColor: theme.colors.borderSecondary,
             },
-          ]}>
-          <Text variant="label" color="textSecondary">{title}</Text>
+          ]}
+        >
+          <Text variant="label" color="textSecondary">
+            {title}
+          </Text>
         </View>
       )}
-      <Box
-        padding="md"
-        backgroundColor={theme.colors.surfaceTertiary}>
+      <Box padding="md" backgroundColor={theme.colors.surfaceTertiary}>
         <JsonNode
           value={data}
           depth={0}

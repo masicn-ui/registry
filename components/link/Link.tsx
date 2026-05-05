@@ -1,6 +1,17 @@
 import React from 'react';
-import { Pressable, StyleSheet, View, Linking, type PressableProps } from 'react-native';
-import { Text, opacity as opacityTokens, spacing, useTheme } from '../../../masicn';
+import {
+  Pressable,
+  StyleSheet,
+  View,
+  Linking,
+  type PressableProps,
+} from 'react-native';
+import {
+  Text,
+  opacity as opacityTokens,
+  spacing,
+  useTheme,
+} from '../../../masicn';
 
 type LinkSize = 'sm' | 'md' | 'lg';
 
@@ -133,7 +144,8 @@ export const Link = React.memo(function Link({
               resolvedUnderline === 'always' && styles.underline,
               resolvedUnderline === 'hover' && pressed && styles.underline,
               pressed && styles.pressed,
-            ]}>
+            ]}
+          >
             {children}
           </Text>
           {resolvedIcon && (
@@ -144,7 +156,8 @@ export const Link = React.memo(function Link({
                 styles.icon,
                 { color: linkColor },
                 pressed && styles.pressed,
-              ]}>
+              ]}
+            >
               {resolvedIcon}
             </Text>
           )}

@@ -19,7 +19,17 @@ import Animated, {
 } from 'react-native-reanimated';
 import { GestureDetector, Gesture } from 'react-native-gesture-handler';
 import { scheduleOnRN } from 'react-native-worklets';
-import { useTheme, spacing, radius, elevation, motion, motionEasing, useReducedMotion, useFocusTrap, Masicn } from '../../../masicn';
+import {
+  useTheme,
+  spacing,
+  radius,
+  elevation,
+  motion,
+  motionEasing,
+  useReducedMotion,
+  useFocusTrap,
+  Masicn,
+} from '../../../masicn';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 /** Imperative handle exposed via `ref` for programmatic open/close control. */
@@ -96,22 +106,27 @@ const DISMISS_THRESHOLD = 0.3;
  * />
  */
 export const DualSheet = React.forwardRef<DualSheetRef, DualSheetProps>(
-  function DualSheet({
-    visible: controlledVisible,
-    onClose,
-    onCloseLeft,
-    onCloseRight,
-    leftContent,
-    rightContent,
-    leftStyle,
-    rightStyle,
-    accessibilityLabel,
-  }: DualSheetProps, ref) {
+  function DualSheet(
+    {
+      visible: controlledVisible,
+      onClose,
+      onCloseLeft,
+      onCloseRight,
+      leftContent,
+      rightContent,
+      leftStyle,
+      rightStyle,
+      accessibilityLabel,
+    }: DualSheetProps,
+    ref,
+  ) {
     const { theme } = useTheme();
     const reducedMotion = useReducedMotion();
     // Snapshot into a ref so the async resolution never re-triggers the animation effect mid-spring.
     const reducedMotionRef = React.useRef(reducedMotion);
-    React.useEffect(() => { reducedMotionRef.current = reducedMotion; }, [reducedMotion]);
+    React.useEffect(() => {
+      reducedMotionRef.current = reducedMotion;
+    }, [reducedMotion]);
 
     const insets = useSafeAreaInsets();
     const { width: SCREEN_WIDTH } = useWindowDimensions();
@@ -126,8 +141,12 @@ export const DualSheet = React.forwardRef<DualSheetRef, DualSheetProps>(
     const isVisible = controlledVisible ?? internalVisible;
     const [shouldRender, setShouldRender] = React.useState(isVisible);
 
-    const { containerRef: leftContainerRef } = useFocusTrap({ active: isVisible });
-    const { containerRef: rightContainerRef } = useFocusTrap({ active: isVisible });
+    const { containerRef: leftContainerRef } = useFocusTrap({
+      active: isVisible,
+    });
+    const { containerRef: rightContainerRef } = useFocusTrap({
+      active: isVisible,
+    });
 
     const handleDismiss = React.useCallback(() => {
       Keyboard.dismiss();
@@ -143,10 +162,14 @@ export const DualSheet = React.forwardRef<DualSheetRef, DualSheetProps>(
       (onCloseRight ?? onClose)();
     }, [onCloseRight, onClose]);
 
-    useImperativeHandle(ref, () => ({
-      open: () => setInternalVisible(true),
-      close: handleDismiss,
-    }), [handleDismiss]);
+    useImperativeHandle(
+      ref,
+      () => ({
+        open: () => setInternalVisible(true),
+        close: handleDismiss,
+      }),
+      [handleDismiss],
+    );
 
     React.useEffect(() => {
       if (!isVisible || Platform.OS !== 'android') return;
@@ -163,7 +186,9 @@ export const DualSheet = React.forwardRef<DualSheetRef, DualSheetProps>(
       const rm = reducedMotionRef.current;
       if (isVisible) {
         setShouldRender(true);
-        backdropOpacity.value = withTiming(1, { duration: rm ? motion.duration.instant : motion.duration.slow });
+        backdropOpacity.value = withTiming(1, {
+          duration: rm ? motion.duration.instant : motion.duration.slow,
+        });
         leftTranslateX.value = rm
           ? withTiming(0, { duration: motion.duration.instant })
           : withSpring(0, motion.spring.sheet);
@@ -171,21 +196,46 @@ export const DualSheet = React.forwardRef<DualSheetRef, DualSheetProps>(
           ? withTiming(0, { duration: motion.duration.instant })
           : withSpring(0, motion.spring.sheet);
       } else {
-        const exitDuration = rm ? motion.duration.instant : motion.duration.normal;
-        leftTranslateX.value = withTiming(-leftWidth, { duration: exitDuration, easing: motionEasing.accelerate });
-        rightTranslateX.value = withTiming(rightWidth, { duration: exitDuration, easing: motionEasing.accelerate });
-        backdropOpacity.value = withTiming(0, { duration: exitDuration, easing: motionEasing.accelerate },
-          (finished) => { if (finished) scheduleOnRN(setShouldRender, false); });
+        const exitDuration = rm
+          ? motion.duration.instant
+          : motion.duration.normal;
+        leftTranslateX.value = withTiming(-leftWidth, {
+          duration: exitDuration,
+          easing: motionEasing.accelerate,
+        });
+        rightTranslateX.value = withTiming(rightWidth, {
+          duration: exitDuration,
+          easing: motionEasing.accelerate,
+        });
+        backdropOpacity.value = withTiming(
+          0,
+          { duration: exitDuration, easing: motionEasing.accelerate },
+          finished => {
+            if (finished) scheduleOnRN(setShouldRender, false);
+          },
+        );
       }
-    }, [isVisible, backdropOpacity, leftTranslateX, rightTranslateX, leftWidth, rightWidth]);
+    }, [
+      isVisible,
+      backdropOpacity,
+      leftTranslateX,
+      rightTranslateX,
+      leftWidth,
+      rightWidth,
+    ]);
 
     const leftPan = Gesture.Pan()
       .activeOffsetX([-10, 10])
-      .onUpdate((e) => {
-        if (e.translationX < 0) { leftTranslateX.value = e.translationX; }
+      .onUpdate(e => {
+        if (e.translationX < 0) {
+          leftTranslateX.value = e.translationX;
+        }
       })
-      .onEnd((e) => {
-        if (e.translationX < -(leftWidth * DISMISS_THRESHOLD) || e.velocityX < -500) {
+      .onEnd(e => {
+        if (
+          e.translationX < -(leftWidth * DISMISS_THRESHOLD) ||
+          e.velocityX < -500
+        ) {
           scheduleOnRN(handleDismissLeft);
         } else {
           leftTranslateX.value = withSpring(0, motion.spring.sheet);
@@ -194,22 +244,35 @@ export const DualSheet = React.forwardRef<DualSheetRef, DualSheetProps>(
 
     const rightPan = Gesture.Pan()
       .activeOffsetX([-10, 10])
-      .onUpdate((e) => {
-        if (e.translationX > 0) { rightTranslateX.value = e.translationX; }
+      .onUpdate(e => {
+        if (e.translationX > 0) {
+          rightTranslateX.value = e.translationX;
+        }
       })
-      .onEnd((e) => {
-        if (e.translationX > rightWidth * DISMISS_THRESHOLD || e.velocityX > 500) {
+      .onEnd(e => {
+        if (
+          e.translationX > rightWidth * DISMISS_THRESHOLD ||
+          e.velocityX > 500
+        ) {
           scheduleOnRN(handleDismissRight);
         } else {
           rightTranslateX.value = withSpring(0, motion.spring.sheet);
         }
       });
 
-    const backdropAnimStyle = useAnimatedStyle(() => ({ opacity: backdropOpacity.value }));
-    const leftAnimStyle = useAnimatedStyle(() => ({ transform: [{ translateX: leftTranslateX.value }] }));
-    const rightAnimStyle = useAnimatedStyle(() => ({ transform: [{ translateX: rightTranslateX.value }] }));
+    const backdropAnimStyle = useAnimatedStyle(() => ({
+      opacity: backdropOpacity.value,
+    }));
+    const leftAnimStyle = useAnimatedStyle(() => ({
+      transform: [{ translateX: leftTranslateX.value }],
+    }));
+    const rightAnimStyle = useAnimatedStyle(() => ({
+      transform: [{ translateX: rightTranslateX.value }],
+    }));
 
-    if (!shouldRender) { return null; }
+    if (!shouldRender) {
+      return null;
+    }
 
     const panelInsets = {
       paddingTop: insets.top,
@@ -221,7 +284,10 @@ export const DualSheet = React.forwardRef<DualSheetRef, DualSheetProps>(
         <View style={styles.overlay}>
           <Animated.View style={[StyleSheet.absoluteFill, backdropAnimStyle]}>
             <Pressable
-              style={[styles.backdrop, { backgroundColor: theme.colors.overlay }]}
+              style={[
+                styles.backdrop,
+                { backgroundColor: theme.colors.overlay },
+              ]}
               onPress={handleDismiss}
             />
           </Animated.View>
@@ -234,18 +300,26 @@ export const DualSheet = React.forwardRef<DualSheetRef, DualSheetProps>(
               style={[
                 styles.leftPanel,
                 elevation.xl,
-                { ...panelInsets, width: leftWidth, backgroundColor: theme.colors.surfacePrimary, shadowColor: theme.colors.shadow },
+                {
+                  ...panelInsets,
+                  width: leftWidth,
+                  backgroundColor: theme.colors.surfacePrimary,
+                  shadowColor: theme.colors.shadow,
+                },
                 leftStyle,
                 leftAnimStyle,
-              ]}>
+              ]}
+            >
               <KeyboardAvoidingView
                 style={styles.flex1}
-                behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
+                behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+              >
                 <ScrollView
                   style={styles.flex1}
                   contentContainerStyle={styles.scrollContent}
                   keyboardShouldPersistTaps="handled"
-                  bounces={false}>
+                  bounces={false}
+                >
                   {leftContent}
                 </ScrollView>
               </KeyboardAvoidingView>
@@ -260,18 +334,26 @@ export const DualSheet = React.forwardRef<DualSheetRef, DualSheetProps>(
               style={[
                 styles.rightPanel,
                 elevation.xl,
-                { ...panelInsets, width: rightWidth, backgroundColor: theme.colors.surfacePrimary, shadowColor: theme.colors.shadow },
+                {
+                  ...panelInsets,
+                  width: rightWidth,
+                  backgroundColor: theme.colors.surfacePrimary,
+                  shadowColor: theme.colors.shadow,
+                },
                 rightStyle,
                 rightAnimStyle,
-              ]}>
+              ]}
+            >
               <KeyboardAvoidingView
                 style={styles.flex1}
-                behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
+                behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+              >
                 <ScrollView
                   style={styles.flex1}
                   contentContainerStyle={styles.scrollContent}
                   keyboardShouldPersistTaps="handled"
-                  bounces={false}>
+                  bounces={false}
+                >
                   {rightContent}
                 </ScrollView>
               </KeyboardAvoidingView>

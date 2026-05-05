@@ -1,6 +1,18 @@
 import React from 'react';
 import { View, StyleSheet, Pressable, type ViewStyle } from 'react-native';
-import { Text, borders, iconSizes, opacity as opacityTokens, radius, spacing, useTheme, CheckIcon, XIcon, WarningIcon, InfoIcon } from '../../../masicn';
+import {
+  Text,
+  borders,
+  iconSizes,
+  opacity as opacityTokens,
+  radius,
+  spacing,
+  useTheme,
+  CheckIcon,
+  XIcon,
+  WarningIcon,
+  InfoIcon,
+} from '../../../masicn';
 
 type AlertVariant = 'success' | 'error' | 'warning' | 'info';
 
@@ -75,16 +87,27 @@ export const Alert = React.memo(function Alert({
   const { theme } = useTheme();
 
   const variantMap = {
-    success: { bg: theme.colors.success, text: theme.colors.onSuccess, Icon: CheckIcon },
-    error:   { bg: theme.colors.error,   text: theme.colors.onError,   Icon: XIcon },
-    warning: { bg: theme.colors.warning, text: theme.colors.onWarning, Icon: WarningIcon },
-    info:    { bg: theme.colors.info,    text: theme.colors.onInfo,    Icon: InfoIcon },
+    success: {
+      bg: theme.colors.success,
+      text: theme.colors.onSuccess,
+      Icon: CheckIcon,
+    },
+    error: { bg: theme.colors.error, text: theme.colors.onError, Icon: XIcon },
+    warning: {
+      bg: theme.colors.warning,
+      text: theme.colors.onWarning,
+      Icon: WarningIcon,
+    },
+    info: { bg: theme.colors.info, text: theme.colors.onInfo, Icon: InfoIcon },
   } as const;
 
   const { bg, text, Icon: DefaultIcon } = variantMap[variant];
-  const resolvedIcon = icon !== undefined ? icon : (
-    <DefaultIcon size={iconSizes.action} color={text} />
-  );
+  const resolvedIcon =
+    icon !== undefined ? (
+      icon
+    ) : (
+      <DefaultIcon size={iconSizes.action} color={text} />
+    );
 
   return (
     <View
@@ -95,12 +118,15 @@ export const Alert = React.memo(function Alert({
         { backgroundColor: bg, borderColor: bg },
         style,
         containerStyle,
-      ]}>
+      ]}
+    >
       {resolvedIcon && (
         <View style={styles.icon}>
-          {typeof resolvedIcon === 'string'
-            ? <Text style={{ color: text }}>{resolvedIcon}</Text>
-            : resolvedIcon}
+          {typeof resolvedIcon === 'string' ? (
+            <Text style={{ color: text }}>{resolvedIcon}</Text>
+          ) : (
+            resolvedIcon
+          )}
         </View>
       )}
       <View style={styles.content}>
@@ -108,16 +134,23 @@ export const Alert = React.memo(function Alert({
           {title}
         </Text>
         {description && (
-          <Text variant="bodySmall" style={[styles.description, { color: text }]}>
+          <Text
+            variant="bodySmall"
+            style={[styles.description, { color: text }]}
+          >
             {description}
           </Text>
         )}
       </View>
       {dismissible && onDismiss && (
-        <Pressable onPress={onDismiss} style={styles.closeButton} hitSlop={spacing.sm}
+        <Pressable
+          onPress={onDismiss}
+          style={styles.closeButton}
+          hitSlop={spacing.sm}
           accessibilityRole="button"
           accessibilityLabel="Dismiss alert"
-          accessibilityHint="Removes this alert">
+          accessibilityHint="Removes this alert"
+        >
           <XIcon size={iconSizes.action} color={text} />
         </Pressable>
       )}

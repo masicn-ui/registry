@@ -7,7 +7,16 @@ import Reanimated, {
   withTiming,
   cancelAnimation,
 } from 'react-native-reanimated';
-import { Text, borders, motion, radius, sizes, spacing, useReducedMotion, useTheme } from '../../../masicn';
+import {
+  Text,
+  borders,
+  motion,
+  radius,
+  sizes,
+  spacing,
+  useReducedMotion,
+  useTheme,
+} from '../../../masicn';
 
 type ProgressVariant = 'linear' | 'circular';
 
@@ -97,7 +106,9 @@ export function Progress({
         animWidth.value = targetWidth;
       } else {
         animWidth.value = withTiming(targetWidth, {
-          duration: reducedMotion ? motion.duration.instant : motion.duration.slow,
+          duration: reducedMotion
+            ? motion.duration.instant
+            : motion.duration.slow,
         });
       }
     }
@@ -131,16 +142,29 @@ export function Progress({
 
   if (variant === 'circular') {
     return (
-      <View style={[styles.circularContainer, { width: size, height: size }, containerStyle]}>
+      <View
+        style={[
+          styles.circularContainer,
+          { width: size, height: size },
+          containerStyle,
+        ]}
+      >
         <View
           style={[
             styles.circularTrack,
-            { width: size, height: size, borderRadius: size / 2, borderColor: theme.colors.disabled },
+            {
+              width: size,
+              height: size,
+              borderRadius: size / 2,
+              borderColor: theme.colors.disabled,
+            },
           ]}
         />
         {showValue && (
           <View style={styles.circularValue}>
-            <Text variant="bodySmall" color="textPrimary">{Math.round(value)}%</Text>
+            <Text variant="bodySmall" color="textPrimary">
+              {Math.round(value)}%
+            </Text>
           </View>
         )}
       </View>
@@ -153,9 +177,15 @@ export function Progress({
     <View style={[styles.container, containerStyle]}>
       {(label || showValue) && (
         <View style={styles.header}>
-          {label && <Text variant="body" color="textPrimary">{label}</Text>}
+          {label && (
+            <Text variant="body" color="textPrimary">
+              {label}
+            </Text>
+          )}
           {showValue && !indeterminate && (
-            <Text variant="bodySmall" color="textSecondary">{Math.round(value)}%</Text>
+            <Text variant="bodySmall" color="textSecondary">
+              {Math.round(value)}%
+            </Text>
           )}
         </View>
       )}
@@ -163,8 +193,13 @@ export function Progress({
         onLayout={e => setTrackWidth(e.nativeEvent.layout.width)}
         style={[
           styles.track,
-          { height, backgroundColor: theme.colors.disabled, borderRadius: trackBorderRadius },
-        ]}>
+          {
+            height,
+            backgroundColor: theme.colors.disabled,
+            borderRadius: trackBorderRadius,
+          },
+        ]}
+      >
         {indeterminate ? (
           <Reanimated.View
             style={[
@@ -181,7 +216,11 @@ export function Progress({
           <Reanimated.View
             style={[
               styles.fill,
-              { height, backgroundColor: theme.colors.primary, borderRadius: trackBorderRadius },
+              {
+                height,
+                backgroundColor: theme.colors.primary,
+                borderRadius: trackBorderRadius,
+              },
               animWidthStyle,
             ]}
           />
@@ -193,10 +232,18 @@ export function Progress({
 
 const styles = StyleSheet.create({
   container: { gap: spacing.sm },
-  header: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' },
+  header: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
   track: { overflow: 'hidden' },
   fill: { borderRadius: radius.full },
-  circularContainer: { position: 'relative', alignItems: 'center', justifyContent: 'center' },
+  circularContainer: {
+    position: 'relative',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   circularTrack: { borderWidth: borders.thick },
   circularValue: { position: 'absolute' },
 });

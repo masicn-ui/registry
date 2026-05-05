@@ -8,7 +8,18 @@ import {
   TextInput as RNTextInput,
   type ViewStyle,
 } from 'react-native';
-import { Text, borders, iconSizes, radius, spacing, typography, useFocusTrap, useTheme, ChevronUpIcon, ChevronDownIcon } from '../../../masicn';
+import {
+  Text,
+  borders,
+  iconSizes,
+  radius,
+  spacing,
+  typography,
+  useFocusTrap,
+  useTheme,
+  ChevronUpIcon,
+  ChevronDownIcon,
+} from '../../../masicn';
 
 export interface SelectOption {
   label: string;
@@ -136,16 +147,21 @@ const Select = React.forwardRef<View, SelectProps>(function Select(
   const filteredOptions = React.useMemo(
     () =>
       searchable && query
-        ? options.filter(opt => opt.label.toLowerCase().includes(query.toLowerCase()))
+        ? options.filter(opt =>
+            opt.label.toLowerCase().includes(query.toLowerCase()),
+          )
         : options,
     [searchable, query, options],
   );
 
-  const handleSelect = React.useCallback((optionValue: string) => {
-    onValueChange(optionValue);
-    setIsOpen(false);
-    setQuery('');
-  }, [onValueChange]);
+  const handleSelect = React.useCallback(
+    (optionValue: string) => {
+      onValueChange(optionValue);
+      setIsOpen(false);
+      setQuery('');
+    },
+    [onValueChange],
+  );
 
   const handleOpen = React.useCallback(() => {
     if (!disabled) {
@@ -162,7 +178,8 @@ const Select = React.forwardRef<View, SelectProps>(function Select(
         <Text
           variant="body"
           color={disabled ? 'textDisabled' : 'textPrimary'}
-          style={styles.label}>
+          style={styles.label}
+        >
           {label}
         </Text>
       )}
@@ -173,8 +190,11 @@ const Select = React.forwardRef<View, SelectProps>(function Select(
           testID={testID}
           accessibilityRole="combobox"
           accessibilityLabel={resolvedA11yLabel}
-          accessibilityHint={accessibilityHint ?? 'Double tap to open selection'}
-          accessibilityState={{ disabled, expanded: isOpen }}>
+          accessibilityHint={
+            accessibilityHint ?? 'Double tap to open selection'
+          }
+          accessibilityState={{ disabled, expanded: isOpen }}
+        >
           {children(selectedOption)}
         </Pressable>
       ) : (
@@ -189,14 +209,17 @@ const Select = React.forwardRef<View, SelectProps>(function Select(
               borderColor: error
                 ? theme.colors.error
                 : disabled
-                  ? theme.colors.borderSecondary
-                  : theme.colors.inputBorder,
+                ? theme.colors.borderSecondary
+                : theme.colors.inputBorder,
             },
           ]}
           accessibilityRole="combobox"
           accessibilityLabel={resolvedA11yLabel}
-          accessibilityHint={accessibilityHint ?? 'Double tap to open selection'}
-          accessibilityState={{ disabled, expanded: isOpen }}>
+          accessibilityHint={
+            accessibilityHint ?? 'Double tap to open selection'
+          }
+          accessibilityState={{ disabled, expanded: isOpen }}
+        >
           <Text
             variant="body"
             color={
@@ -205,12 +228,21 @@ const Select = React.forwardRef<View, SelectProps>(function Select(
                   ? 'textDisabled'
                   : 'textPrimary'
                 : 'inputPlaceholder'
-            }>
+            }
+          >
             {selectedOption?.label || placeholder}
           </Text>
-          {isOpen
-            ? <ChevronUpIcon size={iconSizes.action} color={theme.colors.textSecondary} />
-            : <ChevronDownIcon size={iconSizes.action} color={theme.colors.textSecondary} />}
+          {isOpen ? (
+            <ChevronUpIcon
+              size={iconSizes.action}
+              color={theme.colors.textSecondary}
+            />
+          ) : (
+            <ChevronDownIcon
+              size={iconSizes.action}
+              color={theme.colors.textSecondary}
+            />
+          )}
         </Pressable>
       )}
       {error && errorMessage && (
@@ -218,7 +250,8 @@ const Select = React.forwardRef<View, SelectProps>(function Select(
           variant="caption"
           color="error"
           style={styles.errorText}
-          accessibilityLiveRegion="polite">
+          accessibilityLiveRegion="polite"
+        >
           {errorMessage}
         </Text>
       )}
@@ -227,10 +260,21 @@ const Select = React.forwardRef<View, SelectProps>(function Select(
         visible={isOpen}
         transparent
         animationType="fade"
-        onRequestClose={() => { setIsOpen(false); setQuery(''); }}>
+        onRequestClose={() => {
+          setIsOpen(false);
+          setQuery('');
+        }}
+      >
         <Pressable
-          style={[styles.modalOverlay, { backgroundColor: theme.colors.overlay }]}
-          onPress={() => { setIsOpen(false); setQuery(''); }}>
+          style={[
+            styles.modalOverlay,
+            { backgroundColor: theme.colors.overlay },
+          ]}
+          onPress={() => {
+            setIsOpen(false);
+            setQuery('');
+          }}
+        >
           <View
             ref={containerRef}
             onStartShouldSetResponder={() => true}
@@ -240,9 +284,15 @@ const Select = React.forwardRef<View, SelectProps>(function Select(
             ]}
             accessibilityRole="list"
             accessibilityViewIsModal={true}
-            accessibilityLabel={`${label ?? 'Select'} options`}>
+            accessibilityLabel={`${label ?? 'Select'} options`}
+          >
             {searchable && (
-              <View style={[styles.searchContainer, { borderBottomColor: theme.colors.separator }]}>
+              <View
+                style={[
+                  styles.searchContainer,
+                  { borderBottomColor: theme.colors.separator },
+                ]}
+              >
                 <RNTextInput
                   value={query}
                   onChangeText={setQuery}
@@ -265,11 +315,17 @@ const Select = React.forwardRef<View, SelectProps>(function Select(
                   disabled={option.disabled}
                   style={[
                     styles.option,
-                    value === option.value && { backgroundColor: theme.colors.highlight },
+                    value === option.value && {
+                      backgroundColor: theme.colors.highlight,
+                    },
                   ]}
                   accessibilityRole="menuitem"
-                  accessibilityState={{ selected: value === option.value, disabled: option.disabled }}
-                  accessibilityLabel={option.label}>
+                  accessibilityState={{
+                    selected: value === option.value,
+                    disabled: option.disabled,
+                  }}
+                  accessibilityLabel={option.label}
+                >
                   {renderItem ? (
                     renderItem(option, value === option.value)
                   ) : (
@@ -281,22 +337,28 @@ const Select = React.forwardRef<View, SelectProps>(function Select(
                             option.disabled
                               ? 'textDisabled'
                               : value === option.value
-                                ? 'primary'
-                                : 'textPrimary'
-                          }>
+                              ? 'primary'
+                              : 'textPrimary'
+                          }
+                        >
                           {option.label}
                         </Text>
                         {option.description && (
                           <Text
                             variant="caption"
-                            color={option.disabled ? 'textDisabled' : 'textSecondary'}
-                            style={styles.optionDescription}>
+                            color={
+                              option.disabled ? 'textDisabled' : 'textSecondary'
+                            }
+                            style={styles.optionDescription}
+                          >
                             {option.description}
                           </Text>
                         )}
                       </View>
                       {value === option.value && (
-                        <Text variant="body" color="primary">✓</Text>
+                        <Text variant="body" color="primary">
+                          ✓
+                        </Text>
                       )}
                     </>
                   )}

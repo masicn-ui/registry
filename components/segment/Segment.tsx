@@ -5,7 +5,17 @@ import Animated, {
   useAnimatedStyle,
   withTiming,
 } from 'react-native-reanimated';
-import { Text, elevation, motion, motionEasing, opacity as opacityTokens, radius, spacing, useReducedMotion, useTheme } from '../../../masicn';
+import {
+  Text,
+  elevation,
+  motion,
+  motionEasing,
+  opacity as opacityTokens,
+  radius,
+  spacing,
+  useReducedMotion,
+  useTheme,
+} from '../../../masicn';
 
 /** A single option entry for Segment. */
 export interface SegmentOption {
@@ -86,7 +96,10 @@ export function Segment({
   const reducedMotion = useReducedMotion();
   const [containerWidth, setContainerWidth] = React.useState(0);
 
-  const selectedIndex = Math.max(0, options.findIndex(o => o.value === value));
+  const selectedIndex = Math.max(
+    0,
+    options.findIndex(o => o.value === value),
+  );
   const segmentWidth =
     containerWidth > 0 ? (containerWidth - spacing.xs * 2) / options.length : 0;
 
@@ -97,7 +110,10 @@ export function Segment({
     if (reducedMotion || segmentWidth === 0) {
       translateX.value = targetX;
     } else {
-      translateX.value = withTiming(targetX, { duration: motion.duration.normal, easing: motionEasing.standard });
+      translateX.value = withTiming(targetX, {
+        duration: motion.duration.normal,
+        easing: motionEasing.standard,
+      });
     }
   }, [selectedIndex, segmentWidth, reducedMotion, translateX]);
 

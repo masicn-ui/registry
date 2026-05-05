@@ -1,7 +1,30 @@
 import React, { useState, useCallback, createContext, useContext } from 'react';
-import { View, Pressable, StyleSheet, type ViewStyle, type LayoutChangeEvent } from 'react-native';
-import Animated, { useSharedValue, useAnimatedStyle, withTiming } from 'react-native-reanimated';
-import { Stack, Text, borders, iconSizes, motion, motionEasing, radius, spacing, useReducedMotion, useTheme, PlusIcon, MinusIcon } from '../../../masicn';
+import {
+  View,
+  Pressable,
+  StyleSheet,
+  type ViewStyle,
+  type LayoutChangeEvent,
+} from 'react-native';
+import Animated, {
+  useSharedValue,
+  useAnimatedStyle,
+  withTiming,
+} from 'react-native-reanimated';
+import {
+  Stack,
+  Text,
+  borders,
+  iconSizes,
+  motion,
+  motionEasing,
+  radius,
+  spacing,
+  useReducedMotion,
+  useTheme,
+  PlusIcon,
+  MinusIcon,
+} from '../../../masicn';
 
 // ─── Context ─────────────────────────────────────────────────────────────────
 
@@ -73,9 +96,10 @@ export function AccordionItem({
   const [internalExpanded, setInternalExpanded] = useState(defaultExpanded);
 
   // Context wins over internal state when inside <Accordion>
-  const isExpanded = controlledExpanded !== undefined
-    ? controlledExpanded
-    : ctx
+  const isExpanded =
+    controlledExpanded !== undefined
+      ? controlledExpanded
+      : ctx
       ? ctx.isOpen(title)
       : internalExpanded;
 
@@ -87,27 +111,32 @@ export function AccordionItem({
 
   const heightSV = useSharedValue(0);
 
-  const handleLayout = useCallback((e: LayoutChangeEvent) => {
-    const h = e.nativeEvent.layout.height;
-    contentHeightRef.current = h;
+  const handleLayout = useCallback(
+    (e: LayoutChangeEvent) => {
+      const h = e.nativeEvent.layout.height;
+      contentHeightRef.current = h;
 
-    if (!hasMeasured.current) {
-      hasMeasured.current = true;
-      heightSV.value = isExpandedRef.current ? h : 0;
-      return;
-    }
+      if (!hasMeasured.current) {
+        hasMeasured.current = true;
+        heightSV.value = isExpandedRef.current ? h : 0;
+        return;
+      }
 
-    if (isExpandedRef.current) {
-      heightSV.value = h;
-    }
-  }, [heightSV]);
+      if (isExpandedRef.current) {
+        heightSV.value = h;
+      }
+    },
+    [heightSV],
+  );
 
   React.useEffect(() => {
-    if (!hasMeasured.current) { return; }
-    heightSV.value = withTiming(
-      isExpanded ? contentHeightRef.current : 0,
-      { duration: reducedMotion ? 0 : motion.duration.normal, easing: motionEasing.standard },
-    );
+    if (!hasMeasured.current) {
+      return;
+    }
+    heightSV.value = withTiming(isExpanded ? contentHeightRef.current : 0, {
+      duration: reducedMotion ? 0 : motion.duration.normal,
+      easing: motionEasing.standard,
+    });
   }, [isExpanded, heightSV, reducedMotion]);
 
   const animatedContentStyle = useAnimatedStyle(() => ({
@@ -116,7 +145,9 @@ export function AccordionItem({
   // ──────────────────────────────────────────────────────────────────────────
 
   const handleToggle = useCallback(() => {
-    if (disabled) { return; }
+    if (disabled) {
+      return;
+    }
     const newExpanded = !isExpanded;
     if (controlledExpanded === undefined) {
       if (ctx) {
@@ -137,29 +168,48 @@ export function AccordionItem({
           borderColor: theme.colors.borderPrimary,
         },
         containerStyle,
-      ]}>
+      ]}
+    >
       <Pressable
         onPress={handleToggle}
         disabled={disabled}
         testID={testID}
         style={styles.header}
         accessibilityRole="button"
-        accessibilityState={{ expanded: isExpanded, disabled }}>
+        accessibilityState={{ expanded: isExpanded, disabled }}
+      >
         <Text
           variant="body"
           color={disabled ? 'textDisabled' : 'textPrimary'}
-          style={styles.title}>
+          style={styles.title}
+        >
           {title}
         </Text>
-        {isExpanded
-          ? <MinusIcon size={iconSizes.action} color={disabled ? theme.colors.textDisabled : theme.colors.textSecondary} />
-          : <PlusIcon size={iconSizes.action} color={disabled ? theme.colors.textDisabled : theme.colors.textSecondary} />}
+        {isExpanded ? (
+          <MinusIcon
+            size={iconSizes.action}
+            color={
+              disabled ? theme.colors.textDisabled : theme.colors.textSecondary
+            }
+          />
+        ) : (
+          <PlusIcon
+            size={iconSizes.action}
+            color={
+              disabled ? theme.colors.textDisabled : theme.colors.textSecondary
+            }
+          />
+        )}
       </Pressable>
 
       <Animated.View style={[styles.contentWrapper, animatedContentStyle]}>
         <View
-          style={[styles.contentPositioned, { borderTopColor: theme.colors.separator }]}
-          onLayout={handleLayout}>
+          style={[
+            styles.contentPositioned,
+            { borderTopColor: theme.colors.separator },
+          ]}
+          onLayout={handleLayout}
+        >
           <View style={styles.content}>{children}</View>
         </View>
       </Animated.View>
@@ -215,24 +265,29 @@ export function Accordion({
 
   const isOpen = useCallback((id: string) => openSet.has(id), [openSet]);
 
-  const toggle = useCallback((id: string) => {
-    setOpenSet(prev => {
-      const next = new Set(prev);
-      if (next.has(id)) {
-        next.delete(id);
-      } else {
-        if (!allowMultiple) {
-          next.clear();
+  const toggle = useCallback(
+    (id: string) => {
+      setOpenSet(prev => {
+        const next = new Set(prev);
+        if (next.has(id)) {
+          next.delete(id);
+        } else {
+          if (!allowMultiple) {
+            next.clear();
+          }
+          next.add(id);
         }
-        next.add(id);
-      }
-      return next;
-    });
-  }, [allowMultiple]);
+        return next;
+      });
+    },
+    [allowMultiple],
+  );
 
   return (
     <AccordionContext.Provider value={{ isOpen, toggle }}>
-      <Stack gap="sm" style={containerStyle}>{children}</Stack>
+      <Stack gap="sm" style={containerStyle}>
+        {children}
+      </Stack>
     </AccordionContext.Provider>
   );
 }

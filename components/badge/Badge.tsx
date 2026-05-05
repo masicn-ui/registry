@@ -21,7 +21,10 @@ interface BadgeProps {
   testID?: string;
 }
 
-const onColorMap: Record<BadgeVariant, 'onError' | 'onSuccess' | 'textInverse' | 'onTertiary'> = {
+const onColorMap: Record<
+  BadgeVariant,
+  'onError' | 'onSuccess' | 'textInverse' | 'onTertiary'
+> = {
   error: 'onError',
   success: 'onSuccess',
   warning: 'textInverse',
@@ -61,9 +64,18 @@ const circularSizes = {
  * // Warning badge on a list item, small size
  * <Badge label="Overdue" variant="warning" size="sm" />
  */
-export const Badge = React.memo(function Badge({ label, variant = 'error', circular = false, size = 'md', accessibilityLabel, style, testID }: BadgeProps) {
+export const Badge = React.memo(function Badge({
+  label,
+  variant = 'error',
+  circular = false,
+  size = 'md',
+  accessibilityLabel,
+  style,
+  testID,
+}: BadgeProps) {
   const { theme } = useTheme();
-  const a11yLabel = accessibilityLabel ?? (label ? `${label} ${variant}` : variant);
+  const a11yLabel =
+    accessibilityLabel ?? (label ? `${label} ${variant}` : variant);
 
   if (!label) {
     return (
@@ -94,11 +106,13 @@ export const Badge = React.memo(function Badge({ label, variant = 'error', circu
             borderRadius: dim / 2,
           },
           style,
-        ]}>
+        ]}
+      >
         <Text
           variant="captionSmall"
           bold
-          style={{ color: theme.colors[onColorMap[variant]] }}>
+          style={{ color: theme.colors[onColorMap[variant]] }}
+        >
           {label}
         </Text>
       </View>
@@ -111,8 +125,12 @@ export const Badge = React.memo(function Badge({ label, variant = 'error', circu
       accessibilityRole="text"
       accessibilityLabel={a11yLabel}
       testID={testID}
-      style={[styles.badge, { backgroundColor: theme.colors[variant] }, style]}>
-      <Text variant="captionSmall" style={{ color: theme.colors[onColorMap[variant]] }}>
+      style={[styles.badge, { backgroundColor: theme.colors[variant] }, style]}
+    >
+      <Text
+        variant="captionSmall"
+        style={{ color: theme.colors[onColorMap[variant]] }}
+      >
         {label}
       </Text>
     </View>

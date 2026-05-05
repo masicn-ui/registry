@@ -90,7 +90,8 @@ export function AvatarGroup({
               borderRadius: radius.full,
               borderColor: theme.colors.surfacePrimary,
             },
-          ]}>
+          ]}
+        >
           <Avatar {...avatar} size={size} />
         </View>
       ))}
@@ -109,7 +110,8 @@ export function AvatarGroup({
             },
           ]}
           accessibilityRole="text"
-          accessibilityLabel={`+${remaining} more`}>
+          accessibilityLabel={`+${remaining} more`}
+        >
           <Text variant="caption" color="textSecondary">
             +{remaining}
           </Text>

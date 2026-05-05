@@ -1,6 +1,12 @@
 import React, { useCallback } from 'react';
 import { Pressable, StyleSheet, View, type ViewStyle } from 'react-native';
-import { Text, borders, opacity as opacityTokens, spacing, useTheme } from '../../../masicn';
+import {
+  Text,
+  borders,
+  opacity as opacityTokens,
+  spacing,
+  useTheme,
+} from '../../../masicn';
 
 interface DetailRowProps {
   /** The descriptor label shown on the left side of the row. */

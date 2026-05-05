@@ -1,5 +1,11 @@
 import React from 'react';
-import { RefreshControl, ScrollView, StyleSheet, type StyleProp, type ViewStyle } from 'react-native';
+import {
+  RefreshControl,
+  ScrollView,
+  StyleSheet,
+  type StyleProp,
+  type ViewStyle,
+} from 'react-native';
 import { spacing, useTheme } from '../../../masicn';
 
 interface RefreshableScrollViewProps {
@@ -92,7 +98,10 @@ export function RefreshableScrollView({
   return (
     <ScrollView
       style={style}
-      contentContainerStyle={StyleSheet.flatten([paddingStyle, contentContainerStyle])}
+      contentContainerStyle={StyleSheet.flatten([
+        paddingStyle,
+        contentContainerStyle,
+      ])}
       refreshControl={
         <RefreshControl
           refreshing={refreshing}
@@ -100,7 +109,8 @@ export function RefreshableScrollView({
           tintColor={theme.colors.primary}
           colors={[theme.colors.primary]}
         />
-      }>
+      }
+    >
       {children}
     </ScrollView>
   );

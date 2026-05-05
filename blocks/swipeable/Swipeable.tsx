@@ -8,7 +8,17 @@ import Animated, {
   withTiming,
 } from 'react-native-reanimated';
 import { GestureDetector, Gesture } from 'react-native-gesture-handler';
-import { Text, layout, motion, radius, sizes, spacing, type Theme, useReducedMotion, useTheme } from '../../../masicn';
+import {
+  Text,
+  layout,
+  motion,
+  radius,
+  sizes,
+  spacing,
+  type Theme,
+  useReducedMotion,
+  useTheme,
+} from '../../../masicn';
 
 export interface SwipeAction {
   /** Action label */
@@ -51,7 +61,10 @@ const sizeConfig = {
   sm: { minHeight: layout.minTouchTarget, actionPaddingH: spacing.md },
   md: { minHeight: sizes.swipeableRowMd, actionPaddingH: spacing.xl },
   lg: { minHeight: sizes.swipeableRowLg, actionPaddingH: spacing.xxl },
-} satisfies Record<SwipeableSize, { minHeight: number; actionPaddingH: number }>;
+} satisfies Record<
+  SwipeableSize,
+  { minHeight: number; actionPaddingH: number }
+>;
 
 /**
  * Swipeable — a gesture-driven row that reveals hidden action buttons on left or right swipe.
@@ -127,7 +140,9 @@ export function Swipeable({
   const [containerHeight, setContainerHeight] = React.useState(0);
 
   const thresholdSV = useSharedValue(threshold);
-  React.useEffect(() => { thresholdSV.value = threshold; }, [threshold, thresholdSV]);
+  React.useEffect(() => {
+    thresholdSV.value = threshold;
+  }, [threshold, thresholdSV]);
 
   const hasLeftActions = useSharedValue(leftActions.length > 0);
   const hasRightActions = useSharedValue(rightActions.length > 0);
@@ -139,32 +154,52 @@ export function Swipeable({
   const triggerLeft = React.useCallback(() => {
     if (leftActions.length > 0) {
       leftActions[0].onPress();
-      translateX.value = reducedMotion ? withTiming(0, { duration: 0 }) : withSpring(0, motion.spring.snappy);
+      translateX.value = reducedMotion
+        ? withTiming(0, { duration: 0 })
+        : withSpring(0, motion.spring.snappy);
     }
   }, [leftActions, translateX, reducedMotion]);
 
   const triggerRight = React.useCallback(() => {
     if (rightActions.length > 0) {
       rightActions[0].onPress();
-      translateX.value = reducedMotion ? withTiming(0, { duration: 0 }) : withSpring(0, motion.spring.snappy);
+      translateX.value = reducedMotion
+        ? withTiming(0, { duration: 0 })
+        : withSpring(0, motion.spring.snappy);
     }
   }, [rightActions, translateX, reducedMotion]);
 
-  const pan = useMemo(() => Gesture.Pan()
-    .activeOffsetX([-10, 10])
-    .onUpdate((e) => {
-      translateX.value = e.translationX;
-    })
-    .onEnd((e) => {
-      if (e.translationX > thresholdSV.value && hasLeftActions.value) {
-        scheduleOnRN(triggerLeft);
-      } else if (e.translationX < -thresholdSV.value && hasRightActions.value) {
-        scheduleOnRN(triggerRight);
-      } else {
-        translateX.value = reducedMotion ? withTiming(0, { duration: 0 }) : withSpring(0, motion.spring.snappy);
-      }
-    }),
-  [triggerLeft, triggerRight, translateX, thresholdSV, hasLeftActions, hasRightActions, reducedMotion]);
+  const pan = useMemo(
+    () =>
+      Gesture.Pan()
+        .activeOffsetX([-10, 10])
+        .onUpdate(e => {
+          translateX.value = e.translationX;
+        })
+        .onEnd(e => {
+          if (e.translationX > thresholdSV.value && hasLeftActions.value) {
+            scheduleOnRN(triggerLeft);
+          } else if (
+            e.translationX < -thresholdSV.value &&
+            hasRightActions.value
+          ) {
+            scheduleOnRN(triggerRight);
+          } else {
+            translateX.value = reducedMotion
+              ? withTiming(0, { duration: 0 })
+              : withSpring(0, motion.spring.snappy);
+          }
+        }),
+    [
+      triggerLeft,
+      triggerRight,
+      translateX,
+      thresholdSV,
+      hasLeftActions,
+      hasRightActions,
+      reducedMotion,
+    ],
+  );
 
   const animatedStyle = useAnimatedStyle(() => ({
     transform: [{ translateX: translateX.value }],
@@ -184,10 +219,11 @@ export function Swipeable({
     <View
       style={[styles.container, containerStyle]}
       testID={testID}
-      onLayout={(e) => {
+      onLayout={e => {
         setContainerWidth(e.nativeEvent.layout.width);
         setContainerHeight(e.nativeEvent.layout.height);
-      }}>
+      }}
+    >
       {leftActions.length > 0 && (
         <Animated.View
           style={[
@@ -198,7 +234,8 @@ export function Swipeable({
               width: containerWidth || '100%',
               height: containerHeight || '100%',
             },
-          ]}>
+          ]}
+        >
           {leftActions.map((action, index) => (
             <Pressable
               key={index}
@@ -207,13 +244,18 @@ export function Swipeable({
               accessibilityLabel={action.label}
               style={[
                 styles.action,
-                { backgroundColor: theme.colors[action.backgroundColor], paddingHorizontal: actionPaddingH },
-              ]}>
+                {
+                  backgroundColor: theme.colors[action.backgroundColor],
+                  paddingHorizontal: actionPaddingH,
+                },
+              ]}
+            >
               {action.icon}
               <Text
                 variant="bodySmall"
                 bold
-                style={{ color: theme.colors[action.textColor ?? 'onPrimary'] }}>
+                style={{ color: theme.colors[action.textColor ?? 'onPrimary'] }}
+              >
                 {action.label}
               </Text>
             </Pressable>
@@ -231,7 +273,8 @@ export function Swipeable({
               width: containerWidth || '100%',
               height: containerHeight || '100%',
             },
-          ]}>
+          ]}
+        >
           {rightActions.map((action, index) => (
             <Pressable
               key={index}
@@ -240,13 +283,18 @@ export function Swipeable({
               accessibilityLabel={action.label}
               style={[
                 styles.action,
-                { backgroundColor: theme.colors[action.backgroundColor], paddingHorizontal: actionPaddingH },
-              ]}>
+                {
+                  backgroundColor: theme.colors[action.backgroundColor],
+                  paddingHorizontal: actionPaddingH,
+                },
+              ]}
+            >
               {action.icon}
               <Text
                 variant="bodySmall"
                 bold
-                style={{ color: theme.colors[action.textColor ?? 'onError'] }}>
+                style={{ color: theme.colors[action.textColor ?? 'onError'] }}
+              >
                 {action.label}
               </Text>
             </Pressable>
@@ -260,7 +308,8 @@ export function Swipeable({
             styles.content,
             { backgroundColor: theme.colors.surfacePrimary, minHeight },
             animatedStyle,
-          ]}>
+          ]}
+        >
           {children}
         </Animated.View>
       </GestureDetector>

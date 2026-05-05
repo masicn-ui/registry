@@ -57,25 +57,23 @@ export const Chip = React.memo(function Chip({
 }: ChipProps) {
   const { theme } = useTheme();
 
-  const bgColor =
-    disabled
-      ? theme.colors.disabled
-      : selected && variant === 'filled'
-        ? theme.colors.primary
-        : selected && variant === 'outline'
-          ? theme.colors.primaryContainer
-          : variant === 'filled'
-            ? theme.colors.surfaceSecondary
-            : 'transparent';
+  const bgColor = disabled
+    ? theme.colors.disabled
+    : selected && variant === 'filled'
+    ? theme.colors.primary
+    : selected && variant === 'outline'
+    ? theme.colors.primaryContainer
+    : variant === 'filled'
+    ? theme.colors.surfaceSecondary
+    : 'transparent';
 
-  const textColor =
-    disabled
-      ? theme.colors.textDisabled
-      : selected && variant === 'filled'
-        ? theme.colors.onPrimary
-        : selected && variant === 'outline'
-          ? theme.colors.primary
-          : theme.colors.textSecondary;
+  const textColor = disabled
+    ? theme.colors.textDisabled
+    : selected && variant === 'filled'
+    ? theme.colors.onPrimary
+    : selected && variant === 'outline'
+    ? theme.colors.primary
+    : theme.colors.textSecondary;
 
   const borderColor =
     variant === 'outline'
@@ -91,13 +89,15 @@ export const Chip = React.memo(function Chip({
       accessibilityState={{ selected, disabled: !!disabled }}
       testID={testID}
       hitSlop={spacing.sm}
-      {...rest}>
+      {...rest}
+    >
       <View
         style={[
           styles.chip,
           { backgroundColor: bgColor },
           borderColor !== undefined && [styles.outlined, { borderColor }],
-        ]}>
+        ]}
+      >
         {icon && <View style={styles.icon}>{icon}</View>}
         <Text variant="caption" style={{ color: textColor }}>
           {label}
@@ -109,7 +109,8 @@ export const Chip = React.memo(function Chip({
             accessibilityRole="button"
             accessibilityLabel={`Remove ${label}`}
             testID={testID ? `${testID}-remove` : undefined}
-            style={styles.remove}>
+            style={styles.remove}
+          >
             <Text variant="caption" style={{ color: textColor }}>
               ×
             </Text>

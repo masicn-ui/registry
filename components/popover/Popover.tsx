@@ -8,7 +8,14 @@ import {
   type ViewStyle,
   type LayoutRectangle,
 } from 'react-native';
-import { useTheme, spacing, radius, elevation, borders, sizes } from '../../../masicn';
+import {
+  useTheme,
+  spacing,
+  radius,
+  elevation,
+  borders,
+  sizes,
+} from '../../../masicn';
 
 type PopoverPlacement = 'top' | 'bottom' | 'left' | 'right';
 type PopoverTrigger = 'press' | 'longPress';
@@ -206,8 +213,12 @@ export function Popover({
   const { theme } = useTheme();
   const { width: screenWidth, height: screenHeight } = useWindowDimensions();
   const [internalVisible, setInternalVisible] = useState(false);
-  const [triggerLayout, setTriggerLayout] = useState<TriggerLayout | null>(null);
-  const [popoverLayout, setPopoverLayout] = useState<LayoutRectangle | null>(null);
+  const [triggerLayout, setTriggerLayout] = useState<TriggerLayout | null>(
+    null,
+  );
+  const [popoverLayout, setPopoverLayout] = useState<LayoutRectangle | null>(
+    null,
+  );
   const triggerRef = useRef<View>(null);
 
   const isControlled = controlledVisible !== undefined;
@@ -217,13 +228,17 @@ export function Popover({
     triggerRef.current?.measureInWindow((x, y, width, height) => {
       setTriggerLayout({ x, y, width, height });
       setPopoverLayout(null);
-      if (!isControlled) { setInternalVisible(true); }
+      if (!isControlled) {
+        setInternalVisible(true);
+      }
       onVisibilityChange?.(true);
     });
   }, [isControlled, onVisibilityChange]);
 
   const handleClose = useCallback(() => {
-    if (!isControlled) { setInternalVisible(false); }
+    if (!isControlled) {
+      setInternalVisible(false);
+    }
     onVisibilityChange?.(false);
   }, [isControlled, onVisibilityChange]);
 
@@ -243,27 +258,33 @@ export function Popover({
     if (!triggerLayout || !popoverLayout) {
       return styles.measurePass;
     }
-    const { left, top } = computePosition(triggerLayout, popoverLayout, placement, screenWidth, screenHeight);
+    const { left, top } = computePosition(
+      triggerLayout,
+      popoverLayout,
+      placement,
+      screenWidth,
+      screenHeight,
+    );
     return { position: 'absolute', left, top };
   };
 
   const childProps = children.props as Record<string, unknown>;
   const triggerElement = React.cloneElement<any>(children, {
     onPress: trigger === 'press' ? handlePress : childProps?.onPress,
-    onLongPress: trigger === 'longPress' ? handleLongPress : childProps?.onLongPress,
+    onLongPress:
+      trigger === 'longPress' ? handleLongPress : childProps?.onLongPress,
   });
 
   return (
     <View>
-      <View ref={triggerRef}>
-        {triggerElement}
-      </View>
+      <View ref={triggerRef}>{triggerElement}</View>
 
       <Modal
         visible={visible}
         transparent
         animationType="fade"
-        onRequestClose={handleClose}>
+        onRequestClose={handleClose}
+      >
         <Pressable style={styles.overlay} onPress={handleClose}>
           <Pressable
             testID={testID}
@@ -279,12 +300,19 @@ export function Popover({
               contentStyle,
             ]}
             onLayout={e => setPopoverLayout(e.nativeEvent.layout)}
-            onPress={e => e.stopPropagation()}>
+            onPress={e => e.stopPropagation()}
+          >
             {showArrow && triggerLayout && popoverLayout && (
               <PopoverArrow
                 placement={placement}
                 triggerLayout={triggerLayout}
-                popoverPosition={computePosition(triggerLayout, popoverLayout, placement, screenWidth, screenHeight)}
+                popoverPosition={computePosition(
+                  triggerLayout,
+                  popoverLayout,
+                  placement,
+                  screenWidth,
+                  screenHeight,
+                )}
                 color={theme.colors.surfaceOverlay}
               />
             )}
@@ -305,11 +333,17 @@ interface PopoverArrowProps {
   color: string;
 }
 
-function PopoverArrow({ placement, triggerLayout, popoverPosition, color }: PopoverArrowProps) {
+function PopoverArrow({
+  placement,
+  triggerLayout,
+  popoverPosition,
+  color,
+}: PopoverArrowProps) {
   const ARROW = spacing.sm;
 
   if (placement === 'bottom') {
-    const arrowLeft = getTriggerCenterX(triggerLayout) - popoverPosition.left - ARROW;
+    const arrowLeft =
+      getTriggerCenterX(triggerLayout) - popoverPosition.left - ARROW;
     return (
       <View
         style={[
@@ -321,7 +355,8 @@ function PopoverArrow({ placement, triggerLayout, popoverPosition, color }: Popo
     );
   }
   if (placement === 'top') {
-    const arrowLeft = getTriggerCenterX(triggerLayout) - popoverPosition.left - ARROW;
+    const arrowLeft =
+      getTriggerCenterX(triggerLayout) - popoverPosition.left - ARROW;
     return (
       <View
         style={[
@@ -335,22 +370,30 @@ function PopoverArrow({ placement, triggerLayout, popoverPosition, color }: Popo
 
   // For left/right: compute dynamic `top` so the arrow tracks the trigger centre
   // even when the popover panel has been clamped vertically.
-  const arrowTop = getTriggerCenterY(triggerLayout) - popoverPosition.top - ARROW;
+  const arrowTop =
+    getTriggerCenterY(triggerLayout) - popoverPosition.top - ARROW;
 
   if (placement === 'right') {
     return (
       <View
-        style={[arrowStyles.arrow, arrowStyles.arrowLeft, { top: arrowTop, borderRightColor: color }]}
+        style={[
+          arrowStyles.arrow,
+          arrowStyles.arrowLeft,
+          { top: arrowTop, borderRightColor: color },
+        ]}
       />
     );
   }
   return (
     <View
-      style={[arrowStyles.arrow, arrowStyles.arrowRight, { top: arrowTop, borderLeftColor: color }]}
+      style={[
+        arrowStyles.arrow,
+        arrowStyles.arrowRight,
+        { top: arrowTop, borderLeftColor: color },
+      ]}
     />
   );
 }
-
 
 const ARROW_SIZE = spacing.sm;
 

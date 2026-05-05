@@ -1,6 +1,13 @@
 import React from 'react';
 import { View, Modal, StyleSheet, ActivityIndicator } from 'react-native';
-import { Text, elevation, radius, sizes, spacing, useTheme } from '../../../masicn'
+import {
+  Text,
+  elevation,
+  radius,
+  sizes,
+  spacing,
+  useTheme,
+} from '../../../masicn';
 
 interface LoaderProps {
   /** Controls whether the overlay modal is shown. */
@@ -48,24 +55,41 @@ interface LoaderProps {
  * };
  * <Loader visible={submitting} message="Creating your account…" />
  */
-export function Loader({
-  visible,
-  message,
-  backdrop = true,
-}: LoaderProps) {
+export function Loader({ visible, message, backdrop = true }: LoaderProps) {
   const { theme } = useTheme();
 
   return (
-    <Modal visible={visible} transparent animationType="fade" statusBarTranslucent>
-      <View style={[styles.overlay, backdrop && { backgroundColor: theme.colors.overlay }]}>
+    <Modal
+      visible={visible}
+      transparent
+      animationType="fade"
+      statusBarTranslucent
+    >
+      <View
+        style={[
+          styles.overlay,
+          backdrop && { backgroundColor: theme.colors.overlay },
+        ]}
+      >
         <View
           style={[
             styles.container,
-            { backgroundColor: theme.colors.surfacePrimary, ...elevation.xl, shadowColor: theme.colors.shadow },
-          ]}>
-          <ActivityIndicator size="large" color={theme.colors.primary} style={styles.spinner} />
+            {
+              backgroundColor: theme.colors.surfacePrimary,
+              ...elevation.xl,
+              shadowColor: theme.colors.shadow,
+            },
+          ]}
+        >
+          <ActivityIndicator
+            size="large"
+            color={theme.colors.primary}
+            style={styles.spinner}
+          />
           {message && (
-            <Text variant="body" color="textPrimary" align="center">{message}</Text>
+            <Text variant="body" color="textPrimary" align="center">
+              {message}
+            </Text>
           )}
         </View>
       </View>

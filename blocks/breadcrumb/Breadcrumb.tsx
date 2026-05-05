@@ -87,7 +87,8 @@ export const Breadcrumb = React.memo(function Breadcrumb({
     <View
       style={[styles.row, containerStyle]}
       accessibilityRole="none"
-      accessibilityLabel="Breadcrumb navigation">
+      accessibilityLabel="Breadcrumb navigation"
+    >
       {items.map((item, i) => {
         const isLast = i === items.length - 1;
         const isLink = !!item.onPress && !isLast;
@@ -109,7 +110,8 @@ export const Breadcrumb = React.memo(function Breadcrumb({
                 accessibilityRole="link"
                 accessibilityLabel={item.label}
                 testID={item.testID}
-                hitSlop={spacing.sm}>
+                hitSlop={spacing.sm}
+              >
                 {({ pressed }) => (
                   <Text
                     variant="caption"
@@ -118,7 +120,8 @@ export const Breadcrumb = React.memo(function Breadcrumb({
                       styles.linkText,
                       { color: theme.colors.secondary },
                       pressed && styles.linkPressed,
-                    ]}>
+                    ]}
+                  >
                     {item.label}
                   </Text>
                 )}
@@ -127,7 +130,8 @@ export const Breadcrumb = React.memo(function Breadcrumb({
               <Text
                 variant="caption"
                 numberOfLines={1}
-                color={isLast ? 'textPrimary' : 'textTertiary'}>
+                color={isLast ? 'textPrimary' : 'textTertiary'}
+              >
                 {item.label}
               </Text>
             )}

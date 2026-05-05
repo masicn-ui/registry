@@ -7,7 +7,19 @@ import {
   type TextInputProps,
   type ViewStyle,
 } from 'react-native';
-import { borders, fonts, iconSizes, radius, sizes, spacing, typography, useTheme, type IconComponent, SearchIcon, XIcon } from '../../../masicn';
+import {
+  borders,
+  fonts,
+  iconSizes,
+  radius,
+  sizes,
+  spacing,
+  typography,
+  useTheme,
+  type IconComponent,
+  SearchIcon,
+  XIcon,
+} from '../../../masicn';
 
 type SearchBarSize = 'sm' | 'md' | 'lg';
 
@@ -135,8 +147,12 @@ export function SearchBar({
           paddingHorizontal: sizeConfig[size].paddingHorizontal,
         },
         containerStyle,
-      ]}>
-      <SearchIconProp size={iconSizes.action} color={theme.colors.inputPlaceholder} />
+      ]}
+    >
+      <SearchIconProp
+        size={iconSizes.action}
+        color={theme.colors.inputPlaceholder}
+      />
       <RNTextInput
         value={value}
         onChangeText={onChangeText}
@@ -144,10 +160,7 @@ export function SearchBar({
         placeholderTextColor={theme.colors.inputPlaceholder}
         underlineColorAndroid="transparent"
         testID={testID}
-        style={[
-          styles.input,
-          { color: theme.colors.textPrimary },
-        ]}
+        style={[styles.input, { color: theme.colors.textPrimary }]}
         returnKeyType="search"
         onSubmitEditing={handleSubmit}
         onFocus={e => {
@@ -162,12 +175,16 @@ export function SearchBar({
       />
       <Pressable
         onPress={handleClear}
-        style={[styles.clearButton, value.length === 0 && styles.clearButtonHidden]}
+        style={[
+          styles.clearButton,
+          value.length === 0 && styles.clearButtonHidden,
+        ]}
         hitSlop={spacing.sm}
         accessibilityRole="button"
         accessibilityLabel="Clear search"
         pointerEvents={value.length > 0 ? 'auto' : 'none'}
-        testID={testID ? `${testID}-clear` : undefined}>
+        testID={testID ? `${testID}-clear` : undefined}
+      >
         <XIcon size={iconSizes.action} color={theme.colors.textSecondary} />
       </Pressable>
     </View>
