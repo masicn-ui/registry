@@ -1,6 +1,12 @@
 import React from 'react';
 import { Pressable, View, StyleSheet, type PressableProps } from 'react-native';
-import { Stack, Text, opacity as opacityTokens, spacing, useTheme } from '../../../masicn';
+import {
+  Stack,
+  Text,
+  opacity as opacityTokens,
+  spacing,
+  useTheme,
+} from '../../../masicn';
 
 interface ListItemProps extends Omit<PressableProps, 'children'> {
   /** Primary label displayed in the main body of the row. */
@@ -93,11 +99,16 @@ export function ListItem({
           pressed && { opacity: opacityTokens.pressed },
           typeof style === 'function' ? style({ pressed }) : style,
         ]}
-        {...rest}>
+        {...rest}
+      >
         {leading && <View style={styles.leading}>{leading}</View>}
         <Stack gap="xxs" style={styles.content}>
           <Text variant="body">{title}</Text>
-          {subtitle && <Text variant="caption" color="textTertiary">{subtitle}</Text>}
+          {subtitle && (
+            <Text variant="caption" color="textTertiary">
+              {subtitle}
+            </Text>
+          )}
         </Stack>
         {trailing ?? (
           <Text variant="body" color="iconSecondary">

@@ -6,7 +6,17 @@ import Animated, {
   withSpring,
   withTiming,
 } from 'react-native-reanimated';
-import { Text, borders, iconSizes, motion, radius, sizes, spacing, useReducedMotion, useTheme } from '../../../masicn';
+import {
+  Text,
+  borders,
+  iconSizes,
+  motion,
+  radius,
+  sizes,
+  spacing,
+  useReducedMotion,
+  useTheme,
+} from '../../../masicn';
 
 interface RadioGroupContextValue {
   value: string;
@@ -14,7 +24,9 @@ interface RadioGroupContextValue {
   disabled?: boolean;
 }
 
-const RadioGroupContext = createContext<RadioGroupContextValue | undefined>(undefined);
+const RadioGroupContext = createContext<RadioGroupContextValue | undefined>(
+  undefined,
+);
 
 interface RadioGroupProps {
   /** The currently selected value within the group. */
@@ -130,7 +142,9 @@ export const Radio = React.memo(function Radio({
   }));
 
   const handlePress = () => {
-    if (!isDisabled) { context.onValueChange(value); }
+    if (!isDisabled) {
+      context.onValueChange(value);
+    }
   };
 
   return (
@@ -139,28 +153,45 @@ export const Radio = React.memo(function Radio({
       disabled={isDisabled}
       style={[styles.radioContainer, containerStyle]}
       accessibilityRole="radio"
-      accessibilityState={{ checked: isSelected, disabled: isDisabled }}>
+      accessibilityState={{ checked: isSelected, disabled: isDisabled }}
+    >
       <View
         style={[
           styles.radio,
           {
             borderColor: isDisabled
               ? theme.colors.borderSecondary
-              : isSelected ? theme.colors.primary : theme.colors.borderPrimary,
+              : isSelected
+              ? theme.colors.primary
+              : theme.colors.borderPrimary,
           },
-        ]}>
+        ]}
+      >
         <Animated.View
           style={[
             styles.radioInner,
-            { backgroundColor: isDisabled ? theme.colors.disabled : theme.colors.primary },
+            {
+              backgroundColor: isDisabled
+                ? theme.colors.disabled
+                : theme.colors.primary,
+            },
             animatedDotStyle,
           ]}
         />
       </View>
       <View style={styles.labelContainer}>
-        <Text variant="body" color={isDisabled ? 'textDisabled' : 'textPrimary'}>{label}</Text>
+        <Text
+          variant="body"
+          color={isDisabled ? 'textDisabled' : 'textPrimary'}
+        >
+          {label}
+        </Text>
         {description && (
-          <Text variant="caption" color={isDisabled ? 'textDisabled' : 'textSecondary'} style={styles.description}>
+          <Text
+            variant="caption"
+            color={isDisabled ? 'textDisabled' : 'textSecondary'}
+            style={styles.description}
+          >
             {description}
           </Text>
         )}
@@ -171,9 +202,25 @@ export const Radio = React.memo(function Radio({
 
 const styles = StyleSheet.create({
   radioGroup: { gap: spacing.sm },
-  radioContainer: { flexDirection: 'row', alignItems: 'center', gap: spacing.sm, paddingVertical: spacing.xs },
-  radio: { width: sizes.control, height: sizes.control, borderRadius: radius.full, borderWidth: borders.medium, alignItems: 'center', justifyContent: 'center' },
-  radioInner: { width: iconSizes.decorative, height: iconSizes.decorative, borderRadius: radius.full },
+  radioContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: spacing.sm,
+    paddingVertical: spacing.xs,
+  },
+  radio: {
+    width: sizes.control,
+    height: sizes.control,
+    borderRadius: radius.full,
+    borderWidth: borders.medium,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  radioInner: {
+    width: iconSizes.decorative,
+    height: iconSizes.decorative,
+    borderRadius: radius.full,
+  },
   labelContainer: { flex: 1 },
   description: { marginTop: spacing.xxs },
 });

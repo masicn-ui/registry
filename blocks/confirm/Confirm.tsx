@@ -1,6 +1,13 @@
 import React, { useCallback } from 'react';
 import { View, StyleSheet } from 'react-native';
-import { Text, borders, radius, rgba, spacing, useTheme } from '../../../masicn';
+import {
+  Text,
+  borders,
+  radius,
+  rgba,
+  spacing,
+  useTheme,
+} from '../../../masicn';
 import { Button, Modal } from '../../components';
 
 export interface ConfirmProps {
@@ -117,8 +124,8 @@ export function Confirm({
       onClose={onClose}
       accessibilityLabel={title}
       showCloseButton={false}
-      maxWidth="narrow">
-
+      maxWidth="narrow"
+    >
       {/* Destructive-mode warning banner */}
       {destructive && (
         <View
@@ -128,7 +135,8 @@ export function Confirm({
               backgroundColor: rgba(theme.colors.error, 0.1),
               borderLeftColor: theme.colors.error,
             },
-          ]}>
+          ]}
+        >
           <Text variant="label" style={{ color: theme.colors.error }}>
             This action cannot be undone
           </Text>
@@ -137,13 +145,17 @@ export function Confirm({
 
       <Text
         variant="titleSmall"
-        style={{ color: destructive ? theme.colors.error : theme.colors.textPrimary }}>
+        style={{
+          color: destructive ? theme.colors.error : theme.colors.textPrimary,
+        }}
+      >
         {title}
       </Text>
 
       <Text
         variant="body"
-        style={[styles.message, { color: theme.colors.textSecondary }]}>
+        style={[styles.message, { color: theme.colors.textSecondary }]}
+      >
         {message}
       </Text>
 
@@ -151,14 +163,16 @@ export function Confirm({
         <Button
           variant={destructive ? 'outline' : 'ghost'}
           onPress={handleCancel}
-          containerStyle={styles.action}>
+          containerStyle={styles.action}
+        >
           {cancelLabel}
         </Button>
         <Button
           variant={destructive ? 'destructive' : 'primary'}
           loading={loading}
           onPress={onConfirm}
-          containerStyle={styles.action}>
+          containerStyle={styles.action}
+        >
           {confirmLabel}
         </Button>
       </View>

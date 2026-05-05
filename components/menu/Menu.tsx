@@ -7,7 +7,15 @@ import {
   type GestureResponderEvent,
   type ViewStyle,
 } from 'react-native';
-import { Divider, Text, elevation, radius, sizes, spacing, useTheme } from '../../../masicn';
+import {
+  Divider,
+  Text,
+  elevation,
+  radius,
+  sizes,
+  spacing,
+  useTheme,
+} from '../../../masicn';
 
 export interface MenuItem {
   /** Menu item label */
@@ -137,13 +145,16 @@ export function Menu({
         // statusBarTranslucent makes the Modal extend behind the Android status
         // bar so the backdrop covers the full screen including the notch area.
         statusBarTranslucent
-        onRequestClose={() => setVisible(false)}>
-
+        onRequestClose={() => setVisible(false)}
+      >
         {/* Full-screen root — flex:1 fills the entire Modal surface */}
         <View style={styles.modalRoot}>
           {/* Backdrop: absoluteFill covers the whole modalRoot including status bar */}
           <Pressable
-            style={[StyleSheet.absoluteFill, { backgroundColor: theme.colors.overlay }]}
+            style={[
+              StyleSheet.absoluteFill,
+              { backgroundColor: theme.colors.overlay },
+            ]}
             onPress={() => setVisible(false)}
           />
 
@@ -157,7 +168,8 @@ export function Menu({
                 shadowColor: theme.colors.shadow,
               },
             ]}
-            pointerEvents="auto">
+            pointerEvents="auto"
+          >
             {title && (
               <>
                 <View style={styles.header}>
@@ -175,11 +187,13 @@ export function Menu({
                 disabled={item.disabled}
                 style={({ pressed }) => [
                   styles.menuItem,
-                  pressed && !item.disabled && {
-                    backgroundColor: theme.colors.highlight,
-                  },
+                  pressed &&
+                    !item.disabled && {
+                      backgroundColor: theme.colors.highlight,
+                    },
                   index === items.length - 1 && styles.lastItem,
-                ]}>
+                ]}
+              >
                 {item.icon && (
                   <Text
                     variant="body"
@@ -189,10 +203,11 @@ export function Menu({
                         color: item.disabled
                           ? theme.colors.textDisabled
                           : item.destructive
-                            ? theme.colors.error
-                            : theme.colors.textPrimary,
+                          ? theme.colors.error
+                          : theme.colors.textPrimary,
                       },
-                    ]}>
+                    ]}
+                  >
                     {item.icon}
                   </Text>
                 )}
@@ -203,16 +218,18 @@ export function Menu({
                       item.disabled
                         ? 'textDisabled'
                         : item.destructive
-                          ? 'error'
-                          : 'textPrimary'
-                    }>
+                        ? 'error'
+                        : 'textPrimary'
+                    }
+                  >
                     {item.label}
                   </Text>
                   {item.description && (
                     <Text
                       variant="caption"
                       color={item.disabled ? 'textDisabled' : 'textSecondary'}
-                      style={styles.menuDescription}>
+                      style={styles.menuDescription}
+                    >
                       {item.description}
                     </Text>
                   )}

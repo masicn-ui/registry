@@ -7,14 +7,23 @@ import {
   type NativeSyntheticEvent,
   type TextInputContentSizeChangeEventData,
 } from 'react-native';
-import { Stack, Text, borders, radius, spacing, typography, useTheme } from '../../../masicn';
+import {
+  Stack,
+  Text,
+  borders,
+  radius,
+  spacing,
+  typography,
+  useTheme,
+} from '../../../masicn';
 
 /** Body line height — used to compute minHeight from minRows. */
 const LINE_HEIGHT = typography.body.lineHeight;
 
 type TextareaSize = 'sm' | 'md' | 'lg';
 
-interface TextareaProps extends Omit<RNTextInputProps, 'multiline' | 'numberOfLines'> {
+interface TextareaProps
+  extends Omit<RNTextInputProps, 'multiline' | 'numberOfLines'> {
   /** Label rendered above the textarea. */
   label?: string;
   /** Descriptive text shown below the textarea when there is no error. */
@@ -78,126 +87,150 @@ interface TextareaProps extends Omit<RNTextInputProps, 'multiline' | 'numberOfLi
  *   minRows={6}
  * />
  */
-const Textarea = React.forwardRef<RNTextInput, TextareaProps>(
-  function Textarea(
-    {
-      label,
-      helperText,
-      error,
-      disabled = false,
-      size = 'md',
-      minRows = 3,
-      maxHeight,
-      style,
-      accessibilityLabel,
-      accessibilityHint,
-      onContentSizeChange,
-      ...rest
-    },
-    ref,
-  ) {
-    const { theme } = useTheme();
-    const [focused, setFocused] = useState(false);
-    const [contentHeight, setContentHeight] = useState<number | null>(null);
-    const hasError = !!error;
-    const inputId = useId();
+const Textarea = React.forwardRef<RNTextInput, TextareaProps>(function Textarea(
+  {
+    label,
+    helperText,
+    error,
+    disabled = false,
+    size = 'md',
+    minRows = 3,
+    maxHeight,
+    style,
+    accessibilityLabel,
+    accessibilityHint,
+    onContentSizeChange,
+    ...rest
+  },
+  ref,
+) {
+  const { theme } = useTheme();
+  const [focused, setFocused] = useState(false);
+  const [contentHeight, setContentHeight] = useState<number | null>(null);
+  const hasError = !!error;
+  const inputId = useId();
 
-    const { paddingVertical, paddingHorizontal } = sizeConfig[size];
+  const { paddingVertical, paddingHorizontal } = sizeConfig[size];
 
-    const minContentHeight = minRows * LINE_HEIGHT;
-    const naturalHeight = contentHeight !== null
+  const minContentHeight = minRows * LINE_HEIGHT;
+  const naturalHeight =
+    contentHeight !== null
       ? Math.max(minContentHeight, contentHeight)
       : minContentHeight;
-    const maxContentHeight = maxHeight !== undefined
-      ? maxHeight - paddingVertical * 2
-      : undefined;
-    const inputHeight = maxContentHeight !== undefined
+  const maxContentHeight =
+    maxHeight !== undefined ? maxHeight - paddingVertical * 2 : undefined;
+  const inputHeight =
+    maxContentHeight !== undefined
       ? Math.min(naturalHeight, maxContentHeight)
       : naturalHeight;
-    const scrollEnabled = maxContentHeight !== undefined && naturalHeight > maxContentHeight;
+  const scrollEnabled =
+    maxContentHeight !== undefined && naturalHeight > maxContentHeight;
 
-    const borderColor = hasError
-      ? theme.colors.error
-      : focused
-        ? theme.colors.borderFocused
-        : theme.colors.inputBorder;
+  const borderColor = hasError
+    ? theme.colors.error
+    : focused
+    ? theme.colors.borderFocused
+    : theme.colors.inputBorder;
 
-    const labelColor = hasError
-      ? theme.colors.error
-      : focused
-        ? theme.colors.borderFocused
-        : theme.colors.textPrimary;
+  const labelColor = hasError
+    ? theme.colors.error
+    : focused
+    ? theme.colors.borderFocused
+    : theme.colors.textPrimary;
 
-    const currentValue = typeof rest.value === 'string' ? rest.value : '';
-    const charCount = rest.maxLength !== undefined
+  const currentValue = typeof rest.value === 'string' ? rest.value : '';
+  const charCount =
+    rest.maxLength !== undefined
       ? `${currentValue.length} / ${rest.maxLength}`
       : null;
 
-    const bottomRow = hasError || helperText || charCount;
+  const bottomRow = hasError || helperText || charCount;
 
-    function handleContentSizeChange(
-      e: NativeSyntheticEvent<TextInputContentSizeChangeEventData>,
-    ) {
-      setContentHeight(e.nativeEvent.contentSize.height);
-      onContentSizeChange?.(e);
-    }
+  function handleContentSizeChange(
+    e: NativeSyntheticEvent<TextInputContentSizeChangeEventData>,
+  ) {
+    setContentHeight(e.nativeEvent.contentSize.height);
+    onContentSizeChange?.(e);
+  }
 
-    return (
-      <Stack gap="xs">
-        {label && (
-          <Text variant="label" nativeID={`${inputId}-label`} style={{ color: labelColor }}>
-            {label}
-          </Text>
-        )}
-        <View
+  return (
+    <Stack gap="xs">
+      {label && (
+        <Text
+          variant="label"
+          nativeID={`${inputId}-label`}
+          style={{ color: labelColor }}
+        >
+          {label}
+        </Text>
+      )}
+      <View
+        style={[
+          styles.container,
+          {
+            paddingVertical,
+            paddingHorizontal,
+            backgroundColor: disabled
+              ? theme.colors.disabled
+              : theme.colors.inputBackground,
+            borderColor,
+          },
+        ]}
+      >
+        <RNTextInput
+          ref={ref}
+          multiline
+          scrollEnabled={scrollEnabled}
+          editable={!disabled}
+          underlineColorAndroid="transparent"
+          placeholderTextColor={theme.colors.inputPlaceholder}
+          accessibilityLabel={accessibilityLabel ?? label}
+          accessibilityHint={error ? error : accessibilityHint}
+          accessibilityState={{ disabled }}
+          accessibilityLabelledBy={label ? `${inputId}-label` : undefined}
+          onFocus={e => {
+            setFocused(true);
+            rest.onFocus?.(e);
+          }}
+          onBlur={e => {
+            setFocused(false);
+            rest.onBlur?.(e);
+          }}
+          onContentSizeChange={handleContentSizeChange}
           style={[
-            styles.container,
+            typography.body,
+            style,
+            styles.input,
             {
-              paddingVertical,
-              paddingHorizontal,
-              backgroundColor: disabled ? theme.colors.disabled : theme.colors.inputBackground,
-              borderColor,
+              color: disabled
+                ? theme.colors.textDisabled
+                : theme.colors.textPrimary,
+              height: inputHeight,
             },
-          ]}>
-          <RNTextInput
-            ref={ref}
-            multiline
-            scrollEnabled={scrollEnabled}
-            editable={!disabled}
-            underlineColorAndroid="transparent"
-            placeholderTextColor={theme.colors.inputPlaceholder}
-            accessibilityLabel={accessibilityLabel ?? label}
-            accessibilityHint={error ? error : accessibilityHint}
-            accessibilityState={{ disabled }}
-            accessibilityLabelledBy={label ? `${inputId}-label` : undefined}
-            onFocus={e => { setFocused(true); rest.onFocus?.(e); }}
-            onBlur={e => { setFocused(false); rest.onBlur?.(e); }}
-            onContentSizeChange={handleContentSizeChange}
-            style={[
-              typography.body,
-              style,
-              styles.input,
-              { color: disabled ? theme.colors.textDisabled : theme.colors.textPrimary, height: inputHeight },
-            ]}
-            {...rest}
-          />
-        </View>
-        {bottomRow && (
-          <View style={styles.bottomRow}>
-            <Text
-              variant="caption"
-              color={hasError ? 'error' : 'textTertiary'}
-              style={styles.helperText}
-              accessibilityLiveRegion={hasError ? 'polite' : undefined}>
-              {error || helperText || ''}
+          ]}
+          {...rest}
+        />
+      </View>
+      {bottomRow && (
+        <View style={styles.bottomRow}>
+          <Text
+            variant="caption"
+            color={hasError ? 'error' : 'textTertiary'}
+            style={styles.helperText}
+            accessibilityLiveRegion={hasError ? 'polite' : undefined}
+          >
+            {error || helperText || ''}
+          </Text>
+          {charCount && (
+            <Text variant="caption" color="textTertiary">
+              {charCount}
             </Text>
-            {charCount && <Text variant="caption" color="textTertiary">{charCount}</Text>}
-          </View>
-        )}
-      </Stack>
-    );
-  },
-);
+          )}
+        </View>
+      )}
+    </Stack>
+  );
+});
 
 Textarea.displayName = 'Textarea';
 
@@ -205,9 +238,9 @@ export { Textarea };
 export type { TextareaProps, TextareaSize };
 
 const sizeConfig = {
-  sm: { paddingVertical: spacing.sm,  paddingHorizontal: spacing.sm },
-  md: { paddingVertical: spacing.md,  paddingHorizontal: spacing.md },
-  lg: { paddingVertical: spacing.md,  paddingHorizontal: spacing.lg },
+  sm: { paddingVertical: spacing.sm, paddingHorizontal: spacing.sm },
+  md: { paddingVertical: spacing.md, paddingHorizontal: spacing.md },
+  lg: { paddingVertical: spacing.md, paddingHorizontal: spacing.lg },
 };
 
 const styles = StyleSheet.create({
@@ -219,6 +252,10 @@ const styles = StyleSheet.create({
     textAlignVertical: 'top',
     padding: spacing.none,
   },
-  bottomRow: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' },
+  bottomRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
   helperText: { flex: 1 },
 });

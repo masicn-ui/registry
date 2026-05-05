@@ -8,7 +8,15 @@ import Animated, {
   withTiming,
   Easing,
 } from 'react-native-reanimated';
-import { Text, fonts, motion, sizes, spacing, useReducedMotion, useTheme } from '../../../masicn';
+import {
+  Text,
+  fonts,
+  motion,
+  sizes,
+  spacing,
+  useReducedMotion,
+  useTheme,
+} from '../../../masicn';
 
 const AnimatedSvg = Animated.createAnimatedComponent(Svg);
 
@@ -80,7 +88,10 @@ export const ProgressRing = React.memo(function ProgressRing({
   React.useEffect(() => {
     if (indeterminate && !reducedMotion) {
       rotation.value = withRepeat(
-        withTiming(360, { duration: motion.duration.slow * 2, easing: Easing.linear }),
+        withTiming(360, {
+          duration: motion.duration.slow * 2,
+          easing: Easing.linear,
+        }),
         -1,
         false,
       );
@@ -99,8 +110,14 @@ export const ProgressRing = React.memo(function ProgressRing({
   const strokeDashoffset = circumference - (progress / 100) * circumference;
   const progressColor = color || theme.colors.primary;
 
-  const textVariant = size <= 60 ? 'bodySmall' as const : size <= 100 ? 'body' as const : 'h2' as const;
-  const labelVariant = size <= 100 ? 'captionSmall' as const : 'caption' as const;
+  const textVariant =
+    size <= 60
+      ? ('bodySmall' as const)
+      : size <= 100
+      ? ('body' as const)
+      : ('h2' as const);
+  const labelVariant =
+    size <= 100 ? ('captionSmall' as const) : ('caption' as const);
 
   const svgContent = (
     <>
@@ -130,7 +147,11 @@ export const ProgressRing = React.memo(function ProgressRing({
   return (
     <View style={[styles.container, { width: size, height: size }]}>
       {indeterminate && !reducedMotion ? (
-        <AnimatedSvg width={size} height={size} style={[styles.svg, animatedStyle]}>
+        <AnimatedSvg
+          width={size}
+          height={size}
+          style={[styles.svg, animatedStyle]}
+        >
           {svgContent}
         </AnimatedSvg>
       ) : (
@@ -140,15 +161,29 @@ export const ProgressRing = React.memo(function ProgressRing({
       )}
       {!indeterminate && showValue && (
         <View style={styles.content}>
-          <Text variant={textVariant} style={styles.value}>{Math.round(progress)}%</Text>
+          <Text variant={textVariant} style={styles.value}>
+            {Math.round(progress)}%
+          </Text>
           {label && (
-            <Text variant={labelVariant} color="textSecondary" style={styles.label}>{label}</Text>
+            <Text
+              variant={labelVariant}
+              color="textSecondary"
+              style={styles.label}
+            >
+              {label}
+            </Text>
           )}
         </View>
       )}
       {indeterminate && label && (
         <View style={styles.content}>
-          <Text variant={labelVariant} color="textSecondary" style={styles.label}>{label}</Text>
+          <Text
+            variant={labelVariant}
+            color="textSecondary"
+            style={styles.label}
+          >
+            {label}
+          </Text>
         </View>
       )}
     </View>
@@ -156,7 +191,11 @@ export const ProgressRing = React.memo(function ProgressRing({
 });
 
 const styles = StyleSheet.create({
-  container: { position: 'relative', alignItems: 'center', justifyContent: 'center' },
+  container: {
+    position: 'relative',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   svg: { position: 'absolute' },
   content: { alignItems: 'center', justifyContent: 'center' },
   value: { fontFamily: fonts.ui.bold },

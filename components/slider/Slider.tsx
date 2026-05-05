@@ -1,9 +1,5 @@
 import React, { useCallback, useEffect } from 'react';
-import {
-  View,
-  StyleSheet,
-  type ViewStyle,
-} from 'react-native';
+import { View, StyleSheet, type ViewStyle } from 'react-native';
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
@@ -118,8 +114,8 @@ export function Slider({
     if (w > 0 && range > 0) {
       thumbPos.value = ((value - minimumValue) / range) * w;
     }
-  // sliderWidthSV and thumbPos are stable refs — safe to omit from deps.
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // sliderWidthSV and thumbPos are stable refs — safe to omit from deps.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [value, minimumValue, range]);
 
   // ── Animated styles ────────────────────────────────────────────────────
@@ -137,17 +133,30 @@ export function Slider({
 
   // Stable JS function that converts a pixel position to a stepped value
   // and fires onValueChange. Dispatched via scheduleOnRN from the UI-thread worklet.
-  const commitValue = useCallback((pos: number) => {
-    const w = sliderWidthSV.value;
-    if (w === 0) { return; }
-    const pct = Math.max(0, Math.min(1, pos / w));
-    const raw = minimumValue + pct * range;
-    const stepped = Math.round(raw / step) * step;
-    const clamped = Math.max(minimumValue, Math.min(maximumValue, stepped));
-    if (clamped !== value) { onValueChange(clamped); }
-  // sliderWidthSV is a stable shared value ref.
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [minimumValue, maximumValue, range, step, value, onValueChange]);
+  const commitValue = useCallback(
+    (pos: number) => {
+      const w = sliderWidthSV.value;
+      if (w === 0) {
+        return;
+      }
+      const pct = Math.max(0, Math.min(1, pos / w));
+      const raw = minimumValue + pct * range;
+      const stepped = Math.round(raw / step) * step;
+      const clamped = Math.max(minimumValue, Math.min(maximumValue, stepped));
+      if (clamped !== value) {
+        onValueChange(clamped);
+      }
+    },
+    [
+      sliderWidthSV,
+      minimumValue,
+      maximumValue,
+      range,
+      step,
+      value,
+      onValueChange,
+    ],
+  );
 
   // ── Gesture ────────────────────────────────────────────────────────────
 
@@ -173,22 +182,34 @@ export function Slider({
       thumbPos.value = clamped;
       scheduleOnRN(stableCommit, clamped);
     })
-    .onEnd(() => { isDragging.value = false; })
-    .onFinalize(() => { isDragging.value = false; });
+    .onEnd(() => {
+      isDragging.value = false;
+    })
+    .onFinalize(() => {
+      isDragging.value = false;
+    });
 
   // ── Render ────────────────────────────────────────────────────────────
 
   return (
-    <View style={[styles.container, disabled && styles.disabled, containerStyle]}>
+    <View
+      style={[styles.container, disabled && styles.disabled, containerStyle]}
+    >
       {(label || showValue) && (
         <View style={styles.header}>
           {label && (
-            <Text variant="body" color={disabled ? 'textDisabled' : 'textPrimary'}>
+            <Text
+              variant="body"
+              color={disabled ? 'textDisabled' : 'textPrimary'}
+            >
               {label}
             </Text>
           )}
           {showValue && (
-            <Text variant="bodySmall" color={disabled ? 'textDisabled' : 'textSecondary'}>
+            <Text
+              variant="bodySmall"
+              color={disabled ? 'textDisabled' : 'textSecondary'}
+            >
               {value}
             </Text>
           )}
@@ -209,10 +230,14 @@ export function Slider({
           onAccessibilityAction={event => {
             if (event.nativeEvent.actionName === 'increment') {
               const next = Math.min(maximumValue, value + step);
-              if (next !== value) { onValueChange(next); }
+              if (next !== value) {
+                onValueChange(next);
+              }
             } else if (event.nativeEvent.actionName === 'decrement') {
               const prev = Math.max(minimumValue, value - step);
-              if (prev !== value) { onValueChange(prev); }
+              if (prev !== value) {
+                onValueChange(prev);
+              }
             }
           }}
           testID={testID}
@@ -224,9 +249,12 @@ export function Slider({
             if (range > 0) {
               thumbPos.value = ((value - minimumValue) / range) * w;
             }
-          }}>
+          }}
+        >
           {/* Track */}
-          <View style={[styles.track, { backgroundColor: theme.colors.disabled }]} />
+          <View
+            style={[styles.track, { backgroundColor: theme.colors.disabled }]}
+          />
           {/* Active track */}
           <Animated.View
             style={[

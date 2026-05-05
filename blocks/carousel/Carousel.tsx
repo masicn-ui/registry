@@ -179,15 +179,23 @@ export function Carousel<T>({
 
   // Build display list: when looping, prepend clone of last + append clone of first
   const displayData = useMemo(() => {
-    if (!effectiveLoop || data.length === 0) { return data; }
+    if (!effectiveLoop || data.length === 0) {
+      return data;
+    }
     return [data[data.length - 1], ...data, data[0]] as T[];
   }, [data, effectiveLoop]);
 
   // Map a display index back to the real data index
   const toRealIndex = (displayIndex: number): number => {
-    if (!effectiveLoop) { return displayIndex; }
-    if (displayIndex === 0) { return data.length - 1; }
-    if (displayIndex === displayData.length - 1) { return 0; }
+    if (!effectiveLoop) {
+      return displayIndex;
+    }
+    if (displayIndex === 0) {
+      return data.length - 1;
+    }
+    if (displayIndex === displayData.length - 1) {
+      return 0;
+    }
     return displayIndex - 1;
   };
 
@@ -195,15 +203,25 @@ export function Carousel<T>({
     <View>
       <GestureDetector gesture={panGesture}>
         <View
-          style={[styles.container, { width: screenWidth, height: resolvedSlideHeight }]}
+          style={[
+            styles.container,
+            { width: screenWidth, height: resolvedSlideHeight },
+          ]}
           accessibilityRole="adjustable"
-          accessibilityValue={{ min: 0, max: data.length - 1, now: activeIndex }}>
+          accessibilityValue={{
+            min: 0,
+            max: data.length - 1,
+            now: activeIndex,
+          }}
+        >
           <Animated.View style={[styles.row, rowStyle]}>
             {displayData.map((_, displayIndex) => {
               const realIndex = toRealIndex(displayIndex);
               const realItem = data[realIndex];
               // Stable key: clones get a suffix so they don't collide with the real item
-              const isClone = effectiveLoop && (displayIndex === 0 || displayIndex === displayData.length - 1);
+              const isClone =
+                effectiveLoop &&
+                (displayIndex === 0 || displayIndex === displayData.length - 1);
               const key = isClone
                 ? `clone-${displayIndex}-${keyExtractor(realItem, realIndex)}`
                 : keyExtractor(realItem, realIndex);
@@ -215,11 +233,21 @@ export function Carousel<T>({
                     displayIndex < displayData.length - 1 && gapValue > 0
                       ? { marginRight: gapValue }
                       : undefined
-                  }>
+                  }
+                >
                   <Pressable
-                    onPress={onItemPress ? () => onItemPress(realItem, realIndex) : undefined}
+                    onPress={
+                      onItemPress
+                        ? () => onItemPress(realItem, realIndex)
+                        : undefined
+                    }
                     disabled={!onItemPress}
-                    testID={testID && !isClone ? `${testID}-slide-${realIndex}` : undefined}>
+                    testID={
+                      testID && !isClone
+                        ? `${testID}-slide-${realIndex}`
+                        : undefined
+                    }
+                  >
                     <CarouselSlide
                       offset={offset}
                       index={displayIndex}
@@ -227,7 +255,8 @@ export function Carousel<T>({
                       scrollStep={scrollStep}
                       animation={animation}
                       borderRadiusValue={borderRadiusValue}
-                      height={resolvedSlideHeight}>
+                      height={resolvedSlideHeight}
+                    >
                       <View style={styles.slideContent}>
                         {renderItem(realItem, realIndex)}
                       </View>
@@ -247,7 +276,8 @@ export function Carousel<T>({
             dotVariant === 'line' && {
               paddingHorizontal: isPeekMode ? horizontalPadding : spacing.lg,
             },
-          ]}>
+          ]}
+        >
           <CarouselDots
             count={data.length}
             activeIndex={activeIndex}

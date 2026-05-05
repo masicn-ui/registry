@@ -1,8 +1,18 @@
 import React, { useCallback } from 'react';
 import { type TextStyle } from 'react-native';
-import { useSharedValue, withTiming, cancelAnimation, useAnimatedReaction } from 'react-native-reanimated';
+import {
+  useSharedValue,
+  withTiming,
+  cancelAnimation,
+  useAnimatedReaction,
+} from 'react-native-reanimated';
 import { scheduleOnRN } from 'react-native-worklets';
-import { Text, motion, useReducedMotion, type TypographyVariant } from '../../../masicn';
+import {
+  Text,
+  motion,
+  useReducedMotion,
+  type TypographyVariant,
+} from '../../../masicn';
 
 export interface TickerProps {
   /** Target numeric value — the component smoothly animates to this */
@@ -53,15 +63,20 @@ export function Ticker({
   const safeValue = Number.isFinite(value) ? value : 0;
   const reducedMotion = useReducedMotion();
   const animated = useSharedValue(safeValue);
-  const [displayText, setDisplayText] = React.useState(() => formatter(safeValue));
+  const [displayText, setDisplayText] = React.useState(() =>
+    formatter(safeValue),
+  );
 
-  const updateDisplay = useCallback((v: number) => {
-    setDisplayText(formatter(v));
-  }, [formatter]);
+  const updateDisplay = useCallback(
+    (v: number) => {
+      setDisplayText(formatter(v));
+    },
+    [formatter],
+  );
 
   useAnimatedReaction(
     () => animated.value,
-    (v) => scheduleOnRN(updateDisplay, v),
+    v => scheduleOnRN(updateDisplay, v),
     [updateDisplay],
   );
 

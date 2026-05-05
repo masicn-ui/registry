@@ -1,6 +1,13 @@
 import React, { useMemo } from 'react';
 import { View, Pressable, StyleSheet } from 'react-native';
-import { Text, borders, radius, sizes, spacing, useTheme } from '../../../masicn';
+import {
+  Text,
+  borders,
+  radius,
+  sizes,
+  spacing,
+  useTheme,
+} from '../../../masicn';
 
 export interface PaginationProps {
   /** Current page (1-based) */
@@ -81,21 +88,40 @@ export const Pagination = React.memo(function Pagination({
     let start = Math.max(2, page - half);
     let end = Math.min(totalPages - 1, page + half);
 
-    if (page - half < 2) { end = Math.min(totalPages - 1, maxVisible - 1); }
-    if (page + half > totalPages - 1) { start = Math.max(2, totalPages - maxVisible + 2); }
+    if (page - half < 2) {
+      end = Math.min(totalPages - 1, maxVisible - 1);
+    }
+    if (page + half > totalPages - 1) {
+      start = Math.max(2, totalPages - maxVisible + 2);
+    }
 
     const result: Array<number | '…'> = [1];
-    if (start > 2) { result.push('…'); }
-    for (let i = start; i <= end; i++) { result.push(i); }
-    if (end < totalPages - 1) { result.push('…'); }
+    if (start > 2) {
+      result.push('…');
+    }
+    for (let i = start; i <= end; i++) {
+      result.push(i);
+    }
+    if (end < totalPages - 1) {
+      result.push('…');
+    }
     result.push(totalPages);
     return result;
   }, [page, totalPages, maxVisible]);
 
-  const renderButton = (label: string | number, target: number | null, active = false, buttonTestID?: string) => {
+  const renderButton = (
+    label: string | number,
+    target: number | null,
+    active = false,
+    buttonTestID?: string,
+  ) => {
     const disabled = target === null;
     const bg = active ? theme.colors.primary : theme.colors.surfaceSecondary;
-    const textColor = active ? theme.colors.onPrimary : disabled ? theme.colors.textDisabled : theme.colors.textPrimary;
+    const textColor = active
+      ? theme.colors.onPrimary
+      : disabled
+      ? theme.colors.textDisabled
+      : theme.colors.textPrimary;
 
     return (
       <Pressable
@@ -103,11 +129,17 @@ export const Pagination = React.memo(function Pagination({
         onPress={target !== null ? () => onPageChange(target) : undefined}
         disabled={disabled}
         accessibilityRole="button"
-        accessibilityLabel={typeof label === 'number' ? `Page ${label}` : String(label)}
+        accessibilityLabel={
+          typeof label === 'number' ? `Page ${label}` : String(label)
+        }
         accessibilityState={{ selected: active, disabled }}
         testID={buttonTestID}
         hitSlop={spacing.sm}
-        style={[styles.button, { backgroundColor: bg, borderColor: theme.colors.borderSecondary }]}>
+        style={[
+          styles.button,
+          { backgroundColor: bg, borderColor: theme.colors.borderSecondary },
+        ]}
+      >
         <Text variant="caption" style={{ color: textColor }}>
           {label}
         </Text>
@@ -116,12 +148,31 @@ export const Pagination = React.memo(function Pagination({
   };
 
   return (
-    <View style={styles.row} accessibilityRole="tablist" accessibilityLabel="Pagination" testID={testID}>
+    <View
+      style={styles.row}
+      accessibilityRole="tablist"
+      accessibilityLabel="Pagination"
+      testID={testID}
+    >
       {renderButton('‹', page > 1 ? page - 1 : null)}
       {pages.map((p, i) =>
-        p === '…'
-          ? <Text key={`ellipsis-${i}`} variant="caption" color="textSecondary" style={styles.ellipsis}>…</Text>
-          : renderButton(p, p, p === page, testID ? `${testID}-page-${p}` : undefined),
+        p === '…' ? (
+          <Text
+            key={`ellipsis-${i}`}
+            variant="caption"
+            color="textSecondary"
+            style={styles.ellipsis}
+          >
+            …
+          </Text>
+        ) : (
+          renderButton(
+            p,
+            p,
+            p === page,
+            testID ? `${testID}-page-${p}` : undefined,
+          )
+        ),
       )}
       {renderButton('›', page < totalPages ? page + 1 : null)}
     </View>

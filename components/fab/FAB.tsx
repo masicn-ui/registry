@@ -1,10 +1,27 @@
 import React from 'react';
 import { Pressable, View, StyleSheet, type ViewStyle } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { Text, elevation, iconSizes, motion, opacity as opacityTokens, radius, sizes, spacing, useTheme, type IconComponent, PlusIcon } from '../../../masicn';
+import {
+  Text,
+  elevation,
+  iconSizes,
+  motion,
+  opacity as opacityTokens,
+  radius,
+  sizes,
+  spacing,
+  useTheme,
+  type IconComponent,
+  PlusIcon,
+} from '../../../masicn';
 
 type FABSize = 'small' | 'medium' | 'large';
-type FABPosition = 'bottom-right' | 'bottom-left' | 'bottom-center' | 'top-right' | 'top-left';
+type FABPosition =
+  | 'bottom-right'
+  | 'bottom-left'
+  | 'bottom-center'
+  | 'top-right'
+  | 'top-left';
 type FABVariant = 'circular' | 'extended';
 type FABShape = 'circular' | 'square';
 
@@ -139,7 +156,8 @@ export const FAB = React.memo(function FAB({
       ]}
       accessibilityRole="button"
       accessibilityLabel={label || 'Floating action button'}
-      accessibilityState={{ disabled }}>
+      accessibilityState={{ disabled }}
+    >
       <View style={[styles.content, isExtended && styles.extendedContent]}>
         {FabIcon && (
           <FabIcon size={iconSizeMap[size]} color={theme.colors.onPrimary} />

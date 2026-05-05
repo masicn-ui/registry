@@ -1,5 +1,11 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
-import { View, TextInput, StyleSheet, Pressable, type ViewStyle } from 'react-native';
+import {
+  View,
+  TextInput,
+  StyleSheet,
+  Pressable,
+  type ViewStyle,
+} from 'react-native';
 import Animated, {
   useSharedValue,
   useAnimatedStyle,
@@ -7,7 +13,17 @@ import Animated, {
   withTiming,
   withSequence,
 } from 'react-native-reanimated';
-import { Text, borders, motion, opacity as opacityTokens, radius, sizes, spacing, useReducedMotion, useTheme } from '../../../masicn';
+import {
+  Text,
+  borders,
+  motion,
+  opacity as opacityTokens,
+  radius,
+  sizes,
+  spacing,
+  useReducedMotion,
+  useTheme,
+} from '../../../masicn';
 
 type OTPVariant = 'box' | 'underline';
 type OTPSize = 'sm' | 'md' | 'lg';
@@ -146,7 +162,11 @@ export function CodeInput({
   const digits = sanitizedValue.padEnd(length, ' ').split('');
 
   useEffect(() => {
-    if (sanitizedValue.length === length && onComplete && !completedRef.current) {
+    if (
+      sanitizedValue.length === length &&
+      onComplete &&
+      !completedRef.current
+    ) {
       completedRef.current = true;
       onComplete(sanitizedValue);
     } else if (sanitizedValue.length < length) {
@@ -154,18 +174,25 @@ export function CodeInput({
     }
   }, [sanitizedValue, length, onComplete]);
 
-  const handleTextChange = useCallback((text: string) => {
-    const cleaned = text.replace(/[^0-9]/g, '').slice(0, length);
-    onChangeText(cleaned);
-    setFocusedIndex(cleaned.length < length ? cleaned.length : length - 1);
-  }, [length, onChangeText]);
+  const handleTextChange = useCallback(
+    (text: string) => {
+      const cleaned = text.replace(/[^0-9]/g, '').slice(0, length);
+      onChangeText(cleaned);
+      setFocusedIndex(cleaned.length < length ? cleaned.length : length - 1);
+    },
+    [length, onChangeText],
+  );
 
   const handleBoxPress = useCallback(() => {
-    if (!disabled) { inputRef.current?.focus(); }
+    if (!disabled) {
+      inputRef.current?.focus();
+    }
   }, [disabled]);
 
   const handleFocus = useCallback(() => {
-    setFocusedIndex(sanitizedValue.length < length ? sanitizedValue.length : length - 1);
+    setFocusedIndex(
+      sanitizedValue.length < length ? sanitizedValue.length : length - 1,
+    );
   }, [sanitizedValue.length, length]);
 
   const handleBlur = useCallback(() => {
@@ -176,16 +203,29 @@ export function CodeInput({
   const textVariant = sizeTextVariants[size];
 
   const getBorderColor = (index: number) => {
-    if (error) { return theme.colors.error; }
-    if (success) { return theme.colors.success; }
-    if (focusedIndex === index) { return theme.colors.borderFocused; }
-    if (sanitizedValue.length > index) { return theme.colors.borderPrimary; }
+    if (error) {
+      return theme.colors.error;
+    }
+    if (success) {
+      return theme.colors.success;
+    }
+    if (focusedIndex === index) {
+      return theme.colors.borderFocused;
+    }
+    if (sanitizedValue.length > index) {
+      return theme.colors.borderPrimary;
+    }
     return theme.colors.borderSecondary;
   };
 
   return (
     <View style={containerStyle}>
-      <Pressable onPress={handleBoxPress} style={styles.container} accessibilityRole="none" testID={testID ? `${testID}-container` : undefined}>
+      <Pressable
+        onPress={handleBoxPress}
+        style={styles.container}
+        accessibilityRole="none"
+        testID={testID ? `${testID}-container` : undefined}
+      >
         {/* Hidden TextInput for smooth native input */}
         <TextInput
           ref={inputRef}
@@ -226,19 +266,30 @@ export function CodeInput({
                   borderBottomWidth: isFocused ? borders.medium : borders.thin,
                 },
                 disabled && styles.disabled,
-              ]}>
+              ]}
+            >
               {showCursor ? (
                 <Animated.View
                   style={[
                     styles.cursor,
-                    { backgroundColor: theme.colors.primary, height: boxHeight * 0.55 },
+                    {
+                      backgroundColor: theme.colors.primary,
+                      height: boxHeight * 0.55,
+                    },
                     cursorStyle,
                   ]}
                 />
               ) : (
                 <Text
                   variant={textVariant}
-                  style={{ color: error ? theme.colors.error : success ? theme.colors.success : theme.colors.textPrimary }}>
+                  style={{
+                    color: error
+                      ? theme.colors.error
+                      : success
+                      ? theme.colors.success
+                      : theme.colors.textPrimary,
+                  }}
+                >
                   {isEmpty ? '' : digit}
                 </Text>
               )}

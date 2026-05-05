@@ -3,7 +3,10 @@ import { View, StyleSheet, type ViewProps } from 'react-native';
 import { spacing } from '../../../masicn';
 
 /** A function that validates a single field value and returns an error string, or `undefined` if valid. Optionally receives all form values as the second argument for cross-field validation. */
-export type FieldValidator<V = unknown> = (value: V, allValues: Record<string, unknown>) => string | undefined;
+export type FieldValidator<V = unknown> = (
+  value: V,
+  allValues: Record<string, unknown>,
+) => string | undefined;
 
 /**
  * Pairs a field name with its validator function.
@@ -95,8 +98,9 @@ export function useFormContext() {
   return context;
 }
 
-interface FormProps<TValues extends Record<string, unknown> = Record<string, unknown>>
-  extends Omit<ViewProps, 'children'> {
+interface FormProps<
+  TValues extends Record<string, unknown> = Record<string, unknown>,
+> extends Omit<ViewProps, 'children'> {
   /** Initial form values */
   initialValues?: TValues;
   /** Field validations */
@@ -106,7 +110,9 @@ interface FormProps<TValues extends Record<string, unknown> = Record<string, unk
   /** Callback when form validation fails */
   onError?: (errors: Record<string, string>) => void;
   /** Form content - can be ReactNode or render function receiving handleSubmit */
-  children: React.ReactNode | ((props: { handleSubmit: () => Promise<void> }) => React.ReactNode);
+  children:
+    | React.ReactNode
+    | ((props: { handleSubmit: () => Promise<void> }) => React.ReactNode);
 }
 
 /**
@@ -187,7 +193,9 @@ function FormField<T = unknown>({ name, children }: FormFieldProps<T>) {
  *   )}
  * </Form>
  */
-function FormBase<TValues extends Record<string, unknown> = Record<string, unknown>>({
+function FormBase<
+  TValues extends Record<string, unknown> = Record<string, unknown>,
+>({
   initialValues = {} as TValues,
   validations = [],
   onSubmit,
@@ -200,37 +208,49 @@ function FormBase<TValues extends Record<string, unknown> = Record<string, unkno
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [touched, setTouched] = useState<Record<string, boolean>>({});
 
-  const setFieldValue = useCallback((name: string, value: unknown) => {
-    setValues((prev) => ({ ...prev, [name]: value }));
+  const setFieldValue = useCallback(
+    (name: string, value: unknown) => {
+      setValues(prev => ({ ...prev, [name]: value }));
 
-    // Validate on change if field was touched
-    if (touched[name]) {
-      const validation = validations.find((v) => v.name === name);
-      if (validation) {
-        const error = validation.validate(value, values);
-        setErrors((prev) => ({ ...prev, [name]: error || '' }));
+      // Validate on change if field was touched
+      if (touched[name]) {
+        const validation = validations.find(v => v.name === name);
+        if (validation) {
+          const error = validation.validate(value, values);
+          setErrors(prev => ({ ...prev, [name]: error || '' }));
+        }
       }
-    }
-  }, [validations, touched, values]);
+    },
+    [validations, touched, values],
+  );
 
-  const setFieldError = useCallback((name: string, error: string | undefined) => {
-    setErrors((prev) => ({ ...prev, [name]: error || '' }));
-  }, []);
+  const setFieldError = useCallback(
+    (name: string, error: string | undefined) => {
+      setErrors(prev => ({ ...prev, [name]: error || '' }));
+    },
+    [],
+  );
 
   const setFieldTouched = useCallback((name: string, isTouched = true) => {
-    setTouched((prev) => ({ ...prev, [name]: isTouched }));
+    setTouched(prev => ({ ...prev, [name]: isTouched }));
   }, []);
 
   const getFieldValue = useCallback((name: string) => values[name], [values]);
   const getFieldError = useCallback((name: string) => errors[name], [errors]);
-  const isFieldTouched = useCallback((name: string) => touched[name] || false, [touched]);
+  const isFieldTouched = useCallback(
+    (name: string) => touched[name] || false,
+    [touched],
+  );
 
   // Returns { isValid, newErrors } directly — avoids stale closure in handleSubmit
-  const validateForm = useCallback((): { isValid: boolean; newErrors: Record<string, string> } => {
+  const validateForm = useCallback((): {
+    isValid: boolean;
+    newErrors: Record<string, string>;
+  } => {
     const newErrors: Record<string, string> = {};
     let isValid = true;
 
-    validations.forEach((validation) => {
+    validations.forEach(validation => {
       const error = validation.validate(values[validation.name], values);
       if (error) {
         newErrors[validation.name] = error;
@@ -244,7 +264,9 @@ function FormBase<TValues extends Record<string, unknown> = Record<string, unkno
 
   const handleSubmit = useCallback(async () => {
     const allTouched: Record<string, boolean> = {};
-    Object.keys(values).forEach((key) => { allTouched[key] = true; });
+    Object.keys(values).forEach(key => {
+      allTouched[key] = true;
+    });
     setTouched(allTouched);
 
     const { isValid, newErrors } = validateForm();

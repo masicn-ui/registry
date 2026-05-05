@@ -1,4 +1,10 @@
-import React, { forwardRef, useEffect, useImperativeHandle, useRef, useState } from 'react';
+import React, {
+  forwardRef,
+  useEffect,
+  useImperativeHandle,
+  useRef,
+  useState,
+} from 'react';
 import {
   Image as RNImage,
   Modal,
@@ -19,7 +25,16 @@ import Animated, {
   withDelay,
 } from 'react-native-reanimated';
 import { scheduleOnRN } from 'react-native-worklets';
-import { Text, motion, opacity, radius, sizes, spacing, useReducedMotion, useTheme } from '../../../masicn';
+import {
+  Text,
+  motion,
+  opacity,
+  radius,
+  sizes,
+  spacing,
+  useReducedMotion,
+  useTheme,
+} from '../../../masicn';
 
 // ─── Types ─────────────────────────────────────────────────────────────────
 
@@ -57,7 +72,12 @@ interface ImageProps extends Omit<RNImageProps, 'source' | 'borderRadius'> {
   enablePreview?: boolean;
 }
 
-const LARGE_RETENTION_OFFSET = { top: 9999, left: 9999, bottom: 9999, right: 9999 };
+const LARGE_RETENTION_OFFSET = {
+  top: 9999,
+  left: 9999,
+  bottom: 9999,
+  right: 9999,
+};
 
 // ─── Aspect ratio map ──────────────────────────────────────────────────────
 
@@ -90,10 +110,12 @@ const ImagePreview = forwardRef<ImagePreviewHandle, ImagePreviewProps>(
 
     const backdropOpacity = useSharedValue(0);
     const previewScale = useSharedValue(0.88);
-    const previewTranslateY = useSharedValue<number>(Number.isFinite(spacing.lg) ? spacing.lg : 20);
+    const previewTranslateY = useSharedValue<number>(
+      Number.isFinite(spacing.lg) ? spacing.lg : 20,
+    );
     const hintOpacity = useSharedValue(0);
 
-    const dismissImpl = useRef(() => { });
+    const dismissImpl = useRef(() => {});
     dismissImpl.current = () => {
       const dur = reducedMotion ? 0 : motion.duration.fast;
       backdropOpacity.value = withTiming(0, { duration: dur });
@@ -102,17 +124,31 @@ const ImagePreview = forwardRef<ImagePreviewHandle, ImagePreviewProps>(
         ? withTiming(spacing.lg, { duration: 0 })
         : withSpring(spacing.lg, motion.spring.gentle);
       previewScale.value = reducedMotion
-        ? withTiming(0.88, { duration: 0 }, () => { scheduleOnRN(onDismiss); })
-        : withSpring(0.88, motion.spring.gentle, () => { scheduleOnRN(onDismiss); });
+        ? withTiming(0.88, { duration: 0 }, () => {
+            scheduleOnRN(onDismiss);
+          })
+        : withSpring(0.88, motion.spring.gentle, () => {
+            scheduleOnRN(onDismiss);
+          });
     };
 
-    useImperativeHandle(ref, () => ({ dismiss: () => { dismissImpl.current(); } }), []);
+    useImperativeHandle(
+      ref,
+      () => ({
+        dismiss: () => {
+          dismissImpl.current();
+        },
+      }),
+      [],
+    );
 
     useEffect(() => {
       if (visible) {
         previewScale.value = 0.88;
         previewTranslateY.value = spacing.lg;
-        backdropOpacity.value = withTiming(opacity.hover, { duration: reducedMotion ? 0 : motion.duration.normal });
+        backdropOpacity.value = withTiming(opacity.hover, {
+          duration: reducedMotion ? 0 : motion.duration.normal,
+        });
         previewScale.value = reducedMotion
           ? withTiming(1, { duration: 0 })
           : withSpring(1, motion.spring.responsive);
@@ -121,7 +157,10 @@ const ImagePreview = forwardRef<ImagePreviewHandle, ImagePreviewProps>(
           : withSpring(0, motion.spring.responsive);
         hintOpacity.value = reducedMotion
           ? withTiming(1, { duration: 0 })
-          : withDelay(motion.duration.slow, withTiming(1, { duration: motion.duration.normal }));
+          : withDelay(
+              motion.duration.slow,
+              withTiming(1, { duration: motion.duration.normal }),
+            );
       }
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [visible, reducedMotion]);
@@ -146,8 +185,15 @@ const ImagePreview = forwardRef<ImagePreviewHandle, ImagePreviewProps>(
         visible={visible}
         transparent
         statusBarTranslucent
-        animationType="none">
-        <Animated.View style={[styles.fill, { backgroundColor: theme.colors.shadow }, backdropStyle]} />
+        animationType="none"
+      >
+        <Animated.View
+          style={[
+            styles.fill,
+            { backgroundColor: theme.colors.shadow },
+            backdropStyle,
+          ]}
+        />
 
         <View style={styles.previewContainer}>
           <Animated.Image
@@ -259,8 +305,12 @@ export function Image({
   };
 
   const getSizeStyle = (): ViewStyle => {
-    if (!size) { return {}; }
-    if (size === 'full') { return { width: '100%' }; }
+    if (!size) {
+      return {};
+    }
+    if (size === 'full') {
+      return { width: '100%' };
+    }
     const sizeValue = sizeMap[size] as number;
     return { width: sizeValue, height: sizeValue };
   };
@@ -278,9 +328,16 @@ export function Image({
           borderRadius && { borderRadius: radius[borderRadius] },
           { backgroundColor: theme.colors.surfaceSecondary },
           containerStyle,
-        ]}>
-        <Text variant="h2" style={styles.fallbackIcon}>🖼</Text>
-        <Text variant="caption" color="textTertiary" style={styles.fallbackText}>
+        ]}
+      >
+        <Text variant="h2" style={styles.fallbackIcon}>
+          🖼
+        </Text>
+        <Text
+          variant="caption"
+          color="textTertiary"
+          style={styles.fallbackText}
+        >
           {errorMessage}
         </Text>
       </View>
@@ -298,9 +355,13 @@ export function Image({
         styles.container,
         aspectRatio && { aspectRatio: aspectRatioMap[aspectRatio] },
         getSizeStyle(),
-        borderRadius && [styles.rounded, { borderRadius: radius[borderRadius] }],
+        borderRadius && [
+          styles.rounded,
+          { borderRadius: radius[borderRadius] },
+        ],
         containerStyle,
-      ]}>
+      ]}
+    >
       <RNImage
         source={source}
         onLoadStart={handleLoadStart}
@@ -316,7 +377,9 @@ export function Image({
         />
       )}
       {loading && showLoader && (
-        <View style={[styles.loader, { backgroundColor: theme.colors.overlay }]}>
+        <View
+          style={[styles.loader, { backgroundColor: theme.colors.overlay }]}
+        >
           <ActivityIndicator size="small" color={theme.colors.primary} />
         </View>
       )}
@@ -338,7 +401,8 @@ export function Image({
           accessibilityRole="button"
           accessibilityLabel="View full image"
           accessibilityHint="Long press to view full screen preview"
-          style={previewVisible ? styles.previewHidden : null}>
+          style={previewVisible ? styles.previewHidden : null}
+        >
           {imageContent}
         </Pressable>
 

@@ -35,7 +35,11 @@
  * />
  */
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, type LayoutChangeEvent, type ViewStyle } from 'react-native';
+import {
+  StyleSheet,
+  type LayoutChangeEvent,
+  type ViewStyle,
+} from 'react-native';
 import Animated, {
   interpolate,
   interpolateColor,
@@ -62,7 +66,7 @@ import {
 } from '../../../masicn';
 
 const THUMB_SIZE = layout.minTouchTarget; // 40
-const THUMB_MARGIN = spacing.xs;      // 4
+const THUMB_MARGIN = spacing.xs; // 4
 
 export interface SwipeButtonProps {
   /** Text label displayed inside the track. Defaults to "Slide to confirm". */
@@ -104,7 +108,7 @@ export function SwipeButton({
   const pan = Gesture.Pan()
     .activeOffsetX([-10, 10])
     .enabled(!disabled && !isCompleted && !reducedMotion)
-    .onUpdate((e) => {
+    .onUpdate(e => {
       const newX = Math.max(0, Math.min(e.translationX, maxDrag.value));
       if (isFinite(newX)) {
         translateX.value = newX;
@@ -133,21 +137,22 @@ export function SwipeButton({
     opacity:
       maxDrag.value > 0
         ? interpolate(
-          translateX.value,
-          [0, maxDrag.value * 0.5],
-          [1, 0],
-          Extrapolation.CLAMP,
-        )
+            translateX.value,
+            [0, maxDrag.value * 0.5],
+            [1, 0],
+            Extrapolation.CLAMP,
+          )
         : 1,
   }));
 
   const trackAnimStyle = useAnimatedStyle(() => ({
     backgroundColor:
       maxDrag.value > 0
-        ? interpolateColor(translateX.value, [0, maxDrag.value], [
-          theme.colors.surfaceSecondary,
-          theme.colors.success,
-        ])
+        ? interpolateColor(
+            translateX.value,
+            [0, maxDrag.value],
+            [theme.colors.surfaceSecondary, theme.colors.success],
+          )
         : theme.colors.surfaceSecondary,
   }));
 
@@ -157,11 +162,13 @@ export function SwipeButton({
       onLayout={(e: LayoutChangeEvent) =>
         setTrackWidth(e.nativeEvent.layout.width)
       }
-      testID={testID}>
+      testID={testID}
+    >
       {/* Fading label centred in track */}
       <Animated.View
         style={[StyleSheet.absoluteFill, styles.labelWrap, labelAnimStyle]}
-        pointerEvents="none">
+        pointerEvents="none"
+      >
         <Text variant="label" color="textSecondary">
           {label}
         </Text>
@@ -183,8 +190,13 @@ export function SwipeButton({
           accessibilityRole="button"
           accessibilityLabel={label}
           accessibilityState={{ disabled: disabled || isCompleted }}
-          accessibilityHint={!isCompleted && !disabled ? 'Double-tap to confirm' : undefined}
-          onAccessibilityTap={!isCompleted && !disabled ? handleComplete : undefined}>
+          accessibilityHint={
+            !isCompleted && !disabled ? 'Double-tap to confirm' : undefined
+          }
+          onAccessibilityTap={
+            !isCompleted && !disabled ? handleComplete : undefined
+          }
+        >
           <Icon
             icon={isCompleted ? CheckIcon : ChevronRightIcon}
             size="action"

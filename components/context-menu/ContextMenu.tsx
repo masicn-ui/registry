@@ -9,7 +9,16 @@ import {
   type ViewStyle,
   type LayoutRectangle,
 } from 'react-native';
-import { Text, borders, elevation, opacity as opacityTokens, radius, sizes, spacing, useTheme } from '../../../masicn';
+import {
+  Text,
+  borders,
+  elevation,
+  opacity as opacityTokens,
+  radius,
+  sizes,
+  spacing,
+  useTheme,
+} from '../../../masicn';
 
 export interface ContextMenuItem {
   /** Menu item label */
@@ -103,7 +112,9 @@ export function ContextMenu({
 }: ContextMenuProps) {
   const { theme } = useTheme();
   const [visible, setVisible] = useState(false);
-  const [triggerLayout, setTriggerLayout] = useState<LayoutRectangle | null>(null);
+  const [triggerLayout, setTriggerLayout] = useState<LayoutRectangle | null>(
+    null,
+  );
   const [menuLayout, setMenuLayout] = useState<LayoutRectangle | null>(null);
   const triggerRef = useRef<View>(null);
 
@@ -116,10 +127,13 @@ export function ContextMenu({
     });
   }, []);
 
-  const handleSelect = useCallback((value: string) => {
-    onSelect(value);
-    setVisible(false);
-  }, [onSelect]);
+  const handleSelect = useCallback(
+    (value: string) => {
+      onSelect(value);
+      setVisible(false);
+    },
+    [onSelect],
+  );
 
   const handleClose = () => {
     setVisible(false);
@@ -136,7 +150,8 @@ export function ContextMenu({
 
     const OFFSET = spacing.xs;
     const SCREEN_PADDING = spacing.md;
-    const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
+    const { width: screenWidth, height: screenHeight } =
+      Dimensions.get('window');
 
     let top = triggerLayout.y + triggerLayout.height + OFFSET;
     let left = triggerLayout.x;
@@ -175,17 +190,16 @@ export function ContextMenu({
       accessibilityRole="button"
       accessibilityLabel={accessibilityLabel}
       accessibilityHint="Long press to open context menu"
-      >
+    >
       {children}
 
       <Modal
         visible={visible}
         transparent
         animationType="fade"
-        onRequestClose={handleClose}>
-        <Pressable
-          style={styles.overlay}
-          onPress={handleClose}>
+        onRequestClose={handleClose}
+      >
+        <Pressable style={styles.overlay} onPress={handleClose}>
           <Pressable
             onLayout={handleMenuLayout}
             style={[
@@ -199,7 +213,8 @@ export function ContextMenu({
               },
               menuStyle,
             ]}
-            onPress={(e) => e.stopPropagation()}>
+            onPress={e => e.stopPropagation()}
+          >
             {items.map((item, index) => (
               <React.Fragment key={item.value}>
                 <Pressable
@@ -209,9 +224,13 @@ export function ContextMenu({
                     styles.menuItem,
                     index === 0 && styles.menuItemFirst,
                     index === items.length - 1 && styles.menuItemLast,
-                    pressed && !item.disabled && { backgroundColor: theme.colors.ripple },
+                    pressed &&
+                      !item.disabled && {
+                        backgroundColor: theme.colors.ripple,
+                      },
                     item.disabled && { opacity: opacityTokens.disabled },
-                  ]}>
+                  ]}
+                >
                   <View style={styles.menuItemContent}>
                     {item.icon && (
                       <Text variant="body" style={styles.menuIcon}>
@@ -224,10 +243,11 @@ export function ContextMenu({
                         item.destructive
                           ? 'error'
                           : item.disabled
-                            ? 'textDisabled'
-                            : 'textPrimary'
+                          ? 'textDisabled'
+                          : 'textPrimary'
                       }
-                      style={styles.menuLabel}>
+                      style={styles.menuLabel}
+                    >
                       {item.label}
                     </Text>
                   </View>

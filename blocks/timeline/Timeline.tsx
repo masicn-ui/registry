@@ -1,6 +1,13 @@
 import React from 'react';
 import { View, StyleSheet, type ViewStyle } from 'react-native';
-import { Text, borders, radius, sizes, spacing, useTheme } from '../../../masicn';
+import {
+  Text,
+  borders,
+  radius,
+  sizes,
+  spacing,
+  useTheme,
+} from '../../../masicn';
 
 export interface TimelineItem {
   /** Stable key for list reconciliation. Falls back to index when omitted. */
@@ -72,7 +79,12 @@ export interface TimelineProps {
  *   ]}
  * />
  */
-export const Timeline = React.memo(function Timeline({ items, showLine = true, containerStyle, testID }: TimelineProps) {
+export const Timeline = React.memo(function Timeline({
+  items,
+  showLine = true,
+  containerStyle,
+  testID,
+}: TimelineProps) {
   const { theme } = useTheme();
 
   const getStatusColor = (status?: TimelineItem['status']) => {
@@ -91,7 +103,11 @@ export const Timeline = React.memo(function Timeline({ items, showLine = true, c
   };
 
   return (
-    <View style={[styles.container, containerStyle]} accessibilityRole="list" testID={testID}>
+    <View
+      style={[styles.container, containerStyle]}
+      accessibilityRole="list"
+      testID={testID}
+    >
       {items.map((item, index) => {
         const isLast = index === items.length - 1;
         const statusColor = getStatusColor(item.status);
@@ -101,7 +117,9 @@ export const Timeline = React.memo(function Timeline({ items, showLine = true, c
             key={item.id ?? String(index)}
             style={styles.itemContainer}
             accessibilityRole="none"
-            accessibilityLabel={`${item.title}${item.timestamp ? ', ' + item.timestamp : ''}`}
+            accessibilityLabel={`${item.title}${
+              item.timestamp ? ', ' + item.timestamp : ''
+            }`}
             testID={testID ? `${testID}-item-${index}` : undefined}
           >
             <View style={styles.leftColumn}>
@@ -112,7 +130,8 @@ export const Timeline = React.memo(function Timeline({ items, showLine = true, c
                     backgroundColor: statusColor,
                     borderColor: theme.colors.surfacePrimary,
                   },
-                ]}>
+                ]}
+              >
                 {item.icon && (
                   <Text variant="captionSmall" style={styles.icon}>
                     {item.icon}
@@ -140,7 +159,11 @@ export const Timeline = React.memo(function Timeline({ items, showLine = true, c
                 )}
               </View>
               {item.description && (
-                <Text variant="bodySmall" color="textSecondary" style={styles.description}>
+                <Text
+                  variant="bodySmall"
+                  color="textSecondary"
+                  style={styles.description}
+                >
                   {item.description}
                 </Text>
               )}

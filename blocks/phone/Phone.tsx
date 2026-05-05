@@ -7,7 +7,20 @@ import {
   StyleSheet,
   type ViewStyle,
 } from 'react-native';
-import { Stack, Text, borders, fonts, iconSizes, opacity as opacityTokens, radius, rgba, sizes, spacing, typography, useTheme } from '../../../masicn';
+import {
+  Stack,
+  Text,
+  borders,
+  fonts,
+  iconSizes,
+  opacity as opacityTokens,
+  radius,
+  rgba,
+  sizes,
+  spacing,
+  typography,
+  useTheme,
+} from '../../../masicn';
 import { Modal as PickerModal } from '../../components';
 
 /** Full country entry — pass via `countries` for name-in-picker support. */
@@ -127,62 +140,66 @@ export interface PhoneProps {
  *   disabled
  * />
  */
-export const Phone = React.forwardRef<RNTextInput, PhoneProps>(
-  function Phone(
-    {
-      value,
-      onValueChange,
-      countries: countriesProp,
-      countryCodes,
-      dialCode: controlledDialCode,
-      onDialCodeChange,
-      maxDigits = 10,
-      label,
-      placeholder = 'Enter phone number',
-      error,
-      helperText,
-      disabled = false,
-      size = 'md',
-      containerStyle,
-      testID,
-    },
-    ref,
-  ) {
-    const { theme } = useTheme();
-    const [focused, setFocused] = useState(false);
-    const [pickerVisible, setPickerVisible] = useState(false);
+export const Phone = React.forwardRef<RNTextInput, PhoneProps>(function Phone(
+  {
+    value,
+    onValueChange,
+    countries: countriesProp,
+    countryCodes,
+    dialCode: controlledDialCode,
+    onDialCodeChange,
+    maxDigits = 10,
+    label,
+    placeholder = 'Enter phone number',
+    error,
+    helperText,
+    disabled = false,
+    size = 'md',
+    containerStyle,
+    testID,
+  },
+  ref,
+) {
+  const { theme } = useTheme();
+  const [focused, setFocused] = useState(false);
+  const [pickerVisible, setPickerVisible] = useState(false);
 
-    // Normalise to CountryOption[] regardless of which prop was passed
-    const normalizedCountries = useMemo<CountryOption[]>(
-      () => countriesProp ?? (countryCodes ?? ['+91']).map(code => ({ dialCode: code })),
-      [countriesProp, countryCodes],
-    );
+  // Normalise to CountryOption[] regardless of which prop was passed
+  const normalizedCountries = useMemo<CountryOption[]>(
+    () =>
+      countriesProp ??
+      (countryCodes ?? ['+91']).map(code => ({ dialCode: code })),
+    [countriesProp, countryCodes],
+  );
 
-    const isControlledCode = controlledDialCode !== undefined;
-    const [internalCode, setInternalCode] = useState(
-      controlledDialCode ?? normalizedCountries[0]?.dialCode ?? '+91',
-    );
-    const selectedCode = isControlledCode ? controlledDialCode : internalCode;
+  const isControlledCode = controlledDialCode !== undefined;
+  const [internalCode, setInternalCode] = useState(
+    controlledDialCode ?? normalizedCountries[0]?.dialCode ?? '+91',
+  );
+  const selectedCode = isControlledCode ? controlledDialCode : internalCode;
 
-    // Sync internal code when controlled prop changes
-    useEffect(() => {
-      if (isControlledCode && controlledDialCode !== internalCode) {
-        setInternalCode(controlledDialCode);
+  // Sync internal code when controlled prop changes
+  useEffect(() => {
+    if (isControlledCode && controlledDialCode !== internalCode) {
+      setInternalCode(controlledDialCode);
+    }
+  }, [controlledDialCode, isControlledCode, internalCode]);
+
+  const showPicker = normalizedCountries.length > 1 && !disabled;
+
+  const selectCode = useCallback(
+    (option: CountryOption) => {
+      if (!isControlledCode) {
+        setInternalCode(option.dialCode);
       }
-    }, [controlledDialCode, isControlledCode, internalCode]);
+      onDialCodeChange?.(option.dialCode);
+      setPickerVisible(false);
+    },
+    [isControlledCode, onDialCodeChange],
+  );
 
-    const showPicker = normalizedCountries.length > 1 && !disabled;
-
-    const selectCode = useCallback(
-      (option: CountryOption) => {
-        if (!isControlledCode) { setInternalCode(option.dialCode); }
-        onDialCodeChange?.(option.dialCode);
-        setPickerVisible(false);
-      },
-      [isControlledCode, onDialCodeChange],
-    );
-
-    const handleChangeText = useCallback((text: string) => {
+  const handleChangeText = useCallback(
+    (text: string) => {
       // Strip anything that isn't a digit
       let digits = text.replace(/\D/g, '');
 
@@ -192,191 +209,239 @@ export const Phone = React.forwardRef<RNTextInput, PhoneProps>(
       // string reaches here before we truncate — this is intentional.
       for (const option of normalizedCountries) {
         const codeDigits = option.dialCode.replace(/\D/g, '');
-        if (digits.startsWith(codeDigits) && digits.length > codeDigits.length) {
+        if (
+          digits.startsWith(codeDigits) &&
+          digits.length > codeDigits.length
+        ) {
           digits = digits.slice(codeDigits.length);
-          if (!isControlledCode) { setInternalCode(option.dialCode); }
+          if (!isControlledCode) {
+            setInternalCode(option.dialCode);
+          }
           onDialCodeChange?.(option.dialCode);
           break;
         }
       }
 
       onValueChange(digits.slice(0, maxDigits));
-    }, [normalizedCountries, isControlledCode, onDialCodeChange, onValueChange, maxDigits]);
+    },
+    [
+      normalizedCountries,
+      isControlledCode,
+      onDialCodeChange,
+      onValueChange,
+      maxDigits,
+    ],
+  );
 
-    const hasError = !!error;
+  const hasError = !!error;
 
-    const borderColor = hasError
-      ? theme.colors.error
-      : focused
-        ? theme.colors.borderFocused
-        : theme.colors.inputBorder;
+  const borderColor = hasError
+    ? theme.colors.error
+    : focused
+    ? theme.colors.borderFocused
+    : theme.colors.inputBorder;
 
-    const labelColor = hasError
-      ? theme.colors.error
-      : focused
-        ? theme.colors.borderFocused
-        : theme.colors.textPrimary;
+  const labelColor = hasError
+    ? theme.colors.error
+    : focused
+    ? theme.colors.borderFocused
+    : theme.colors.textPrimary;
 
-    return (
-      <Stack gap="xs" style={containerStyle}>
-        {label && (
-          <Text variant="label" style={{ color: labelColor }}>
-            {label}
-          </Text>
-        )}
+  return (
+    <Stack gap="xs" style={containerStyle}>
+      {label && (
+        <Text variant="label" style={{ color: labelColor }}>
+          {label}
+        </Text>
+      )}
 
-        {/* ── Input row ── */}
-        <View
+      {/* ── Input row ── */}
+      <View
+        style={[
+          styles.inputRow,
+          {
+            borderColor,
+            backgroundColor: disabled
+              ? theme.colors.disabled
+              : theme.colors.inputBackground,
+            minHeight: sizeConfig[size].minHeight,
+          },
+        ]}
+      >
+        {/* Country code selector — shows dial code only */}
+        <Pressable
+          onPress={showPicker ? () => setPickerVisible(true) : undefined}
+          disabled={disabled}
+          accessibilityRole={showPicker ? 'button' : 'none'}
+          accessibilityLabel={`Dial code ${selectedCode}. ${
+            showPicker ? 'Tap to change.' : ''
+          }`}
           style={[
-            styles.inputRow,
-            {
-              borderColor,
-              backgroundColor: disabled
-                ? theme.colors.disabled
-                : theme.colors.inputBackground,
-              minHeight: sizeConfig[size].minHeight,
-            },
-          ]}>
-
-          {/* Country code selector — shows dial code only */}
-          <Pressable
-            onPress={showPicker ? () => setPickerVisible(true) : undefined}
-            disabled={disabled}
-            accessibilityRole={showPicker ? 'button' : 'none'}
-            accessibilityLabel={`Dial code ${selectedCode}. ${showPicker ? 'Tap to change.' : ''}`}
-            style={[
-              styles.dialCodeArea,
-              { borderRightColor: theme.colors.inputBorder },
-            ]}>
+            styles.dialCodeArea,
+            { borderRightColor: theme.colors.inputBorder },
+          ]}
+        >
+          <Text
+            variant="label"
+            style={{
+              color: disabled
+                ? theme.colors.textDisabled
+                : theme.colors.textPrimary,
+            }}
+          >
+            {selectedCode}
+          </Text>
+          {showPicker && (
             <Text
-              variant="label"
-              style={{ color: disabled ? theme.colors.textDisabled : theme.colors.textPrimary }}>
-              {selectedCode}
+              variant="caption"
+              style={[styles.chevron, { color: theme.colors.textSecondary }]}
+            >
+              ▾
             </Text>
-            {showPicker && (
-              <Text
-                variant="caption"
-                style={[styles.chevron, { color: theme.colors.textSecondary }]}>
-                ▾
-              </Text>
-            )}
-          </Pressable>
+          )}
+        </Pressable>
 
-          {/* Phone number field */}
-          {/* maxLength is intentionally omitted — handleChangeText clips to maxDigits
+        {/* Phone number field */}
+        {/* maxLength is intentionally omitted — handleChangeText clips to maxDigits
               after stripping the country code, so a pasted full-international number
               (e.g. +918789338305) is correctly stripped before being truncated. */}
-          <RNTextInput
-            ref={ref}
-            testID={testID}
-            value={value}
-            onChangeText={handleChangeText}
-            placeholder={placeholder}
-            placeholderTextColor={theme.colors.inputPlaceholder}
-            keyboardType="phone-pad"
-            autoComplete="tel"
-            textContentType="telephoneNumber"
-            importantForAutofill="yes"
-            editable={!disabled}
-            onFocus={() => setFocused(true)}
-            onBlur={() => setFocused(false)}
-            accessibilityLabel={label ?? 'Phone number'}
-            accessibilityState={{ disabled }}
-            style={[
-              typography.body,
-              styles.input,
-              {
-                color: disabled ? theme.colors.textDisabled : theme.colors.textPrimary,
-                paddingVertical: sizeConfig[size].paddingVertical,
-              },
-            ]}
-          />
-        </View>
+        <RNTextInput
+          ref={ref}
+          testID={testID}
+          value={value}
+          onChangeText={handleChangeText}
+          placeholder={placeholder}
+          placeholderTextColor={theme.colors.inputPlaceholder}
+          keyboardType="phone-pad"
+          autoComplete="tel"
+          textContentType="telephoneNumber"
+          importantForAutofill="yes"
+          editable={!disabled}
+          onFocus={() => setFocused(true)}
+          onBlur={() => setFocused(false)}
+          accessibilityLabel={label ?? 'Phone number'}
+          accessibilityState={{ disabled }}
+          style={[
+            typography.body,
+            styles.input,
+            {
+              color: disabled
+                ? theme.colors.textDisabled
+                : theme.colors.textPrimary,
+              paddingVertical: sizeConfig[size].paddingVertical,
+            },
+          ]}
+        />
+      </View>
 
-        {/* Error / helper row */}
-        {(hasError || helperText) && (
-          <Text
-            variant="caption"
-            color={hasError ? 'error' : 'textTertiary'}
-            accessibilityLiveRegion={hasError ? 'polite' : undefined}>
-            {error || helperText}
-          </Text>
-        )}
+      {/* Error / helper row */}
+      {(hasError || helperText) && (
+        <Text
+          variant="caption"
+          color={hasError ? 'error' : 'textTertiary'}
+          accessibilityLiveRegion={hasError ? 'polite' : undefined}
+        >
+          {error || helperText}
+        </Text>
+      )}
 
-        {/* Country code picker modal */}
-        <PickerModal
-          visible={pickerVisible}
-          onClose={() => setPickerVisible(false)}
-          showCloseButton={false}
-          accessibilityLabel="Select country"
-          maxWidth="narrow">
-          <Text variant="label" color="textSecondary">
-            Select country
-          </Text>
-          {/* Negative margins negate the shared Modal's padding so items reach card edges */}
-          <View style={styles.pickerListWrapper}>
-            <ScrollView
-              style={styles.pickerList}
-              bounces={false}
-              showsVerticalScrollIndicator={false}>
-              {normalizedCountries.map(option => {
-                const isSelected = option.dialCode === selectedCode;
-                return (
-                  <Pressable
-                    key={option.dialCode}
-                    onPress={() => selectCode(option)}
-                    accessibilityRole="button"
-                    accessibilityLabel={`Select ${option.name ?? option.dialCode}`}
-                    accessibilityState={{ selected: isSelected }}
-                    style={[
-                      styles.pickerItem,
-                      isSelected && {
-                        backgroundColor: rgba(theme.colors.primary, opacityTokens.tint),
-                      },
-                    ]}>
-                    {/* Country name (shown only when provided) */}
-                    {option.name ? (
-                      <View style={styles.pickerItemContent}>
-                        <Text
-                          variant="body"
-                          style={[
-                            isSelected ? styles.itemTextSelected : styles.itemTextDefault,
-                            { color: isSelected ? theme.colors.primary : theme.colors.textPrimary },
-                          ]}>
-                          {option.name}
-                        </Text>
-                        <Text variant="caption" color="textSecondary">
-                          {option.dialCode}
-                        </Text>
-                      </View>
-                    ) : (
+      {/* Country code picker modal */}
+      <PickerModal
+        visible={pickerVisible}
+        onClose={() => setPickerVisible(false)}
+        showCloseButton={false}
+        accessibilityLabel="Select country"
+        maxWidth="narrow"
+      >
+        <Text variant="label" color="textSecondary">
+          Select country
+        </Text>
+        {/* Negative margins negate the shared Modal's padding so items reach card edges */}
+        <View style={styles.pickerListWrapper}>
+          <ScrollView
+            style={styles.pickerList}
+            bounces={false}
+            showsVerticalScrollIndicator={false}
+          >
+            {normalizedCountries.map(option => {
+              const isSelected = option.dialCode === selectedCode;
+              return (
+                <Pressable
+                  key={option.dialCode}
+                  onPress={() => selectCode(option)}
+                  accessibilityRole="button"
+                  accessibilityLabel={`Select ${
+                    option.name ?? option.dialCode
+                  }`}
+                  accessibilityState={{ selected: isSelected }}
+                  style={[
+                    styles.pickerItem,
+                    isSelected && {
+                      backgroundColor: rgba(
+                        theme.colors.primary,
+                        opacityTokens.tint,
+                      ),
+                    },
+                  ]}
+                >
+                  {/* Country name (shown only when provided) */}
+                  {option.name ? (
+                    <View style={styles.pickerItemContent}>
                       <Text
                         variant="body"
                         style={[
-                          isSelected ? styles.itemTextSelected : styles.itemTextDefault,
-                          { color: isSelected ? theme.colors.primary : theme.colors.textPrimary },
-                        ]}>
+                          isSelected
+                            ? styles.itemTextSelected
+                            : styles.itemTextDefault,
+                          {
+                            color: isSelected
+                              ? theme.colors.primary
+                              : theme.colors.textPrimary,
+                          },
+                        ]}
+                      >
+                        {option.name}
+                      </Text>
+                      <Text variant="caption" color="textSecondary">
                         {option.dialCode}
                       </Text>
-                    )}
-                    {isSelected && (
-                      <Text variant="body" style={{ color: theme.colors.primary }}>
-                        ✓
-                      </Text>
-                    )}
-                  </Pressable>
-                );
-              })}
-            </ScrollView>
-          </View>
-        </PickerModal>
-      </Stack>
-    );
-  },
-);
+                    </View>
+                  ) : (
+                    <Text
+                      variant="body"
+                      style={[
+                        isSelected
+                          ? styles.itemTextSelected
+                          : styles.itemTextDefault,
+                        {
+                          color: isSelected
+                            ? theme.colors.primary
+                            : theme.colors.textPrimary,
+                        },
+                      ]}
+                    >
+                      {option.dialCode}
+                    </Text>
+                  )}
+                  {isSelected && (
+                    <Text
+                      variant="body"
+                      style={{ color: theme.colors.primary }}
+                    >
+                      ✓
+                    </Text>
+                  )}
+                </Pressable>
+              );
+            })}
+          </ScrollView>
+        </View>
+      </PickerModal>
+    </Stack>
+  );
+});
 
 Phone.displayName = 'Phone';
-
 
 const PICKER_MAX_HEIGHT = sizes.actionSheetMaxHeight / 2;
 

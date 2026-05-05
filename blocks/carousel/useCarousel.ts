@@ -80,8 +80,8 @@ export function useCarousel({
     slideWidthProp === 'full'
       ? screenWidth
       : slideWidthProp === 'peek'
-        ? Math.round(screenWidth * PEEK_WIDTH_RATIO)
-        : slideWidthProp;
+      ? Math.round(screenWidth * PEEK_WIDTH_RATIO)
+      : slideWidthProp;
 
   const gapValue = isPeekMode ? gap : 0;
   const scrollStep = itemWidth + gapValue;
@@ -145,7 +145,10 @@ export function useCarousel({
         .onEnd(e => {
           const projected = offset.value - e.velocityX * VELOCITY_LOOKAHEAD;
           const nearestIndex = Math.round(projected / scrollStepSV.value);
-          const clamped = Math.max(0, Math.min(clonedLengthSV.value - 1, nearestIndex));
+          const clamped = Math.max(
+            0,
+            Math.min(clonedLengthSV.value - 1, nearestIndex),
+          );
 
           // Compute real data index from clamped cloned index
           let realIdx: number;
@@ -188,7 +191,9 @@ export function useCarousel({
   // ── Auto-play ──────────────────────────────────────────────────────────
 
   useEffect(() => {
-    if (autoPlayInterval <= 0 || dataLength <= 1 || reducedMotion) { return; }
+    if (autoPlayInterval <= 0 || dataLength <= 1 || reducedMotion) {
+      return;
+    }
     const id = setInterval(() => {
       const nextReal = (activeIndexRef.current + 1) % dataLength;
       // In loop mode, real item i sits at cloned index i+1
@@ -199,7 +204,14 @@ export function useCarousel({
       setActiveIndex(nextReal);
     }, autoPlayInterval);
     return () => clearInterval(id);
-  }, [autoPlayInterval, dataLength, scrollStep, offset, reducedMotion, effectiveLoop]);
+  }, [
+    autoPlayInterval,
+    dataLength,
+    scrollStep,
+    offset,
+    reducedMotion,
+    effectiveLoop,
+  ]);
 
   // ── Row animated style ─────────────────────────────────────────────────
 

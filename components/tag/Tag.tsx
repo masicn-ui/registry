@@ -1,6 +1,14 @@
 import React from 'react';
 import { View, Pressable, StyleSheet, type ViewProps } from 'react-native';
-import { Text, borders, opacity as opacityTokens, radius, rgba, spacing, useTheme } from '../../../masicn';
+import {
+  Text,
+  borders,
+  opacity as opacityTokens,
+  radius,
+  rgba,
+  spacing,
+  useTheme,
+} from '../../../masicn';
 
 type TagVariant = 'default' | 'success' | 'warning' | 'error' | 'info';
 type TagSize = 'sm' | 'md' | 'lg';
@@ -114,7 +122,8 @@ export const Tag = React.memo(function Tag({
         },
         style,
       ]}
-      {...rest}>
+      {...rest}
+    >
       <Text variant={sizing.textVariant} style={{ color: colors.text }}>
         {label}
       </Text>
@@ -122,7 +131,8 @@ export const Tag = React.memo(function Tag({
         <Pressable
           onPress={onRemove}
           hitSlop={spacing.sm}
-          style={styles.removeButton}>
+          style={styles.removeButton}
+        >
           <Text variant="caption" style={{ color: colors.text }}>
             ✕
           </Text>

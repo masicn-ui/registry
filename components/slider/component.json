@@ -3,7 +3,7 @@
   "displayName": "Slider",
   "description": "Gesture-driven range slider with configurable min/max/step, active track, thumb, and accessibility increment/decrement actions.",
   "category": "forms",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "files": [
     {
       "path": "Slider.tsx",

@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Pressable, StyleSheet } from 'react-native';
-import { Text, spacing, useTheme } from '../../../masicn'
+import { Text, spacing, useTheme } from '../../../masicn';
 
 export interface RatingProps {
   /** Current rating value (0–max) */
@@ -89,7 +89,9 @@ export const Rating = React.memo(function Rating({
   const resolvedEmptyColor = emptyColor ?? theme.colors.borderPrimary;
 
   const handleIconPress = (starIndex: number, half: boolean) => {
-    if (readOnly || !onValueChange) { return; }
+    if (readOnly || !onValueChange) {
+      return;
+    }
     onValueChange(half ? starIndex + 0.5 : starIndex + 1);
   };
 
@@ -106,16 +108,24 @@ export const Rating = React.memo(function Rating({
         accessible={true}
         accessibilityRole="adjustable"
         accessibilityLabel={label ?? 'Rating'}
-        accessibilityValue={{ min: 0, max, now: value, text: `${value} of ${max}` }}
+        accessibilityValue={{
+          min: 0,
+          max,
+          now: value,
+          text: `${value} of ${max}`,
+        }}
         onAccessibilityAction={e => {
-          if (readOnly || !onValueChange) { return; }
+          if (readOnly || !onValueChange) {
+            return;
+          }
           const step = allowHalf ? 0.5 : 1;
           if (e.nativeEvent.actionName === 'increment') {
             onValueChange(Math.min(max, value + step));
           } else if (e.nativeEvent.actionName === 'decrement') {
             onValueChange(Math.max(0, value - step));
           }
-        }}>
+        }}
+      >
         {Array.from({ length: max }, (_, i) => {
           const filled = i + 1 <= value;
           const halfFilled = allowHalf && !filled && i + 0.5 <= value;
@@ -129,7 +139,8 @@ export const Rating = React.memo(function Rating({
               accessibilityLabel={`${i + 1} out of ${max}`}
               accessibilityState={{ selected: filled || halfFilled }}
               onPress={readOnly ? undefined : () => handleIconPress(i, false)}
-              style={styles.iconWrapper}>
+              style={styles.iconWrapper}
+            >
               {/* Base (empty) icon */}
               <Text style={{ fontSize: size, color: resolvedEmptyColor }}>
                 {icon}
@@ -140,7 +151,8 @@ export const Rating = React.memo(function Rating({
                   style={[
                     styles.fillOverlay,
                     halfFilled && styles.fillOverlayHalf,
-                  ]}>
+                  ]}
+                >
                   <Text style={{ fontSize: size, color: resolvedFilledColor }}>
                     {icon}
                   </Text>

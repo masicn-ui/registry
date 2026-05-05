@@ -2,7 +2,15 @@ import React from 'react';
 import { View, StyleSheet, type ViewStyle } from 'react-native';
 import { useTheme, spacing, radius, sizes } from '../../../masicn';
 
-type SkeletonVariant = 'text' | 'circular' | 'rectangular' | 'avatar' | 'button' | 'card' | 'listItem' | 'image';
+type SkeletonVariant =
+  | 'text'
+  | 'circular'
+  | 'rectangular'
+  | 'avatar'
+  | 'button'
+  | 'card'
+  | 'listItem'
+  | 'image';
 
 interface SkeletonProps {
   /**
@@ -144,7 +152,14 @@ export const Skeleton = React.memo(function Skeleton({
 
   if (variant === 'listItem') {
     return (
-      <View {...a11yProps} style={[styles.listItemContainer, { width: (width || '100%') as any }, style]}>
+      <View
+        {...a11yProps}
+        style={[
+          styles.listItemContainer,
+          { width: (width || '100%') as any },
+          style,
+        ]}
+      >
         <View style={styles.listItemRow}>
           <View style={[baseStyle, styles.listItemAvatar]} />
           <View style={styles.listItemContent}>

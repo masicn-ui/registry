@@ -115,19 +115,36 @@ export function CarouselSlide({
   const reducedMotion = useReducedMotion();
 
   const outerStyle = useAnimatedStyle(() => {
-    if (reducedMotion) { return {}; }
+    if (reducedMotion) {
+      return {};
+    }
 
     const progress = (offset.value - index * scrollStep) / scrollStep;
     const absP = Math.abs(progress);
 
     switch (animation) {
       case 'scale': {
-        const scale = interpolate(absP, [0, 1], [1, SLIDE_INACTIVE_SCALE], Extrapolation.CLAMP);
-        const opacity = interpolate(absP, [0, 1], [1, SLIDE_SCALE_MIN_OPACITY], Extrapolation.CLAMP);
+        const scale = interpolate(
+          absP,
+          [0, 1],
+          [1, SLIDE_INACTIVE_SCALE],
+          Extrapolation.CLAMP,
+        );
+        const opacity = interpolate(
+          absP,
+          [0, 1],
+          [1, SLIDE_SCALE_MIN_OPACITY],
+          Extrapolation.CLAMP,
+        );
         return { transform: [{ scale }], opacity };
       }
       case 'fade': {
-        const opacity = interpolate(absP, [0, 1], [1, SLIDE_FADE_MIN_OPACITY], Extrapolation.CLAMP);
+        const opacity = interpolate(
+          absP,
+          [0, 1],
+          [1, SLIDE_FADE_MIN_OPACITY],
+          Extrapolation.CLAMP,
+        );
         return { opacity };
       }
       case 'parallax':
@@ -137,12 +154,18 @@ export function CarouselSlide({
   });
 
   const innerParallaxStyle = useAnimatedStyle(() => {
-    if (reducedMotion || animation !== 'parallax') { return {}; }
+    if (reducedMotion || animation !== 'parallax') {
+      return {};
+    }
     const progress = (offset.value - index * scrollStep) / scrollStep;
     const translateX = interpolate(
       progress,
       [-1, 0, 1],
-      [itemWidth * PARALLAX_OFFSET_RATIO, 0, -(itemWidth * PARALLAX_OFFSET_RATIO)],
+      [
+        itemWidth * PARALLAX_OFFSET_RATIO,
+        0,
+        -(itemWidth * PARALLAX_OFFSET_RATIO),
+      ],
       Extrapolation.CLAMP,
     );
     return { transform: [{ translateX }] };
@@ -153,9 +176,19 @@ export function CarouselSlide({
     const innerMarginLeft = -(itemWidth * PARALLAX_OFFSET_RATIO);
     return (
       <Animated.View
-        style={[outerStyle, styles.clip, { width: itemWidth, height, borderRadius: borderRadiusValue }]}>
+        style={[
+          outerStyle,
+          styles.clip,
+          { width: itemWidth, height, borderRadius: borderRadiusValue },
+        ]}
+      >
         <Animated.View
-          style={[innerParallaxStyle, styles.inner, { width: innerWidth, marginLeft: innerMarginLeft }]}>
+          style={[
+            innerParallaxStyle,
+            styles.inner,
+            { width: innerWidth, marginLeft: innerMarginLeft },
+          ]}
+        >
           {children}
         </Animated.View>
       </Animated.View>
@@ -164,7 +197,12 @@ export function CarouselSlide({
 
   return (
     <Animated.View
-      style={[outerStyle, styles.clip, { width: itemWidth, height, borderRadius: borderRadiusValue }]}>
+      style={[
+        outerStyle,
+        styles.clip,
+        { width: itemWidth, height, borderRadius: borderRadiusValue },
+      ]}
+    >
       {children}
     </Animated.View>
   );

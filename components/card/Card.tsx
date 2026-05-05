@@ -6,7 +6,18 @@ import Animated, {
   withSpring,
   withTiming,
 } from 'react-native-reanimated';
-import { Text, borders, elevation, motion, opacity as opacityTokens, radius, spacing, type Elevation, useReducedMotion, useTheme } from '../../../masicn';
+import {
+  Text,
+  borders,
+  elevation,
+  motion,
+  opacity as opacityTokens,
+  radius,
+  spacing,
+  type Elevation,
+  useReducedMotion,
+  useTheme,
+} from '../../../masicn';
 
 type CardVariant = 'elevated' | 'filled' | 'outlined';
 type Surface = 'primary' | 'secondary' | 'tertiary';
@@ -148,25 +159,33 @@ export function Card({
       return { transform: [{ translateY: translateY.value }] };
     }
     if (animation === 'rotate') {
-      return { transform: [{ scale: scale.value }, { rotateZ: `${rotate.value}deg` }] };
+      return {
+        transform: [{ scale: scale.value }, { rotateZ: `${rotate.value}deg` }],
+      };
     }
     return {};
   });
 
   const handlePressIn = useCallback(() => {
-    if (disabled || !onPress || reducedMotion) { return; }
+    if (disabled || !onPress || reducedMotion) {
+      return;
+    }
     if (animation === 'scale') {
       scale.value = withSpring(motion.press.scale, motion.spring.snappy);
     } else if (animation === 'lift') {
       translateY.value = withSpring(-spacing.xs, motion.spring.snappy);
     } else if (animation === 'rotate') {
       scale.value = withSpring(motion.press.scaleLight, motion.spring.snappy);
-      rotate.value = withTiming(motion.press.rotateDeg, { duration: motion.duration.fast });
+      rotate.value = withTiming(motion.press.rotateDeg, {
+        duration: motion.duration.fast,
+      });
     }
   }, [disabled, onPress, reducedMotion, animation, scale, translateY, rotate]);
 
   const handlePressOut = useCallback(() => {
-    if (disabled || !onPress || reducedMotion) { return; }
+    if (disabled || !onPress || reducedMotion) {
+      return;
+    }
     if (animation === 'scale') {
       scale.value = withSpring(1, motion.spring.snappy);
     } else if (animation === 'lift') {
@@ -182,10 +201,20 @@ export function Card({
 
   const needsTruncation = !!body && body.length > textThreshold;
   const displayedBody =
-    needsTruncation && !bodyExpanded ? `${body.slice(0, textThreshold)}…` : body;
+    needsTruncation && !bodyExpanded
+      ? `${body.slice(0, textThreshold)}…`
+      : body;
 
-  const hasContent = !!(header || title || subtitle || body || children || footer);
-  const contentPad = hasContent && media !== undefined && pad === 0 ? spacing.md : pad;
+  const hasContent = !!(
+    header ||
+    title ||
+    subtitle ||
+    body ||
+    children ||
+    footer
+  );
+  const contentPad =
+    hasContent && media !== undefined && pad === 0 ? spacing.md : pad;
 
   const baseStyle = [
     styles.base,
@@ -205,52 +234,65 @@ export function Card({
     <>
       {media && <View style={styles.media}>{media}</View>}
 
-      {hasContent && <View style={[styles.content, { padding: contentPad, gap: spacing.sm }]}>
-        {header && <View>{header}</View>}
+      {hasContent && (
+        <View
+          style={[styles.content, { padding: contentPad, gap: spacing.sm }]}
+        >
+          {header && <View>{header}</View>}
 
-        {(title || subtitle) && (
-          <View style={styles.headingBlock}>
-            {title && (
-              <Text variant="titleSmall" color="textPrimary">
-                {title}
-              </Text>
-            )}
-            {subtitle && (
-              <Text variant="bodySmall" color="textSecondary">
-                {subtitle}
-              </Text>
-            )}
-          </View>
-        )}
-
-        {children}
-
-        {displayedBody !== undefined && (
-          <View style={styles.bodyBlock}>
-            <Text variant="body" color="textSecondary">
-              {displayedBody}
-            </Text>
-            {needsTruncation && (
-              <Pressable
-                onPress={() => setBodyExpanded(v => !v)}
-                accessibilityRole="button"
-                accessibilityLabel={bodyExpanded ? 'Show less' : 'Show more'}
-                hitSlop={spacing.xs}
-                style={[styles.toggleBtn, { borderColor: theme.colors.primary }]}>
-                <Text variant="label" style={{ color: theme.colors.primary }}>
-                  {bodyExpanded ? 'Show less' : 'Show more'}
+          {(title || subtitle) && (
+            <View style={styles.headingBlock}>
+              {title && (
+                <Text variant="titleSmall" color="textPrimary">
+                  {title}
                 </Text>
-              </Pressable>
-            )}
-          </View>
-        )}
+              )}
+              {subtitle && (
+                <Text variant="bodySmall" color="textSecondary">
+                  {subtitle}
+                </Text>
+              )}
+            </View>
+          )}
 
-        {footer && (
-          <View style={[styles.footerBlock, { borderTopColor: theme.colors.separator }]}>
-            {footer}
-          </View>
-        )}
-      </View>}
+          {children}
+
+          {displayedBody !== undefined && (
+            <View style={styles.bodyBlock}>
+              <Text variant="body" color="textSecondary">
+                {displayedBody}
+              </Text>
+              {needsTruncation && (
+                <Pressable
+                  onPress={() => setBodyExpanded(v => !v)}
+                  accessibilityRole="button"
+                  accessibilityLabel={bodyExpanded ? 'Show less' : 'Show more'}
+                  hitSlop={spacing.xs}
+                  style={[
+                    styles.toggleBtn,
+                    { borderColor: theme.colors.primary },
+                  ]}
+                >
+                  <Text variant="label" style={{ color: theme.colors.primary }}>
+                    {bodyExpanded ? 'Show less' : 'Show more'}
+                  </Text>
+                </Pressable>
+              )}
+            </View>
+          )}
+
+          {footer && (
+            <View
+              style={[
+                styles.footerBlock,
+                { borderTopColor: theme.colors.separator },
+              ]}
+            >
+              {footer}
+            </View>
+          )}
+        </View>
+      )}
     </>
   );
 
@@ -265,12 +307,9 @@ export function Card({
           disabled={disabled}
           accessibilityRole="button"
           accessibilityState={{ disabled }}
-          style={[
-            ...baseStyle,
-            disabled && styles.disabled,
-            animatedStyle,
-          ]}
-          {...rest}>
+          style={[...baseStyle, disabled && styles.disabled, animatedStyle]}
+          {...rest}
+        >
           {inner}
         </AnimatedPressable>
       );
@@ -287,7 +326,8 @@ export function Card({
         ]}
         accessibilityRole="button"
         accessibilityState={{ disabled }}
-        {...rest}>
+        {...rest}
+      >
         {inner}
       </Pressable>
     );
@@ -299,7 +339,6 @@ export function Card({
     </View>
   );
 }
-
 
 const styles = StyleSheet.create({
   base: {

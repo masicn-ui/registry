@@ -126,8 +126,8 @@ const DISMISS_THRESHOLD = 0.3;
  *   <FilterPanel />
  * </Drawer>
  */
-export const Drawer = React.forwardRef<DrawerRef, DrawerProps>(
-  function Drawer({
+export const Drawer = React.forwardRef<DrawerRef, DrawerProps>(function Drawer(
+  {
     visible,
     onClose,
     children,
@@ -138,69 +138,74 @@ export const Drawer = React.forwardRef<DrawerRef, DrawerProps>(
     style,
     accessibilityLabel,
     testID,
-  }: DrawerProps, ref) {
-    const { theme } = useTheme();
-    const reducedMotion = useReducedMotion();
-    const insets = useSafeAreaInsets();
-    const { width: SCREEN_WIDTH } = useWindowDimensions();
+  }: DrawerProps,
+  ref,
+) {
+  const { theme } = useTheme();
+  const reducedMotion = useReducedMotion();
+  const insets = useSafeAreaInsets();
+  const { width: SCREEN_WIDTH } = useWindowDimensions();
 
-    const isLeft = side === 'left';
-    const resolvedWidth =
-      width ?? (variant === 'permanent' ? layout.sideSheetMaxWidth : SCREEN_WIDTH * 0.75);
+  const isLeft = side === 'left';
+  const resolvedWidth =
+    width ??
+    (variant === 'permanent' ? layout.sideSheetMaxWidth : SCREEN_WIDTH * 0.75);
 
-    // ── Permanent variant — always rendered, no animation ──────────────────────
-    if (variant === 'permanent') {
-      // Permanent drawer has no open/close behaviour — ref is a no-op
-      // eslint-disable-next-line react-hooks/rules-of-hooks
-      useImperativeHandle(ref, () => ({ open: () => { }, close: () => { } }), []);
+  // ── Permanent variant — always rendered, no animation ──────────────────────
+  if (variant === 'permanent') {
+    // Permanent drawer has no open/close behaviour — ref is a no-op
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    useImperativeHandle(ref, () => ({ open: () => {}, close: () => {} }), []);
 
-      return (
-        <View
-          testID={testID}
-          accessibilityRole="menu"
-          style={[
-            styles.permanentSheet,
-            isLeft ? styles.permanentLeft : styles.permanentRight,
-            {
-              width: resolvedWidth,
-              backgroundColor: theme.colors.surfacePrimary,
-              borderColor: theme.colors.borderPrimary,
-              paddingTop: insets.top,
-              paddingBottom: insets.bottom,
-            },
-            style,
-          ]}>
-          <ScrollView
-            style={styles.flex1}
-            contentContainerStyle={styles.scrollContent}
-            showsVerticalScrollIndicator={false}>
-            {children}
-          </ScrollView>
-        </View>
-      );
-    }
-
-    // ── Temporary variant — animated overlay ──────────────────────────────────
     return (
-      <TemporaryDrawer
-        ref={ref}
-        visible={visible}
-        onClose={onClose}
-        side={side}
-        isLeft={isLeft}
-        resolvedWidth={resolvedWidth}
-        hideBackdrop={hideBackdrop}
-        reducedMotion={reducedMotion}
-        insets={insets}
-        theme={theme}
-        style={style}
-        accessibilityLabel={accessibilityLabel}
-        testID={testID}>
-        {children}
-      </TemporaryDrawer>
+      <View
+        testID={testID}
+        accessibilityRole="menu"
+        style={[
+          styles.permanentSheet,
+          isLeft ? styles.permanentLeft : styles.permanentRight,
+          {
+            width: resolvedWidth,
+            backgroundColor: theme.colors.surfacePrimary,
+            borderColor: theme.colors.borderPrimary,
+            paddingTop: insets.top,
+            paddingBottom: insets.bottom,
+          },
+          style,
+        ]}
+      >
+        <ScrollView
+          style={styles.flex1}
+          contentContainerStyle={styles.scrollContent}
+          showsVerticalScrollIndicator={false}
+        >
+          {children}
+        </ScrollView>
+      </View>
     );
-  },
-);
+  }
+
+  // ── Temporary variant — animated overlay ──────────────────────────────────
+  return (
+    <TemporaryDrawer
+      ref={ref}
+      visible={visible}
+      onClose={onClose}
+      side={side}
+      isLeft={isLeft}
+      resolvedWidth={resolvedWidth}
+      hideBackdrop={hideBackdrop}
+      reducedMotion={reducedMotion}
+      insets={insets}
+      theme={theme}
+      style={style}
+      accessibilityLabel={accessibilityLabel}
+      testID={testID}
+    >
+      {children}
+    </TemporaryDrawer>
+  );
+});
 
 Drawer.displayName = 'Drawer';
 
@@ -223,23 +228,28 @@ interface TemporaryDrawerProps {
 }
 
 const TemporaryDrawer = React.forwardRef<DrawerRef, TemporaryDrawerProps>(
-  function TemporaryDrawer({
-    visible: controlledVisible,
-    onClose,
-    isLeft,
-    resolvedWidth,
-    hideBackdrop,
-    reducedMotion,
-    insets,
-    theme,
-    style,
-    accessibilityLabel,
-    testID,
-    children,
-  }: TemporaryDrawerProps, ref) {
+  function TemporaryDrawer(
+    {
+      visible: controlledVisible,
+      onClose,
+      isLeft,
+      resolvedWidth,
+      hideBackdrop,
+      reducedMotion,
+      insets,
+      theme,
+      style,
+      accessibilityLabel,
+      testID,
+      children,
+    }: TemporaryDrawerProps,
+    ref,
+  ) {
     // Snapshot into a ref so the async resolution never re-triggers the animation effect mid-spring.
     const reducedMotionRef = React.useRef(reducedMotion);
-    React.useEffect(() => { reducedMotionRef.current = reducedMotion; }, [reducedMotion]);
+    React.useEffect(() => {
+      reducedMotionRef.current = reducedMotion;
+    }, [reducedMotion]);
 
     const translateX = useSharedValue(isLeft ? -resolvedWidth : resolvedWidth);
     const backdropOpacity = useSharedValue(0);
@@ -255,10 +265,14 @@ const TemporaryDrawer = React.forwardRef<DrawerRef, TemporaryDrawerProps>(
       onClose();
     }, [onClose]);
 
-    useImperativeHandle(ref, () => ({
-      open: () => setInternalVisible(true),
-      close: handleDismiss,
-    }), [handleDismiss]);
+    useImperativeHandle(
+      ref,
+      () => ({
+        open: () => setInternalVisible(true),
+        close: handleDismiss,
+      }),
+      [handleDismiss],
+    );
 
     // reducedMotion intentionally omitted from deps — read via ref to prevent
     // the async AccessibilityInfo resolution from killing an in-progress spring.
@@ -269,13 +283,24 @@ const TemporaryDrawer = React.forwardRef<DrawerRef, TemporaryDrawerProps>(
         translateX.value = rm
           ? withTiming(0, { duration: motion.duration.instant })
           : withSpring(0, motion.spring.sheet);
-        backdropOpacity.value = withTiming(1, { duration: rm ? motion.duration.instant : motion.duration.slow });
+        backdropOpacity.value = withTiming(1, {
+          duration: rm ? motion.duration.instant : motion.duration.slow,
+        });
       } else {
-        const exitDuration = rm ? motion.duration.instant : motion.duration.normal;
+        const exitDuration = rm
+          ? motion.duration.instant
+          : motion.duration.normal;
         const target = isLeft ? -resolvedWidth : resolvedWidth;
-        translateX.value = withTiming(target, { duration: exitDuration, easing: motionEasing.accelerate });
-        backdropOpacity.value = withTiming(0, { duration: exitDuration, easing: motionEasing.accelerate },
-          (finished) => { if (finished) scheduleOnRN(setShouldRender, false); },
+        translateX.value = withTiming(target, {
+          duration: exitDuration,
+          easing: motionEasing.accelerate,
+        });
+        backdropOpacity.value = withTiming(
+          0,
+          { duration: exitDuration, easing: motionEasing.accelerate },
+          finished => {
+            if (finished) scheduleOnRN(setShouldRender, false);
+          },
         );
       }
     }, [isVisible, translateX, backdropOpacity, resolvedWidth, isLeft]);
@@ -291,17 +316,19 @@ const TemporaryDrawer = React.forwardRef<DrawerRef, TemporaryDrawerProps>(
 
     const pan = Gesture.Pan()
       .activeOffsetX([-10, 10])
-      .onUpdate((e) => {
+      .onUpdate(e => {
         if (isLeft && e.translationX < 0) {
           translateX.value = e.translationX;
         } else if (!isLeft && e.translationX > 0) {
           translateX.value = e.translationX;
         }
       })
-      .onEnd((e) => {
+      .onEnd(e => {
         const over = isLeft
-          ? e.translationX < -(resolvedWidth * DISMISS_THRESHOLD) || e.velocityX < -500
-          : e.translationX > resolvedWidth * DISMISS_THRESHOLD || e.velocityX > 500;
+          ? e.translationX < -(resolvedWidth * DISMISS_THRESHOLD) ||
+            e.velocityX < -500
+          : e.translationX > resolvedWidth * DISMISS_THRESHOLD ||
+            e.velocityX > 500;
         if (over) {
           scheduleOnRN(handleDismiss);
         } else {
@@ -317,17 +344,28 @@ const TemporaryDrawer = React.forwardRef<DrawerRef, TemporaryDrawerProps>(
       opacity: backdropOpacity.value,
     }));
 
-    if (!shouldRender) { return null; }
+    if (!shouldRender) {
+      return null;
+    }
 
     return (
       <Masicn>
         <View
-          style={[styles.overlay, isLeft ? styles.overlayLeft : styles.overlayRight]}
-          pointerEvents={hideBackdrop ? 'box-none' : undefined}>
+          style={[
+            styles.overlay,
+            isLeft ? styles.overlayLeft : styles.overlayRight,
+          ]}
+          pointerEvents={hideBackdrop ? 'box-none' : undefined}
+        >
           {!hideBackdrop && (
-            <Animated.View style={[StyleSheet.absoluteFill, animatedBackdropStyle]}>
+            <Animated.View
+              style={[StyleSheet.absoluteFill, animatedBackdropStyle]}
+            >
               <Pressable
-                style={[styles.backdrop, { backgroundColor: theme.colors.overlay }]}
+                style={[
+                  styles.backdrop,
+                  { backgroundColor: theme.colors.overlay },
+                ]}
                 onPress={handleDismiss}
                 accessibilityLabel="Close drawer"
               />
@@ -353,16 +391,22 @@ const TemporaryDrawer = React.forwardRef<DrawerRef, TemporaryDrawerProps>(
                 },
                 style,
                 animatedSheetStyle,
-              ]}>
+              ]}
+            >
               <KeyboardAvoidingView
                 style={styles.flex1}
-                behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
+                behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+              >
                 <ScrollView
                   style={styles.flex1}
-                  contentContainerStyle={[styles.scrollContent, { paddingBottom: spacing.lg }]}
+                  contentContainerStyle={[
+                    styles.scrollContent,
+                    { paddingBottom: spacing.lg },
+                  ]}
                   keyboardShouldPersistTaps="handled"
                   bounces={false}
-                  showsVerticalScrollIndicator={false}>
+                  showsVerticalScrollIndicator={false}
+                >
                   {children}
                 </ScrollView>
               </KeyboardAvoidingView>

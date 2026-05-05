@@ -7,7 +7,16 @@ import {
   type LayoutRectangle,
   type GestureResponderEvent,
 } from 'react-native';
-import { Masicn, Pressable, Text, elevation, radius, sizes, spacing, useTheme } from '../../../masicn';
+import {
+  Masicn,
+  Pressable,
+  Text,
+  elevation,
+  radius,
+  sizes,
+  spacing,
+  useTheme,
+} from '../../../masicn';
 
 interface TooltipProps {
   /** Tooltip content */
@@ -59,11 +68,7 @@ interface TriggerLayout {
  *   <Button variant="ghost" onPress={openProfile}>Profile</Button>
  * </Tooltip>
  */
-export function Tooltip({
-  content,
-  children,
-  containerStyle,
-}: TooltipProps) {
+export function Tooltip({ content, children, containerStyle }: TooltipProps) {
   const { theme } = useTheme();
   const [visible, setVisible] = useState(false);
   const [trigger, setTrigger] = useState<TriggerLayout | null>(null);
@@ -98,12 +103,9 @@ export function Tooltip({
           <Pressable
             style={StyleSheet.absoluteFill}
             onPress={() => setVisible(false)}
-            accessibilityLabel="Dismiss tooltip">
-            <TooltipBubble
-              content={content}
-              trigger={trigger}
-              theme={theme}
-            />
+            accessibilityLabel="Dismiss tooltip"
+          >
+            <TooltipBubble content={content} trigger={trigger} theme={theme} />
           </Pressable>
         </Masicn>
       )}
@@ -138,13 +140,13 @@ function TooltipBubble({
   const spaceAbove = trigger.y;
   const spaceBelow = screenHeight - (trigger.y + trigger.height);
   const fitsAbove = spaceAbove >= tooltipHeight + spacing.sm;
-  const showAbove = layout ? (fitsAbove || spaceAbove >= spaceBelow) : true;
+  const showAbove = layout ? fitsAbove || spaceAbove >= spaceBelow : true;
 
   const finalTop = !layout
     ? trigger.y - spacing.xl
     : showAbove
-      ? trigger.y - tooltipHeight - spacing.sm
-      : trigger.y + trigger.height + spacing.sm;
+    ? trigger.y - tooltipHeight - spacing.sm
+    : trigger.y + trigger.height + spacing.sm;
 
   return (
     <View
@@ -160,7 +162,8 @@ function TooltipBubble({
           top: finalTop,
           left,
         },
-      ]}>
+      ]}
+    >
       <Text variant="caption" color="textPrimary">
         {content}
       </Text>

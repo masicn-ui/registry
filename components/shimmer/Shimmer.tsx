@@ -8,7 +8,12 @@ import Animated, {
   Easing,
   type SharedValue,
 } from 'react-native-reanimated';
-import { useTheme, useReducedMotion, rgba, opacity as opacityTokens } from '../../../masicn';
+import {
+  useTheme,
+  useReducedMotion,
+  rgba,
+  opacity as opacityTokens,
+} from '../../../masicn';
 
 interface ShimmerContextValue {
   progress: SharedValue<number>;
@@ -56,7 +61,10 @@ interface ShimmerGroupProps {
  *   <Shimmer borderRadius={8} style={{ height: 180 }} />
  * </ShimmerGroup>
  */
-export const ShimmerGroup = React.memo(function ShimmerGroup({ children, duration = 1200 }: ShimmerGroupProps) {
+export const ShimmerGroup = React.memo(function ShimmerGroup({
+  children,
+  duration = 1200,
+}: ShimmerGroupProps) {
   const reducedMotion = useReducedMotion();
   const progress = useSharedValue(0);
 
@@ -73,7 +81,9 @@ export const ShimmerGroup = React.memo(function ShimmerGroup({ children, duratio
   }, [reducedMotion, duration, progress]);
 
   const value = useMemo(() => ({ progress }), [progress]);
-  return <ShimmerContext.Provider value={value}>{children}</ShimmerContext.Provider>;
+  return (
+    <ShimmerContext.Provider value={value}>{children}</ShimmerContext.Provider>
+  );
 });
 
 interface ShimmerProps {
@@ -110,7 +120,12 @@ interface ShimmerProps {
  *   <Shimmer borderRadius={4} style={{ height: 14, width: '60%' }} />
  * </Stack>
  */
-export const Shimmer = React.memo(function Shimmer({ children, borderRadius, style, duration = 1200 }: ShimmerProps) {
+export const Shimmer = React.memo(function Shimmer({
+  children,
+  borderRadius,
+  style,
+  duration = 1200,
+}: ShimmerProps) {
   const { theme } = useTheme();
   const reducedMotion = useReducedMotion();
   const ctx = useContext(ShimmerContext);
@@ -121,7 +136,9 @@ export const Shimmer = React.memo(function Shimmer({ children, borderRadius, sty
   const progress = ctx?.progress ?? ownProgress;
 
   React.useEffect(() => {
-    if (ctx) { return; }
+    if (ctx) {
+      return;
+    }
 
     if (reducedMotion) {
       ownProgress.value = 0.5;
@@ -148,11 +165,15 @@ export const Shimmer = React.memo(function Shimmer({ children, borderRadius, sty
   return (
     <View
       style={[styles.container, { borderRadius }, style]}
-      onLayout={e => { containerWidth.value = e.nativeEvent.layout.width; }}
+      onLayout={e => {
+        containerWidth.value = e.nativeEvent.layout.width;
+      }}
       renderToHardwareTextureAndroid
     >
       {children}
-      <Animated.View style={[styles.sweep, { backgroundColor: sweepColor }, sweepStyle]} />
+      <Animated.View
+        style={[styles.sweep, { backgroundColor: sweepColor }, sweepStyle]}
+      />
     </View>
   );
 });

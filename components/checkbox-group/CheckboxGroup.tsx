@@ -105,18 +105,26 @@ export function CheckboxGroup({
   const { theme } = useTheme();
   const hasError = !!error;
 
-  const toggle = useCallback((optValue: string) => {
-    if (value.includes(optValue)) {
-      onValueChange(value.filter(v => v !== optValue));
-    } else {
-      onValueChange([...value, optValue]);
-    }
-  }, [value, onValueChange]);
+  const toggle = useCallback(
+    (optValue: string) => {
+      if (value.includes(optValue)) {
+        onValueChange(value.filter(v => v !== optValue));
+      } else {
+        onValueChange([...value, optValue]);
+      }
+    },
+    [value, onValueChange],
+  );
 
   return (
     <View style={[styles.container, style, containerStyle]}>
       {label && (
-        <Text variant="label" style={{ color: hasError ? theme.colors.error : theme.colors.textPrimary }}>
+        <Text
+          variant="label"
+          style={{
+            color: hasError ? theme.colors.error : theme.colors.textPrimary,
+          }}
+        >
           {label}
         </Text>
       )}
@@ -134,7 +142,8 @@ export function CheckboxGroup({
         <Text
           variant="caption"
           color={hasError ? 'error' : 'textTertiary'}
-          accessibilityLiveRegion={hasError ? 'polite' : undefined}>
+          accessibilityLiveRegion={hasError ? 'polite' : undefined}
+        >
           {error || helperText}
         </Text>
       )}

@@ -6,7 +6,14 @@ import Animated, {
   withRepeat,
   withTiming,
 } from 'react-native-reanimated';
-import { motion, motionEasing, sizes, useTheme, radius, useReducedMotion } from '../../../masicn';
+import {
+  motion,
+  motionEasing,
+  sizes,
+  useTheme,
+  radius,
+  useReducedMotion,
+} from '../../../masicn';
 
 export type DotStatus = 'online' | 'away' | 'busy' | 'offline';
 
@@ -18,7 +25,11 @@ interface DotProps {
   pulse?: boolean;
 }
 
-const DOT_SIZES = { sm: sizes.statusDotSm, md: sizes.statusDotMd, lg: sizes.statusDotLg } as const;
+const DOT_SIZES = {
+  sm: sizes.statusDotSm,
+  md: sizes.statusDotMd,
+  lg: sizes.statusDotLg,
+} as const;
 
 /**
  * Dot — compact presence and status indicator for avatar stacks and user lists.
@@ -42,7 +53,11 @@ const DOT_SIZES = { sm: sizes.statusDotSm, md: sizes.statusDotMd, lg: sizes.stat
  * // Busy status used on a chat list row
  * <Dot status="busy" />
  */
-export const Dot = React.memo(function Dot({ status, size = 'md', pulse = false }: DotProps) {
+export const Dot = React.memo(function Dot({
+  status,
+  size = 'md',
+  pulse = false,
+}: DotProps) {
   const { theme } = useTheme();
   const reducedMotion = useReducedMotion();
 
@@ -67,12 +82,18 @@ export const Dot = React.memo(function Dot({ status, size = 'md', pulse = false 
       return;
     }
     pulseScale.value = withRepeat(
-      withTiming(2.5, { duration: motion.duration.pulse, easing: motionEasing.decelerate }),
+      withTiming(2.5, {
+        duration: motion.duration.pulse,
+        easing: motionEasing.decelerate,
+      }),
       -1,
       false,
     );
     pulseOpacity.value = withRepeat(
-      withTiming(0, { duration: motion.duration.pulse, easing: motionEasing.decelerate }),
+      withTiming(0, {
+        duration: motion.duration.pulse,
+        easing: motionEasing.decelerate,
+      }),
       -1,
       false,
     );

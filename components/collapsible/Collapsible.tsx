@@ -1,7 +1,27 @@
 import React, { useState, useCallback } from 'react';
-import { Pressable, View, StyleSheet, type LayoutChangeEvent, type ViewStyle } from 'react-native';
-import Animated, { useSharedValue, useAnimatedStyle, withTiming } from 'react-native-reanimated';
-import { Text, borders, iconSizes, motion, motionEasing, radius, spacing, useReducedMotion, useTheme } from '../../../masicn';
+import {
+  Pressable,
+  View,
+  StyleSheet,
+  type LayoutChangeEvent,
+  type ViewStyle,
+} from 'react-native';
+import Animated, {
+  useSharedValue,
+  useAnimatedStyle,
+  withTiming,
+} from 'react-native-reanimated';
+import {
+  Text,
+  borders,
+  iconSizes,
+  motion,
+  motionEasing,
+  radius,
+  spacing,
+  useReducedMotion,
+  useTheme,
+} from '../../../masicn';
 
 interface CollapsibleProps {
   /** Header text */
@@ -88,25 +108,30 @@ export function Collapsible({
 
   const heightSV = useSharedValue(0);
 
-  const handleLayout = useCallback((e: LayoutChangeEvent) => {
-    const h = e.nativeEvent.layout.height;
-    contentHeightRef.current = h;
-    if (!hasMeasured.current) {
-      hasMeasured.current = true;
-      heightSV.value = isOpenRef.current ? h : 0;
-      return;
-    }
-    if (isOpenRef.current) {
-      heightSV.value = h;
-    }
-  }, [heightSV]);
+  const handleLayout = useCallback(
+    (e: LayoutChangeEvent) => {
+      const h = e.nativeEvent.layout.height;
+      contentHeightRef.current = h;
+      if (!hasMeasured.current) {
+        hasMeasured.current = true;
+        heightSV.value = isOpenRef.current ? h : 0;
+        return;
+      }
+      if (isOpenRef.current) {
+        heightSV.value = h;
+      }
+    },
+    [heightSV],
+  );
 
   React.useEffect(() => {
-    if (!hasMeasured.current) { return; }
-    heightSV.value = withTiming(
-      isOpen ? contentHeightRef.current : 0,
-      { duration: reducedMotion ? 0 : motion.duration.normal, easing: motionEasing.standard },
-    );
+    if (!hasMeasured.current) {
+      return;
+    }
+    heightSV.value = withTiming(isOpen ? contentHeightRef.current : 0, {
+      duration: reducedMotion ? 0 : motion.duration.normal,
+      easing: motionEasing.standard,
+    });
   }, [isOpen, heightSV, reducedMotion]);
 
   const animatedBodyStyle = useAnimatedStyle(() => ({
@@ -127,7 +152,8 @@ export function Collapsible({
         styles.container,
         { borderColor: theme.colors.borderSecondary },
         style,
-      ]}>
+      ]}
+    >
       <Pressable
         onPress={handleToggle}
         accessibilityRole="button"
@@ -136,8 +162,13 @@ export function Collapsible({
         testID={testID}
         style={({ pressed }) => [
           styles.header,
-          { backgroundColor: pressed ? theme.colors.highlight : theme.colors.surfacePrimary },
-        ]}>
+          {
+            backgroundColor: pressed
+              ? theme.colors.highlight
+              : theme.colors.surfacePrimary,
+          },
+        ]}
+      >
         <Text variant="label" color="textPrimary" style={styles.headerTitle}>
           {title}
         </Text>
@@ -146,8 +177,12 @@ export function Collapsible({
             variant="body"
             style={[
               styles.chevron,
-              { color: theme.colors.textSecondary, transform: [{ rotate: isOpen ? '180deg' : '0deg' }] },
-            ]}>
+              {
+                color: theme.colors.textSecondary,
+                transform: [{ rotate: isOpen ? '180deg' : '0deg' }],
+              },
+            ]}
+          >
             ▾
           </Text>
         )}
@@ -160,7 +195,8 @@ export function Collapsible({
             styles.body,
             { borderTopColor: theme.colors.borderSecondary },
             containerStyle,
-          ]}>
+          ]}
+        >
           {children}
         </View>
       </Animated.View>

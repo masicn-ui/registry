@@ -106,7 +106,9 @@ function DockItem({ item, active, itemKey, onPress }: DockItemProps) {
 
   useEffect(() => {
     progress.value = reducedMotion
-      ? (active ? 1 : 0)
+      ? active
+        ? 1
+        : 0
       : withSpring(active ? 1 : 0, motion.spring.snappy);
   }, [active, reducedMotion, progress]);
 
@@ -114,13 +116,9 @@ function DockItem({ item, active, itemKey, onPress }: DockItemProps) {
     opacity: interpolate(progress.value, [0, 1], [0, 1], Extrapolation.CLAMP),
   }));
 
-  const iconColor = active
-    ? theme.colors.primary
-    : theme.colors.textTertiary;
+  const iconColor = active ? theme.colors.primary : theme.colors.textTertiary;
 
-  const labelColor = active
-    ? theme.colors.primary
-    : theme.colors.textTertiary;
+  const labelColor = active ? theme.colors.primary : theme.colors.textTertiary;
 
   return (
     <Pressable
@@ -147,7 +145,11 @@ function DockItem({ item, active, itemKey, onPress }: DockItemProps) {
         ]}
       />
       <Icon icon={item.icon} size="action" color={iconColor} />
-      <Text variant="captionSmall" style={{ color: labelColor }} numberOfLines={1}>
+      <Text
+        variant="captionSmall"
+        style={{ color: labelColor }}
+        numberOfLines={1}
+      >
         {item.label}
       </Text>
     </Pressable>
@@ -156,18 +158,15 @@ function DockItem({ item, active, itemKey, onPress }: DockItemProps) {
 
 // ── Dock ──────────────────────────────────────────────────────────────
 
-export function Dock({
-  items,
-  activeKey,
-  onChange,
-  style,
-  testID,
-}: DockProps) {
+export function Dock({ items, activeKey, onChange, style, testID }: DockProps) {
   const { theme } = useTheme();
 
-  const handleItemPress = useCallback((key: string) => {
-    onChange?.(key);
-  }, [onChange]);
+  const handleItemPress = useCallback(
+    (key: string) => {
+      onChange?.(key);
+    },
+    [onChange],
+  );
 
   return (
     <View
@@ -183,7 +182,7 @@ export function Dock({
       accessibilityRole="tablist"
       testID={testID}
     >
-      {items.map((item) => (
+      {items.map(item => (
         <DockItem
           key={item.key}
           item={item}

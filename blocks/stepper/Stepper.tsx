@@ -65,10 +65,12 @@ const AnimatedStepCircle = React.memo(function AnimatedStepCircle({
 
   useEffect(() => {
     scale.value = reducedMotion
-      ? (isActive ? 1 : 0.9)
+      ? isActive
+        ? 1
+        : 0.9
       : withSpring(isActive ? 1 : 0.9, motion.spring.snappy);
-  // scale is a stable ref — safe to omit
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // scale is a stable ref — safe to omit
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isActive, reducedMotion]);
 
   const animStyle = useAnimatedStyle(() => ({
@@ -78,15 +80,25 @@ const AnimatedStepCircle = React.memo(function AnimatedStepCircle({
   const isDone = isCompleted;
   const isUpcoming = !isActive && !isCompleted;
 
-  const circleColorStyle = useMemo(() => ({
-    backgroundColor: isDone || isActive ? theme.colors.primary : 'transparent',
-    borderColor: isActive || isCompleted ? theme.colors.primary : theme.colors.borderSecondary,
-    borderWidth: isUpcoming ? borders.medium : 0,
-  }), [isDone, isActive, isCompleted, isUpcoming, theme]);
+  const circleColorStyle = useMemo(
+    () => ({
+      backgroundColor:
+        isDone || isActive ? theme.colors.primary : 'transparent',
+      borderColor:
+        isActive || isCompleted
+          ? theme.colors.primary
+          : theme.colors.borderSecondary,
+      borderWidth: isUpcoming ? borders.medium : 0,
+    }),
+    [isDone, isActive, isCompleted, isUpcoming, theme],
+  );
 
-  const numberColorStyle = useMemo(() => ({
-    color: isActive ? theme.colors.onPrimary : theme.colors.textDisabled,
-  }), [isActive, theme]);
+  const numberColorStyle = useMemo(
+    () => ({
+      color: isActive ? theme.colors.onPrimary : theme.colors.textDisabled,
+    }),
+    [isActive, theme],
+  );
 
   return (
     <Animated.View style={[styles.circle, animStyle, circleColorStyle]}>
@@ -178,7 +190,8 @@ export const Stepper = React.memo(function Stepper({
       ]}
       accessibilityRole="progressbar"
       accessibilityValue={{ min: 0, max: steps.length - 1, now: currentStep }}
-      testID={testID}>
+      testID={testID}
+    >
       {steps.map((step, index) => {
         const isActive = index === currentStep;
         const isCompleted = index < currentStep;
@@ -189,7 +202,8 @@ export const Stepper = React.memo(function Stepper({
               style={[
                 styles.step,
                 orientation === 'vertical' && styles.stepVertical,
-              ]}>
+              ]}
+            >
               <AnimatedStepCircle
                 isActive={isActive}
                 isCompleted={isCompleted}
@@ -204,16 +218,18 @@ export const Stepper = React.memo(function Stepper({
                     isActive
                       ? 'textPrimary'
                       : isCompleted
-                        ? 'textSecondary'
-                        : 'textDisabled'
-                  }>
+                      ? 'textSecondary'
+                      : 'textDisabled'
+                  }
+                >
                   {step.label}
                 </Text>
                 {step.description && orientation === 'vertical' && (
                   <Text
                     variant="caption"
                     color={isCompleted ? 'textTertiary' : 'textSecondary'}
-                    style={styles.description}>
+                    style={styles.description}
+                  >
                     {step.description}
                   </Text>
                 )}
