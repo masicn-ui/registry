@@ -164,7 +164,7 @@ The root `registry.json` is the index the CLI fetches first:
 ```json
 {
   "schemaVersion": "1.0",
-  "version": "0.0.2",
+  "version": "0.0.1",
   "baseUrl": "https://raw.githubusercontent.com/masicn-ui/registry/master",
   "components": [
     {
