@@ -46,11 +46,15 @@ Each component entry declares:
 ## Validation
 
 ```bash
-npm run validate       # Validate all component.json files against schema
-npm run validate:all   # Full validation including registry.json index
+npm run validate       # Validate all component.json files: required fields, valid semver, files[].path exist
+npm run validate:all   # Same, plus registry.json's own shape and a two-way index/disk cross-check
 ```
 
-Run validation before committing any changes to the registry.
+Backed by `scripts/validate.js` (plain Node, no dependencies). Run validation before committing any changes to the registry.
+
+## Search Embeddings
+
+`embeddings.json` (~56KB, one entry per registry item) powers semantic search. It's built by Playground's `npm run build-embeddings` and is not yet consumed at runtime by the CLI's `search` command (which currently uses keyword scoring only).
 
 ## Component vs Block
 
@@ -63,10 +67,12 @@ Run validation before committing any changes to the registry.
 
 ## Peer Dependency Groups (reference)
 
-- **No deps**: button, card, text, avatar, badge, chip, tag, divider, alert, modal
-- **Reanimated only**: spinner, skeleton, shimmer, progress, progress-circle, toast, snackbar, tabs, collapsible, accordion, animated-card, animated-number
-- **Reanimated + Gesture Handler**: bottom-sheet, top-sheet, left-sheet, right-sheet, carousel, swipeable, image (pinch zoom), slider
+- **No deps**: button, card, avatar, badge, chip, tag, alert, modal
+- **Reanimated only**: spinner, skeleton, shimmer, progress, progress-ring, toast, snackbar, tabs, collapsible, accordion
+- **Reanimated + Gesture Handler**: bottom-sheet, top-sheet, left-sheet, right-sheet, dual-sheet, drawer, carousel, swipeable, image (pinch zoom), slider
 - **Safe area context**: all screen/layout components
+
+(`text` and `divider` are `@masicn/ui` primitives, not registry components — they have no `component.json`. There is no `animated-card` or `animated-number` in the registry.)
 
 ## Adding a New Component
 
