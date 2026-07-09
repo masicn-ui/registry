@@ -41,7 +41,7 @@ export interface BottomSheetRef {
   close: () => void;
 }
 
-interface BottomSheetProps {
+export interface BottomSheetProps {
   /** Controlled visibility. Omit to drive the sheet via the imperative `ref` API. */
   visible?: boolean;
   /** Called when the sheet should close (backdrop press, swipe-down, or Android back). */
@@ -52,6 +52,8 @@ interface BottomSheetProps {
   maxHeight?: number;
   /** Whether to render the drag handle pill at the top of the sheet. Defaults to true. */
   showHandle?: boolean;
+  /** When true, the semi-transparent backdrop is not rendered. Defaults to false. */
+  hideBackdrop?: boolean;
   /** Additional style applied to the sheet panel. */
   style?: ViewStyle;
   /** Accessibility label announced by screen readers when the sheet gains focus. Defaults to 'Bottom sheet'. */
@@ -99,7 +101,7 @@ const DISMISS_THRESHOLD = 0.3;
  *   <ShareOptions />
  * </BottomSheet>
  */
-const BottomSheet = React.forwardRef<BottomSheetRef, BottomSheetProps>(
+export const BottomSheet = React.forwardRef<BottomSheetRef, BottomSheetProps>(
   function BottomSheet(
     {
       visible: controlledVisible,
@@ -107,6 +109,7 @@ const BottomSheet = React.forwardRef<BottomSheetRef, BottomSheetProps>(
       children,
       maxHeight = 0.8,
       showHandle = true,
+      hideBackdrop = false,
       style,
       accessibilityLabel,
       testID,
@@ -132,7 +135,7 @@ const BottomSheet = React.forwardRef<BottomSheetRef, BottomSheetProps>(
     const isVisible = controlledVisible ?? internalVisible;
     const [shouldRender, setShouldRender] = React.useState(isVisible);
 
-    const { containerRef } = useFocusTrap({ active: isVisible });
+    const { containerRef } = useFocusTrap({ active: shouldRender });
 
     const handleClose = useCallback(() => {
       Keyboard.dismiss();
@@ -233,23 +236,29 @@ const BottomSheet = React.forwardRef<BottomSheetRef, BottomSheetProps>(
 
     return (
       <Masicn>
-        <View style={styles.overlay}>
-          <Animated.View
-            style={[StyleSheet.absoluteFill, animatedBackdropStyle]}
-          >
-            <Pressable
-              style={[
-                styles.backdrop,
-                { backgroundColor: theme.colors.overlay },
-              ]}
-              onPress={handleClose}
-              accessible={false}
-            />
-          </Animated.View>
+        <View
+          style={styles.overlay}
+          pointerEvents={hideBackdrop ? 'box-none' : undefined}
+        >
+          {!hideBackdrop && (
+            <Animated.View
+              style={[StyleSheet.absoluteFill, animatedBackdropStyle]}
+            >
+              <Pressable
+                style={[
+                  styles.backdrop,
+                  { backgroundColor: theme.colors.overlay },
+                ]}
+                onPress={handleClose}
+                accessible={false}
+              />
+            </Animated.View>
+          )}
           <GestureDetector gesture={pan}>
             <Animated.View
               ref={containerRef}
               testID={testID}
+              accessibilityRole="menu"
               style={[
                 styles.sheet,
                 elevation.xl,
@@ -305,9 +314,6 @@ const BottomSheet = React.forwardRef<BottomSheetRef, BottomSheetProps>(
 );
 
 BottomSheet.displayName = 'BottomSheet';
-
-export { BottomSheet };
-export type { BottomSheetProps };
 
 const styles = StyleSheet.create({
   overlay: {

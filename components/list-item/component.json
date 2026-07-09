@@ -3,7 +3,7 @@
   "displayName": "ListItem",
   "description": "Pressable list row with title, subtitle, leading and trailing slots, and separator",
   "category": "lists",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "files": [
     {
       "path": "ListItem.tsx",

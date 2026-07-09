@@ -367,7 +367,7 @@ const TemporaryDrawer = React.forwardRef<DrawerRef, TemporaryDrawerProps>(
                   { backgroundColor: theme.colors.overlay },
                 ]}
                 onPress={handleDismiss}
-                accessibilityLabel="Close drawer"
+                accessible={false}
               />
             </Animated.View>
           )}

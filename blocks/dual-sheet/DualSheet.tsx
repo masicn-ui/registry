@@ -40,7 +40,7 @@ export interface DualSheetRef {
   close: () => void;
 }
 
-interface DualSheetProps {
+export interface DualSheetProps {
   /** Whether the split sheet layout is visible. Omit to drive via the imperative `ref` API. */
   visible?: boolean;
   /** Called when either panel is dismissed via backdrop tap or Android back. */
@@ -57,8 +57,14 @@ interface DualSheetProps {
   leftStyle?: ViewStyle;
   /** Extra style for the right panel. */
   rightStyle?: ViewStyle;
+  /** When true, the semi-transparent backdrop is not rendered. Defaults to false. */
+  hideBackdrop?: boolean;
   /** Accessibility label for the left panel. Defaults to 'Left sheet'. */
   accessibilityLabel?: string;
+  /** Accessibility label for the right panel. Defaults to 'Right sheet'. */
+  rightAccessibilityLabel?: string;
+  /** Test identifier for automated testing. Applied as `${testID}-left` / `${testID}-right` to each panel. */
+  testID?: string;
 }
 
 const DISMISS_THRESHOLD = 0.3;
@@ -116,7 +122,10 @@ export const DualSheet = React.forwardRef<DualSheetRef, DualSheetProps>(
       rightContent,
       leftStyle,
       rightStyle,
+      hideBackdrop = false,
       accessibilityLabel,
+      rightAccessibilityLabel,
+      testID,
     }: DualSheetProps,
     ref,
   ) {
@@ -142,10 +151,10 @@ export const DualSheet = React.forwardRef<DualSheetRef, DualSheetProps>(
     const [shouldRender, setShouldRender] = React.useState(isVisible);
 
     const { containerRef: leftContainerRef } = useFocusTrap({
-      active: isVisible,
+      active: shouldRender,
     });
     const { containerRef: rightContainerRef } = useFocusTrap({
-      active: isVisible,
+      active: shouldRender,
     });
 
     const handleDismiss = React.useCallback(() => {
@@ -281,19 +290,26 @@ export const DualSheet = React.forwardRef<DualSheetRef, DualSheetProps>(
 
     return (
       <Masicn>
-        <View style={styles.overlay}>
-          <Animated.View style={[StyleSheet.absoluteFill, backdropAnimStyle]}>
-            <Pressable
-              style={[
-                styles.backdrop,
-                { backgroundColor: theme.colors.overlay },
-              ]}
-              onPress={handleDismiss}
-            />
-          </Animated.View>
+        <View
+          style={styles.overlay}
+          pointerEvents={hideBackdrop ? 'box-none' : undefined}
+        >
+          {!hideBackdrop && (
+            <Animated.View style={[StyleSheet.absoluteFill, backdropAnimStyle]}>
+              <Pressable
+                style={[
+                  styles.backdrop,
+                  { backgroundColor: theme.colors.overlay },
+                ]}
+                onPress={handleDismiss}
+                accessible={false}
+              />
+            </Animated.View>
+          )}
           <GestureDetector gesture={leftPan}>
             <Animated.View
               ref={leftContainerRef}
+              testID={testID ? `${testID}-left` : undefined}
               accessibilityRole="menu"
               accessibilityViewIsModal
               accessibilityLabel={accessibilityLabel ?? 'Left sheet'}
@@ -328,9 +344,10 @@ export const DualSheet = React.forwardRef<DualSheetRef, DualSheetProps>(
           <GestureDetector gesture={rightPan}>
             <Animated.View
               ref={rightContainerRef}
+              testID={testID ? `${testID}-right` : undefined}
               accessibilityRole="menu"
               accessibilityViewIsModal
-              accessibilityLabel="Right sheet"
+              accessibilityLabel={rightAccessibilityLabel ?? 'Right sheet'}
               style={[
                 styles.rightPanel,
                 elevation.xl,

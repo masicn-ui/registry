@@ -140,6 +140,7 @@ export function Card({
   children,
   footer,
   header,
+  testID,
   ...rest
 }: CardProps) {
   const { theme } = useTheme();
@@ -265,6 +266,7 @@ export function Card({
               {needsTruncation && (
                 <Pressable
                   onPress={() => setBodyExpanded(v => !v)}
+                  testID={testID ? `${testID}-toggle` : undefined}
                   accessibilityRole="button"
                   accessibilityLabel={bodyExpanded ? 'Show less' : 'Show more'}
                   hitSlop={spacing.xs}
@@ -305,6 +307,7 @@ export function Card({
           onPressIn={handlePressIn}
           onPressOut={handlePressOut}
           disabled={disabled}
+          testID={testID}
           accessibilityRole="button"
           accessibilityState={{ disabled }}
           style={[...baseStyle, disabled && styles.disabled, animatedStyle]}
@@ -319,6 +322,7 @@ export function Card({
       <Pressable
         onPress={onPress}
         disabled={disabled}
+        testID={testID}
         style={({ pressed }) => [
           ...baseStyle,
           pressed && !disabled && styles.pressed,
@@ -334,7 +338,7 @@ export function Card({
   }
 
   return (
-    <View style={baseStyle} {...rest}>
+    <View style={baseStyle} testID={testID} {...rest}>
       {inner}
     </View>
   );

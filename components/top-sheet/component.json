@@ -3,7 +3,7 @@
   "displayName": "TopSheet",
   "description": "Gesture-driven top sheet that slides down from the top edge with drag-to-dismiss support.",
   "category": "overlays",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "files": [
     {
       "path": "TopSheet.tsx",
@@ -28,8 +28,8 @@
     {
       "name": "visible",
       "type": "boolean",
-      "required": true,
-      "description": "Controls whether the sheet is shown"
+      "required": false,
+      "description": "Controlled visibility; when omitted the sheet manages its own state via the ref API"
     },
     {
       "name": "onClose",
@@ -58,10 +58,29 @@
       "description": "Whether to show the drag handle indicator at the bottom of the sheet"
     },
     {
+      "name": "hideBackdrop",
+      "type": "boolean",
+      "default": "false",
+      "required": false,
+      "description": "When true, the dimmed backdrop is hidden and touches pass through it"
+    },
+    {
       "name": "style",
       "type": "ViewStyle",
       "required": false,
       "description": "Additional style applied to the sheet container"
+    },
+    {
+      "name": "accessibilityLabel",
+      "type": "string",
+      "required": false,
+      "description": "Accessibility label for the sheet; defaults to 'Top sheet'"
+    },
+    {
+      "name": "testID",
+      "type": "string",
+      "required": false,
+      "description": "Test identifier for automated testing"
     }
   ],
   "examples": [

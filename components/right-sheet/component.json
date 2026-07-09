@@ -3,7 +3,7 @@
   "displayName": "RightSheet",
   "description": "Gesture-driven side sheet that slides in from the right edge with drag-to-dismiss support.",
   "category": "overlays",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "files": [
     {
       "path": "RightSheet.tsx",
@@ -28,8 +28,8 @@
     {
       "name": "visible",
       "type": "boolean",
-      "required": true,
-      "description": "Controls whether the sheet is shown"
+      "required": false,
+      "description": "Controlled visibility; when omitted the sheet manages its own state via the ref API"
     },
     {
       "name": "onClose",
@@ -51,13 +51,6 @@
       "description": "Sheet width as a fraction of the screen width (0–1)"
     },
     {
-      "name": "showHandle",
-      "type": "boolean",
-      "default": "false",
-      "required": false,
-      "description": "Whether to show a handle indicator on the sheet"
-    },
-    {
       "name": "style",
       "type": "ViewStyle",
       "required": false,
@@ -69,6 +62,18 @@
       "default": "false",
       "required": false,
       "description": "When true, the dimmed backdrop is hidden and touches pass through it"
+    },
+    {
+      "name": "accessibilityLabel",
+      "type": "string",
+      "required": false,
+      "description": "Accessibility label for the sheet; defaults to 'Right sheet'"
+    },
+    {
+      "name": "testID",
+      "type": "string",
+      "required": false,
+      "description": "Test identifier for automated testing"
     }
   ],
   "examples": [

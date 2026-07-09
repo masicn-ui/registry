@@ -40,7 +40,7 @@ export interface RightSheetRef {
   close: () => void;
 }
 
-interface RightSheetProps {
+export interface RightSheetProps {
   /** Whether the sheet is currently open. Omit to drive via the imperative `ref` API. */
   visible?: boolean;
   /** Called when the sheet should close (backdrop press or swipe-right gesture). */
@@ -55,6 +55,8 @@ interface RightSheetProps {
   hideBackdrop?: boolean;
   /** Accessibility label announced by screen readers when the sheet gains focus. Defaults to 'Right sheet'. */
   accessibilityLabel?: string;
+  /** Test identifier for automated testing. */
+  testID?: string;
 }
 
 const DISMISS_THRESHOLD = 0.3;
@@ -107,6 +109,7 @@ export const RightSheet = React.forwardRef<RightSheetRef, RightSheetProps>(
       style,
       hideBackdrop = false,
       accessibilityLabel,
+      testID,
     }: RightSheetProps,
     ref,
   ) {
@@ -127,7 +130,7 @@ export const RightSheet = React.forwardRef<RightSheetRef, RightSheetProps>(
     const isVisible = controlledVisible ?? internalVisible;
     const [shouldRender, setShouldRender] = React.useState(isVisible);
 
-    const { containerRef } = useFocusTrap({ active: isVisible });
+    const { containerRef } = useFocusTrap({ active: shouldRender });
 
     const handleDismiss = React.useCallback(() => {
       Keyboard.dismiss();
@@ -229,12 +232,14 @@ export const RightSheet = React.forwardRef<RightSheetRef, RightSheetProps>(
                   { backgroundColor: theme.colors.overlay },
                 ]}
                 onPress={handleDismiss}
+                accessible={false}
               />
             </Animated.View>
           )}
           <GestureDetector gesture={pan}>
             <Animated.View
               ref={containerRef}
+              testID={testID}
               accessibilityRole="menu"
               accessibilityViewIsModal={true}
               accessibilityLabel={accessibilityLabel ?? 'Right sheet'}
