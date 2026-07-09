@@ -3,7 +3,7 @@
   "displayName": "Carousel",
   "description": "Horizontally scrollable carousel block with pagination indicators.",
   "category": "display",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "files": [
     {
       "path": "Carousel.tsx",

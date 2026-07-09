@@ -101,12 +101,13 @@ export function useCarousel({
   // ── Shared values ──────────────────────────────────────────────────────
 
   // useSharedValue uses its argument only on first mount; subsequent renders
-  // update the value via direct assignment below.
+  // sync the value via the useEffect below.
   const offset = useSharedValue(initialOffset);
   const savedOffset = useSharedValue(initialOffset);
 
-  // Direct assignment runs synchronously each render, keeping worklet
-  // reads always current without recreating the gesture.
+  // Synced in useEffect (not directly during render — Reanimated disallows
+  // writing to `.value` while React is rendering) so worklet reads stay
+  // current without recreating the gesture, which keeps a stable `[]` dep array.
   const scrollStepSV = useSharedValue(scrollStep);
   const maxOffsetSV = useSharedValue(maxOffset);
   const dataLengthSV = useSharedValue(dataLength);
@@ -115,13 +116,30 @@ export function useCarousel({
   const loopSV = useSharedValue(effectiveLoop ? 1 : 0);
   const reducedMotionSV = useSharedValue(reducedMotion ? 1 : 0);
 
-  scrollStepSV.value = scrollStep;
-  maxOffsetSV.value = maxOffset;
-  dataLengthSV.value = dataLength;
-  clonedLengthSV.value = clonedLength;
-  hPaddingSV.value = horizontalPadding;
-  loopSV.value = effectiveLoop ? 1 : 0;
-  reducedMotionSV.value = reducedMotion ? 1 : 0;
+  useEffect(() => {
+    scrollStepSV.value = scrollStep;
+    maxOffsetSV.value = maxOffset;
+    dataLengthSV.value = dataLength;
+    clonedLengthSV.value = clonedLength;
+    hPaddingSV.value = horizontalPadding;
+    loopSV.value = effectiveLoop ? 1 : 0;
+    reducedMotionSV.value = reducedMotion ? 1 : 0;
+  }, [
+    scrollStep,
+    maxOffset,
+    dataLength,
+    clonedLength,
+    horizontalPadding,
+    effectiveLoop,
+    reducedMotion,
+    scrollStepSV,
+    maxOffsetSV,
+    dataLengthSV,
+    clonedLengthSV,
+    hPaddingSV,
+    loopSV,
+    reducedMotionSV,
+  ]);
 
   // ── Pan gesture ────────────────────────────────────────────────────────
 
