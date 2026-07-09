@@ -3,7 +3,7 @@
   "displayName": "Card",
   "description": "Versatile surface container with elevated, filled, and outlined variants. Supports structured content slots: media, title, subtitle, body (with show-more truncation), children, and footer.",
   "category": "layout",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "files": [
     {
       "path": "Card.tsx",

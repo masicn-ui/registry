@@ -41,7 +41,7 @@ export interface TopSheetRef {
   close: () => void;
 }
 
-interface TopSheetProps {
+export interface TopSheetProps {
   /** Controls whether the sheet is visible. Omit to drive via the imperative `ref` API. */
   visible?: boolean;
   /** Callback fired when the user dismisses the sheet (backdrop press or swipe up). */
@@ -52,10 +52,14 @@ interface TopSheetProps {
   maxHeight?: number;
   /** Whether to show the drag handle at the bottom of the sheet. Defaults to `true`. */
   showHandle?: boolean;
+  /** When true, the semi-transparent backdrop is not rendered. Defaults to false. */
+  hideBackdrop?: boolean;
   /** Additional styles applied to the sheet surface. */
   style?: ViewStyle;
   /** Accessibility label announced by screen readers when the sheet gains focus. Defaults to 'Top sheet'. */
   accessibilityLabel?: string;
+  /** Test identifier for automated testing. */
+  testID?: string;
 }
 
 const DISMISS_THRESHOLD = 0.3;
@@ -101,8 +105,10 @@ export const TopSheet = React.forwardRef<TopSheetRef, TopSheetProps>(
       children,
       maxHeight = 0.8,
       showHandle = true,
+      hideBackdrop = false,
       style,
       accessibilityLabel,
+      testID,
     }: TopSheetProps,
     ref,
   ) {
@@ -125,7 +131,7 @@ export const TopSheet = React.forwardRef<TopSheetRef, TopSheetProps>(
     const [contentHeight, setContentHeight] = React.useState(0);
     const hasMeasured = React.useRef(false);
 
-    const { containerRef } = useFocusTrap({ active: isVisible });
+    const { containerRef } = useFocusTrap({ active: shouldRender });
 
     const sheetHeight = Math.min(
       contentHeight +
@@ -219,21 +225,28 @@ export const TopSheet = React.forwardRef<TopSheetRef, TopSheetProps>(
 
     return (
       <Masicn>
-        <View style={styles.overlay}>
-          <Animated.View
-            style={[StyleSheet.absoluteFill, animatedBackdropStyle]}
-          >
-            <Pressable
-              style={[
-                styles.backdrop,
-                { backgroundColor: theme.colors.overlay },
-              ]}
-              onPress={handleDismiss}
-            />
-          </Animated.View>
+        <View
+          style={styles.overlay}
+          pointerEvents={hideBackdrop ? 'box-none' : undefined}
+        >
+          {!hideBackdrop && (
+            <Animated.View
+              style={[StyleSheet.absoluteFill, animatedBackdropStyle]}
+            >
+              <Pressable
+                style={[
+                  styles.backdrop,
+                  { backgroundColor: theme.colors.overlay },
+                ]}
+                onPress={handleDismiss}
+                accessible={false}
+              />
+            </Animated.View>
+          )}
           <GestureDetector gesture={pan}>
             <Animated.View
               ref={containerRef}
+              testID={testID}
               accessibilityRole="menu"
               accessibilityViewIsModal={true}
               accessibilityLabel={accessibilityLabel ?? 'Top sheet'}

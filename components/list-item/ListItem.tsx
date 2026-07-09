@@ -80,13 +80,15 @@ interface ListItemProps extends Omit<PressableProps, 'children'> {
  *   separator
  * />
  */
-export function ListItem({
+export const ListItem = React.memo(function ListItem({
   title,
   subtitle,
   leading,
   trailing,
   separator = false,
   style,
+  onPress,
+  accessibilityRole,
   ...rest
 }: ListItemProps) {
   const { theme } = useTheme();
@@ -94,6 +96,8 @@ export function ListItem({
   return (
     <View>
       <Pressable
+        onPress={onPress}
+        accessibilityRole={accessibilityRole ?? (onPress ? 'button' : 'none')}
         style={({ pressed }) => [
           styles.container,
           pressed && { opacity: opacityTokens.pressed },
@@ -127,7 +131,7 @@ export function ListItem({
       )}
     </View>
   );
-}
+});
 
 const styles = StyleSheet.create({
   container: {

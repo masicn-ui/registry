@@ -3,7 +3,7 @@
   "displayName": "Drawer",
   "description": "Persistent side navigation panel with temporary (overlay) and permanent (inline) variants. Swipe-to-dismiss, safe-area aware, and responsive.",
   "category": "navigation-ui",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "files": [
     {
       "path": "Drawer.tsx",
@@ -66,13 +66,6 @@
       "description": "Drawer width. Fraction of screen width for temporary (default 0.75), fixed px for permanent (default 280)."
     },
     {
-      "name": "showHandle",
-      "type": "boolean",
-      "default": false,
-      "required": false,
-      "description": "Show a drag handle indicator."
-    },
-    {
       "name": "hideBackdrop",
       "type": "boolean",
       "default": false,
@@ -84,6 +77,12 @@
       "type": "ViewStyle",
       "required": false,
       "description": "Additional style applied to the drawer surface."
+    },
+    {
+      "name": "accessibilityLabel",
+      "type": "string",
+      "required": false,
+      "description": "Accessibility label announced when the drawer gains focus. Defaults to 'Drawer'."
     },
     {
       "name": "testID",

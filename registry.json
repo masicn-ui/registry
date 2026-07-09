@@ -35,7 +35,7 @@
     },
     {
       "name": "bottom-sheet",
-      "version": "0.0.2",
+      "version": "0.0.3",
       "category": "overlays",
       "path": "components/bottom-sheet/component.json"
     },
@@ -47,7 +47,7 @@
     },
     {
       "name": "card",
-      "version": "0.0.2",
+      "version": "0.0.3",
       "category": "layout",
       "path": "components/card/component.json"
     },
@@ -89,7 +89,7 @@
     },
     {
       "name": "dock",
-      "version": "0.0.2",
+      "version": "0.0.3",
       "category": "navigation",
       "path": "components/dock/component.json"
     },
@@ -101,7 +101,7 @@
     },
     {
       "name": "drawer",
-      "version": "0.0.2",
+      "version": "0.0.3",
       "category": "navigation-ui",
       "path": "components/drawer/component.json"
     },
@@ -125,7 +125,7 @@
     },
     {
       "name": "left-sheet",
-      "version": "0.0.2",
+      "version": "0.0.3",
       "category": "overlays",
       "path": "components/left-sheet/component.json"
     },
@@ -137,7 +137,7 @@
     },
     {
       "name": "list-item",
-      "version": "0.0.2",
+      "version": "0.0.3",
       "category": "lists",
       "path": "components/list-item/component.json"
     },
@@ -203,7 +203,7 @@
     },
     {
       "name": "right-sheet",
-      "version": "0.0.2",
+      "version": "0.0.3",
       "category": "overlays",
       "path": "components/right-sheet/component.json"
     },
@@ -323,7 +323,7 @@
     },
     {
       "name": "top-sheet",
-      "version": "0.0.2",
+      "version": "0.0.3",
       "category": "overlays",
       "path": "components/top-sheet/component.json"
     }
@@ -343,7 +343,7 @@
     },
     {
       "name": "carousel",
-      "version": "0.0.2",
+      "version": "0.0.3",
       "category": "display",
       "path": "blocks/carousel/component.json"
     },
@@ -367,7 +367,7 @@
     },
     {
       "name": "dual-sheet",
-      "version": "0.0.2",
+      "version": "0.0.3",
       "category": "overlays",
       "path": "blocks/dual-sheet/component.json"
     },

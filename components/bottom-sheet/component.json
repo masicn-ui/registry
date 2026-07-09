@@ -3,7 +3,7 @@
   "displayName": "BottomSheet",
   "description": "Gesture-driven bottom sheet with drag-to-dismiss, keyboard avoidance, safe area insets, and focus trap.",
   "category": "overlays",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "files": [
     {
       "path": "BottomSheet.tsx",
@@ -64,10 +64,23 @@
       "description": "Additional style applied to the sheet container"
     },
     {
+      "name": "hideBackdrop",
+      "type": "boolean",
+      "default": "false",
+      "required": false,
+      "description": "When true, the dimmed backdrop is hidden and touches pass through it"
+    },
+    {
       "name": "accessibilityLabel",
       "type": "string",
       "required": false,
       "description": "Accessibility label for the sheet; defaults to 'Bottom sheet'"
+    },
+    {
+      "name": "testID",
+      "type": "string",
+      "required": false,
+      "description": "Test identifier for automated testing"
     }
   ],
   "examples": [

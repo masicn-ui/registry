@@ -125,7 +125,7 @@ function DockItem({ item, active, itemKey, onPress }: DockItemProps) {
       onPress={handlePress}
       disabled={item.disabled}
       testID={item.testID}
-      hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
+      hitSlop={spacing.sm}
       style={({ pressed }) => [
         styles.item,
         pressed && !item.disabled && styles.itemPressed,
