@@ -182,7 +182,7 @@ The root `registry.json` is the index the CLI fetches first:
 
 New components go through an issue-first process, and brand-new component source doesn't land
 here directly — see the canonical guide at
-[masicn.manishh.in/docs/contributing](https://masicn.manishh.in/docs/contributing) for the full
+[masicn.manishh.in/contributing](https://masicn.manishh.in/contributing) for the full
 model (what to open an issue for, and where each kind of change actually gets submitted).
 
 If you're fixing an **existing** component already in this repo (a bug, a prop, an accessibility
