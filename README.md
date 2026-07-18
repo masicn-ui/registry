@@ -1,12 +1,12 @@
-# masicn registry
+# masicn/ui registry
 
-Component template registry for [masicn](https://github.com/masicn-ui) — the copy-paste React Native UI ecosystem.
+Component template registry for [masicn/ui](https://github.com/masicn-ui) — the copy-paste React Native UI ecosystem.
 
 This repo holds the source files and metadata for every component and block that the [masicn CLI](https://www.npmjs.com/package/masicn) can install. You don't use this repo directly — the CLI fetches from it over GitHub raw URLs.
 
 **Built from scratch by [Manish Kumar](https://manishh.in) ([@lordofthemind](https://github.com/lordofthemind))**
 
-> **मसि** (masi) means _ink_ in Sanskrit and several Indian languages. Just as ink is the medium for writing anything, masicn is the medium for building anything in React Native.
+> **मसि** (masi) means _ink_ in Sanskrit and several Indian languages. Just as ink is the medium for writing anything, masicn/ui is the medium for building anything in React Native.
 
 ## How It Works
 
@@ -99,7 +99,7 @@ Every component and block has a `component.json` file:
 | `hasTests` | `boolean` | ✓ | Whether test files are included |
 | `hasAccessibility` | `boolean` | ✓ | Whether accessibility props are included |
 | `peerDependencies` | `Record<string, string>` | — | npm packages the component needs (CLI installs these) |
-| `registryDependencies` | `string[]` | — | Other masicn component names this one depends on |
+| `registryDependencies` | `string[]` | — | Other masicn/ui component names this one depends on |
 | `tags` | `string[]` | — | Search/filter tags used by `masicn search` |
 | `props` | `PropDefinition[]` | — | Props table shown in `masicn info` |
 | `subComponentProps` | `Record<string, PropDefinition[]>` | — | Props for sub-components (e.g. `Accordion.Item`) |
@@ -178,22 +178,22 @@ The root `registry.json` is the index the CLI fetches first:
 }
 ```
 
-## Contributing a Component
+## Contributing
 
-1. Create `components/<name>/` directory
-2. Write the component source — use primitives and tokens from `@masicn/ui`
-3. Add JSDoc `@example` blocks to the exported component (auto-extracted by the CLI sync)
-4. Write `component.json` with full metadata including the `props` array
-5. Add an entry to `registry.json` under `components` or `blocks`
+New components go through an issue-first process, and brand-new component source doesn't land
+here directly — see the canonical guide at
+[masicn.manishh.in/docs/contributing](https://masicn.manishh.in/docs/contributing) for the full
+model (what to open an issue for, and where each kind of change actually gets submitted).
 
-**Guidelines:**
-- Components target **React Native CLI** projects only — do not use Expo-specific APIs
+If you're fixing an **existing** component already in this repo (a bug, a prop, an accessibility
+gap), the shape to follow is:
+
 - Import only from `@masicn/ui` — no external UI libraries
-- Use `theme.colors.*` for colors, `spacing.*` / `radius.*` from `useTokens()` for layout
-- Never use raw numbers — always tokens
-- Set `hasAccessibility: true` only if the component includes `accessibilityRole`, `accessibilityLabel`, `accessibilityHint`
+- Use `theme.colors.*` for colors, `spacing.*` / `radius.*` from `useTokens()` for layout — never
+  raw numbers
+- Set `hasAccessibility: true` only if the component includes `accessibilityRole`,
+  `accessibilityLabel`, `accessibilityHint`
 - List all `registryDependencies` — the CLI uses this for automatic installs
-- `masicnVersion` should be `"^0.0.1"` unless a newer `@masicn/ui` API is required
 - Bump `version` whenever a prop, behavior, or visual output changes
 
 ## License
